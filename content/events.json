@@ -1,0 +1,33 @@
+[
+  {
+    "id": "hire-fair-2025",
+    "title": "HIRE Reentry Resource Fair",
+    "date": "September 17, 2025",
+    "time": "11:00am - 2:00pm",
+    "location": "Honda Center, Anaheim",
+    "address": "2695 E Katella Ave, Anaheim, CA",
+    "description": "4th Annual Reentry Resource Fair - Calling All Employers & Vendors! We'll be onsite providing information about our services and connecting with community partners.",
+    "donationsNeeded": [
+      "Gift cards ($10-$25 gas, groceries, Target, Walmart)",
+      "Hygiene kits (toothpaste, soap, feminine care, lotion)",
+      "Snacks & bottled water"
+    ],
+    "donationDeadline": "September 16, 2025",
+    "featured": true
+  },
+  {
+    "id": "community-launch-2025",
+    "title": "She Rises Community Launch",
+    "date": "November 2025",
+    "time": "TBD",
+    "location": "San Bernardino County",
+    "address": "Location TBD",
+    "description": "Join us for an afternoon of empowerment, connection, and community as we officially launch She Rises in San Bernardino County.",
+    "highlights": [
+      "Raffles & Prizes",
+      "Donations & Giveaways", 
+      "Snacks & Refreshments"
+    ],
+    "featured": true
+  }
+]

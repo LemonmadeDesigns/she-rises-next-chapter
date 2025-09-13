@@ -1,0 +1,39 @@
+{
+  "name": "She Rises - Safe Haven for Empowerment",
+  "tagline": "Every woman has a story... here we help you write the next chapter",
+  "motto": "When SHE rises, we all rise",
+  "mission": "She Rises provides safe housing, supportive services, and reentry resources that empower women experiencing homelessness and rebuilding after incarceration.",
+  "vision": "A community where women have the stability, tools, and encouragement to write her next chapter",
+  "contact": {
+    "phone": "(909) 547-9998",
+    "email": "pransom@safehavenforempowerment.org",
+    "website": "www.safehavenforempowerment.org",
+    "instagram": "@SheRises.Mission",
+    "instagramUrl": "https://instagram.com/SheRises.Mission"
+  },
+  "founder": {
+    "name": "Precious Ransom",
+    "title": "Founder & Executive Director"
+  },
+  "values": ["Dignity", "Safety", "Opportunity", "Community", "Empowerment"],
+  "hotlines": [
+    {
+      "name": "National Domestic Violence Hotline",
+      "number": "800-799-7233"
+    },
+    {
+      "name": "Suicide & Crisis Lifeline",
+      "number": "988"
+    },
+    {
+      "name": "SAMHSA Substance Abuse Helpline",
+      "number": "800-662-4357"
+    },
+    {
+      "name": "Homeless Outreach",
+      "number": "211"
+    }
+  ],
+  "serviceAreas": ["San Bernardino County", "Los Angeles County"],
+  "ein": "XX-XXXXXXX"
+}

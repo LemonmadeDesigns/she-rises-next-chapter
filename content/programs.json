@@ -1,0 +1,72 @@
+[
+  {
+    "id": "transitional-housing",
+    "title": "Transitional Housing",
+    "subtitle": "Shared Supportive Living",
+    "description": "Safe, stable housing with community guidelines and case management. Our transitional housing provides women with a supportive environment where they can focus on rebuilding their lives with dignity and respect.",
+    "features": [
+      "Safe, shared living environment",
+      "24/7 support and security",
+      "Case management services",
+      "Community guidelines and structure",
+      "Temporary housing while rebuilding"
+    ],
+    "icon": "home"
+  },
+  {
+    "id": "employment-readiness",
+    "title": "Employment Readiness & Job Navigation", 
+    "subtitle": "Career Development Support",
+    "description": "Resume help, job search coaching, workplace skills, and employer referrals. We help women develop the skills and confidence needed to secure and maintain stable employment.",
+    "features": [
+      "Resume writing assistance",
+      "Interview preparation",
+      "Job search strategies",
+      "Workplace readiness training",
+      "Employer partnerships and referrals"
+    ],
+    "icon": "briefcase"
+  },
+  {
+    "id": "life-skills",
+    "title": "Life Skills Workshops & Peer Mentoring",
+    "subtitle": "Personal Development",
+    "description": "Goal-setting, budgeting, wellness, communication, and conflict resolution. Our workshops and peer mentoring provide practical skills for daily life and personal growth.",
+    "features": [
+      "Financial literacy and budgeting",
+      "Goal setting and planning",
+      "Communication skills",
+      "Conflict resolution",
+      "Peer mentoring support"
+    ],
+    "icon": "users"
+  },
+  {
+    "id": "family-reunification",
+    "title": "Family Reunification Support",
+    "subtitle": "Rebuilding Family Connections",
+    "description": "Navigation for visitations, parenting resources, and reunification planning. We support women in rebuilding and strengthening their family relationships.",
+    "features": [
+      "Visitation coordination",
+      "Parenting classes and resources",
+      "Family counseling referrals",
+      "Legal assistance navigation",
+      "Reunification planning"
+    ],
+    "icon": "heart"
+  },
+  {
+    "id": "resource-referrals",
+    "title": "Resource Referrals",
+    "subtitle": "Community Connections",
+    "description": "Legal aid, Medi-Cal, childcare, transportation, and mental health providers. We connect women with essential community resources and services.",
+    "features": [
+      "Legal aid connections",
+      "Healthcare enrollment (Medi-Cal)",
+      "Childcare assistance",
+      "Transportation resources",
+      "Mental health referrals"
+    ],
+    "icon": "link"
+  }
+]

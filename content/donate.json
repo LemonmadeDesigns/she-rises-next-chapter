@@ -1,0 +1,14 @@
+{
+  "presetAmounts": [10, 25, 50, 100, 250, 500, 1000],
+  "impactMessages": {
+    "25": "Provides a hygiene kit for one woman",
+    "50": "Covers bus passes for job interviews and appointments", 
+    "100": "Funds workshop supplies for life skills training",
+    "250": "Supports one night of safe housing",
+    "500": "Sponsors a complete employment readiness program",
+    "1000": "Provides comprehensive support for one woman's first month"
+  },
+  "donationMessage": "Your support brings dignity and hope to women rebuilding their lives. Together, we rise.",
+  "taxMessage": "She Rises is a 501(c)(3) nonprofit organization. Your donation is tax-deductible to the full extent of the law.",
+  "ein": "XX-XXXXXXX"
+}

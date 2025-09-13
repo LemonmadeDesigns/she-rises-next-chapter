@@ -1,0 +1,88 @@
+[
+  {
+    "id": "she-rises-mug",
+    "name": "She Rises Coffee Mug",
+    "price": 15.95,
+    "salePrice": 13.55,
+    "description": "Start your day with purpose with this beautiful She Rises coffee mug featuring our signature lotus logo.",
+    "features": [
+      "11oz ceramic mug",
+      "Dishwasher and microwave safe",
+      "High-quality logo print",
+      "Perfect for daily use"
+    ],
+    "category": "drinkware",
+    "images": ["/api/placeholder/400/400"],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "canvas-tote-bag",
+    "name": "She Rises Canvas Tote Bag",
+    "price": 18.99,
+    "salePrice": 14.99,
+    "description": "Carry your essentials in style with this durable canvas tote bag featuring the She Rises logo.",
+    "features": [
+      "100% cotton canvas",
+      "Sturdy construction",
+      "Comfortable handles",
+      "Perfect for shopping or daily use"
+    ],
+    "category": "bags",
+    "images": ["/api/placeholder/400/400"],
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": "spiral-notebook",
+    "name": "She Rises Spiral Notebook",
+    "price": 16.99,
+    "salePrice": 13.99,
+    "description": "Write your next chapter with this beautiful spiral notebook featuring the She Rises design.",
+    "features": [
+      "80 pages of quality paper",
+      "Spiral bound for easy writing",
+      "Durable cover",
+      "Perfect for journaling or notes"
+    ],
+    "category": "stationery",
+    "images": ["/api/placeholder/400/400"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "baseball-cap",
+    "name": "She Rises Baseball Cap",
+    "price": 22.99,
+    "salePrice": 19.99,
+    "description": "Show your support with this comfortable baseball cap featuring the She Rises logo.",
+    "features": [
+      "Adjustable strap",
+      "100% cotton",
+      "Embroidered logo",
+      "One size fits most"
+    ],
+    "category": "apparel",
+    "images": ["/api/placeholder/400/400"],
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": "empowerment-tshirt",
+    "name": "She Rises Empowerment T-Shirt",
+    "price": 24.99,
+    "salePrice": 21.99,
+    "description": "Wear your support with this comfortable t-shirt featuring the She Rises message of empowerment.",
+    "features": [
+      "100% cotton",
+      "Available in multiple sizes",
+      "Soft and comfortable fit",
+      "Machine washable"
+    ],
+    "category": "apparel",
+    "images": ["/api/placeholder/400/400"],
+    "inStock": true,
+    "featured": true,
+    "sizes": ["S", "M", "L", "XL", "XXL"]
+  }
+]
