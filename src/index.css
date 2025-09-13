@@ -8,52 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* She Rises Brand Colors */
-    --background: 350 60% 97%; /* Warm cream #FFF7F0 */
+    /* She Rises Brand Colors - Updated from Logo */
+    --background: 20 60% 96%; /* Warm cream #FBF7F0 */
     --foreground: 0 0% 20%; /* Charcoal #333333 */
 
-    --card: 350 60% 97%;
+    --card: 20 60% 96%;
     --card-foreground: 0 0% 20%;
 
-    --popover: 350 60% 97%;
+    --popover: 20 60% 96%;
     --popover-foreground: 0 0% 20%;
 
-    /* Royal Plum - main brand color */
-    --primary: 265 42% 31%; /* #4B2E6D */
-    --primary-foreground: 350 60% 97%;
+    /* Crown Gold - main brand color from logo */
+    --primary: 45 95% 65%; /* #F2C94C - Crown Gold */
+    --primary-foreground: 0 0% 20%;
 
-    /* Lotus Rose - secondary actions */
-    --secondary: 349 63% 73%; /* #E07A8A */
+    /* Lotus Rose - secondary actions from logo */
+    --secondary: 349 63% 73%; /* #E07A8A - Lotus Rose */
     --secondary-foreground: 0 0% 20%;
 
-    --muted: 350 30% 90%;
+    --muted: 20 30% 90%;
     --muted-foreground: 0 0% 45%;
 
-    /* Crown Gold - highlights and CTAs */
-    --accent: 45 85% 63%; /* #F2C94C */
+    /* Accent remains crown gold */
+    --accent: 45 95% 65%; /* #F2C94C */
     --accent-foreground: 0 0% 20%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 350 60% 97%;
+    --destructive-foreground: 20 60% 96%;
 
-    --border: 350 20% 85%;
-    --input: 350 20% 85%;
-    --ring: 265 42% 31%;
+    --border: 20 20% 85%;
+    --input: 20 20% 85%;
+    --ring: 45 95% 65%;
 
-    /* She Rises specific colors */
-    --royal-plum: 265 42% 31%;
-    --lotus-rose: 349 63% 73%;
-    --crown-gold: 45 85% 63%;
-    --warm-cream: 350 60% 97%;
+    /* She Rises specific colors - Updated from Logo */
+    --royal-plum: 265 42% 31%; /* Keep for dark accents */
+    --lotus-rose: 349 63% 73%; /* Pink from logo */
+    --crown-gold: 45 95% 65%; /* Gold from logo */
+    --warm-cream: 20 60% 96%; /* Background cream */
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--royal-plum)), hsl(var(--lotus-rose)));
-    --gradient-gold: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(45 95% 75%));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--royal-plum) / 0.9), hsl(var(--lotus-rose) / 0.8));
+    /* Gradients - Updated for new color scheme */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(var(--lotus-rose)));
+    --gradient-gold: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(45 100% 80%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--crown-gold) / 0.3), hsl(var(--lotus-rose) / 0.2));
+    --gradient-soft: linear-gradient(180deg, hsl(var(--warm-cream)), hsl(var(--lotus-rose) / 0.1));
     
     /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--royal-plum) / 0.3);
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--crown-gold) / 0.3);
     --shadow-soft: 0 4px 20px -5px hsl(var(--lotus-rose) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--crown-gold) / 0.2);
     
     --radius: 0.75rem;
 

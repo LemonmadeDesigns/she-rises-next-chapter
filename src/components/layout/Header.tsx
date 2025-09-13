@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/she-rises-logo-square.jpg";
+import logo from "@/assets/she-rises-main-logo.jpg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,14 +23,10 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logo} alt="She Rises logo" className="h-12 w-12 rounded-full" />
-            <div className="hidden sm:block">
-              <div className="font-serif font-bold text-lg text-royal-plum">SHE RISES</div>
-              <div className="text-xs text-muted-foreground">Safe Haven for Empowerment</div>
-            </div>
+            <img src={logo} alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" className="h-14 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

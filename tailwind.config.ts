@@ -66,10 +66,12 @@ export default {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-gold": "var(--gradient-gold)",
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-soft": "var(--gradient-soft)",
       },
       boxShadow: {
         "elegant": "var(--shadow-elegant)",
         "soft": "var(--shadow-soft)",
+        "glow": "var(--shadow-glow)",
       },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],
