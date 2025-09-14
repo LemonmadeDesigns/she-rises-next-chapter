@@ -30,7 +30,6 @@ const Header = () => {
               src={logo} 
               alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" 
               className="h-16 w-auto object-contain"
-              style={{ backgroundColor: 'transparent' }}
             />
           </Link>
 
