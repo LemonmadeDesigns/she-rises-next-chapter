@@ -14,7 +14,257 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cart_items: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          quantity: number
+          session_id: string
+          size: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          quantity?: number
+          session_id: string
+          size?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          quantity?: number
+          session_id?: string
+          size?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number
+          created_at: string
+          donor_email: string | null
+          donor_name: string | null
+          id: string
+          payment_method: string | null
+          status: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          payment_method?: string | null
+          status?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          payment_method?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          address: string | null
+          created_at: string
+          date: string
+          description: string
+          donation_deadline: string | null
+          donations_needed: string[] | null
+          featured: boolean | null
+          highlights: string[] | null
+          id: string
+          location: string | null
+          time: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          date: string
+          description: string
+          donation_deadline?: string | null
+          donations_needed?: string[] | null
+          featured?: boolean | null
+          highlights?: string[] | null
+          id: string
+          location?: string | null
+          time?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          date?: string
+          description?: string
+          donation_deadline?: string | null
+          donations_needed?: string[] | null
+          featured?: boolean | null
+          highlights?: string[] | null
+          id?: string
+          location?: string | null
+          time?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          featured: boolean | null
+          features: string[] | null
+          id: string
+          images: string[] | null
+          in_stock: boolean | null
+          name: string
+          price: number
+          sale_price: number | null
+          sizes: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          featured?: boolean | null
+          features?: string[] | null
+          id: string
+          images?: string[] | null
+          in_stock?: boolean | null
+          name: string
+          price: number
+          sale_price?: number | null
+          sizes?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          featured?: boolean | null
+          features?: string[] | null
+          id?: string
+          images?: string[] | null
+          in_stock?: boolean | null
+          name?: string
+          price?: number
+          sale_price?: number | null
+          sizes?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      programs: {
+        Row: {
+          created_at: string
+          description: string
+          features: string[]
+          icon: string | null
+          id: string
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          features?: string[]
+          icon?: string | null
+          id: string
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          features?: string[]
+          icon?: string | null
+          id?: string
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sponsors: {
+        Row: {
+          created_at: string
+          id: string
+          logo: string | null
+          name: string
+          tier: string | null
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          logo?: string | null
+          name: string
+          tier?: string | null
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo?: string | null
+          name?: string
+          tier?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
