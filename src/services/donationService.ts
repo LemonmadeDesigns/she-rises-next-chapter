@@ -25,6 +25,7 @@ export interface DonationResponse {
   donationId?: string;
   receiptUrl?: string;
   error?: string;
+  clientSecret?: string;
 }
 
 // Initialize Stripe - Replace with your actual publishable key
@@ -97,7 +98,7 @@ class DonationService {
         success: true,
         donationId,
         clientSecret,
-      } as any;
+      };
 
     } catch (error) {
       console.error('Donation processing error:', error);
@@ -177,7 +178,7 @@ class DonationService {
         return {
           success: true,
           donationId: paymentIntent.id,
-          receiptUrl: paymentIntent.charges?.data[0]?.receipt_url,
+          receiptUrl: (paymentIntent as any).charges?.data[0]?.receipt_url,
         };
       }
 
@@ -229,7 +230,7 @@ class DonationService {
         success: true,
         donationId: subscriptionId,
         clientSecret,
-      } as any;
+      };
     } catch (error) {
       console.error('Recurring donation error:', error);
       return {
