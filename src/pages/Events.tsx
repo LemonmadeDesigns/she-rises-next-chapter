@@ -7,6 +7,7 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import EventRegistrationModal from "@/components/modals/EventRegistrationModal";
+import NewsletterSubscriptionModal from "@/components/modals/NewsletterSubscriptionModal";
 import { Calendar, Clock, MapPin, Users, Heart, Star, Filter, ArrowRight } from "lucide-react";
 
 interface Event {
@@ -32,6 +33,7 @@ const Events = () => {
   const [selectedMonth, setSelectedMonth] = useState("all");
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
 
   const events = [
     {
@@ -260,7 +262,7 @@ const Events = () => {
           
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {featuredEvents.map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={event.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={event.image}
@@ -268,7 +270,7 @@ const Events = () => {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <CardContent className="p-8">
+                <CardContent className="p-8 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-4">
                     <Badge className={getCategoryColor(event.category)}>
                       {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -283,10 +285,10 @@ const Events = () => {
                     {event.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-6">
+                  <p className="text-muted-foreground mb-6 flex-1">
                     {event.description}
                   </p>
-                  
+
                   <div className="space-y-3 mb-6 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="h-4 w-4" />
@@ -317,10 +319,11 @@ const Events = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
+                  <div className="mt-auto">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-royal-plum text-lg">{event.price}</span>
-                    <Button 
+                    <Button
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
                       onClick={() => handleRegisterClick(event)}
                       disabled={event.registered >= event.capacity}
@@ -328,6 +331,7 @@ const Events = () => {
                       {event.registered >= event.capacity ? 'Event Full' : 'Register Now'}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
+                  </div>
                   </div>
                 </CardContent>
               </Card>
@@ -404,7 +408,7 @@ const Events = () => {
           {/* Events Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={event.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={event.image}
@@ -412,7 +416,7 @@ const Events = () => {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <CardContent className="p-6">
+                <CardContent className="p-6 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-3">
                     <Badge className={getCategoryColor(event.category)}>
                       {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
@@ -429,9 +433,9 @@ const Events = () => {
                     {event.title}
                   </h3>
                   
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {event.description.length > 120 
-                      ? `${event.description.substring(0, 120)}...` 
+                  <p className="text-muted-foreground text-sm mb-4 flex-1">
+                    {event.description.length > 120
+                      ? `${event.description.substring(0, 120)}...`
                       : event.description
                     }
                   </p>
@@ -450,17 +454,19 @@ const Events = () => {
                       <span>{event.type}</span>
                     </div>
                   </div>
-                  
+
+                  <div className="mt-auto">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-royal-plum">{event.price}</span>
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
                       onClick={() => handleRegisterClick(event)}
                       disabled={event.registered >= event.capacity}
                     >
                       {event.registered >= event.capacity ? 'Full' : 'Register'}
                     </Button>
+                  </div>
                   </div>
                 </CardContent>
               </Card>
@@ -532,7 +538,11 @@ const Events = () => {
             Subscribe to our newsletter to be the first to know about upcoming events, workshops, and opportunities to get involved.
           </p>
           
-          <Button size="lg" className="bg-white text-lotus-rose hover:bg-white/90 font-bold">
+          <Button
+            size="lg"
+            className="bg-white text-lotus-rose hover:bg-white/90 font-bold"
+            onClick={() => setIsNewsletterModalOpen(true)}
+          >
             Subscribe to Newsletter
           </Button>
         </div>
@@ -543,6 +553,12 @@ const Events = () => {
         isOpen={isRegistrationModalOpen}
         onClose={closeRegistrationModal}
         event={selectedEvent}
+      />
+
+      {/* Newsletter Subscription Modal */}
+      <NewsletterSubscriptionModal
+        isOpen={isNewsletterModalOpen}
+        onClose={() => setIsNewsletterModalOpen(false)}
       />
     </Layout>
   );

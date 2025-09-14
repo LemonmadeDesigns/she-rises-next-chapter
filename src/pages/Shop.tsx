@@ -178,7 +178,7 @@ const Shop = () => {
       </section>
 
       {/* Mission Statement */}
-      <section className="py-20 bg-royal-plum text-white">
+      <section className="py-20 text-white" style={{ backgroundColor: '#e68f9f' }}>
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
             Every Purchase Makes a Difference

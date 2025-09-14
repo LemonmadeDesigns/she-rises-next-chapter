@@ -300,7 +300,7 @@ const ProductDetail = () => {
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {relatedProducts.map((relatedProduct) => (
-                <Card key={relatedProduct.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+                <Card key={relatedProduct.id} className="overflow-hidden shadow-soft transition-shadow">
                   <Link to={`/shop/${relatedProduct.id}`}>
                     <div className="aspect-square bg-warm-cream">
                       <img

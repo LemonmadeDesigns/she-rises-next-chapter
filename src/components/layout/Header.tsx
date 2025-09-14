@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
-import logo from "@/assets/she-rises-logo-transparent.png";
+import logo from "@/assets/she-rises-logo-new.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,10 +29,10 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img 
-              src={logo} 
-              alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" 
-              className="h-16 w-auto object-contain"
+            <img
+              src={logo}
+              alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette"
+              className="h-16 w-auto object-contain logo-bordered"
             />
           </Link>
 
@@ -43,9 +43,9 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-royal-plum",
-                  isActive(item.href) 
-                    ? "text-royal-plum border-b-2 border-crown-gold pb-1" 
+                  "text-sm font-medium transition-colors hover:text-[#fbd051]",
+                  isActive(item.href)
+                    ? "text-[#fbd051] border-b-2 border-[#fbd051] pb-1"
                     : "text-foreground/80"
                 )}
               >
@@ -57,15 +57,12 @@ const Header = () => {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/cart">
-              <Button variant="outline" size="sm" className="relative">
-                <ShoppingCart className="h-4 w-4" />
+              <Button className="cart-button">
+                <ShoppingCart className="h-5 w-5 cart-icon" />
                 {cartState.itemCount > 0 && (
-                  <Badge 
-                    variant="secondary" 
-                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-lotus-rose text-white"
-                  >
+                  <span className="cart-badge">
                     {cartState.itemCount}
-                  </Badge>
+                  </span>
                 )}
               </Button>
             </Link>
@@ -82,15 +79,12 @@ const Header = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <Link to="/cart">
-              <Button variant="outline" size="sm" className="relative">
-                <ShoppingCart className="h-4 w-4" />
+              <Button className="cart-button">
+                <ShoppingCart className="h-5 w-5 cart-icon" />
                 {cartState.itemCount > 0 && (
-                  <Badge 
-                    variant="secondary" 
-                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-lotus-rose text-white"
-                  >
+                  <span className="cart-badge">
                     {cartState.itemCount}
-                  </Badge>
+                  </span>
                 )}
               </Button>
             </Link>
@@ -115,8 +109,8 @@ const Header = () => {
                   className={cn(
                     "block px-3 py-2 text-base font-medium rounded-md transition-colors",
                     isActive(item.href)
-                      ? "text-royal-plum bg-crown-gold/10"
-                      : "text-foreground hover:text-royal-plum hover:bg-muted"
+                      ? "text-[#fbd051] bg-[#fbd051]/10"
+                      : "text-foreground hover:text-[#fbd051] hover:bg-muted"
                   )}
                   onClick={() => setIsMenuOpen(false)}
                 >

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, Phone } from "lucide-react";
-import logo from "@/assets/she-rises-logo-transparent.png";
+import logo from "@/assets/she-rises-logo-new.png";
 
 const Footer = () => {
   const navigation = [
@@ -26,7 +26,7 @@ const Footer = () => {
           {/* Logo and Mission */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <img src={logo} alt="She Rises logo" className="h-12 w-12 rounded-full" />
+              <img src={logo} alt="She Rises logo" className="h-12 w-12 logo-bordered" />
               <div>
                 <div className="font-serif font-bold text-xl">SHE RISES</div>
                 <div className="text-sm text-white/80">Safe Haven for Empowerment</div>

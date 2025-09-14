@@ -46,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-soft transition-all duration-300 bg-white group">
+    <Card className="overflow-hidden shadow-soft hover:border-2 hover:border-lotus-rose transition-all duration-300 bg-white group h-full flex flex-col">
       <Link to={`/shop/${product.id}`}>
         <div className="aspect-square relative overflow-hidden bg-warm-cream">
           <img 
@@ -70,7 +70,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </Link>
       
-      <CardContent className="p-4">
+      <CardContent className="p-4 flex-1 flex flex-col">
         <div className="mb-3">
           <Badge variant="outline" className="text-xs mb-2 capitalize">
             {product.category}
@@ -82,24 +82,47 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </Link>
         </div>
         
-        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
           {product.description}
         </p>
-        
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-royal-plum">
-            ${product.price.toFixed(2)}
-          </span>
-          
-          <div className="flex gap-2">
+
+        <div className="mt-auto">
+          {/* Colors section - appears before price/actions */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="mb-3 flex gap-1 justify-center">
+              {product.colors.slice(0, 3).map((color, index) => (
+                <div
+                  key={index}
+                  className="w-4 h-4 rounded-full border border-gray-300"
+                  style={{ backgroundColor: color.toLowerCase().replace(' ', '') }}
+                  title={color}
+                />
+              ))}
+              {product.colors.length > 3 && (
+                <span className="text-xs text-muted-foreground ml-1">
+                  +{product.colors.length - 3} more
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Price */}
+          <div className="mb-3 text-center">
+            <span className="text-lg font-bold text-royal-plum">
+              ${product.price.toFixed(2)}
+            </span>
+          </div>
+
+          {/* Action buttons - centered and aligned */}
+          <div className="flex gap-2 justify-center">
             <Link to={`/shop/${product.id}`}>
               <Button variant="outline" size="sm">
                 View Details
               </Button>
             </Link>
             {product.inStock && (
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 onClick={handleAddToCart}
                 className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum"
               >
@@ -108,24 +131,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </div>
         </div>
-        
-        {product.colors && product.colors.length > 0 && (
-          <div className="mt-3 flex gap-1">
-            {product.colors.slice(0, 3).map((color, index) => (
-              <div 
-                key={index}
-                className="w-4 h-4 rounded-full border border-gray-300"
-                style={{ backgroundColor: color.toLowerCase().replace(' ', '') }}
-                title={color}
-              />
-            ))}
-            {product.colors.length > 3 && (
-              <span className="text-xs text-muted-foreground ml-1">
-                +{product.colors.length - 3} more
-              </span>
-            )}
-          </div>
-        )}
       </CardContent>
     </Card>
   );

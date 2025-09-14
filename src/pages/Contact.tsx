@@ -143,7 +143,7 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="text-center p-6 hover:shadow-soft transition-shadow">
+              <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
                 <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <info.icon className="h-8 w-8 text-white" />
                 </div>
@@ -347,7 +347,7 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 gap-6">
             {departments.map((dept, index) => (
-              <Card key={index} className="hover:shadow-soft transition-shadow">
+              <Card key={index} className="shadow-soft transition-shadow">
                 <CardContent className="p-6">
                   <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
                     {dept.name}
@@ -387,7 +387,7 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {emergencyContacts.map((contact, index) => (
-              <Card key={index} className="bg-white/10 border-white/20 text-white">
+              <Card key={index} className="bg-white/10 border-white/20 text-white shadow-soft">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">{contact.service}</h3>
                   <div className="text-2xl font-bold text-crown-gold mb-2">{contact.number}</div>

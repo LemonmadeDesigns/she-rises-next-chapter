@@ -231,7 +231,7 @@ const Donate = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {impactStats.map((stat, index) => (
-              <Card key={index} className="text-center p-6 hover:shadow-soft transition-shadow">
+              <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
                 <div className="text-3xl font-bold text-crown-gold mb-2">
                   {stat.amount}
                 </div>

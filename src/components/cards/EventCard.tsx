@@ -29,8 +29,8 @@ const EventCard = ({
   const formattedDate = format(new Date(date), "MMMM d, yyyy");
   
   return (
-    <Card className="hover:shadow-soft transition-shadow">
-      <CardContent className="p-6">
+    <Card className="shadow-soft transition-shadow h-full flex flex-col">
+      <CardContent className="p-6 flex-1 flex flex-col">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
@@ -56,7 +56,7 @@ const EventCard = ({
               </div>
             </div>
             
-            <p className="text-muted-foreground mb-4">
+            <p className="text-muted-foreground mb-4 flex-1">
               {description}
             </p>
             
@@ -83,7 +83,8 @@ const EventCard = ({
             </Badge>
           )}
         </div>
-        
+
+        <div className="mt-auto">
         <div className="flex gap-2">
           {href && (
             <Link to={href}>
@@ -95,6 +96,7 @@ const EventCard = ({
           <Button size="sm" variant="outline">
             Learn More
           </Button>
+        </div>
         </div>
       </CardContent>
     </Card>

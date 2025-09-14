@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import VolunteerApplicationModal from "@/components/modals/VolunteerApplicationModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,9 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import { Heart, Users, Clock, Calendar, HandHeart, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
 
 const GetInvolved = () => {
+  const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
+
   const [volunteerForm, setVolunteerForm] = useState({
     name: "",
     email: "",
@@ -227,7 +231,7 @@ const GetInvolved = () => {
           />
           
           <div className="grid md:grid-cols-4 gap-6 mb-16">
-            <Card className="text-center p-6 hover:shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow">
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-white" />
               </div>
@@ -238,7 +242,7 @@ const GetInvolved = () => {
               </Button>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow">
               <div className="w-16 h-16 bg-lotus-rose rounded-full flex items-center justify-center mx-auto mb-4">
                 <Building2 className="h-8 w-8 text-white" />
               </div>
@@ -249,7 +253,7 @@ const GetInvolved = () => {
               </Button>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow">
               <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
                 <DollarSign className="h-8 w-8 text-royal-plum" />
               </div>
@@ -260,7 +264,7 @@ const GetInvolved = () => {
               </Button>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow">
               <div className="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mx-auto mb-4">
                 <Gift className="h-8 w-8 text-white" />
               </div>
@@ -284,7 +288,7 @@ const GetInvolved = () => {
           
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {featuredOpportunities.map((opportunity) => (
-              <Card key={opportunity.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={opportunity.id} className="overflow-hidden shadow-soft transition-shadow">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={opportunity.image}
@@ -327,7 +331,13 @@ const GetInvolved = () => {
                     </ul>
                   </div>
                   
-                  <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
+                  <Button
+                    className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white"
+                    onClick={() => {
+                      setSelectedRole(opportunity.title);
+                      setIsVolunteerModalOpen(true);
+                    }}
+                  >
                     Apply for This Role
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -348,7 +358,7 @@ const GetInvolved = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {opportunities.map((opportunity) => (
-              <Card key={opportunity.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={opportunity.id} className="overflow-hidden shadow-soft transition-shadow">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={opportunity.image}
@@ -502,17 +512,17 @@ const GetInvolved = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {sponsorshipLevels.map((level) => (
-              <Card key={level.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={level.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
                 <div className={`h-4 ${level.color}`}></div>
-                <CardContent className="p-6">
+                <CardContent className="p-6 flex-1 flex flex-col">
                   <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
                     {level.name}
                   </h3>
                   <div className="text-2xl font-bold text-crown-gold mb-4">
                     {level.amount}
                   </div>
-                  
-                  <ul className="space-y-2">
+
+                  <ul className="space-y-2 flex-1">
                     {level.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="h-4 w-4 text-crown-gold mt-0.5 mr-2 flex-shrink-0" />
@@ -520,10 +530,12 @@ const GetInvolved = () => {
                       </li>
                     ))}
                   </ul>
-                  
-                  <Button className="w-full mt-6 bg-royal-plum hover:bg-royal-plum/90 text-white">
-                    Choose This Level
-                  </Button>
+
+                  <div className="mt-auto pt-6">
+                    <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
+                      Choose This Level
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -668,6 +680,13 @@ const GetInvolved = () => {
           </div>
         </div>
       </section>
+
+      {/* Volunteer Application Modal */}
+      <VolunteerApplicationModal
+        isOpen={isVolunteerModalOpen}
+        onClose={() => setIsVolunteerModalOpen(false)}
+        roleTitle={selectedRole}
+      />
     </Layout>
   );
 };

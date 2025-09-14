@@ -177,4 +177,145 @@ All colors MUST be HSL.
     color: hsl(265 42% 31%) !important; /* royal-plum */
     background-color: hsl(45 95% 65%) !important; /* crown-gold */
   }
+
+  /* Logo border styles */
+  .logo-bordered {
+    border-radius: 9px !important;
+    border: 2px #E07A8A solid !important; /* lotus-rose */
+    padding: 2px !important;
+  }
+
+  .favicon-bordered {
+    border-radius: 9px !important;
+    border: 2px #E07A8A solid !important; /* lotus-rose */
+  }
+
+  /* Apply borders to all img elements that might be logos */
+  img[alt*="logo" i], img[alt*="she rises" i] {
+    border-radius: 9px !important;
+    border: 2px #E07A8A solid !important; /* lotus-rose */
+    padding: 2px !important;
+  }
+
+  /* Modern Beautiful Cart Button */
+  .cart-button {
+    position: relative !important;
+    background: transparent !important; /* transparent background */
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 12px 16px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: none !important;
+    overflow: visible !important; /* allow badge to show outside button bounds */
+  }
+
+
+  .cart-button:hover {
+    transform: translateY(-2px) !important;
+    background: transparent !important; /* keep background transparent */
+  }
+
+  .cart-button:active {
+    transform: translateY(0px) !important;
+    box-shadow: 0 4px 12px rgba(251, 208, 81, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* deep shadow for active state */
+  }
+
+  .cart-button .cart-icon {
+    color: #fbd051 !important; /* only the cart icon gets this color */
+    transition: all 0.3s ease !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important; /* slight shadow */
+    width: 24px !important; /* make cart bigger */
+    height: 24px !important; /* make cart bigger */
+    position: relative !important;
+    z-index: 2 !important; /* icon appears above shimmer */
+  }
+
+  .cart-button:hover .cart-icon {
+    transform: scale(1.1) rotate(5deg) !important;
+    color: #fbd051 !important; /* keep same color on hover */
+  }
+
+  /* Beautiful Cart Badge */
+  .cart-badge {
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    background: linear-gradient(135deg, hsl(349 63% 73%), hsl(349 63% 83%)) !important; /* lotus-rose gradient */
+    color: white !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    width: 22px !important;
+    height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px hsl(349 63% 73% / 0.4) !important;
+    animation: cart-badge-pulse 2s infinite !important;
+    z-index: 3 !important; /* badge appears above everything */
+  }
+
+  @keyframes cart-badge-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 2px 8px hsl(349 63% 73% / 0.4);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px hsl(349 63% 73% / 0.6);
+    }
+  }
+
+  .cart-badge:hover {
+    animation: none !important;
+    transform: scale(1.15) !important;
+  }
+
+  /* Mobile cart button adjustments */
+  @media (max-width: 768px) {
+    .cart-button {
+      padding: 10px 14px !important;
+      border-radius: 14px !important;
+    }
+
+    .cart-badge {
+      width: 20px !important;
+      height: 20px !important;
+      font-size: 10px !important;
+      top: -6px !important;
+      right: -6px !important;
+    }
+  }
+
+  /* Add smooth cart icon animation when items are added */
+  @keyframes cart-shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg) scale(1.1); }
+    75% { transform: rotate(5deg) scale(1.1); }
+  }
+
+  .cart-button.cart-updated .cart-icon {
+    animation: cart-shake 0.6s ease-in-out !important;
+  }
+
+  /* Global pronounced but subtle shadow for all cards and boxes */
+  .shadow-soft {
+    box-shadow: 2px 2px 6px darkslategrey !important;
+  }
+
+  /* Apply shadow to common card elements */
+  [class*="Card"],
+  .card,
+  [class*="card"],
+  [data-radix-collection-item] {
+    box-shadow: 2px 2px 6px darkslategrey !important;
+  }
+
+  /* Ensure all Card components have the shadow */
+  [data-radix-accordion-item],
+  [role="group"],
+  .bg-white:not(.cart-button):not(.hero-button-secondary):not(.hero-button-tertiary):not(.btn-force-visible) {
+    box-shadow: 2px 2px 6px darkslategrey !important;
+  }
 }

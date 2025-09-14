@@ -35,7 +35,7 @@ const ProgramCard = ({
   
   return (
     <Card className={cn(
-      "overflow-hidden hover:shadow-soft transition-all duration-300 bg-white",
+      "overflow-hidden shadow-soft transition-all duration-300 bg-white h-full flex flex-col",
       className
     )}>
       {image && (
@@ -53,7 +53,7 @@ const ProgramCard = ({
         </div>
       )}
       
-      <CardContent className={cn("p-6", !image && "pt-8")}>
+      <CardContent className={cn("p-6 flex-1 flex flex-col", !image && "pt-8")}>
         {!image && (
           <div className="w-14 h-14 bg-lotus-rose rounded-2xl flex items-center justify-center mb-4">
             <Icon className="h-7 w-7 text-white" />
@@ -70,10 +70,11 @@ const ProgramCard = ({
           </p>
         )}
         
-        <p className="text-muted-foreground mb-4">
+        <p className="text-muted-foreground mb-4 flex-1">
           {description}
         </p>
-        
+
+        <div className="mt-auto">
         {href && (
           <Link to={href}>
             <Button 
@@ -84,6 +85,7 @@ const ProgramCard = ({
             </Button>
           </Link>
         )}
+        </div>
       </CardContent>
     </Card>
   );

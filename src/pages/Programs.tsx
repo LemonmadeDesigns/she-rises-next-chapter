@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
+import ApplicationModal from "@/components/modals/ApplicationModal";
 import { Home, Heart, Users, BookOpen, Briefcase, Calendar, MapPin, Clock } from "lucide-react";
 
 const Programs = () => {
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+
   const programs = [
     {
       id: "transitional-housing",
@@ -167,7 +171,7 @@ const Programs = () => {
           
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {featuredPrograms.map((program) => (
-              <Card key={program.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={program.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={program.image}
@@ -175,7 +179,7 @@ const Programs = () => {
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <CardContent className="p-8">
+                <CardContent className="p-8 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-4">
                     <Badge variant="outline" className="flex items-center gap-1">
                       {getCategoryIcon(program.category)}
@@ -190,10 +194,10 @@ const Programs = () => {
                     {program.title}
                   </h3>
                   
-                  <p className="text-muted-foreground mb-6">
+                  <p className="text-muted-foreground mb-6 flex-1">
                     {program.description}
                   </p>
-                  
+
                   <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Clock className="h-4 w-4" />
@@ -204,7 +208,7 @@ const Programs = () => {
                       <span>Capacity: {program.capacity}</span>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2 mb-6">
                     <h4 className="font-semibold text-royal-plum">Program Features:</h4>
                     <ul className="space-y-1">
@@ -221,10 +225,12 @@ const Programs = () => {
                       )}
                     </ul>
                   </div>
-                  
-                  <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
-                    Learn More About This Program
-                  </Button>
+
+                  <div className="mt-auto">
+                    <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
+                      Learn More About This Program
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -242,7 +248,7 @@ const Programs = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((program) => (
-              <Card key={program.id} className="overflow-hidden hover:shadow-soft transition-shadow">
+              <Card key={program.id} className="overflow-hidden shadow-soft transition-shadow">
                 <div className="aspect-video bg-warm-cream overflow-hidden">
                   <img
                     src={program.image}
@@ -393,7 +399,11 @@ const Programs = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+            <Button
+              size="lg"
+              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+              onClick={() => setIsApplicationModalOpen(true)}
+            >
               Start Your Application
             </Button>
           </div>
@@ -411,7 +421,7 @@ const Programs = () => {
           </p>
           
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <Card className="bg-white/10 border-white/20 text-white">
+            <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
                 <h3 className="font-bold text-lg mb-2">24/7 Crisis Hotline</h3>
                 <p className="text-2xl font-bold text-crown-gold mb-2">(555) 123-HELP</p>
@@ -419,7 +429,7 @@ const Programs = () => {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/10 border-white/20 text-white">
+            <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
                 <h3 className="font-bold text-lg mb-2">Walk-In Services</h3>
                 <p className="text-lg font-bold text-crown-gold mb-2">Mon-Fri 9AM-5PM</p>
@@ -429,6 +439,12 @@ const Programs = () => {
           </div>
         </div>
       </section>
+
+      {/* Application Modal */}
+      <ApplicationModal
+        isOpen={isApplicationModalOpen}
+        onClose={() => setIsApplicationModalOpen(false)}
+      />
     </Layout>
   );
 };
