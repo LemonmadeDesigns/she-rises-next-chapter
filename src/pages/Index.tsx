@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Home, Briefcase, Users, Heart, Link as LinkIcon, Calendar, ArrowRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import heroImage from "@/assets/she-rises-banner.png";
+import heroImage from "@/assets/she-rises-logo-transparent.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
