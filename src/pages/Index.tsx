@@ -9,7 +9,10 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import ProgramCard from "@/components/cards/ProgramCard";
 import EventCard from "@/components/cards/EventCard";
-import heroImage from "@/assets/she-rises-banner.png";
+import heroImage from "@/assets/she-rises-banner-hero.jpg";
+import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
+import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
+import { heroBlurDataUrl } from "@/assets/hero-blur-data";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
@@ -74,6 +77,12 @@ const Index = () => {
         }
         subtitle="Here we help you write the next chapter"
         backgroundImage={heroImage}
+        backgroundImageWebp={heroImageWebp}
+        backgroundImageAvif={heroImageAvif}
+        backgroundImageBlur={heroBlurDataUrl}
+        backgroundImageAlt="She Rises: Every woman deserves a safe place to rise - Women supporting each other in empowerment"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
         fullHeight
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
@@ -190,12 +199,16 @@ const Index = () => {
               Join our mailing list to receive updates about our programs, events, and ways to get involved
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input 
-                type="email" 
+              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+              <Input
+                id="newsletter-email"
+                name="email"
+                type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1"
+                autoComplete="email"
                 required
               />
               <Button type="submit" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
@@ -213,49 +226,34 @@ const Index = () => {
             title="Our Partners"
             subtitle="Together, we're building stronger communities"
           />
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-            {/* Partner logos - using placeholder company images */}
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop" 
-                alt="Community Foundation" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-center">
+            {/* Actual Partner Logos */}
+            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
+              <img
+                src="/partners/innercode-og-logo.png"
+                alt="InnerCode - Technology Partner"
+                className="max-h-64 w-auto object-contain transition-all duration-300 hover:scale-110"
               />
             </div>
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1599305446868-59e861c83e8e?w=200&h=100&fit=crop" 
-                alt="United Way" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
+              <img
+                src="/partners/AWIP-Mission.png"
+                alt="AWIP - Community Partner"
+                className="max-h-64 w-auto object-contain transition-all duration-300 hover:scale-110"
               />
             </div>
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=100&fit=crop" 
-                alt="Wells Foundation" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
-              />
+            {/* Placeholder for future partners */}
+            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 group min-h-[19rem]">
+              <div className="text-center text-gray-400 group-hover:text-lotus-rose transition-colors">
+                <div className="text-sm font-medium mb-1">Your Organization</div>
+                <div className="text-xs">Partner with us</div>
+              </div>
             </div>
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=200&h=100&fit=crop" 
-                alt="City Health Services" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
-              />
-            </div>
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop" 
-                alt="Hope Foundation" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
-              />
-            </div>
-            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=100&fit=crop" 
-                alt="Women's Fund" 
-                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
-              />
+            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 group min-h-[19rem]">
+              <div className="text-center text-gray-400 group-hover:text-lotus-rose transition-colors">
+                <div className="text-sm font-medium mb-1">Become a Partner</div>
+                <div className="text-xs">Join our mission</div>
+              </div>
             </div>
           </div>
         </div>
