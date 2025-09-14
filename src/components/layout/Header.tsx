@@ -26,7 +26,12 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logo} alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" className="h-16 w-auto" />
+            <img 
+              src={logo} 
+              alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" 
+              className="h-16 w-auto object-contain"
+              style={{ backgroundColor: 'transparent' }}
+            />
           </Link>
 
           {/* Desktop Navigation */}

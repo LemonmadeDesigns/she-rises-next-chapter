@@ -104,84 +104,119 @@ const Index = () => {
         <div className="absolute top-1/2 right-10 text-lotus-rose/30 text-4xl animate-bounce">🦋</div>
       </section>
 
-      {/* Programs Section - Card Grid Style */}
+      {/* Programs Section - Large Cards with Images */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 relative">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-lotus-rose/40 text-5xl">🦋</div>
+          <div className="text-center mb-16">
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-royal-plum mb-4">
               Our Programs
             </h2>
-            <div className="absolute -bottom-4 right-1/2 transform translate-x-1/2 text-lotus-rose/40 text-5xl">🦋</div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We help women stabilize, rebuild, and thrive through comprehensive support services
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Home className="h-8 w-8 text-white" />
+          {/* Main Program Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {programs.map((program, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-soft transition-all duration-300 bg-white">
+                <div className="aspect-video relative overflow-hidden">
+                  <img 
+                    src={program.image} 
+                    alt={program.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <div className="w-12 h-12 bg-crown-gold rounded-full flex items-center justify-center">
+                      <program.icon className="h-6 w-6 text-royal-plum" />
+                    </div>
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
+                    {program.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    {program.description}
+                  </p>
+                  <Link to={program.href}>
+                    <Button variant="outline" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
+                      Explore Programs →
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Additional Services Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Home className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Safe Housing</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Safe Housing</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Heart className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Heart className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Healthcare Access</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Healthcare Access</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Briefcase className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Briefcase className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Employment Support</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Employment Support</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Users className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Users className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Benefits & Legal Navigation</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Benefits & Legal Navigation</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Calendar className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Calendar className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Identity Documents</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Identity Documents</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <Users className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <Users className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Community Referrals</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Community Referrals</h4>
             </Card>
 
-            <Card className="p-6 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-4">
-                <div className="mx-auto w-16 h-16 bg-lotus-rose rounded-2xl flex items-center justify-center mb-3">
-                  <LinkIcon className="h-8 w-8 text-white" />
+            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
+                  <LinkIcon className="h-6 w-6 text-white" />
                 </div>
               </div>
-              <h3 className="font-semibold text-royal-plum mb-2">Referrals</h3>
+              <h4 className="font-semibold text-royal-plum text-sm">Referrals</h4>
             </Card>
             
             <div className="flex items-center justify-center">
               <Link to="/programs">
-                <Button className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
+                <Button className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold text-sm px-4 py-2">
                   View All Programs
                 </Button>
               </Link>
