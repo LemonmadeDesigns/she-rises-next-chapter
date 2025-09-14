@@ -60,7 +60,7 @@ const About = () => {
             </Button>
           </Link>
           <Link to="/get-involved">
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-royal-plum">
+            <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
               Get Involved
             </Button>
           </Link>
@@ -233,12 +233,12 @@ const About = () => {
               </Button>
             </Link>
             <Link to="/donate">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-royal-plum">
+              <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
                 Donate Now
               </Button>
             </Link>
             <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-royal-plum">
+              <Button size="lg" className="bg-lotus-rose border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
                 Contact Us
               </Button>
             </Link>

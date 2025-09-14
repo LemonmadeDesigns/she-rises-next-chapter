@@ -54,7 +54,7 @@ const Shop = () => {
           <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
             Shop Featured Items
           </Button>
-          <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-royal-plum">
+          <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
             View All Categories
           </Button>
         </div>

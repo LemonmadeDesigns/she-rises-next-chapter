@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,12 +8,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
-import { Heart, DollarSign, Home, Users, Briefcase, GraduationCap, Shield, CheckCircle, CreditCard, Calendar } from "lucide-react";
+import StripePaymentForm from "@/components/donation/StripePaymentForm";
+import { donationService } from "@/services/donationService";
+import { Heart, DollarSign, Home, Users, Briefcase, GraduationCap, Shield, CheckCircle, CreditCard, Calendar, AlertCircle, Loader2 } from "lucide-react";
 
 const Donate = () => {
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentStep, setPaymentStep] = useState<'form' | 'payment'>('form');
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [errors, setErrors] = useState<string[]>([]);
   const [donationForm, setDonationForm] = useState({
     amount: "",
     frequency: "one-time",
@@ -126,9 +135,58 @@ const Donate = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Donation form submitted:", donationForm);
+    setErrors([]);
+
+    // Validate form
+    const validation = donationService.validateDonationForm(donationForm as any);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // For credit card payments, create payment intent and show Stripe form
+      if (donationForm.paymentMethod === 'credit') {
+        const response = await donationService.processDonation(donationForm as any);
+
+        if (response.success && response.clientSecret) {
+          setClientSecret(response.clientSecret);
+          setPaymentStep('payment');
+        } else {
+          setErrors([response.error || 'Failed to initialize payment']);
+        }
+      } else {
+        // For PayPal, process directly
+        const response = await donationService.processDonation(donationForm as any);
+
+        if (!response.success) {
+          setErrors([response.error || 'Payment processing failed']);
+        }
+      }
+    } catch (error) {
+      console.error('Donation error:', error);
+      setErrors(['An unexpected error occurred. Please try again.']);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handlePaymentSuccess = async (paymentIntent: any) => {
+    // Send receipt email
+    await donationService.sendReceipt(paymentIntent.id, donationForm.email);
+
+    // Navigate to success page with donation details
+    navigate(`/donation-success?amount=${donationForm.amount}&frequency=${donationForm.frequency}&donation_id=${paymentIntent.id}&designation=${donationForm.designation}`);
+  };
+
+  const handlePaymentError = (error: string) => {
+    setErrors([error]);
+    setPaymentStep('form');
+    setClientSecret(null);
   };
 
   const updateForm = (field: string, value: string | boolean) => {
@@ -157,7 +215,7 @@ const Donate = () => {
           <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
             Donate Now
           </Button>
-          <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-royal-plum">
+          <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
             Monthly Giving
           </Button>
         </div>
@@ -223,6 +281,45 @@ const Donate = () => {
             
             <Card>
               <CardContent className="p-8">
+                {/* Show error messages */}
+                {errors.length > 0 && (
+                  <Alert variant="destructive" className="mb-6">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      <ul className="list-disc pl-4">
+                        {errors.map((error, index) => (
+                          <li key={index}>{error}</li>
+                        ))}
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {/* Show payment form or donation form based on step */}
+                {paymentStep === 'payment' && clientSecret ? (
+                  <div>
+                    <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6">
+                      Complete Your Payment
+                    </h3>
+                    <StripePaymentForm
+                      clientSecret={clientSecret}
+                      amount={parseFloat(donationForm.amount)}
+                      onSuccess={handlePaymentSuccess}
+                      onError={handlePaymentError}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setPaymentStep('form');
+                        setClientSecret(null);
+                      }}
+                      className="mt-4 w-full"
+                    >
+                      Back to Donation Form
+                    </Button>
+                  </div>
+                ) : (
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {/* Donation Amount */}
                   <div>
@@ -560,11 +657,21 @@ const Donate = () => {
                       className="w-full bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold text-lg py-6"
                       disabled={!donationForm.amount || !donationForm.firstName || !donationForm.email}
                     >
-                      <Heart className="mr-2 h-5 w-5" />
-                      Complete Donation
+                      {isProcessing ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Heart className="mr-2 h-5 w-5" />
+                          Complete Donation
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>
+                )}
               </CardContent>
             </Card>
           </div>
