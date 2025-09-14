@@ -9,10 +9,7 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import ProgramCard from "@/components/cards/ProgramCard";
 import EventCard from "@/components/cards/EventCard";
-import heroImage from "@/assets/she-rises-banner-hero.jpg";
-import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
-import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
-import { heroBlurDataUrl } from "@/assets/hero-blur-data";
+import heroImage from "@/assets/she-rises-banner.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
@@ -77,12 +74,6 @@ const Index = () => {
         }
         subtitle="Here we help you write the next chapter"
         backgroundImage={heroImage}
-        backgroundImageWebp={heroImageWebp}
-        backgroundImageAvif={heroImageAvif}
-        backgroundImageBlur={heroBlurDataUrl}
-        backgroundImageAlt="She Rises: Every woman deserves a safe place to rise - Women supporting each other in empowerment"
-        backgroundImageWidth={1920}
-        backgroundImageHeight={1080}
         fullHeight
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
