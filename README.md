@@ -1,73 +1,192 @@
-# Welcome to your Lovable project
+# She Rises - Safe Haven for Empowerment
 
-## Project info
+A comprehensive nonprofit website for She Rises organization, dedicated to empowering women through transitional housing, supportive services, and reentry resources.
 
-**URL**: https://lovable.dev/projects/0a1bb02d-6d1f-438d-b449-8c7a32cf9c38
+## 🌟 Features
 
-## How can I edit this code?
+- **Complete Website**: 10+ fully functional pages
+- **E-commerce System**: Product catalog, cart, and checkout
+- **Event Management**: Event listings with registration modal
+- **Donation System**: Comprehensive donation forms and payment processing
+- **Volunteer Portal**: Application forms and opportunity matching
+- **Contact System**: Multi-channel contact forms and crisis resources
+- **Responsive Design**: Mobile-first approach with beautiful UI
 
-There are several ways of editing your application.
+## 🏗️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS with custom brand colors
+- **UI Components**: shadcn/ui component library
+- **State Management**: React Context API
+- **Routing**: React Router v6
+- **Icons**: Lucide React
+- **Forms**: React Hook Form with validation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0a1bb02d-6d1f-438d-b449-8c7a32cf9c38) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v16 or higher)
+- npm or yarn
+- Git
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   cd she-rises-next-chapter
+   ```
 
-Follow these steps:
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. Open your browser to `http://localhost:5173`
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📁 Project Structure
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/           # Reusable UI components
+│   ├── cards/           # Card components (Product, Event, etc.)
+│   ├── layout/          # Layout components (Header, Footer)
+│   ├── modals/          # Modal components
+│   ├── sections/        # Section components (Hero, SectionHeader)
+│   └── ui/              # shadcn/ui components
+├── contexts/            # React Context providers
+├── content/             # Static content (JSON data)
+├── pages/               # Page components
+├── assets/              # Static assets (images, etc.)
+└── lib/                 # Utility functions
+
+scripts/                 # Automation scripts
+├── auto-commit.sh       # Auto-commit with error checking
+├── watch-and-commit.sh  # Watch mode for auto-commits
+└── README.md           # Scripts documentation
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 Brand Colors
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Royal Plum**: `#4B2E6D` - Primary brand color
+- **Crown Gold**: `#D4AF37` - Accent color for CTAs
+- **Lotus Rose**: `#E67E80` - Secondary accent
+- **Sage Green**: `#87A96B` - Supporting color
+- **Warm Cream**: `#FDF6E3` - Light background
 
-**Use GitHub Codespaces**
+## 📄 Available Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Development
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run typecheck` - Run TypeScript compiler
 
-## What technologies are used for this project?
+### Auto-Commit (New!)
+- `npm run commit` - Auto-commit with error checking
+- `npm run watch-commit` - Watch for changes and auto-commit
+- `npm run check` - Run type checking and linting
 
-This project is built with:
+See [scripts/README.md](scripts/README.md) for detailed information about auto-commit functionality.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🌐 Pages
 
-## How can I deploy this project?
+1. **Home** (`/`) - Hero, pillars, stats, newsletter
+2. **About** (`/about`) - Mission, founder, team, impact
+3. **Programs** (`/programs`) - 6 detailed programs with images
+4. **Events** (`/events`) - Event calendar with registration modal
+5. **Get Involved** (`/get-involved`) - Volunteer and partnership forms
+6. **Contact** (`/contact`) - Contact forms, directory, emergency resources
+7. **Donate** (`/donate`) - Comprehensive donation system
+8. **Shop** (`/shop`) - Product catalog with filtering
+9. **Cart** (`/cart`) - Shopping cart functionality
+10. **Checkout** (`/checkout`) - Multi-step checkout process
 
-Simply open [Lovable](https://lovable.dev/projects/0a1bb02d-6d1f-438d-b449-8c7a32cf9c38) and click on Share -> Publish.
+## 🛠️ Key Features
 
-## Can I connect a custom domain to my Lovable project?
+### Event Registration System
+- Professional registration modal
+- Form validation and error handling
+- Capacity tracking and waitlist
+- Payment integration for paid events
+- Email confirmation system
 
-Yes, you can!
+### E-commerce System
+- Product catalog with categories
+- Shopping cart with React Context
+- Multi-step checkout process
+- Real-time inventory tracking
+- Mission-aligned product descriptions
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Donation System
+- Multiple donation amounts
+- Recurring giving options
+- Tribute and memorial gifts
+- Secure payment processing
+- Tax-deductible receipts
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Contact System
+- Department-specific contact forms
+- 24/7 crisis hotline information
+- Emergency resource directory
+- FAQ section with common questions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Use `npm run commit` to auto-commit with error checking
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## 📝 Auto-Commit Workflow
+
+This project includes intelligent auto-commit scripts that:
+- ✅ Check for TypeScript errors before committing
+- ✅ Run ESLint for code quality
+- ✅ Generate descriptive commit messages
+- ✅ Automatically push to GitHub
+- ✅ Provide detailed feedback
+
+Use `npm run commit` after making changes for a smooth workflow!
+
+## 🎯 Mission Alignment
+
+Every aspect of this website is designed to support She Rises' mission:
+- **Accessibility**: WCAG compliant design
+- **Trauma-Informed**: Gentle, supportive messaging
+- **Empowerment**: Positive, strength-based language
+- **Community**: Social proof and testimonials
+- **Transparency**: Clear impact metrics and financials
+
+## 📞 Support
+
+For technical issues or questions:
+- Create an issue in this repository
+- Contact the development team
+- Check the [scripts documentation](scripts/README.md) for auto-commit help
+
+## 📄 License
+
+This project is created for She Rises - Safe Haven for Empowerment.
+
+---
+
+**Built with ❤️ for empowering women and transforming communities**
+
+---
+
+## 🔗 Original Lovable Project
+
+**Lovable URL**: https://lovable.dev/projects/0a1bb02d-6d1f-438d-b449-8c7a32cf9c38
+
+This project was originally built with Lovable and enhanced with custom auto-commit functionality.

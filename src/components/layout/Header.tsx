@@ -2,12 +2,15 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/she-rises-logo-main.png";
+import { useCart } from "@/contexts/CartContext";
+import logo from "@/assets/she-rises-logo-transparent.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { state: cartState } = useCart();
 
   const navigation = [
     { name: "About", href: "/about" },
@@ -56,6 +59,14 @@ const Header = () => {
             <Link to="/cart">
               <Button variant="outline" size="sm" className="relative">
                 <ShoppingCart className="h-4 w-4" />
+                {cartState.itemCount > 0 && (
+                  <Badge 
+                    variant="secondary" 
+                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-lotus-rose text-white"
+                  >
+                    {cartState.itemCount}
+                  </Badge>
+                )}
               </Button>
             </Link>
             <Link to="/donate">
@@ -71,8 +82,16 @@ const Header = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <Link to="/cart">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="relative">
                 <ShoppingCart className="h-4 w-4" />
+                {cartState.itemCount > 0 && (
+                  <Badge 
+                    variant="secondary" 
+                    className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-lotus-rose text-white"
+                  >
+                    {cartState.itemCount}
+                  </Badge>
+                )}
               </Button>
             </Link>
             <Button

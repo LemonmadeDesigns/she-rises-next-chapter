@@ -1,0 +1,79 @@
+{
+  "programs": [
+    {
+      "id": "transitional-housing",
+      "title": "Transitional Housing",
+      "subtitle": "Shared Supportive Living",
+      "description": "Safe, stable housing with community guidelines and case management.",
+      "details": "Our transitional housing program provides women with a secure environment to rebuild their lives. Each resident receives personalized case management, access to supportive services, and a community of peers on similar journeys.",
+      "icon": "Home",
+      "features": [
+        "Safe, secure living environment",
+        "Community guidelines and structure",
+        "Individual case management",
+        "Peer support network"
+      ]
+    },
+    {
+      "id": "employment-readiness",
+      "title": "Employment Readiness & Job Navigation",
+      "description": "Resume help, job search coaching, workplace skills, employer referrals.",
+      "details": "We help women develop the skills and confidence needed to secure and maintain employment. Our program includes resume building, interview preparation, workplace etiquette training, and connections to employer partners.",
+      "icon": "Briefcase",
+      "features": [
+        "Professional resume development",
+        "Job search strategies and coaching",
+        "Interview preparation and practice",
+        "Direct employer referrals",
+        "Workplace skills training"
+      ]
+    },
+    {
+      "id": "life-skills",
+      "title": "Life Skills Workshops & Peer Mentoring",
+      "description": "Goal-setting, budgeting, wellness, communication, conflict resolution.",
+      "details": "Our comprehensive life skills program equips women with practical tools for daily living and personal growth. Through workshops and one-on-one mentoring, participants build confidence and capabilities for independent living.",
+      "icon": "Users",
+      "features": [
+        "Goal-setting and achievement planning",
+        "Financial literacy and budgeting",
+        "Health and wellness education",
+        "Communication skills development",
+        "Conflict resolution strategies"
+      ]
+    },
+    {
+      "id": "family-reunification",
+      "title": "Family Reunification Support",
+      "description": "Navigation for visitations, parenting resources, reunification planning.",
+      "details": "We understand the importance of family connections. Our program helps women navigate the complex process of reunification, providing resources and support for rebuilding healthy family relationships.",
+      "icon": "Heart",
+      "features": [
+        "Visitation coordination and support",
+        "Parenting skills workshops",
+        "Family counseling referrals",
+        "Reunification planning assistance",
+        "Children's services navigation"
+      ]
+    },
+    {
+      "id": "resource-referrals",
+      "title": "Resource Referrals",
+      "description": "Legal aid, Medi-Cal, childcare, transportation, mental health providers.",
+      "details": "We connect women with essential community resources and services. Our extensive network of partners ensures comprehensive support for all aspects of rebuilding and stabilization.",
+      "icon": "Link",
+      "features": [
+        "Legal aid connections",
+        "Healthcare enrollment assistance",
+        "Childcare resource navigation",
+        "Transportation solutions",
+        "Mental health services",
+        "Benefits enrollment support"
+      ]
+    }
+  ],
+  "serviceArea": {
+    "counties": ["San Bernardino", "Los Angeles"],
+    "appointmentNote": "Services available by appointment"
+  }
+}

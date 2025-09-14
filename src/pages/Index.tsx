@@ -3,50 +3,56 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Home, Briefcase, Users, Heart, Link as LinkIcon, Calendar, ArrowRight } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import Hero from "@/components/sections/Hero";
+import SectionHeader from "@/components/sections/SectionHeader";
+import ProgramCard from "@/components/cards/ProgramCard";
+import EventCard from "@/components/cards/EventCard";
 import heroImage from "@/assets/she-rises-banner.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
+import eventsData from "@/content/events.json";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const Index = () => {
-  const programs = [
+  const [email, setEmail] = useState("");
+  const { toast } = useToast();
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      toast({
+        title: "Thank you for subscribing!",
+        description: "You'll receive our updates and news about our programs.",
+      });
+      setEmail("");
+    }
+  };
+
+  const pillars = [
     {
       title: "Transitional Housing",
       description: "Safe, stable housing with community guidelines and case management",
-      icon: Home,
+      icon: "Home",
       image: transitionalHomeImage,
       href: "/programs#transitional-housing"
     },
     {
       title: "Supportive Services", 
       description: "Employment readiness, life skills workshops, and peer mentoring",
-      icon: Users,
+      icon: "Users",
       image: mentoringImage,
       href: "/programs#supportive-services"
     },
     {
       title: "Reentry Resources",
       description: "Legal aid, healthcare, childcare, transportation connections",
-      icon: LinkIcon,
+      icon: "Link",
       image: employmentImage,
       href: "/programs#reentry-resources"
-    }
-  ];
-
-  const upcomingEvents = [
-    {
-      title: "HIRE Reentry Resource Fair",
-      date: "September 17, 2025",
-      location: "Honda Center, Anaheim",
-      href: "/events#hire-fair"
-    },
-    {
-      title: "She Rises Community Launch",
-      date: "November 2025",
-      location: "San Bernardino County",
-      href: "/events#community-launch"
     }
   ];
 
@@ -58,234 +64,96 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section with Enhanced Parallax */}
-      <section className="relative h-screen overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-fixed scale-110"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/30 via-transparent to-royal-plum/70"></div>
+      {/* Hero Section */}
+      <Hero
+        title={
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl">
+            Every Woman Deserves a<br />
+            <span className="text-crown-gold drop-shadow-xl">Safe Place to Rise</span>
+          </h1>
+        }
+        subtitle="Here we help you write the next chapter"
+        backgroundImage={heroImage}
+        fullHeight
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+          <Link to="/about">
+            <Button 
+              size="lg" 
+              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold px-10 py-6 text-lg rounded-2xl shadow-2xl"
+            >
+              Learn More <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+          <Link to="/donate">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-2 border-white text-white hover:bg-white hover:text-royal-plum px-10 py-6 text-lg rounded-2xl backdrop-blur-md bg-white/10"
+            >
+              Donate Now <Heart className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
-        
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <div className="text-center text-white px-6 max-w-6xl mx-auto">
-            <h1 className="font-playfair text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-tight drop-shadow-2xl">
-              Every Woman Deserves a 
-              <span className="block text-crown-gold drop-shadow-xl text-shadow-glow">Safe Place to Rise</span>
-            </h1>
-            <p className="text-2xl md:text-4xl mb-12 font-light max-w-4xl mx-auto drop-shadow-lg text-shadow-subtle">
-              Here we help you write the next chapter
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button 
-                size="lg" 
-                className="bg-crown-gold hover:bg-lotus-rose text-royal-plum font-bold px-12 py-6 text-xl rounded-2xl shadow-2xl hover:shadow-crown-gold/50 transition-all duration-300 transform hover:scale-110 border-2 border-crown-gold"
-              >
-                <Link to="/about" className="flex items-center gap-2">
-                  Learn More <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-3 border-white text-white hover:bg-white hover:text-royal-plum px-12 py-6 text-xl rounded-2xl shadow-2xl backdrop-blur-md bg-white/20 hover:bg-white transition-all duration-300 transform hover:scale-110"
-              >
-                <Link to="/donate" className="flex items-center gap-2">
-                  Donate Now <Heart className="h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-        
-        {/* Enhanced Decorative Elements */}
-        <div className="absolute top-32 right-20 text-crown-gold/40 text-8xl animate-pulse">✨</div>
-        <div className="absolute bottom-32 left-20 text-crown-gold/40 text-6xl animate-pulse delay-1000">✨</div>
-        <div className="absolute top-1/2 right-10 text-lotus-rose/30 text-4xl animate-bounce">🦋</div>
-      </section>
+      </Hero>
 
-      {/* Programs Section - Large Cards with Images */}
+      {/* Three Pillars Section */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-royal-plum mb-4">
-              Our Programs
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We help women stabilize, rebuild, and thrive through comprehensive support services
-            </p>
-          </div>
-
-          {/* Main Program Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {programs.map((program, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-soft transition-all duration-300 bg-white">
-                <div className="aspect-video relative overflow-hidden">
-                  <img 
-                    src={program.image} 
-                    alt={program.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <div className="w-12 h-12 bg-crown-gold rounded-full flex items-center justify-center">
-                      <program.icon className="h-6 w-6 text-royal-plum" />
-                    </div>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
-                    {program.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    {program.description}
-                  </p>
-                  <Link to={program.href}>
-                    <Button variant="outline" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
-                      Explore Programs →
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+          <SectionHeader
+            title="Our Programs"
+            subtitle="We help women stabilize, rebuild, and thrive through comprehensive support services"
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pillars.map((pillar, index) => (
+              <ProgramCard
+                key={index}
+                title={pillar.title}
+                description={pillar.description}
+                icon={pillar.icon}
+                image={pillar.image}
+                href={pillar.href}
+              />
             ))}
           </div>
 
-          {/* Additional Services Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Home className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Safe Housing</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Heart className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Healthcare Access</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Briefcase className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Employment Support</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Benefits & Legal Navigation</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Calendar className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Identity Documents</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <Users className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Community Referrals</h4>
-            </Card>
-
-            <Card className="p-4 text-center hover:shadow-soft transition-all duration-300 bg-white/80 backdrop-blur-sm">
-              <div className="mb-3">
-                <div className="mx-auto w-12 h-12 bg-lotus-rose rounded-xl flex items-center justify-center mb-2">
-                  <LinkIcon className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h4 className="font-semibold text-royal-plum text-sm">Referrals</h4>
-            </Card>
-            
-            <div className="flex items-center justify-center">
-              <Link to="/programs">
-                <Button className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold text-sm px-4 py-2">
-                  View All Programs
-                </Button>
-              </Link>
-            </div>
+          {/* Pull Quote */}
+          <div className="mt-16 text-center">
+            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic">
+              "When SHE rises, we all rise."
+            </blockquote>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16 bg-white relative">
-        <div className="absolute top-10 left-10 text-lotus-rose/30 text-4xl">🦋</div>
-        <div className="absolute bottom-10 right-10 text-lotus-rose/30 text-4xl">🦋</div>
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-8">
-            Testimonials
-          </h2>
-          <blockquote className="text-xl md:text-2xl text-muted-foreground italic max-w-2xl mx-auto">
-            "I felt hopeless when I got out. Here, I found a stable place to live and women who believed in me."
-          </blockquote>
-          <p className="text-muted-foreground mt-4">— Former program participant</p>
-        </div>
-      </section>
-
-      {/* Upcoming Events */}
-      <section className="py-20 bg-muted/30">
+      {/* Upcoming Events Teaser */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-4">
-              Upcoming Events
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Join us for connection, resources, and community
-            </p>
-          </div>
-
+          <SectionHeader
+            title="Upcoming Events"
+            subtitle="Join us for connection, resources, and community"
+          />
+          
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {upcomingEvents.map((event, index) => (
-              <Card key={index} className="hover:shadow-soft transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-royal-plum mb-2">
-                        {event.title}
-                      </h3>
-                      <div className="flex items-center text-muted-foreground mb-1">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        {event.date}
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        {event.location}
-                      </p>
-                    </div>
-                    <Badge variant="outline" className="border-crown-gold text-crown-gold">
-                      Featured
-                    </Badge>
-                  </div>
-                  <Link to={event.href}>
-                    <Button size="sm" className="bg-lotus-rose hover:bg-lotus-rose/90 text-white">
-                      RSVP
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+            {eventsData.events.slice(0, 2).map((event) => (
+              <EventCard
+                key={event.id}
+                title={event.title}
+                date={event.date}
+                time={event.time}
+                location={event.location}
+                description={event.description}
+                featured={event.featured}
+                href={`/events#${event.id}`}
+                donationsNeeded={event.donationsNeeded}
+              />
             ))}
           </div>
-
+          
           <div className="text-center">
             <Link to="/events">
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
                 See All Events
               </Button>
             </Link>
@@ -312,7 +180,7 @@ const Index = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-serif text-3xl font-bold text-royal-plum mb-4">
@@ -321,40 +189,74 @@ const Index = () => {
             <p className="text-muted-foreground mb-8">
               Join our mailing list to receive updates about our programs, events, and ways to get involved
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Input 
                 type="email" 
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1"
+                required
               />
-              <Button className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
+              <Button type="submit" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
                 Subscribe
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6">
-            Empower women on their journey
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Your support helps women write their next chapter with dignity, safety, and opportunity
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/get-involved">
-              <Button size="lg" className="bg-lotus-rose hover:bg-lotus-rose/90 text-white font-semibold">
-                Get Involved
-              </Button>
-            </Link>
-            <Link to="/donate">
-              <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
-                Donate Today
-              </Button>
-            </Link>
+      {/* Partner/Sponsor Section */}
+      <section className="py-16 bg-warm-cream">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="Our Partners"
+            subtitle="Together, we're building stronger communities"
+          />
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+            {/* Partner logos - using placeholder company images */}
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop" 
+                alt="Community Foundation" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1599305446868-59e861c83e8e?w=200&h=100&fit=crop" 
+                alt="United Way" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=100&fit=crop" 
+                alt="Wells Foundation" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=200&h=100&fit=crop" 
+                alt="City Health Services" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop" 
+                alt="Hope Foundation" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
+            <div className="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <img 
+                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=100&fit=crop" 
+                alt="Women's Fund" 
+                className="max-h-12 w-auto grayscale hover:grayscale-0 transition-all"
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -1,0 +1,143 @@
+{
+  "products": [
+    {
+      "id": "she-rises-tshirt",
+      "name": "She Rises Logo T-Shirt",
+      "description": "Comfortable cotton t-shirt featuring the She Rises logo. Perfect for showing your support.",
+      "price": 25.00,
+      "images": [
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "apparel",
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "colors": ["Royal Purple", "Rose Gold", "White"],
+      "inStock": true,
+      "featured": true,
+      "details": [
+        "100% cotton",
+        "Pre-shrunk fabric",
+        "Machine washable",
+        "Unisex fit"
+      ]
+    },
+    {
+      "id": "empowerment-journal",
+      "name": "Empowerment Journal",
+      "description": "A guided journal for personal growth and goal setting. Includes inspirational quotes and prompts.",
+      "price": 18.00,
+      "images": [
+        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "wellness",
+      "inStock": true,
+      "featured": true,
+      "details": [
+        "120 pages of guided prompts",
+        "Inspirational quotes throughout",
+        "Goal-setting sections",
+        "Durable softcover binding"
+      ]
+    },
+    {
+      "id": "lotus-mug",
+      "name": "Lotus Rise Coffee Mug",
+      "description": "Start your morning with inspiration. Beautiful ceramic mug with lotus design.",
+      "price": 15.00,
+      "images": [
+        "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "home",
+      "colors": ["Purple", "Gold", "White"],
+      "inStock": true,
+      "details": [
+        "11oz ceramic mug",
+        "Dishwasher and microwave safe",
+        "Comfortable handle design",
+        "Vibrant, long-lasting print"
+      ]
+    },
+    {
+      "id": "affirmation-cards",
+      "name": "Daily Affirmation Cards",
+      "description": "52 beautifully designed cards with daily affirmations for strength and empowerment.",
+      "price": 22.00,
+      "images": [
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "wellness",
+      "inStock": true,
+      "featured": false,
+      "details": [
+        "52 unique affirmation cards",
+        "Beautiful watercolor designs",
+        "Premium cardstock quality",
+        "Includes storage box"
+      ]
+    },
+    {
+      "id": "tote-bag",
+      "name": "She Rises Tote Bag",
+      "description": "Eco-friendly canvas tote bag perfect for shopping or daily use.",
+      "price": 20.00,
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1592492133128-d681d5c79f52?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "accessories",
+      "colors": ["Natural", "Royal Purple"],
+      "inStock": true,
+      "details": [
+        "100% organic cotton canvas",
+        "Reinforced handles",
+        "Large capacity design",
+        "Eco-friendly and sustainable"
+      ]
+    },
+    {
+      "id": "wellness-kit",
+      "name": "Self-Care Wellness Kit",
+      "description": "Complete wellness kit including tea, aromatherapy items, and self-care guides.",
+      "price": 45.00,
+      "images": [
+        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=400&fit=crop&crop=center",
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center"
+      ],
+      "category": "wellness",
+      "inStock": true,
+      "featured": true,
+      "details": [
+        "Herbal tea blend",
+        "Essential oil roller",
+        "Self-care checklist",
+        "Meditation guide",
+        "Beautiful gift box"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "apparel",
+      "name": "Apparel",
+      "description": "Clothing and wearables"
+    },
+    {
+      "id": "wellness",
+      "name": "Wellness",
+      "description": "Self-care and wellness products"
+    },
+    {
+      "id": "home",
+      "name": "Home",
+      "description": "Home and lifestyle products"
+    },
+    {
+      "id": "accessories",
+      "name": "Accessories",
+      "description": "Bags, accessories, and more"
+    }
+  ]
+}

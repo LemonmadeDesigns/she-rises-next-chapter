@@ -1,0 +1,39 @@
+{
+  "organization": {
+    "name": "She Rises - Safe Haven for Empowerment",
+    "tagline": "Every woman has a story... here we help you write the next chapter",
+    "ein": "XX-XXXXXXX",
+    "email": "pransom@safehavenforempowerment.org",
+    "phone": "(909) 547-9998",
+    "instagram": "@SheRises.Mission",
+    "website": "safehavenforempowerment.org"
+  },
+  "colors": {
+    "royalPlum": "#4B2E6D",
+    "lotusRose": "#E07A8A",
+    "crownGold": "#F2C94C",
+    "warmCream": "#FFF7F0",
+    "charcoal": "#333333"
+  },
+  "mission": "She Rises provides safe housing, supportive services, and reentry resources that empower women experiencing homelessness and rebuilding after incarceration.",
+  "vision": "A community where women have the stability, tools, and encouragement to write her next chapter.",
+  "values": ["Dignity", "Safety", "Opportunity", "Community", "Empowerment"],
+  "hotlines": [
+    {
+      "name": "National Domestic Violence Hotline",
+      "number": "800-799-7233"
+    },
+    {
+      "name": "Suicide & Crisis Lifeline",
+      "number": "988"
+    },
+    {
+      "name": "SAMHSA Substance Abuse Helpline",
+      "number": "800-662-4357"
+    },
+    {
+      "name": "Homeless Outreach",
+      "number": "211"
+    }
+  ]
+}

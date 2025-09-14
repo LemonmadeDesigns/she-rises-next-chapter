@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "id": "hire-fair",
+      "title": "HIRE Reentry Resource Fair",
+      "date": "2025-09-17",
+      "time": "11:00 AM - 2:00 PM",
+      "location": "Honda Center, Anaheim",
+      "description": "We'll be onsite; bring questions, meet partners.",
+      "details": "Join us at the HIRE Reentry Resource Fair where we'll be connecting women with employment opportunities, resources, and community partners.",
+      "donationsNeeded": [
+        "Gift cards ($10-$25 gas/groceries/Target/Walmart)",
+        "Hygiene kits (toothpaste, soap, feminine care, lotion)",
+        "Snacks & bottled water"
+      ],
+      "donationDeadline": "2025-09-16",
+      "featured": true
+    },
+    {
+      "id": "community-launch",
+      "title": "She Rises Community Launch",
+      "date": "2025-11-01",
+      "time": "TBD",
+      "location": "San Bernardino County",
+      "description": "Raffles & prizes; donations & giveaways; snacks & refreshments.",
+      "details": "Celebrate the launch of our new community center with activities, resources, and opportunities to connect with our mission.",
+      "featured": true
+    }
+  ]
+}

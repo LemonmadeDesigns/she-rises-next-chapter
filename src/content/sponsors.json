@@ -1,0 +1,69 @@
+{
+  "sponsorshipTiers": [
+    {
+      "id": "champion",
+      "name": "Champion Sponsor",
+      "amount": 10000,
+      "benefits": [
+        "Logo on website homepage",
+        "Recognition at all events",
+        "Annual impact report feature",
+        "Volunteer team building opportunity"
+      ]
+    },
+    {
+      "id": "advocate",
+      "name": "Advocate Sponsor",
+      "amount": 5000,
+      "benefits": [
+        "Logo on sponsors page",
+        "Event recognition",
+        "Quarterly newsletter feature"
+      ]
+    },
+    {
+      "id": "supporter",
+      "name": "Supporter Sponsor",
+      "amount": 2500,
+      "benefits": [
+        "Name on sponsors page",
+        "Social media recognition"
+      ]
+    },
+    {
+      "id": "friend",
+      "name": "Friend",
+      "amount": 1000,
+      "benefits": [
+        "Annual report listing"
+      ]
+    }
+  ],
+  "sponsorshipOptions": [
+    {
+      "title": "Housing Nights",
+      "description": "Sponsor safe nights of housing for women in transition"
+    },
+    {
+      "title": "Workshop Series",
+      "description": "Fund life skills and employment readiness workshops"
+    },
+    {
+      "title": "Care Bags",
+      "description": "Provide essential hygiene and comfort items"
+    },
+    {
+      "title": "Event Underwriter",
+      "description": "Support community events and resource fairs"
+    }
+  ],
+  "inKindNeeds": [
+    "Hygiene kits",
+    "Bus passes",
+    "Gift cards (gas, groceries, retail)",
+    "Snacks and bottled water",
+    "Professional clothing",
+    "School supplies"
+  ],
+  "partners": []
+}
