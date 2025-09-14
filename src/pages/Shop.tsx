@@ -34,13 +34,13 @@ const Shop = () => {
         case "name":
           return a.name.localeCompare(b.name);
         case "featured":
-          return b.featured ? 1 : -1;
+          return (b.featured || false) ? 1 : -1;
         default:
           return 0;
       }
     });
 
-  const featuredProducts = products.filter(product => product.featured);
+  const featuredProducts = products.filter(product => product.featured === true);
 
   return (
     <Layout>
@@ -71,7 +71,7 @@ const Shop = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={{...product, featured: product.featured || false}} />
               ))}
             </div>
           </div>
@@ -150,7 +150,7 @@ const Shop = () => {
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={{...product, featured: product.featured || false}} />
               ))}
             </div>
           ) : (
