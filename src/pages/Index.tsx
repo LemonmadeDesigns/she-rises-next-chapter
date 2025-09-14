@@ -218,20 +218,18 @@ const Index = () => {
             subtitle="Together, we're building stronger communities"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-center">
-            {/* Actual Partner Logos */}
+            {/* Partner Placeholders - Add actual logos when available */}
             <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
-              <img
-                src="/partners/innercode-og-logo.png"
-                alt="InnerCode - Technology Partner"
-                className="max-h-64 w-auto object-contain transition-all duration-300 hover:scale-110"
-              />
+              <div className="text-center text-gray-600">
+                <div className="text-lg font-semibold mb-2">InnerCode</div>
+                <div className="text-sm text-gray-500">Technology Partner</div>
+              </div>
             </div>
             <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
-              <img
-                src="/partners/AWIP-Mission.png"
-                alt="AWIP - Community Partner"
-                className="max-h-64 w-auto object-contain transition-all duration-300 hover:scale-110"
-              />
+              <div className="text-center text-gray-600">
+                <div className="text-lg font-semibold mb-2">AWIP</div>
+                <div className="text-sm text-gray-500">Community Partner</div>
+              </div>
             </div>
             {/* Placeholder for future partners */}
             <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 group min-h-[19rem]">
