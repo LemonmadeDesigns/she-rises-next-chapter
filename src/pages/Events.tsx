@@ -9,10 +9,28 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import EventRegistrationModal from "@/components/modals/EventRegistrationModal";
 import { Calendar, Clock, MapPin, Users, Heart, Star, Filter, ArrowRight } from "lucide-react";
 
+interface Event {
+  id: string;
+  title: string;
+  category: string;
+  type: string;
+  date: string;
+  time: string;
+  location: string;
+  address: string;
+  description: string;
+  image: string;
+  price: string;
+  capacity: number;
+  registered: number;
+  featured: boolean;
+  highlights: string[];
+}
+
 const Events = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedMonth, setSelectedMonth] = useState("all");
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   const events = [
@@ -204,7 +222,7 @@ const Events = () => {
     });
   };
 
-  const handleRegisterClick = (event: any) => {
+  const handleRegisterClick = (event: Event) => {
     setSelectedEvent(event);
     setIsRegistrationModalOpen(true);
   };
