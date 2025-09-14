@@ -128,3 +128,9 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-foreground\/80 {
+    color: hsl(0deg 0% 98.91% / 80%);
+  }
+}
