@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Home, Briefcase, Users, Heart, Link as LinkIcon, Calendar, ArrowRight } from "lucide-react";
 import Layout from "@/components/layout/Layout";
-import heroImage from "@/assets/hero-woman.jpg";
+import heroImage from "@/assets/she-rises-banner.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
@@ -58,62 +58,50 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section - Parallax Style */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-soft">
-        <div className="absolute inset-0 opacity-20">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-            style={{ 
-              backgroundImage: `url(${heroImage})`,
-            }}
-          />
+      {/* Hero Section with Enhanced Parallax */}
+      <section className="relative h-screen overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed scale-110"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/30 via-transparent to-royal-plum/70"></div>
         </div>
         
-        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center z-10">
-          {/* Left Content */}
-          <div className="text-left">
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-royal-plum leading-tight">
-              REENTRY SUPPORT
-              <span className="block text-crown-gold">FOR WOMEN</span>
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="text-center text-white px-6 max-w-6xl mx-auto">
+            <h1 className="font-playfair text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-tight drop-shadow-2xl">
+              Every Woman Deserves a 
+              <span className="block text-crown-gold drop-shadow-xl text-shadow-glow">Safe Place to Rise</span>
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-muted-foreground max-w-lg">
+            <p className="text-2xl md:text-4xl mb-12 font-light max-w-4xl mx-auto drop-shadow-lg text-shadow-subtle">
               Here we help you write the next chapter
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/contact">
-                <Button size="lg" className="bg-lotus-rose hover:bg-lotus-rose/90 text-white font-semibold">
-                  Get Help
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
-                  Refer Someone
-                </Button>
-              </Link>
-              <Link to="/donate">
-                <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
-                  Donate
-                </Button>
-              </Link>
-            </div>
-          </div>
-          
-          {/* Right Image */}
-          <div className="relative lg:block hidden">
-            <div className="relative">
-              <img 
-                src={heroImage} 
-                alt="Woman looking forward with hope and determination"
-                className="w-full h-[600px] object-cover rounded-2xl shadow-elegant"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-crown-gold/20 to-transparent rounded-2xl"></div>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Button 
+                size="lg" 
+                className="bg-crown-gold hover:bg-lotus-rose text-royal-plum font-bold px-12 py-6 text-xl rounded-2xl shadow-2xl hover:shadow-crown-gold/50 transition-all duration-300 transform hover:scale-110 border-2 border-crown-gold"
+              >
+                <Link to="/about" className="flex items-center gap-2">
+                  Learn More <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-3 border-white text-white hover:bg-white hover:text-royal-plum px-12 py-6 text-xl rounded-2xl shadow-2xl backdrop-blur-md bg-white/20 hover:bg-white transition-all duration-300 transform hover:scale-110"
+              >
+                <Link to="/donate" className="flex items-center gap-2">
+                  Donate Now <Heart className="h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
         
-        {/* Decorative Elements */}
-        <div className="absolute top-20 right-10 text-lotus-rose/30 text-6xl">🦋</div>
-        <div className="absolute bottom-20 left-10 text-lotus-rose/30 text-4xl">🦋</div>
+        {/* Enhanced Decorative Elements */}
+        <div className="absolute top-32 right-20 text-crown-gold/40 text-8xl animate-pulse">✨</div>
+        <div className="absolute bottom-32 left-20 text-crown-gold/40 text-6xl animate-pulse delay-1000">✨</div>
+        <div className="absolute top-1/2 right-10 text-lotus-rose/30 text-4xl animate-bounce">🦋</div>
       </section>
 
       {/* Programs Section - Card Grid Style */}

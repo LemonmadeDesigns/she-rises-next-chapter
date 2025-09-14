@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/she-rises-main-logo.jpg";
+import logo from "@/assets/she-rises-logo-transparent.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logo} alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" className="h-14 w-auto" />
+            <img src={logo} alt="She Rises - Safe Haven for Empowerment logo with lotus flower and crowned woman silhouette" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

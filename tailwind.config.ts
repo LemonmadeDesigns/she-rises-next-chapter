@@ -73,6 +73,10 @@ export default {
         "soft": "var(--shadow-soft)",
         "glow": "var(--shadow-glow)",
       },
+      textShadow: {
+        'glow': 'var(--text-shadow-glow)',
+        'subtle': 'var(--text-shadow-subtle)',
+      },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],
         'sans': ['Inter', 'system-ui', 'sans-serif'],
