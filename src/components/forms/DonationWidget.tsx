@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const presetAmounts = [10, 25, 50, 100, 250, 500, 1000];
 
@@ -22,6 +23,7 @@ const DonationWidget = () => {
   const [customAmount, setCustomAmount] = useState<string>("");
   const [frequency, setFrequency] = useState<"one-time" | "monthly">("one-time");
   const [isCustom, setIsCustom] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
   const handleAmountClick = (value: number) => {
@@ -38,7 +40,7 @@ const DonationWidget = () => {
     }
   };
 
-  const handleDonate = () => {
+  const handleDonate = async () => {
     const finalAmount = isCustom ? Number(customAmount) : amount;
     
     if (finalAmount < 1) {
@@ -50,13 +52,38 @@ const DonationWidget = () => {
       return;
     }
 
-    toast({
-      title: "Thank you for your generosity!",
-      description: `Processing your ${frequency} donation of $${finalAmount}...`,
-    });
+    setIsProcessing(true);
     
-    // Here you would integrate with Stripe/PayPal
-    console.log("Processing donation:", { amount: finalAmount, frequency });
+    try {
+      const { error } = await supabase
+        .from('donations')
+        .insert([
+          {
+            amount: finalAmount,
+            payment_method: frequency === "monthly" ? "recurring" : "one-time",
+            status: "pending"
+          }
+        ]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Thank you for your generosity!",
+        description: `Your ${frequency} donation of $${finalAmount} has been recorded. You will be redirected to complete payment.`,
+      });
+      
+      // Here you would integrate with Stripe/PayPal
+      console.log("Donation recorded:", { amount: finalAmount, frequency });
+    } catch (error) {
+      console.error('Error recording donation:', error);
+      toast({
+        title: "Error processing donation",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const getImpactMessage = () => {
@@ -128,9 +155,13 @@ const DonationWidget = () => {
 
         <Button 
           onClick={handleDonate}
+          disabled={isProcessing}
           className="w-full bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold text-lg py-6"
         >
-          Donate ${isCustom ? customAmount : amount} {frequency === "monthly" ? "Monthly" : ""}
+          {isProcessing 
+            ? "Processing..." 
+            : `Donate $${isCustom ? customAmount : amount} ${frequency === "monthly" ? "Monthly" : ""}`
+          }
         </Button>
 
         <p className="text-xs text-muted-foreground text-center mt-4">

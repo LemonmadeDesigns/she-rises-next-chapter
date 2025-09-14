@@ -1,0 +1,18 @@
+-- Insert products data from JSON file
+INSERT INTO public.products (id, name, price, sale_price, description, features, category, images, in_stock, featured, sizes) VALUES
+('tshirt-she-rises', 'She Rises T-Shirt', 25.00, null, 'Comfortable cotton t-shirt featuring the She Rises logo. Perfect for showing your support for women''s empowerment.', ARRAY['100% cotton', 'Unisex sizing', 'Machine washable', 'Tagless design'], 'Apparel', ARRAY['/api/placeholder/400/400'], true, true, ARRAY['XS', 'S', 'M', 'L', 'XL', 'XXL']),
+('hoodie-hope', 'Hope & Healing Hoodie', 45.00, 35.00, 'Warm and cozy hoodie with inspirational message. A portion of proceeds supports our transitional housing program.', ARRAY['50/50 cotton/polyester blend', 'Kangaroo pocket', 'Drawstring hood', 'Ribbed cuffs and waistband'], 'Apparel', ARRAY['/api/placeholder/400/400'], true, true, ARRAY['S', 'M', 'L', 'XL', 'XXL']),
+('mug-empowerment', 'Empowerment Coffee Mug', 15.00, null, 'Start your day with inspiration. This ceramic mug features an empowering message for women.', ARRAY['11oz capacity', 'Ceramic', 'Dishwasher safe', 'Microwave safe'], 'Home & Office', ARRAY['/api/placeholder/400/400'], true, false, ARRAY[]::TEXT[]),
+('tote-bag', 'She Rises Tote Bag', 20.00, null, 'Durable canvas tote bag perfect for everyday use. Eco-friendly and stylish.', ARRAY['100% cotton canvas', '15" x 16" size', 'Long handles', 'Machine washable'], 'Accessories', ARRAY['/api/placeholder/400/400'], true, false, ARRAY[]::TEXT[]),
+('journal-reflection', 'Reflection Journal', 18.00, null, 'Beautiful journal for self-reflection and goal setting. Features guided prompts for personal growth.', ARRAY['120 pages', 'Hardcover', 'Guided prompts', 'Ribbon bookmark'], 'Books & Journals', ARRAY['/api/placeholder/400/400'], true, false, ARRAY[]::TEXT[]),
+('sticker-pack', 'Motivational Sticker Pack', 8.00, null, 'Set of inspiring stickers with empowering messages. Perfect for laptops, water bottles, and more.', ARRAY['10 stickers included', 'Waterproof vinyl', 'Various sizes', 'Removable adhesive'], 'Accessories', ARRAY['/api/placeholder/400/400'], true, false, ARRAY[]::TEXT[]),
+('tank-top-strength', 'Strength Tank Top', 22.00, null, 'Comfortable tank top celebrating inner strength and resilience. Great for workouts or casual wear.', ARRAY['60% cotton, 40% polyester', 'Racerback design', 'Moisture-wicking', 'Fitted style'], 'Apparel', ARRAY['/api/placeholder/400/400'], false, false, ARRAY['XS', 'S', 'M', 'L', 'XL']),
+('keychain-hope', 'Hope Keychain', 12.00, null, 'Elegant keychain with hope symbol. A small reminder to carry with you always.', ARRAY['Metal construction', 'Enamel finish', 'Key ring included', 'Gift ready packaging'], 'Accessories', ARRAY['/api/placeholder/400/400'], true, false, ARRAY[]::TEXT[]);
+
+-- Insert sponsors data
+INSERT INTO public.sponsors (id, name, logo, website, tier) VALUES
+('community-bank', 'Community First Bank', '/api/placeholder/200/100', 'https://communityfirstbank.com', 'platinum'),
+('local-cafe', 'Rise & Grind Cafe', '/api/placeholder/200/100', 'https://riseandgrindcafe.com', 'gold'),
+('wellness-center', 'Mindful Wellness Center', '/api/placeholder/200/100', 'https://mindfulwellness.com', 'silver'),
+('law-firm', 'Johnson & Associates Law', '/api/placeholder/200/100', 'https://johnsonlaw.com', 'bronze'),
+('grocery-store', 'Fresh Market Foods', '/api/placeholder/200/100', 'https://freshmarketfoods.com', 'community');
