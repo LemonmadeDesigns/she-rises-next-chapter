@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Mail, Phone } from "lucide-react";
-import logo from "@/assets/she-rises-logo-square.jpg";
+import logo from "@/assets/she-rises-logo-main.png";
 
 const Footer = () => {
   const navigation = [

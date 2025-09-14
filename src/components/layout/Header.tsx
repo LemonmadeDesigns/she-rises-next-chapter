@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/she-rises-logo-transparent.png";
+import logo from "@/assets/she-rises-logo-main.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
