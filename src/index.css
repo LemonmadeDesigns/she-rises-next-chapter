@@ -133,4 +133,48 @@ All colors MUST be HSL.
   .text-foreground\/80 {
     color: hsl(0deg 0% 98.91% / 80%);
   }
+
+  /* Force button contrast fixes for production */
+  .hero-button-secondary {
+    background-color: hsl(265 42% 31%) !important; /* royal-plum */
+    border: 2px solid hsl(45 95% 65%) !important; /* crown-gold border */
+    color: hsl(45 95% 65%) !important; /* crown-gold text */
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .hero-button-secondary:hover {
+    background-color: hsl(45 95% 65%) !important; /* crown-gold */
+    color: hsl(265 42% 31%) !important; /* royal-plum text */
+  }
+
+  .hero-button-tertiary {
+    background-color: hsl(349 63% 73%) !important; /* lotus-rose */
+    border: 2px solid hsl(45 95% 65%) !important; /* crown-gold border */
+    color: hsl(45 95% 65%) !important; /* crown-gold text */
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .hero-button-tertiary:hover {
+    background-color: hsl(45 95% 65%) !important; /* crown-gold */
+    color: hsl(265 42% 31%) !important; /* royal-plum text */
+  }
+
+  /* Additional button text visibility fixes */
+  .btn-force-visible {
+    color: hsl(45 95% 65%) !important; /* crown-gold */
+    background-color: hsl(265 42% 31%) !important; /* royal-plum */
+    border-color: hsl(45 95% 65%) !important; /* crown-gold */
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .btn-force-visible:hover {
+    color: hsl(265 42% 31%) !important; /* royal-plum */
+    background-color: hsl(45 95% 65%) !important; /* crown-gold */
+  }
 }

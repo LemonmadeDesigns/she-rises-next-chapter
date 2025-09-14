@@ -212,7 +212,7 @@ const GetInvolved = () => {
           <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
             Become a Volunteer
           </Button>
-          <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
+          <Button size="lg" className="hero-button-secondary btn-force-visible">
             Partner With Us
           </Button>
         </div>
@@ -662,7 +662,7 @@ const GetInvolved = () => {
             <Button size="lg" className="bg-white text-lotus-rose hover:bg-white/90 font-bold">
               Start Volunteering Today
             </Button>
-            <Button size="lg" className="bg-lotus-rose border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
+            <Button size="lg" className="hero-button-tertiary btn-force-visible">
               Explore Partnerships
             </Button>
           </div>

@@ -127,7 +127,7 @@ const Contact = () => {
           <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
             Send Us a Message
           </Button>
-          <Button size="lg" className="bg-royal-plum border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
+          <Button size="lg" className="hero-button-secondary btn-force-visible">
             Call Crisis Hotline
           </Button>
         </div>
@@ -480,7 +480,7 @@ const Contact = () => {
             <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
               Get Support Today
             </Button>
-            <Button size="lg" className="bg-lotus-rose border-2 border-crown-gold text-crown-gold hover:bg-crown-gold hover:text-royal-plum font-bold">
+            <Button size="lg" className="hero-button-tertiary btn-force-visible">
               Schedule a Visit
             </Button>
           </div>
