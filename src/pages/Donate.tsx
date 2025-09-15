@@ -344,15 +344,15 @@ const Donate = () => {
                           key={item.amount}
                           type="button"
                           variant={donationForm.amount === item.amount.toString() ? "default" : "outline"}
-                          className={`h-auto p-4 flex flex-col items-center ${
+                          className={`h-32 p-4 flex flex-col items-center justify-center text-center ${
                             donationForm.amount === item.amount.toString()
                               ? "bg-crown-gold text-royal-plum"
                               : "hover:bg-crown-gold/10"
                           }`}
                           onClick={() => selectAmount(item.amount)}
                         >
-                          <div className="text-2xl font-bold mb-1">${item.amount}</div>
-                          <div className="text-xs text-center leading-tight">
+                          <div className="text-2xl font-bold mb-2">${item.amount}</div>
+                          <div className="text-xs leading-tight line-clamp-3">
                             {item.impact}
                           </div>
                         </Button>
