@@ -203,6 +203,13 @@ const Donate = () => {
     }));
   };
 
+  const scrollToDonationForm = () => {
+    const donationSection = document.getElementById('donation-form');
+    if (donationSection) {
+      donationSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -212,7 +219,11 @@ const Donate = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+          <Button 
+            size="lg" 
+            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+            onClick={scrollToDonationForm}
+          >
             Donate Now
           </Button>
           <Button size="lg" className="hero-button-secondary btn-force-visible">
@@ -271,7 +282,7 @@ const Donate = () => {
       </section>
 
       {/* Donation Form */}
-      <section className="py-20 bg-white">
+      <section id="donation-form" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
