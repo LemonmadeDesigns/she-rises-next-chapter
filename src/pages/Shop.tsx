@@ -10,6 +10,7 @@ import ProductCard from "@/components/cards/ProductCard";
 import { Search, Filter } from "lucide-react";
 import productsData from "@/content/products.json";
 import ShopFeaturedButton from "@/components/ui/shop-featured-button";
+import ViewAllCategoriesButton from "@/components/ui/view-all-categories-button";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,9 +54,7 @@ const Shop = () => {
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <ShopFeaturedButton />
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            View All Categories
-          </Button>
+          <ViewAllCategoriesButton />
         </div>
       </Hero>
 
@@ -78,7 +77,7 @@ const Shop = () => {
       )}
 
       {/* All Products */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-section="all-products">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="All Products"
