@@ -9,6 +9,7 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import ProductCard from "@/components/cards/ProductCard";
 import { Search, Filter } from "lucide-react";
 import productsData from "@/content/products.json";
+import ShopFeaturedButton from "@/components/ui/shop-featured-button";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,9 +52,7 @@ const Shop = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-            Shop Featured Items
-          </Button>
+          <ShopFeaturedButton />
           <Button size="lg" className="hero-button-secondary btn-force-visible">
             View All Categories
           </Button>
@@ -62,7 +61,7 @@ const Shop = () => {
 
       {/* Featured Products */}
       {featuredProducts.length > 0 && (
-        <section className="py-20 bg-gradient-soft">
+        <section className="py-20 bg-gradient-soft" data-section="featured-products">
           <div className="container mx-auto px-4">
             <SectionHeader
               title="Featured Products"
