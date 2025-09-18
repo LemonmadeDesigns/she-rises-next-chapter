@@ -9,6 +9,8 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users } from "lucide-react";
+import SendMessageButton from "@/components/ui/send-message-button";
+import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({
@@ -124,12 +126,8 @@ const Contact = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-            Send Us a Message
-          </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            Call Crisis Hotline
-          </Button>
+          <SendMessageButton />
+          <CallCrisisHotlineButton />
         </div>
       </Hero>
 
@@ -163,7 +161,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Form and Office Hours */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-section="contact-form">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -373,7 +371,7 @@ const Contact = () => {
       </section>
 
       {/* Emergency Resources */}
-      <section className="py-20 bg-lotus-rose text-white">
+      <section className="py-20 bg-lotus-rose text-white" data-section="emergency-resources">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <AlertTriangle className="h-12 w-12 text-crown-gold mx-auto mb-6" />
