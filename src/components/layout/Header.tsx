@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingCart, User, LogOut } from "lucide-react";
+import { Menu, X, ShoppingCart, User, LogOut, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -35,6 +35,8 @@ const Header = () => {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
   };
+
+  const isAdmin = user && ['pransom1319@gmail.com', 'LemonsTerrell2021@gmail.com'].includes(user.email || '');
 
   const navigation = [
     { name: "About", href: "/about" },
@@ -100,6 +102,14 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  {isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="flex items-center">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Admin Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -170,6 +180,14 @@ const Header = () => {
                 <div className="px-3 py-2 space-y-2">
                   <p className="text-sm text-muted-foreground">Signed in as:</p>
                   <p className="text-sm font-medium truncate">{user.email}</p>
+                  {isAdmin && (
+                    <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="outline" size="sm" className="w-full">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Admin Dashboard
+                      </Button>
+                    </Link>
+                  )}
                   <Button 
                     variant="outline" 
                     size="sm" 
