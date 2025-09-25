@@ -36,7 +36,10 @@ const Header = () => {
     await supabase.auth.signOut();
   };
 
-  const isAdmin = user && ['pransom1319@gmail.com', 'LemonsTerrell2021@gmail.com'].includes(user.email || '');
+  const isAdmin = user && ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'].includes(user.email?.toLowerCase() || '');
+  
+  // Debug admin status
+  console.log('User:', user?.email, 'Is Admin:', isAdmin);
 
   const navigation = [
     { name: "About", href: "/about" },
