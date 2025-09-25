@@ -9,6 +9,8 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import ProductCard from "@/components/cards/ProductCard";
 import { Search, Filter } from "lucide-react";
 import productsData from "@/content/products.json";
+import ShopFeaturedButton from "@/components/ui/shop-featured-button";
+import ViewAllCategoriesButton from "@/components/ui/view-all-categories-button";
 
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,18 +53,14 @@ const Shop = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-            Shop Featured Items
-          </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            View All Categories
-          </Button>
+          <ShopFeaturedButton />
+          <ViewAllCategoriesButton />
         </div>
       </Hero>
 
       {/* Featured Products */}
       {featuredProducts.length > 0 && (
-        <section className="py-20 bg-gradient-soft">
+        <section className="py-20 bg-gradient-soft" data-section="featured-products">
           <div className="container mx-auto px-4">
             <SectionHeader
               title="Featured Products"
@@ -79,7 +77,7 @@ const Shop = () => {
       )}
 
       {/* All Products */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-section="all-products">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="All Products"

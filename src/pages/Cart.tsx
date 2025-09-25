@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import Layout from "@/components/layout/Layout";
+import AuthRequired from "@/components/auth/AuthRequired";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/components/ui/use-toast";
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, ShoppingCart } from "lucide-react";
@@ -82,7 +83,8 @@ const Cart = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <AuthRequired message="Please sign in to view your cart and make purchases">
+        <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -281,6 +283,7 @@ const Cart = () => {
           </p>
         </div>
       </div>
+      </AuthRequired>
     </Layout>
   );
 };

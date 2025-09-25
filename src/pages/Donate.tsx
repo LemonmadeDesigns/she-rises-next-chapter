@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -13,7 +12,7 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import StripePaymentForm from "@/components/donation/StripePaymentForm";
-import { donationService } from "@/services/donationService";
+import { donationService, type DonationData } from "@/services/donationService";
 import { Heart, DollarSign, Home, Users, Briefcase, GraduationCap, Shield, CheckCircle, CreditCard, Calendar, AlertCircle, Loader2 } from "lucide-react";
 
 const Donate = () => {
@@ -22,7 +21,16 @@ const Donate = () => {
   const [paymentStep, setPaymentStep] = useState<'form' | 'payment'>('form');
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
-  const [donationForm, setDonationForm] = useState({
+  interface DonationFormState extends Omit<DonationData, 'frequency' | 'paymentMethod'> {
+    frequency: 'one-time' | 'monthly';
+    paymentMethod: 'credit' | 'paypal';
+    cardNumber: string;
+    expiryDate: string;
+    cvv: string;
+    nameOnCard: string;
+  }
+
+  const [donationForm, setDonationForm] = useState<DonationFormState>({
     amount: "",
     frequency: "one-time",
     designation: "general",
@@ -140,7 +148,27 @@ const Donate = () => {
     setErrors([]);
 
     // Validate form
-    const validation = donationService.validateDonationForm(donationForm as any);
+    const formDataForValidation: DonationData = {
+      amount: donationForm.amount,
+      frequency: donationForm.frequency === 'monthly' ? 'monthly' : 'one-time',
+      designation: donationForm.designation,
+      firstName: donationForm.firstName,
+      lastName: donationForm.lastName,
+      email: donationForm.email,
+      phone: donationForm.phone,
+      address: donationForm.address,
+      city: donationForm.city,
+      state: donationForm.state,
+      zip: donationForm.zip,
+      paymentMethod: donationForm.paymentMethod,
+      anonymous: donationForm.anonymous,
+      newsletter: donationForm.newsletter,
+      tribute: donationForm.tribute,
+      tributeMessage: donationForm.tributeMessage,
+      tributeNotify: donationForm.tributeNotify
+    };
+
+    const validation = donationService.validateDonationForm(formDataForValidation);
     if (!validation.isValid) {
       setErrors(validation.errors);
       return;
@@ -151,7 +179,7 @@ const Donate = () => {
     try {
       // For credit card payments, create payment intent and show Stripe form
       if (donationForm.paymentMethod === 'credit') {
-        const response = await donationService.processDonation(donationForm as any);
+        const response = await donationService.processDonation(formDataForValidation);
 
         if (response.success && response.clientSecret) {
           setClientSecret(response.clientSecret);
@@ -161,7 +189,7 @@ const Donate = () => {
         }
       } else {
         // For PayPal, process directly
-        const response = await donationService.processDonation(donationForm as any);
+        const response = await donationService.processDonation(formDataForValidation);
 
         if (!response.success) {
           setErrors([response.error || 'Payment processing failed']);
@@ -175,7 +203,7 @@ const Donate = () => {
     }
   };
 
-  const handlePaymentSuccess = async (paymentIntent: any) => {
+  const handlePaymentSuccess = async (paymentIntent: { id: string }) => {
     // Send receipt email
     await donationService.sendReceipt(paymentIntent.id, donationForm.email);
 
@@ -203,6 +231,13 @@ const Donate = () => {
     }));
   };
 
+  const scrollToDonationForm = () => {
+    const donationSection = document.getElementById('donation-form');
+    if (donationSection) {
+      donationSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -212,7 +247,11 @@ const Donate = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+          <Button 
+            size="lg" 
+            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+            onClick={scrollToDonationForm}
+          >
             Donate Now
           </Button>
           <Button size="lg" className="hero-button-secondary btn-force-visible">
@@ -271,7 +310,7 @@ const Donate = () => {
       </section>
 
       {/* Donation Form */}
-      <section className="py-20 bg-white">
+      <section id="donation-form" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -351,12 +390,10 @@ const Donate = () => {
                           onClick={() => selectAmount(item.amount)}
                           aria-pressed={donationForm.amount === item.amount.toString()}
                         >
-                          <span className="text-3xl font-bold leading-none">
-                            ${item.amount}
-                          </span>
-                          <span className="text-sm text-black/80 leading-snug break-words hyphens-auto">
+                          <div className="text-2xl font-bold mb-2">${item.amount}</div>
+                          <div className="text-xs leading-tight line-clamp-3">
                             {item.impact}
-                          </span>
+                          </div>
                         </button>
                       ))}
                     </div>

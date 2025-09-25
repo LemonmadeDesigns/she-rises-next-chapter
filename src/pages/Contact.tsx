@@ -1,4 +1,5 @@
 import { useState } from "react";
+import VisitSchedulingModal from '@/components/modals/VisitSchedulingModal';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,8 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users } from "lucide-react";
+import SendMessageButton from "@/components/ui/send-message-button";
+import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({
@@ -20,26 +23,28 @@ const Contact = () => {
     message: "",
     urgent: false
   });
+  
+  const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
 
   const contactInfo = [
     {
       icon: Phone,
       title: "Main Office",
-      details: "(555) 123-4567",
+      details: "(909) 547-9998",
       description: "Monday - Friday, 9:00 AM - 5:00 PM",
       color: "bg-royal-plum"
     },
     {
       icon: Phone,
       title: "24/7 Crisis Hotline",
-      details: "(555) 123-HELP",
+      details: "(909) 547-9998",
       description: "Available 24 hours a day, 7 days a week",
       color: "bg-lotus-rose"
     },
     {
       icon: Mail,
       title: "Email Us",
-      details: "info@sherises.org",
+      details: "pransom@safehavenforempowerment.org",
       description: "We respond within 24 hours",
       color: "bg-crown-gold"
     },
@@ -55,26 +60,26 @@ const Contact = () => {
   const departments = [
     {
       name: "Program Services",
-      email: "programs@sherises.org",
-      phone: "(555) 123-4571",
+      email: "pransom@safehavenforempowerment.org",
+      phone: "(909) 547-9998",
       description: "Questions about our housing, employment, and support programs"
     },
     {
       name: "Volunteer Coordination",
-      email: "volunteer@sherises.org", 
-      phone: "(555) 123-4572",
+      email: "pransom@safehavenforempowerment.org", 
+      phone: "(909) 547-9998",
       description: "Volunteer opportunities and training information"
     },
     {
       name: "Donations & Fundraising",
-      email: "development@sherises.org",
-      phone: "(555) 123-4573", 
+      email: "pransom@safehavenforempowerment.org",
+      phone: "(909) 547-9998", 
       description: "Corporate partnerships, sponsorships, and major gifts"
     },
     {
       name: "Media & Communications",
-      email: "media@sherises.org",
-      phone: "(555) 123-4574",
+      email: "pransom@safehavenforempowerment.org",
+      phone: "(909) 547-9998",
       description: "Press inquiries, interviews, and media requests"
     }
   ];
@@ -102,10 +107,56 @@ const Contact = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Contact form submitted:", contactForm);
-    // Here you would typically send the form data to your backend
+    
+    try {
+      console.log('Sending email with form data:', contactForm);
+      
+      const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0YWxlcGxidmdpY2p1Z2N3dGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjMzMTUsImV4cCI6MjA3MzQzOTMxNX0.imvT4rK3amfJm6KZRywwksQF4KSu-aLxpSP4Rt_wsOw`
+        },
+        body: JSON.stringify({
+          name: contactForm.name,
+          email: contactForm.email,
+          phone: contactForm.phone,
+          reason: contactForm.category,
+          message: `Subject: ${contactForm.subject}\n\n${contactForm.message}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`
+        }),
+      });
+
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`Failed to send message: ${response.status} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log('Email sent successfully:', result);
+      
+      // Reset form
+      setContactForm({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        category: "",
+        message: "",
+        urgent: false
+      });
+      
+      alert('Thank you for contacting She Rises! We have received your message and will respond within 24-48 hours. Your voice matters to us.');
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('There was an error sending your message. Please try again or call us at (909) 547-9998.');
+    }
   };
 
   const updateForm = (field: string, value: string | boolean) => {
@@ -124,12 +175,8 @@ const Contact = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-            Send Us a Message
-          </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            Call Crisis Hotline
-          </Button>
+          <SendMessageButton />
+          <CallCrisisHotlineButton />
         </div>
       </Hero>
 
@@ -163,7 +210,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Form and Office Hours */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-section="contact-form">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -256,7 +303,7 @@ const Contact = () => {
                         </p>
                         <p className="text-sm text-muted-foreground">
                           If you're in immediate danger or experiencing a crisis, please call our 24/7 hotline at 
-                          <span className="font-bold text-lotus-rose"> (555) 123-HELP</span> or dial 911.
+                          <span className="font-bold text-lotus-rose"> (909) 547-9998</span> or dial 911.
                         </p>
                       </div>
                     </div>
@@ -297,7 +344,7 @@ const Contact = () => {
                     </div>
                     <div className="flex justify-between items-center py-2">
                       <span className="font-medium text-royal-plum">24/7 Crisis Line</span>
-                      <span className="text-lotus-rose font-bold">(555) 123-HELP</span>
+                      <span className="text-lotus-rose font-bold">(909) 547-9998</span>
                     </div>
                   </div>
                 </CardContent>
@@ -347,22 +394,26 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 gap-6">
             {departments.map((dept, index) => (
-              <Card key={index} className="shadow-soft transition-shadow">
-                <CardContent className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
+              <Card key={index} className="shadow-soft transition-shadow h-full flex flex-col">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
                     {dept.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
+                  <p className="text-muted-foreground text-sm mb-6 flex-grow">
                     {dept.description}
                   </p>
-                  <div className="space-y-2">
+                  <div className="space-y-3 mt-auto">
                     <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-crown-gold" />
-                      <span className="text-royal-plum font-medium">{dept.email}</span>
+                      <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                      <a href={`mailto:${dept.email}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                        {dept.email}
+                      </a>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-crown-gold" />
-                      <span className="text-royal-plum font-medium">{dept.phone}</span>
+                      <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                      <a href={`tel:${dept.phone}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                        {dept.phone}
+                      </a>
                     </div>
                   </div>
                 </CardContent>
@@ -373,7 +424,7 @@ const Contact = () => {
       </section>
 
       {/* Emergency Resources */}
-      <section className="py-20 bg-lotus-rose text-white">
+      <section className="py-20 bg-lotus-rose text-white" data-section="emergency-resources">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <AlertTriangle className="h-12 w-12 text-crown-gold mx-auto mb-6" />
@@ -414,52 +465,108 @@ const Contact = () => {
           />
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 How do I apply for housing assistance?
               </h3>
-              <p className="text-muted-foreground mb-4">
-                Contact our Program Services team at (555) 123-4571 or visit our Programs page for detailed application information and eligibility requirements.
+              <p className="text-muted-foreground mb-6 flex-grow">
+                Contact our Program Services team at (909) 547-9998 or visit our Programs page for detailed application information and eligibility requirements.
               </p>
-              <Button variant="outline" size="sm">
-                Learn More About Programs
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const programsSection = document.querySelector('[data-section="programs"]');
+                    if (programsSection) {
+                      programsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/programs';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Learn More About Programs
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 What volunteer opportunities are available?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 We offer various volunteer roles including direct support, administrative help, and event assistance. Training is provided for all positions.
               </p>
-              <Button variant="outline" size="sm">
-                View Volunteer Opportunities
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const volunteerSection = document.querySelector('[data-section="volunteer"]');
+                    if (volunteerSection) {
+                      volunteerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/get-involved';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  View Volunteer Opportunities
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 How can my organization partner with She Rises?
               </h3>
-              <p className="text-muted-foreground mb-4">
-                We welcome corporate partnerships and sponsorships. Contact our Development team at (555) 123-4573 to discuss partnership opportunities.
+              <p className="text-muted-foreground mb-6 flex-grow">
+                We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 547-9998 to discuss partnership opportunities.
               </p>
-              <Button variant="outline" size="sm">
-                Explore Partnerships
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const partnershipSection = document.querySelector('[data-section="partnerships"]');
+                    if (partnershipSection) {
+                      partnershipSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/get-involved';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Explore Partnerships
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 Is there a cost for your services?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 All our support services are provided free of charge to participants. We believe that financial barriers should never prevent someone from getting help.
               </p>
-              <Button variant="outline" size="sm">
-                Learn About Our Services
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const servicesSection = document.querySelector('[data-section="services"]');
+                    if (servicesSection) {
+                      servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/programs';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Learn About Our Services
+                </Button>
+              </div>
             </Card>
           </div>
         </div>
@@ -477,15 +584,33 @@ const Contact = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+            <Button 
+              size="lg" 
+              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+              onClick={() => {
+                const contactFormSection = document.querySelector('[data-section="contact-form"]');
+                if (contactFormSection) {
+                  contactFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
               Get Support Today
             </Button>
-            <Button size="lg" className="hero-button-tertiary btn-force-visible">
+            <Button 
+              size="lg" 
+              className="hero-button-tertiary btn-force-visible"
+              onClick={() => setIsVisitModalOpen(true)}
+            >
               Schedule a Visit
             </Button>
           </div>
         </div>
       </section>
+      
+      <VisitSchedulingModal 
+        open={isVisitModalOpen} 
+        onOpenChange={setIsVisitModalOpen} 
+      />
     </Layout>
   );
 };

@@ -325,4 +325,12 @@ All colors MUST be HSL.
   .bg-white:not(.cart-button):not(.hero-button-secondary):not(.hero-button-tertiary):not(.btn-force-visible) {
     box-shadow: 2px 2px 6px darkslategrey !important;
   }
+
+  /* Text truncation utility */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }

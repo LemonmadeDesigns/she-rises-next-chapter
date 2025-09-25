@@ -388,7 +388,7 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>• Add the event to your calendar</p>
               <p>• Check your email for confirmation details</p>
-              <p>• Contact us at (555) 123-4567 with any questions</p>
+              <p>• Contact us at (909) 547-9998 with any questions</p>
             </div>
           </div>
         )}
