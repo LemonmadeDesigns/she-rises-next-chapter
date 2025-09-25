@@ -27,14 +27,14 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Main Office",
-      details: "(555) 123-4567",
+      details: "(909) 547-9998",
       description: "Monday - Friday, 9:00 AM - 5:00 PM",
       color: "bg-royal-plum"
     },
     {
       icon: Phone,
       title: "24/7 Crisis Hotline",
-      details: "(555) 123-HELP",
+      details: "(909) 547-9998",
       description: "Available 24 hours a day, 7 days a week",
       color: "bg-lotus-rose"
     },
@@ -58,25 +58,25 @@ const Contact = () => {
     {
       name: "Program Services",
       email: "programs@sherises.org",
-      phone: "(555) 123-4571",
+      phone: "(909) 547-9998",
       description: "Questions about our housing, employment, and support programs"
     },
     {
       name: "Volunteer Coordination",
       email: "volunteer@sherises.org", 
-      phone: "(555) 123-4572",
+      phone: "(909) 547-9998",
       description: "Volunteer opportunities and training information"
     },
     {
       name: "Donations & Fundraising",
       email: "development@sherises.org",
-      phone: "(555) 123-4573", 
+      phone: "(909) 547-9998", 
       description: "Corporate partnerships, sponsorships, and major gifts"
     },
     {
       name: "Media & Communications",
       email: "media@sherises.org",
-      phone: "(555) 123-4574",
+      phone: "(909) 547-9998",
       description: "Press inquiries, interviews, and media requests"
     }
   ];
@@ -148,7 +148,7 @@ const Contact = () => {
         urgent: false
       });
       
-      alert('Thank you for your message! We will respond within 24-48 hours.');
+      alert('Thank you for contacting She Rises! We have received your message and will respond within 24-48 hours. Your voice matters to us.');
       
     } catch (error) {
       console.error('Error sending email:', error);
@@ -300,7 +300,7 @@ const Contact = () => {
                         </p>
                         <p className="text-sm text-muted-foreground">
                           If you're in immediate danger or experiencing a crisis, please call our 24/7 hotline at 
-                          <span className="font-bold text-lotus-rose"> (555) 123-HELP</span> or dial 911.
+                          <span className="font-bold text-lotus-rose"> (909) 547-9998</span> or dial 911.
                         </p>
                       </div>
                     </div>
@@ -341,7 +341,7 @@ const Contact = () => {
                     </div>
                     <div className="flex justify-between items-center py-2">
                       <span className="font-medium text-royal-plum">24/7 Crisis Line</span>
-                      <span className="text-lotus-rose font-bold">(555) 123-HELP</span>
+                      <span className="text-lotus-rose font-bold">(909) 547-9998</span>
                     </div>
                   </div>
                 </CardContent>
@@ -463,7 +463,7 @@ const Contact = () => {
                 How do I apply for housing assistance?
               </h3>
               <p className="text-muted-foreground mb-4">
-                Contact our Program Services team at (555) 123-4571 or visit our Programs page for detailed application information and eligibility requirements.
+                Contact our Program Services team at (909) 547-9998 or visit our Programs page for detailed application information and eligibility requirements.
               </p>
               <Button variant="outline" size="sm">
                 Learn More About Programs
@@ -487,7 +487,7 @@ const Contact = () => {
                 How can my organization partner with She Rises?
               </h3>
               <p className="text-muted-foreground mb-4">
-                We welcome corporate partnerships and sponsorships. Contact our Development team at (555) 123-4573 to discuss partnership opportunities.
+                We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 547-9998 to discuss partnership opportunities.
               </p>
               <Button variant="outline" size="sm">
                 Explore Partnerships

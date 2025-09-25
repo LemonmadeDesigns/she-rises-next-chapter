@@ -424,7 +424,7 @@ const Programs = () => {
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
                 <h3 className="font-bold text-lg mb-2">24/7 Crisis Hotline</h3>
-                <p className="text-2xl font-bold text-crown-gold mb-2">(555) 123-HELP</p>
+                <p className="text-2xl font-bold text-crown-gold mb-2">(909) 547-9998</p>
                 <p className="text-sm text-white/90">Available 24 hours a day</p>
               </CardContent>
             </Card>
