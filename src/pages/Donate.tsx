@@ -254,24 +254,13 @@ const Donate = () => {
           >
             Donate Now
           </Button>
-          <Link 
-            to="/monthly-giving" 
-            className="inline-block"
-            style={{ zIndex: 10, position: 'relative' }}
+          <Button 
+            size="lg" 
+            className="hero-button-secondary btn-force-visible"
+            onClick={() => window.location.href = '/monthly-giving'}
           >
-            <Button 
-              size="lg" 
-              className="hero-button-secondary btn-force-visible"
-              style={{ 
-                pointerEvents: 'auto',
-                touchAction: 'manipulation',
-                zIndex: 10,
-                position: 'relative'
-              }}
-            >
-              Monthly Giving
-            </Button>
-          </Link>
+            Monthly Giving
+          </Button>
         </div>
       </Hero>
 
