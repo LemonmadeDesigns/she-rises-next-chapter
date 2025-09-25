@@ -6,6 +6,7 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { Link } from "react-router-dom";
 import heroWomanImage from "@/assets/hero-woman.jpg";
+import preciousRansomImage from "@/assets/precious-ransom.jpg";
 
 const About = () => {
   const values = [
@@ -193,8 +194,8 @@ const About = () => {
                   <div className="text-center">
                     <div className="w-48 h-48 bg-gradient-gold rounded-full mx-auto mb-6 overflow-hidden">
                       <img 
-                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces" 
-                        alt="Precious Ransom, Founder" 
+                        src={preciousRansomImage} 
+                        alt="Precious Ransom, Executive Director" 
                         className="w-full h-full object-cover"
                       />
                     </div>
