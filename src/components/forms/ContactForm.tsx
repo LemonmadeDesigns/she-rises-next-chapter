@@ -39,8 +39,19 @@ const ContactForm = ({ className }: ContactFormProps) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/functions/v1/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       toast({
         title: "Message sent!",
         description: "Thank you for contacting us. We'll respond within 24-48 hours.",
@@ -54,8 +65,16 @@ const ContactForm = ({ className }: ContactFormProps) => {
         reason: "",
         message: ""
       });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error sending message",
+        description: "Please try again or call us at (909) 547-9998.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
