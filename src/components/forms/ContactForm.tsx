@@ -39,6 +39,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    console.log('Contact form submitting with data:', formData);
     try {
       const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
         method: 'POST',
@@ -49,9 +50,16 @@ const ContactForm = ({ className }: ContactFormProps) => {
         body: JSON.stringify(formData),
       });
 
+      console.log('Fetch response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`Failed to send message: ${response.status} - ${errorText}`);
       }
+
+      const result = await response.json();
+      console.log('Email sent successfully:', result);
 
       toast({
         title: "Message sent!",

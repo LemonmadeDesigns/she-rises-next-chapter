@@ -12,21 +12,33 @@ interface ContactEmailRequest {
   name: string;
   email: string;
   phone?: string;
-  reason: string;
+  reason?: string;
+  category?: string;
   message: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
+  console.log('Edge function called with method:', req.method);
+  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { name, email, phone, reason, message }: ContactEmailRequest = await req.json();
+    const requestBody = await req.text();
+    console.log('Raw request body:', requestBody);
+    
+    const { name, email, phone, reason, category, message }: ContactEmailRequest = JSON.parse(requestBody);
+    console.log('Parsed form data:', { name, email, phone, reason, category, message });
+    
+    // Use either reason or category field
+    const contactReason = reason || category || 'Not specified';
 
     // Validate required fields
+    console.log('Validating fields...');
     if (!name || !email || !message) {
+      console.error('Validation failed - missing required fields:', { name: !!name, email: !!email, message: !!message });
       return new Response(
         JSON.stringify({ error: "Name, email, and message are required" }),
         {
@@ -36,6 +48,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    console.log('Sending organization email...');
     // Send email to organization
     const orgEmailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -46,13 +59,13 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "She Rises Contact Form <onboarding@resend.dev>",
         to: ["pransom@safehavenforempowerment.org"],
-        subject: `New Contact Form Submission: ${reason || 'General Inquiry'}`,
+        subject: `New Contact Form Submission: ${contactReason}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-          <p><strong>Reason for Contact:</strong> ${reason || 'Not specified'}</p>
+          <p><strong>Reason for Contact:</strong> ${contactReason}</p>
           <p><strong>Message:</strong></p>
           <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
             ${message.replace(/\n/g, '<br>')}
@@ -65,6 +78,11 @@ const handler = async (req: Request): Promise<Response> => {
       })
     });
 
+    console.log('Organization email response status:', orgEmailResponse.status);
+    const orgEmailResult = await orgEmailResponse.json();
+    console.log('Organization email result:', orgEmailResult);
+
+    console.log('Sending user confirmation email...');
     // Send confirmation email to user
     const userEmailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -93,8 +111,11 @@ const handler = async (req: Request): Promise<Response> => {
       })
     });
 
-    console.log("Organization email sent successfully:", await orgEmailResponse.json());
-    console.log("User confirmation email sent successfully:", await userEmailResponse.json());
+    console.log('User email response status:', userEmailResponse.status);
+    const userEmailResult = await userEmailResponse.json();
+    console.log('User email result:', userEmailResult);
+
+    console.log("Both emails sent successfully");
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

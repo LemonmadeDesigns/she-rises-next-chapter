@@ -104,10 +104,56 @@ const Contact = () => {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Contact form submitted:", contactForm);
-    // Here you would typically send the form data to your backend
+    
+    try {
+      console.log('Sending email with form data:', contactForm);
+      
+      const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0YWxlcGxidmdpY2p1Z2N3dGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjMzMTUsImV4cCI6MjA3MzQzOTMxNX0.imvT4rK3amfJm6KZRywwksQF4KSu-aLxpSP4Rt_wsOw`
+        },
+        body: JSON.stringify({
+          name: contactForm.name,
+          email: contactForm.email,
+          phone: contactForm.phone,
+          reason: contactForm.category,
+          message: `Subject: ${contactForm.subject}\n\n${contactForm.message}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`
+        }),
+      });
+
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error(`Failed to send message: ${response.status} - ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log('Email sent successfully:', result);
+      
+      // Reset form
+      setContactForm({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        category: "",
+        message: "",
+        urgent: false
+      });
+      
+      alert('Thank you for your message! We will respond within 24-48 hours.');
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('There was an error sending your message. Please try again or call us at (909) 547-9998.');
+    }
   };
 
   const updateForm = (field: string, value: string | boolean) => {
