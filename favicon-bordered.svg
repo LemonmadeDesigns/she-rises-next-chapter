@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .border { fill: #E91E63; }
+      .background { fill: #FFFFFF; }
+      .text { fill: #4A1E66; font-family: serif; font-weight: bold; font-size: 16px; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Pink border -->
+  <rect width="32" height="32" rx="6" class="border"/>
+
+  <!-- White background -->
+  <rect x="2" y="2" width="28" height="28" rx="4" class="background"/>
+
+  <!-- She Rises logo text -->
+  <text x="16" y="12" class="text" style="font-size: 8px;">She</text>
+  <text x="16" y="22" class="text" style="font-size: 8px;">Rises</text>
+</svg>
