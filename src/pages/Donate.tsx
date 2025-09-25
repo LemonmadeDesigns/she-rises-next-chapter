@@ -327,24 +327,37 @@ const Donate = () => {
                       Donation Amount
                     </Label>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                       {donationAmounts.map((item) => (
-                        <Button
+                        <button
                           key={item.amount}
                           type="button"
-                          variant={donationForm.amount === item.amount.toString() ? "default" : "outline"}
-                          className={`h-auto p-4 flex flex-col items-center ${
-                            donationForm.amount === item.amount.toString()
-                              ? "bg-crown-gold text-royal-plum"
-                              : "hover:bg-crown-gold/10"
-                          }`}
+                          className={`
+                            w-full h-44
+                            p-4
+                            rounded-xl border
+                            shadow-sm
+                            flex flex-col items-center justify-center gap-2
+                            text-center
+                            overflow-hidden
+                            box-border
+                            transition-colors
+                            ${
+                              donationForm.amount === item.amount.toString()
+                                ? "bg-crown-gold border-crown-gold/50 text-royal-plum"
+                                : "bg-white border-black/10 hover:bg-warm-cream text-black"
+                            }
+                          `}
                           onClick={() => selectAmount(item.amount)}
+                          aria-pressed={donationForm.amount === item.amount.toString()}
                         >
-                          <div className="text-2xl font-bold mb-1">${item.amount}</div>
-                          <div className="text-xs text-center leading-tight">
+                          <span className="text-3xl font-bold leading-none">
+                            ${item.amount}
+                          </span>
+                          <span className="text-sm text-black/80 leading-snug break-words hyphens-auto">
                             {item.impact}
-                          </div>
-                        </Button>
+                          </span>
+                        </button>
                       ))}
                     </div>
                     

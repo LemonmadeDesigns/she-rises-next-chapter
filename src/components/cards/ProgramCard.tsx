@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Home, Briefcase, Users, Heart, Link as LinkIcon, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import LazyImage from "@/components/images/LazyImage";
 
 const iconMap: Record<string, LucideIcon> = {
   Home,
@@ -40,12 +41,14 @@ const ProgramCard = ({
     )}>
       {image && (
         <div className="aspect-video relative overflow-hidden">
-          <img 
-            src={image} 
-            alt={title}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          <LazyImage
+            src={image}
+            alt={`${title} - She Rises program`}
+            aspectRatio="16/9"
+            className="hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 z-10">
             <div className="w-12 h-12 bg-crown-gold rounded-full flex items-center justify-center shadow-lg">
               <Icon className="h-6 w-6 text-royal-plum" />
             </div>

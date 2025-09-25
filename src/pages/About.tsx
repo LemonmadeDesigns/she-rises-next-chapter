@@ -5,7 +5,10 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { Link } from "react-router-dom";
-import heroWomanImage from "@/assets/hero-woman.jpg";
+import heroWomanImage from "@/assets/hero-woman-hero.jpg";
+import heroWomanImageWebp from "@/assets/hero-woman-hero.webp";
+import heroWomanImageAvif from "@/assets/hero-woman-hero.avif";
+import { aboutHeroBlurDataUrl } from "@/assets/about-hero-blur-data";
 
 const About = () => {
   const values = [
@@ -52,6 +55,12 @@ const About = () => {
         title="Our Mission"
         subtitle="She Rises provides safe housing, supportive services, and reentry resources that empower women experiencing homelessness and rebuilding after incarceration."
         backgroundImage={heroWomanImage}
+        backgroundImageWebp={heroWomanImageWebp}
+        backgroundImageAvif={heroWomanImageAvif}
+        backgroundImageBlur={aboutHeroBlurDataUrl}
+        backgroundImageAlt="She Rises: Empowering women through safe housing and supportive services"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Link to="/programs">

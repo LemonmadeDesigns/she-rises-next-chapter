@@ -1,10 +1,17 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import OptimizedHero from "@/components/images/OptimizedHero";
 
 interface HeroProps {
   title: string | ReactNode;
   subtitle?: string | ReactNode;
   backgroundImage?: string;
+  backgroundImageWebp?: string;
+  backgroundImageAvif?: string;
+  backgroundImageBlur?: string;
+  backgroundImageAlt?: string;
+  backgroundImageWidth?: number;
+  backgroundImageHeight?: number;
   backgroundColor?: string;
   children?: ReactNode;
   className?: string;
@@ -16,6 +23,12 @@ const Hero = ({
   title,
   subtitle,
   backgroundImage,
+  backgroundImageWebp,
+  backgroundImageAvif,
+  backgroundImageBlur,
+  backgroundImageAlt = "She Rises: every woman deserves a safe place to rise",
+  backgroundImageWidth = 1920,
+  backgroundImageHeight = 1080,
   backgroundColor,
   children,
   className,
@@ -27,14 +40,22 @@ const Hero = ({
       className={cn(
         "relative overflow-hidden",
         fullHeight ? "h-screen" : "py-24 md:py-32",
+        fullHeight && "m-0 p-0", // Remove any margins/padding for fullHeight
         className
       )}
     >
       {backgroundImage && (
         <>
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-fixed scale-110"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
+          <OptimizedHero
+            src={backgroundImage}
+            webpSrc={backgroundImageWebp}
+            avifSrc={backgroundImageAvif}
+            blurSrc={backgroundImageBlur}
+            alt={backgroundImageAlt}
+            width={backgroundImageWidth}
+            height={backgroundImageHeight}
+            className="absolute inset-0"
+            priority={true}
           />
           {overlay && (
             <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/30 via-transparent to-royal-plum/70" />

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Performance Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-result {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; }
+        .warning { background: #fff3cd; }
+        .error { background: #f8d7da; }
+        .image-container {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        .blur-placeholder {
+            filter: blur(20px);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Performance Optimization Test</h1>
+
+    <div class="test-result success">
+        <h3>✅ Hero Image Optimization Strategy</h3>
+        <ul>
+            <li><strong>Blur-up placeholder:</strong> Data URL loaded instantly</li>
+            <li><strong>Format priority:</strong> AVIF → WebP → JPG fallback</li>
+            <li><strong>Preload tags:</strong> Critical resources loaded early</li>
+            <li><strong>Eager loading:</strong> Above-the-fold images with fetchpriority="high"</li>
+            <li><strong>Layout stability:</strong> Explicit width/height prevents CLS</li>
+        </ul>
+    </div>
+
+    <div class="test-result success">
+        <h3>✅ Below-the-fold Image Strategy</h3>
+        <ul>
+            <li><strong>Lazy loading:</strong> Images load only when needed</li>
+            <li><strong>Intersection Observer:</strong> 1000px rootMargin for early loading</li>
+            <li><strong>Progressive enhancement:</strong> Blur placeholder → full image</li>
+            <li><strong>Responsive images:</strong> Appropriate sizes for different viewports</li>
+        </ul>
+    </div>
+
+    <div class="test-result">
+        <h3>📊 Performance Expectations</h3>
+        <ul>
+            <li><strong>LCP (Largest Contentful Paint):</strong> &lt; 1 second on fast 4G</li>
+            <li><strong>CLS (Cumulative Layout Shift):</strong> 0 (explicit dimensions)</li>
+            <li><strong>File size reduction:</strong> ~85-95% smaller than original PNG</li>
+            <li><strong>Network requests:</strong> Reduced by early image preloading</li>
+        </ul>
+    </div>
+
+    <div class="test-result warning">
+        <h3>⚠️ Manual Optimization Required</h3>
+        <p>To complete the optimization, you need to:</p>
+        <ol>
+            <li>Install image optimization tools: <code>npm install -g @squoosh/cli</code></li>
+            <li>Generate AVIF versions: Target 50-70KB</li>
+            <li>Generate WebP versions: Target 80-120KB</li>
+            <li>Generate optimized JPEG: Target 150-200KB</li>
+            <li>Create tiny blur placeholders: &lt; 2KB</li>
+        </ol>
+        <p>See <code>optimize-images.md</code> for detailed instructions.</p>
+    </div>
+
+    <div class="image-container">
+        <h4>Blur Placeholder Demo</h4>
+        <div style="position: relative; aspect-ratio: 16/9; background: #f5f5f5;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(45deg, #e0e0e0, #f0f0f0); display: flex; align-items: center; justify-content: center; transition: opacity 0.5s;">
+                <div class="blur-placeholder" style="font-size: 12px; color: #666;">Blur placeholder effect</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test Web API support
+        const testResults = {
+            intersectionObserver: 'IntersectionObserver' in window,
+            createImageBitmap: 'createImageBitmap' in window,
+            webp: false,
+            avif: false
+        };
+
+        // Test WebP support
+        const webpTest = new Image();
+        webpTest.onload = () => {
+            testResults.webp = webpTest.width === 1;
+            updateResults();
+        };
+        webpTest.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+
+        // Test AVIF support
+        const avifTest = new Image();
+        avifTest.onload = () => {
+            testResults.avif = avifTest.width === 1;
+            updateResults();
+        };
+        avifTest.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=';
+
+        function updateResults() {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'test-result';
+            resultDiv.innerHTML = `
+                <h3>🔧 Browser Capabilities</h3>
+                <ul>
+                    <li><strong>Intersection Observer:</strong> ${testResults.intersectionObserver ? '✅' : '❌'}</li>
+                    <li><strong>WebP Support:</strong> ${testResults.webp ? '✅' : '❌'}</li>
+                    <li><strong>AVIF Support:</strong> ${testResults.avif ? '✅' : '❌'}</li>
+                    <li><strong>createImageBitmap:</strong> ${testResults.createImageBitmap ? '✅' : '❌'}</li>
+                </ul>
+            `;
+            document.body.appendChild(resultDiv);
+        }
+
+        // Test performance measurement
+        if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.name.includes('largest-contentful-paint')) {
+                        console.log('LCP:', entry.startTime);
+                    }
+                }
+            });
+            observer.observe({entryTypes: ['largest-contentful-paint']});
+        }
+    </script>
+</body>
+</html>

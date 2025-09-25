@@ -160,9 +160,9 @@ const ProductDetail = () => {
               {/* Size Selection */}
               {product.sizes && product.sizes.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-royal-plum mb-2">
                     Size
-                  </label>
+                  </div>
                   <Select value={selectedSize} onValueChange={setSelectedSize}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a size" />
@@ -181,9 +181,9 @@ const ProductDetail = () => {
               {/* Color Selection */}
               {product.colors && product.colors.length > 0 && (
                 <div>
-                  <label className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-royal-plum mb-2">
                     Color
-                  </label>
+                  </div>
                   <Select value={selectedColor} onValueChange={setSelectedColor}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a color" />
@@ -201,9 +201,9 @@ const ProductDetail = () => {
 
               {/* Quantity */}
               <div>
-                <label className="block text-sm font-medium text-royal-plum mb-2">
+                <div className="block text-sm font-medium text-royal-plum mb-2">
                   Quantity
-                </label>
+                </div>
                 <Select value={quantity.toString()} onValueChange={(v) => setQuantity(parseInt(v))}>
                   <SelectTrigger className="w-24">
                     <SelectValue />

@@ -353,9 +353,9 @@ const Events = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-royal-plum mb-2">
                     Category
-                  </label>
+                  </div>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                     <SelectTrigger>
                       <SelectValue placeholder="All Categories" />
@@ -371,9 +371,9 @@ const Events = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-royal-plum mb-2">
                     Month
-                  </label>
+                  </div>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
                     <SelectTrigger>
                       <SelectValue placeholder="All Months" />

@@ -197,6 +197,13 @@ All colors MUST be HSL.
     padding: 2px !important;
   }
 
+  /* Remove borders from hero/banner images */
+  img[alt*="hero" i], img[alt*="banner" i], img[alt*="Every woman deserves" i] {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
   /* Modern Beautiful Cart Button */
   .cart-button {
     position: relative !important;

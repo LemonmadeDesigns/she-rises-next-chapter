@@ -65,5 +65,18 @@
     "Professional clothing",
     "School supplies"
   ],
-  "partners": []
+  "partners": [
+    {
+      "id": "innercode",
+      "name": "InnerCode",
+      "tier": "technology",
+      "description": "AI-powered technology solutions supporting our digital transformation"
+    },
+    {
+      "id": "awip",
+      "name": "AWIP",
+      "tier": "community",
+      "description": "Community partnership supporting women's empowerment initiatives"
+    }
+  ]
 }
