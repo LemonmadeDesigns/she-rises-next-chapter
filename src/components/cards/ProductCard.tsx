@@ -28,6 +28,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [imageError, setImageError] = useState(false);
   const { dispatch } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -80,11 +81,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <Card className="overflow-hidden shadow-soft hover:border-2 hover:border-lotus-rose transition-all duration-300 bg-white group h-full flex flex-col">
       <Link to={`/shop/${product.id}`}>
         <div className="aspect-square relative overflow-hidden bg-warm-cream">
-          <img 
-            src={product.images[0]} 
-            alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+          {!imageError ? (
+            <img
+              src={product.images[0]}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gray-200">
+              <div className="text-center p-4">
+                <div className="text-gray-500 mb-2">📦</div>
+                <div className="text-xs text-gray-600">{product.name}</div>
+              </div>
+            </div>
+          )}
           {product.featured && (
             <Badge className="absolute top-3 left-3 bg-crown-gold text-royal-plum">
               <Star className="h-3 w-3 mr-1" />

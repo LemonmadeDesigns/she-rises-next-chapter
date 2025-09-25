@@ -6,7 +6,7 @@
       "description": "Beautiful spiral-bound notebook featuring the She Rises logo. Perfect for journaling, notes, or planning your empowerment journey.",
       "price": 16.99,
       "images": [
-        "/src/assets/spiral-notebooks.jpg"
+        "/images/products/spiral-notebooks.jpg"
       ],
       "category": "stationery",
       "inStock": true,
@@ -24,7 +24,7 @@
       "description": "Start your day with purpose. Beautiful white ceramic mug featuring the iconic She Rises logo with lotus design.",
       "price": 15.95,
       "images": [
-        "/src/assets/coffee-mug.jpg"
+        "/images/products/coffee-mug.jpg"
       ],
       "category": "home",
       "inStock": true,
@@ -42,7 +42,7 @@
       "description": "Show your support with this classic white baseball cap featuring the She Rises logo and inspiring message.",
       "price": 22.99,
       "images": [
-        "/src/assets/white-baseball-cap.jpg"
+        "/images/products/white-baseball-cap.jpg"
       ],
       "category": "apparel",
       "inStock": true,
@@ -60,7 +60,7 @@
       "description": "Stylish blue baseball cap with the beautiful She Rises logo. Perfect for everyday wear while supporting the cause.",
       "price": 22.99,
       "images": [
-        "/src/assets/blue-baseball-cap.jpg"
+        "/images/products/blue-baseball-cap.jpg"
       ],
       "category": "apparel",
       "colors": ["Royal Blue"],
@@ -79,7 +79,7 @@
       "description": "Professional mouse pad featuring the She Rises logo. Perfect for your office or home workspace.",
       "price": 12.99,
       "images": [
-        "/src/assets/mouse-pad.jpg"
+        "/images/products/mouse-pad.jpg"
       ],
       "category": "accessories",
       "inStock": true,
