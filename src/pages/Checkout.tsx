@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import Layout from "@/components/layout/Layout";
+import AuthRequired from "@/components/auth/AuthRequired";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/components/ui/use-toast";
 import { ArrowLeft, Lock, CreditCard, Truck, ShieldCheck, CheckCircle } from "lucide-react";
@@ -206,7 +207,8 @@ const Checkout = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <AuthRequired message="Please sign in to complete your purchase">
+        <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -609,8 +611,9 @@ const Checkout = () => {
               </CardContent>
             </Card>
           </div>
+          </div>
         </div>
-      </div>
+      </AuthRequired>
     </Layout>
   );
 };

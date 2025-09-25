@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import Layout from "@/components/layout/Layout";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser } from '@supabase/supabase-js';
 import { ShoppingCart, ArrowLeft, Star, Truck, Shield, RefreshCw } from "lucide-react";
 import productsData from "@/content/products.json";
 
@@ -15,11 +17,29 @@ const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const { dispatch } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  useEffect(() => {
+    // Get current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const product = productsData.products.find(p => p.id === productId);
 
@@ -39,6 +59,16 @@ const ProductDetail = () => {
   }
 
   const handleAddToCart = () => {
+    if (!user) {
+      toast({
+        title: "Sign In Required",
+        description: "Please sign in to add items to your cart.",
+        variant: "destructive"
+      });
+      navigate('/auth');
+      return;
+    }
+
     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
       toast({
         title: "Please select a size",
