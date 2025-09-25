@@ -19,6 +19,13 @@ const Shop = () => {
 
   const { products, categories } = productsData;
 
+  // Debug logging
+  console.log(`🛒 Shop component loaded:`, {
+    totalProducts: products.length,
+    products: products.map(p => ({ id: p.id, name: p.name, images: p.images })),
+    categories: categories.map(c => ({ id: c.id, name: c.name }))
+  });
+
   // Filter and sort products
   const filteredProducts = products
     .filter(product => {

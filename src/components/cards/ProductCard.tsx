@@ -33,8 +33,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Debug logging
+  console.log(`🔍 ProductCard rendering for product:`, {
+    id: product.id,
+    name: product.name,
+    images: product.images,
+    firstImage: product.images[0],
+    imageError
+  });
+
   // Reset imageError when product changes
   useEffect(() => {
+    console.log(`🔄 Product changed to ${product.id}, resetting imageError`);
     setImageError(false);
   }, [product.id]);
 
@@ -86,28 +96,65 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <Card className="overflow-hidden shadow-soft hover:border-2 hover:border-lotus-rose transition-all duration-300 bg-white group h-full flex flex-col">
       <Link to={`/shop/${product.id}`}>
         <div className="aspect-square relative overflow-hidden bg-warm-cream">
-          {!imageError ? (
-            <img
-              src={product.images[0]}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onLoad={() => {
-                console.log(`✅ Image loaded successfully: ${product.images[0]}`);
-              }}
-              onError={(e) => {
-                console.error(`❌ Failed to load image: ${product.images[0]}`, e);
-                setImageError(true);
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-200">
-              <div className="text-center p-4">
-                <div className="text-gray-500 mb-2">📦</div>
-                <div className="text-xs text-gray-600">{product.name}</div>
-                <div className="text-xs text-red-600 mt-1">Image failed to load</div>
+          {(() => {
+            const imageSrc = product.images[0];
+            console.log(`🖼️ Rendering image for ${product.name}:`, {
+              imageSrc,
+              imageError,
+              baseURL: window.location.origin,
+              fullURL: new URL(imageSrc, window.location.origin).href
+            });
+
+            return !imageError ? (
+              <img
+                src={imageSrc}
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                onLoad={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  console.log(`✅ Image loaded successfully:`, {
+                    src: imageSrc,
+                    actualSrc: target.src,
+                    naturalWidth: target.naturalWidth,
+                    naturalHeight: target.naturalHeight
+                  });
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  console.error(`❌ Failed to load image:`, {
+                    originalSrc: imageSrc,
+                    actualSrc: target.src,
+                    error: e,
+                    baseURL: window.location.origin,
+                    fullURL: new URL(imageSrc, window.location.origin).href
+                  });
+
+                  // Test if the image exists by trying different paths
+                  const testPaths = [
+                    imageSrc,
+                    imageSrc.replace('/images/', '/public/images/'),
+                    imageSrc.replace('/images/', './images/'),
+                    imageSrc.replace('/images/', 'images/'),
+                    `/public${imageSrc}`,
+                    `.${imageSrc}`
+                  ];
+
+                  console.log(`🧪 Testing alternative paths for ${product.name}:`, testPaths);
+
+                  setImageError(true);
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                <div className="text-center p-4">
+                  <div className="text-gray-500 mb-2">📦</div>
+                  <div className="text-xs text-gray-600">{product.name}</div>
+                  <div className="text-xs text-red-600 mt-1">Image failed to load</div>
+                  <div className="text-xs text-blue-600 mt-1">Path: {product.images[0]}</div>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
           {product.featured && (
             <Badge className="absolute top-3 left-3 bg-crown-gold text-royal-plum">
               <Star className="h-3 w-3 mr-1" />
