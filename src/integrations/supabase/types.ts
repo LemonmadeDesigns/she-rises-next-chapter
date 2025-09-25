@@ -205,6 +205,33 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       programs: {
         Row: {
           created_at: string
@@ -265,6 +292,48 @@ export type Database = {
         }
         Relationships: []
       }
+      visit_requests: {
+        Row: {
+          admin_notes: string | null
+          created_at: string | null
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          preferred_date: string
+          preferred_time: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          preferred_date: string
+          preferred_time: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          preferred_date?: string
+          preferred_time?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -273,6 +342,10 @@ export type Database = {
       get_session_id: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      is_admin_by_email: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
       }
       is_admin_user: {
         Args: Record<PropertyKey, never>

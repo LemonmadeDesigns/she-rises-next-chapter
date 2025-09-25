@@ -1,4 +1,5 @@
 import { useState } from "react";
+import VisitSchedulingModal from '@/components/modals/VisitSchedulingModal';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,8 @@ const Contact = () => {
     message: "",
     urgent: false
   });
+  
+  const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
 
   const contactInfo = [
     {
@@ -581,15 +584,33 @@ const Contact = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+            <Button 
+              size="lg" 
+              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+              onClick={() => {
+                const contactFormSection = document.querySelector('[data-section="contact-form"]');
+                if (contactFormSection) {
+                  contactFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+            >
               Get Support Today
             </Button>
-            <Button size="lg" className="hero-button-tertiary btn-force-visible">
+            <Button 
+              size="lg" 
+              className="hero-button-tertiary btn-force-visible"
+              onClick={() => setIsVisitModalOpen(true)}
+            >
               Schedule a Visit
             </Button>
           </div>
         </div>
       </section>
+      
+      <VisitSchedulingModal 
+        open={isVisitModalOpen} 
+        onOpenChange={setIsVisitModalOpen} 
+      />
     </Layout>
   );
 };
