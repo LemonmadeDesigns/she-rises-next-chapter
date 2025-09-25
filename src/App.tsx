@@ -23,6 +23,8 @@ import Terms from "./pages/Terms";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import TestAdmin from "./pages/TestAdmin";
+import ImageTest from "./pages/ImageTest";
+import MonthlyGiving from "./pages/MonthlyGiving";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -60,6 +62,8 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/test-admin" element={<TestAdmin />} />
+          <Route path="/image-test" element={<ImageTest />} />
+          <Route path="/monthly-giving" element={<MonthlyGiving />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -254,9 +254,11 @@ const Donate = () => {
           >
             Donate Now
           </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            Monthly Giving
-          </Button>
+          <Link to="/monthly-giving">
+            <Button size="lg" className="hero-button-secondary btn-force-visible">
+              Monthly Giving
+            </Button>
+          </Link>
         </div>
       </Hero>
 
@@ -814,9 +816,11 @@ const Donate = () => {
               Join our Monthly Giving Circle for as little as $25/month and receive quarterly impact reports, 
               exclusive event invitations, and direct updates from program participants.
             </p>
-            <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-              Join Monthly Giving
-            </Button>
+            <Link to="/monthly-giving">
+              <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+                Join Monthly Giving
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
