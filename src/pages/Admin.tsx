@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle, Trash2 } from 'lucide-react';
 
 interface VisitRequest {
   id: string;
@@ -33,6 +33,8 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [updatingNotes, setUpdatingNotes] = useState<string | null>(null);
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+  const [deletingRequest, setDeletingRequest] = useState<string | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -192,8 +194,8 @@ export default function Admin() {
         return;
       }
 
-      setVisitRequests(prev => 
-        prev.map(request => 
+      setVisitRequests(prev =>
+        prev.map(request =>
           request.id === id ? { ...request, admin_notes: notes } : request
         )
       );
@@ -212,6 +214,44 @@ export default function Admin() {
       });
     } finally {
       setUpdatingNotes(null);
+    }
+  };
+
+  const deleteVisitRequest = async (id: string) => {
+    setDeletingRequest(id);
+    try {
+      const { error } = await supabase
+        .from('visit_requests')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error deleting visit request:', error);
+        toast({
+          title: "Error",
+          description: "Failed to delete visit request.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      setVisitRequests(prev => prev.filter(request => request.id !== id));
+      setDeleteConfirmId(null);
+
+      toast({
+        title: "Visit Request Deleted",
+        description: "The visit request has been permanently deleted.",
+        variant: "default"
+      });
+    } catch (error) {
+      console.error('Error deleting visit request:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete visit request.",
+        variant: "destructive"
+      });
+    } finally {
+      setDeletingRequest(null);
     }
   };
 
@@ -375,6 +415,36 @@ export default function Admin() {
                     >
                       Cancel
                     </Button>
+                    <div className="flex-1" />
+                    {deleteConfirmId === request.id ? (
+                      <div className="flex gap-2">
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => deleteVisitRequest(request.id)}
+                          disabled={deletingRequest === request.id}
+                        >
+                          {deletingRequest === request.id ? 'Deleting...' : 'Confirm Delete'}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setDeleteConfirmId(null)}
+                        >
+                          Keep
+                        </Button>
+                      </div>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setDeleteConfirmId(request.id)}
+                        className="text-red-700 border-red-200 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Delete
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
