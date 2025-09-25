@@ -33,6 +33,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Reset imageError when product changes
+  useEffect(() => {
+    setImageError(false);
+  }, [product.id]);
+
   useEffect(() => {
     // Get current session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -86,13 +91,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
               src={product.images[0]}
               alt={product.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onError={() => setImageError(true)}
+              onLoad={() => {
+                console.log(`✅ Image loaded successfully: ${product.images[0]}`);
+              }}
+              onError={(e) => {
+                console.error(`❌ Failed to load image: ${product.images[0]}`, e);
+                setImageError(true);
+              }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-200">
               <div className="text-center p-4">
                 <div className="text-gray-500 mb-2">📦</div>
                 <div className="text-xs text-gray-600">{product.name}</div>
+                <div className="text-xs text-red-600 mt-1">Image failed to load</div>
               </div>
             </div>
           )}
