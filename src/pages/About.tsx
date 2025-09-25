@@ -196,7 +196,8 @@ const About = () => {
                       <img 
                         src={preciousRansomImage} 
                         alt="Precious Ransom, Executive Director" 
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-center"
+                        style={{ objectPosition: 'center 20%' }}
                       />
                     </div>
                     <div className="space-y-2">
