@@ -41,7 +41,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      details: "info@sherises.org",
+      details: "pransom@safehavenforempowerment.org",
       description: "We respond within 24 hours",
       color: "bg-crown-gold"
     },
@@ -57,25 +57,25 @@ const Contact = () => {
   const departments = [
     {
       name: "Program Services",
-      email: "programs@sherises.org",
+      email: "pransom@safehavenforempowerment.org",
       phone: "(909) 547-9998",
       description: "Questions about our housing, employment, and support programs"
     },
     {
       name: "Volunteer Coordination",
-      email: "volunteer@sherises.org", 
+      email: "pransom@safehavenforempowerment.org", 
       phone: "(909) 547-9998",
       description: "Volunteer opportunities and training information"
     },
     {
       name: "Donations & Fundraising",
-      email: "development@sherises.org",
+      email: "pransom@safehavenforempowerment.org",
       phone: "(909) 547-9998", 
       description: "Corporate partnerships, sponsorships, and major gifts"
     },
     {
       name: "Media & Communications",
-      email: "media@sherises.org",
+      email: "pransom@safehavenforempowerment.org",
       phone: "(909) 547-9998",
       description: "Press inquiries, interviews, and media requests"
     }
