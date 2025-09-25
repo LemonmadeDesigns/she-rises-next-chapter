@@ -98,12 +98,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="aspect-square relative overflow-hidden bg-warm-cream">
           {(() => {
             const imageSrc = product.images[0];
-            console.log(`🖼️ Rendering image for ${product.name}:`, {
-              imageSrc,
-              imageError,
-              baseURL: window.location.origin,
-              fullURL: new URL(imageSrc, window.location.origin).href
-            });
+            console.log(`🖼️ Rendering image for ${product.name}:`);
+            console.log(`   - imageSrc: ${imageSrc}`);
+            console.log(`   - imageError: ${imageError}`);
+            console.log(`   - baseURL: ${window.location.origin}`);
+            console.log(`   - fullURL: ${new URL(imageSrc, window.location.origin).href}`);
 
             return !imageError ? (
               <img
@@ -112,22 +111,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 onLoad={(e) => {
                   const target = e.target as HTMLImageElement;
-                  console.log(`✅ Image loaded successfully:`, {
-                    src: imageSrc,
-                    actualSrc: target.src,
-                    naturalWidth: target.naturalWidth,
-                    naturalHeight: target.naturalHeight
-                  });
+                  console.log(`✅ Image loaded successfully for ${product.name}:`);
+                  console.log(`   - originalSrc: ${imageSrc}`);
+                  console.log(`   - actualSrc: ${target.src}`);
+                  console.log(`   - dimensions: ${target.naturalWidth}x${target.naturalHeight}`);
                 }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  console.error(`❌ Failed to load image:`, {
-                    originalSrc: imageSrc,
-                    actualSrc: target.src,
-                    error: e,
-                    baseURL: window.location.origin,
-                    fullURL: new URL(imageSrc, window.location.origin).href
-                  });
+                  console.error(`❌ Failed to load image for ${product.name}:`);
+                  console.error(`   - originalSrc: ${imageSrc}`);
+                  console.error(`   - actualSrc: ${target.src}`);
+                  console.error(`   - baseURL: ${window.location.origin}`);
+                  console.error(`   - fullURL: ${new URL(imageSrc, window.location.origin).href}`);
+                  console.error(`   - current location: ${window.location.href}`);
 
                   // Test if the image exists by trying different paths
                   const testPaths = [
@@ -139,7 +135,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     `.${imageSrc}`
                   ];
 
-                  console.log(`🧪 Testing alternative paths for ${product.name}:`, testPaths);
+                  console.log(`🧪 Testing alternative paths for ${product.name}:`);
+                  testPaths.forEach(path => console.log(`   - ${path}`));
 
                   setImageError(true);
                 }}
