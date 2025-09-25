@@ -391,22 +391,26 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 gap-6">
             {departments.map((dept, index) => (
-              <Card key={index} className="shadow-soft transition-shadow">
-                <CardContent className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
+              <Card key={index} className="shadow-soft transition-shadow h-full flex flex-col">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
                     {dept.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
+                  <p className="text-muted-foreground text-sm mb-6 flex-grow">
                     {dept.description}
                   </p>
-                  <div className="space-y-2">
+                  <div className="space-y-3 mt-auto">
                     <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-crown-gold" />
-                      <span className="text-royal-plum font-medium">{dept.email}</span>
+                      <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                      <a href={`mailto:${dept.email}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                        {dept.email}
+                      </a>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-crown-gold" />
-                      <span className="text-royal-plum font-medium">{dept.phone}</span>
+                      <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                      <a href={`tel:${dept.phone}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                        {dept.phone}
+                      </a>
                     </div>
                   </div>
                 </CardContent>
@@ -458,52 +462,108 @@ const Contact = () => {
           />
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 How do I apply for housing assistance?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 Contact our Program Services team at (909) 547-9998 or visit our Programs page for detailed application information and eligibility requirements.
               </p>
-              <Button variant="outline" size="sm">
-                Learn More About Programs
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const programsSection = document.querySelector('[data-section="programs"]');
+                    if (programsSection) {
+                      programsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/programs';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Learn More About Programs
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 What volunteer opportunities are available?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 We offer various volunteer roles including direct support, administrative help, and event assistance. Training is provided for all positions.
               </p>
-              <Button variant="outline" size="sm">
-                View Volunteer Opportunities
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const volunteerSection = document.querySelector('[data-section="volunteer"]');
+                    if (volunteerSection) {
+                      volunteerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/get-involved';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  View Volunteer Opportunities
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 How can my organization partner with She Rises?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 547-9998 to discuss partnership opportunities.
               </p>
-              <Button variant="outline" size="sm">
-                Explore Partnerships
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const partnershipSection = document.querySelector('[data-section="partnerships"]');
+                    if (partnershipSection) {
+                      partnershipSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/get-involved';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Explore Partnerships
+                </Button>
+              </div>
             </Card>
             
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
                 Is there a cost for your services?
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-muted-foreground mb-6 flex-grow">
                 All our support services are provided free of charge to participants. We believe that financial barriers should never prevent someone from getting help.
               </p>
-              <Button variant="outline" size="sm">
-                Learn About Our Services
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    const servicesSection = document.querySelector('[data-section="services"]');
+                    if (servicesSection) {
+                      servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                      window.location.href = '/programs';
+                    }
+                  }}
+                  className="w-full"
+                >
+                  Learn About Our Services
+                </Button>
+              </div>
             </Card>
           </div>
         </div>
