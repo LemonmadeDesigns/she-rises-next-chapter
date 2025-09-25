@@ -40,10 +40,11 @@ const ContactForm = ({ className }: ContactFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/functions/v1/send-contact-email', {
+      const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0YWxlcGxidmdpY2p1Z2N3dGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjMzMTUsImV4cCI6MjA3MzQzOTMxNX0.imvT4rK3amfJm6KZRywwksQF4KSu-aLxpSP4Rt_wsOw'}`
         },
         body: JSON.stringify(formData),
       });
