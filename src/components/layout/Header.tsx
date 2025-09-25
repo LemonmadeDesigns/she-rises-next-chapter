@@ -17,17 +17,19 @@ const Header = () => {
   const { state: cartState } = useCart();
 
   useEffect(() => {
-    // Get current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    // Listen for auth changes
+    // Listen for auth changes first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Auth state change:', event, session?.user?.email);
         setUser(session?.user ?? null);
       }
     );
+
+    // Then get current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session:', session?.user?.email);
+      setUser(session?.user ?? null);
+    });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -37,9 +39,6 @@ const Header = () => {
   };
 
   const isAdmin = user && ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'].includes(user.email?.toLowerCase() || '');
-  
-  // Debug admin status
-  console.log('User:', user?.email, 'Is Admin:', isAdmin);
 
   const navigation = [
     { name: "About", href: "/about" },
