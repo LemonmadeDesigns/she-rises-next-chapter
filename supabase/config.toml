@@ -1,1 +1,7 @@
 project_id = "ktaleplbvgicjugcwthj"
+
+[functions.submit-volunteer-form]
+verify_jwt = false
+
+[functions.submit-partner-form]
+verify_jwt = false

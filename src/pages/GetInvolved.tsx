@@ -1,40 +1,17 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import VolunteerApplicationModal from "@/components/modals/VolunteerApplicationModal";
+import BecomeVolunteerModal from "@/components/modals/BecomeVolunteerModal";
+import PartnerWithUsModal from "@/components/modals/PartnerWithUsModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
-import { Heart, Users, Clock, Calendar, HandHeart, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
+import { Heart, Clock, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
 
 const GetInvolved = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("");
-
-  const [volunteerForm, setVolunteerForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    interests: [] as string[],
-    availability: "",
-    experience: "",
-    background: false
-  });
-
-  const [sponsorForm, setSponsorForm] = useState({
-    organization: "",
-    contact: "",
-    email: "",
-    sponsorship: "",
-    amount: "",
-    message: ""
-  });
+  const [isPartnerModalOpen, setIsPartnerModalOpen] = useState(false);
 
   const opportunities = [
     {
@@ -185,25 +162,6 @@ const GetInvolved = () => {
 
   const featuredOpportunities = opportunities.filter(opp => opp.featured);
 
-  const handleVolunteerSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Volunteer form submitted:", volunteerForm);
-  };
-
-  const handleSponsorSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Sponsor form submitted:", sponsorForm);
-  };
-
-  const updateVolunteerInterests = (interest: string, checked: boolean) => {
-    setVolunteerForm(prev => ({
-      ...prev,
-      interests: checked 
-        ? [...prev.interests, interest]
-        : prev.interests.filter(i => i !== interest)
-    }));
-  };
-
   return (
     <Layout>
       {/* Hero Section */}
@@ -213,10 +171,20 @@ const GetInvolved = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+          <Button 
+            id="btn-volunteer"
+            size="lg" 
+            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+            onClick={() => setIsVolunteerModalOpen(true)}
+          >
             Become a Volunteer
           </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
+          <Button 
+            id="btn-partner"
+            size="lg" 
+            className="hero-button-secondary btn-force-visible"
+            onClick={() => setIsPartnerModalOpen(true)}
+          >
             Partner With Us
           </Button>
         </div>
@@ -333,10 +301,7 @@ const GetInvolved = () => {
                   
                   <Button
                     className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white"
-                    onClick={() => {
-                      setSelectedRole(opportunity.title);
-                      setIsVolunteerModalOpen(true);
-                    }}
+                    onClick={() => setIsVolunteerModalOpen(true)}
                   >
                     Apply for This Role
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -402,103 +367,6 @@ const GetInvolved = () => {
             ))}
           </div>
 
-          {/* Volunteer Application Form */}
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6 text-center">
-                Volunteer Application
-              </h3>
-              
-              <form onSubmit={handleVolunteerSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      value={volunteerForm.name}
-                      onChange={(e) => setVolunteerForm({...volunteerForm, name: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={volunteerForm.email}
-                      onChange={(e) => setVolunteerForm({...volunteerForm, email: e.target.value})}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    value={volunteerForm.phone}
-                    onChange={(e) => setVolunteerForm({...volunteerForm, phone: e.target.value})}
-                  />
-                </div>
-
-                <div>
-                  <Label>Areas of Interest (select all that apply):</Label>
-                  <div className="grid md:grid-cols-2 gap-2 mt-2">
-                    {["Direct Support", "Administrative", "Events", "Professional Services", "Childcare", "Transportation"].map((interest) => (
-                      <div key={interest} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={interest}
-                          checked={volunteerForm.interests.includes(interest)}
-                          onCheckedChange={(checked) => updateVolunteerInterests(interest, checked as boolean)}
-                        />
-                        <Label htmlFor={interest} className="text-sm">{interest}</Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="availability">Availability</Label>
-                  <Select value={volunteerForm.availability} onValueChange={(value) => setVolunteerForm({...volunteerForm, availability: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your availability" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="weekdays">Weekdays</SelectItem>
-                      <SelectItem value="weekends">Weekends</SelectItem>
-                      <SelectItem value="evenings">Evenings</SelectItem>
-                      <SelectItem value="flexible">Flexible</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="experience">Relevant Experience</Label>
-                  <Textarea
-                    id="experience"
-                    value={volunteerForm.experience}
-                    onChange={(e) => setVolunteerForm({...volunteerForm, experience: e.target.value})}
-                    placeholder="Tell us about any relevant experience, skills, or why you want to volunteer with us..."
-                  />
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="background"
-                    checked={volunteerForm.background}
-                    onCheckedChange={(checked) => setVolunteerForm({...volunteerForm, background: checked as boolean})}
-                  />
-                  <Label htmlFor="background" className="text-sm">
-                    I understand that a background check may be required for certain volunteer positions
-                  </Label>
-                </div>
-
-                <Button type="submit" className="w-full bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-                  Submit Application
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
@@ -541,90 +409,6 @@ const GetInvolved = () => {
             ))}
           </div>
 
-          {/* Sponsor Inquiry Form */}
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6 text-center">
-                Partnership Inquiry
-              </h3>
-              
-              <form onSubmit={handleSponsorSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="organization">Organization Name</Label>
-                    <Input
-                      id="organization"
-                      value={sponsorForm.organization}
-                      onChange={(e) => setSponsorForm({...sponsorForm, organization: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="contact">Contact Person</Label>
-                    <Input
-                      id="contact"
-                      value={sponsorForm.contact}
-                      onChange={(e) => setSponsorForm({...sponsorForm, contact: e.target.value})}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="sponsor-email">Email Address</Label>
-                  <Input
-                    id="sponsor-email"
-                    type="email"
-                    value={sponsorForm.email}
-                    onChange={(e) => setSponsorForm({...sponsorForm, email: e.target.value})}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="sponsorship">Sponsorship Interest</Label>
-                  <Select value={sponsorForm.sponsorship} onValueChange={(value) => setSponsorForm({...sponsorForm, sponsorship: value})}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select sponsorship type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="platinum">Platinum Partner ($10,000+)</SelectItem>
-                      <SelectItem value="gold">Gold Supporter ($5,000+)</SelectItem>
-                      <SelectItem value="silver">Silver Champion ($2,500+)</SelectItem>
-                      <SelectItem value="bronze">Bronze Ally ($1,000+)</SelectItem>
-                      <SelectItem value="event">Event Sponsorship</SelectItem>
-                      <SelectItem value="program">Program Sponsorship</SelectItem>
-                      <SelectItem value="custom">Custom Partnership</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="amount">Proposed Investment Amount</Label>
-                  <Input
-                    id="amount"
-                    value={sponsorForm.amount}
-                    onChange={(e) => setSponsorForm({...sponsorForm, amount: e.target.value})}
-                    placeholder="e.g., $5,000"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="message">Additional Information</Label>
-                  <Textarea
-                    id="message"
-                    value={sponsorForm.message}
-                    onChange={(e) => setSponsorForm({...sponsorForm, message: e.target.value})}
-                    placeholder="Tell us about your organization's goals, preferred partnership structure, or any questions..."
-                  />
-                </div>
-
-                <Button type="submit" className="w-full bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-                  Submit Inquiry
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
@@ -662,7 +446,7 @@ const GetInvolved = () => {
       {/* Call to Action */}
       <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
-          <HandHeart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
+          <Heart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
           <h2 className="font-serif text-3xl font-bold mb-4">
             Ready to Make a Difference?
           </h2>
@@ -671,21 +455,32 @@ const GetInvolved = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-lotus-rose hover:bg-white/90 font-bold">
+            <Button 
+              size="lg" 
+              className="bg-white text-lotus-rose hover:bg-white/90 font-bold"
+              onClick={() => setIsVolunteerModalOpen(true)}
+            >
               Start Volunteering Today
             </Button>
-            <Button size="lg" className="hero-button-tertiary btn-force-visible">
+            <Button 
+              size="lg" 
+              className="hero-button-tertiary btn-force-visible"
+              onClick={() => setIsPartnerModalOpen(true)}
+            >
               Explore Partnerships
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Volunteer Application Modal */}
-      <VolunteerApplicationModal
+      {/* Modals */}
+      <BecomeVolunteerModal
         isOpen={isVolunteerModalOpen}
         onClose={() => setIsVolunteerModalOpen(false)}
-        roleTitle={selectedRole}
+      />
+      <PartnerWithUsModal
+        isOpen={isPartnerModalOpen}
+        onClose={() => setIsPartnerModalOpen(false)}
       />
     </Layout>
   );
