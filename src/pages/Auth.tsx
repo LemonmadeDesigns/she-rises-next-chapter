@@ -32,14 +32,8 @@ export default function Auth() {
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          // Redirect authenticated users to admin if they're admin, otherwise home
-          const adminEmails = ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'];
-          const userEmail = session.user.email?.toLowerCase() || '';
-          if (adminEmails.includes(userEmail)) {
-            navigate('/admin');
-          } else {
-            navigate('/');
-          }
+          // Redirect authenticated users - backend will determine access rights
+          navigate('/');
         }
       }
     );
@@ -50,13 +44,7 @@ export default function Auth() {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        const adminEmails = ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'];
-        const userEmail = session.user.email?.toLowerCase() || '';
-        if (adminEmails.includes(userEmail)) {
-          navigate('/admin');
-        } else {
-          navigate('/');
-        }
+        navigate('/');
       }
     });
 
@@ -107,7 +95,6 @@ export default function Auth() {
           variant: "destructive"
         });
       } else {
-        console.error('Sign in error:', error);
         toast({
           title: "Error",
           description: "An unexpected error occurred. Please try again.",
@@ -178,7 +165,6 @@ export default function Auth() {
           variant: "destructive"
         });
       } else {
-        console.error('Sign up error:', error);
         toast({
           title: "Error",
           description: "An unexpected error occurred. Please try again.",

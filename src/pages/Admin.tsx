@@ -41,20 +41,12 @@ export default function Admin() {
   // Define loadVisitRequests function
   const loadVisitRequests = React.useCallback(async () => {
     try {
-      console.log('Loading visit requests...');
       const { data, error } = await supabase
         .from('visit_requests')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('Error loading visit requests:', error);
-        console.error('Error details:', {
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          code: error.code
-        });
         toast({
           title: "Database Error",
           description: error.message || "Failed to load visit requests.",
@@ -63,10 +55,8 @@ export default function Admin() {
         return;
       }
 
-      console.log('Visit requests loaded successfully:', data);
       setVisitRequests(data || []);
     } catch (error) {
-      console.error('Unexpected error loading visit requests:', error);
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to load visit requests.",
@@ -80,13 +70,10 @@ export default function Admin() {
   // Check authentication and admin status
   useEffect(() => {
     const checkAdminAccess = async () => {
-      console.log('Checking admin access...');
-
       try {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
         if (sessionError) {
-          console.error('Session error:', sessionError);
           toast({
             title: "Authentication Error",
             description: sessionError.message,
@@ -97,32 +84,14 @@ export default function Admin() {
         }
 
         if (!session?.user) {
-          console.log('No active session, redirecting to auth');
           navigate('/auth');
           return;
         }
 
-        console.log('User authenticated:', session.user.email);
-
-        const adminEmails = ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'];
-        const userEmail = session.user.email?.toLowerCase() || '';
-
-        if (!adminEmails.map(email => email.toLowerCase()).includes(userEmail)) {
-          console.log('User email not in admin list:', session.user.email);
-          toast({
-            title: "Access Denied",
-            description: "You don't have permission to access this page.",
-            variant: "destructive"
-          });
-          navigate('/');
-          return;
-        }
-
-        console.log('Admin access granted for:', session.user.email);
+        // Try to load visit requests - backend RLS will enforce authorization
         setUser(session.user);
         await loadVisitRequests();
       } catch (error) {
-        console.error('Unexpected error in checkAdminAccess:', error);
         toast({
           title: "Error",
           description: "An unexpected error occurred.",
@@ -144,7 +113,6 @@ export default function Admin() {
         .eq('id', id);
 
       if (error) {
-        console.error('Error updating status:', error);
         toast({
           title: "Error",
           description: "Failed to update status.",
@@ -165,7 +133,6 @@ export default function Admin() {
         variant: "default"
       });
     } catch (error) {
-      console.error('Error updating status:', error);
       toast({
         title: "Error",
         description: "Failed to update status.",
@@ -185,7 +152,6 @@ export default function Admin() {
         .eq('id', id);
 
       if (error) {
-        console.error('Error updating notes:', error);
         toast({
           title: "Error",
           description: "Failed to update notes.",
@@ -206,7 +172,6 @@ export default function Admin() {
         variant: "default"
       });
     } catch (error) {
-      console.error('Error updating notes:', error);
       toast({
         title: "Error",
         description: "Failed to update notes.",
@@ -226,7 +191,6 @@ export default function Admin() {
         .eq('id', id);
 
       if (error) {
-        console.error('Error deleting visit request:', error);
         toast({
           title: "Error",
           description: "Failed to delete visit request.",
@@ -244,7 +208,6 @@ export default function Admin() {
         variant: "default"
       });
     } catch (error) {
-      console.error('Error deleting visit request:', error);
       toast({
         title: "Error",
         description: "Failed to delete visit request.",

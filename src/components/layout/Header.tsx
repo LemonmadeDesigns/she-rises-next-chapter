@@ -45,7 +45,27 @@ const Header = () => {
     await supabase.auth.signOut();
   };
 
-  const isAdmin = user && ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'].includes(user.email?.toLowerCase() || '');
+  // Check admin status via API call to backend
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (!user) {
+        setIsAdmin(false);
+        return;
+      }
+
+      // Try to query visit_requests - only admins have access via RLS
+      const { error } = await supabase
+        .from('visit_requests')
+        .select('id')
+        .limit(1);
+
+      setIsAdmin(!error);
+    };
+
+    checkAdminStatus();
+  }, [user]);
 
   const navigation = [
     { name: "About", href: "/about" },
