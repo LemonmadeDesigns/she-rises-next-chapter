@@ -9,6 +9,7 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
+import ProgramDetails from "./pages/ProgramDetails";
 import Events from "./pages/Events";
 import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/programs" element={<Programs />} />
+          <Route path="/programs/:programId" element={<ProgramDetails />} />
           <Route path="/events" element={<Events />} />
           <Route path="/get-involved" element={<GetInvolved />} />
           <Route path="/contact" element={<Contact />} />

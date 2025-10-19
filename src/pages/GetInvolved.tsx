@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import BecomeVolunteerModal from "@/components/modals/BecomeVolunteerModal";
 import PartnerWithUsModal from "@/components/modals/PartnerWithUsModal";
+import GenericContactModal from "@/components/modals/GenericContactModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
@@ -12,6 +13,9 @@ import { Heart, Clock, Building2, DollarSign, Gift, ArrowRight, CheckCircle } fr
 const GetInvolved = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
   const [isPartnerModalOpen, setIsPartnerModalOpen] = useState(false);
+  const [isPartnershipModalOpen, setIsPartnershipModalOpen] = useState(false);
+  const [isSponsorshipModalOpen, setIsSponsorshipModalOpen] = useState(false);
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   const opportunities = [
     {
@@ -205,9 +209,11 @@ const GetInvolved = () => {
               </div>
               <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Volunteer</h3>
               <p className="text-muted-foreground mb-4">Share your time and skills to directly support women in our programs.</p>
-              <Button variant="outline" size="sm" className="w-full">
-                Learn More
-              </Button>
+              <a href="#volunteer-opportunities">
+                <Button variant="outline" size="sm" className="w-full">
+                  Learn More
+                </Button>
+              </a>
             </Card>
 
             <Card className="text-center p-6 shadow-soft transition-shadow">
@@ -216,7 +222,12 @@ const GetInvolved = () => {
               </div>
               <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Corporate Partnership</h3>
               <p className="text-muted-foreground mb-4">Partner with us to create meaningful employee engagement opportunities.</p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => setIsPartnershipModalOpen(true)}
+              >
                 Learn More
               </Button>
             </Card>
@@ -227,7 +238,12 @@ const GetInvolved = () => {
               </div>
               <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Sponsorship</h3>
               <p className="text-muted-foreground mb-4">Sponsor programs, events, or facilities to maximize your community impact.</p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => setIsSponsorshipModalOpen(true)}
+              >
                 Learn More
               </Button>
             </Card>
@@ -238,7 +254,12 @@ const GetInvolved = () => {
               </div>
               <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">In-Kind Donations</h3>
               <p className="text-muted-foreground mb-4">Donate goods, services, or expertise to support our daily operations.</p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => setIsDonationModalOpen(true)}
+              >
                 Learn More
               </Button>
             </Card>
@@ -247,7 +268,7 @@ const GetInvolved = () => {
       </section>
 
       {/* Featured Volunteer Opportunities */}
-      <section className="py-20 bg-white">
+      <section id="volunteer-opportunities" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Featured Volunteer Opportunities"
@@ -481,6 +502,55 @@ const GetInvolved = () => {
       <PartnerWithUsModal
         isOpen={isPartnerModalOpen}
         onClose={() => setIsPartnerModalOpen(false)}
+      />
+
+      {/* Partnership Modal */}
+      <GenericContactModal
+        isOpen={isPartnershipModalOpen}
+        onClose={() => setIsPartnershipModalOpen(false)}
+        title="Corporate Partnership Inquiry"
+        subtitle="Let's explore how we can partner together to empower women in our community"
+        inquiryType="Corporate Partnership"
+        options={[
+          { value: "employee-volunteer", label: "Employee Volunteer Programs" },
+          { value: "sponsorship", label: "Event/Program Sponsorship" },
+          { value: "grants", label: "Corporate Grants" },
+          { value: "inkind", label: "In-Kind Donations" },
+          { value: "other", label: "Other Partnership Opportunities" }
+        ]}
+      />
+
+      {/* Sponsorship Modal */}
+      <GenericContactModal
+        isOpen={isSponsorshipModalOpen}
+        onClose={() => setIsSponsorshipModalOpen(false)}
+        title="Sponsorship Inquiry"
+        subtitle="Sponsor programs, events, or facilities to maximize your community impact"
+        inquiryType="Sponsorship"
+        options={[
+          { value: "program", label: "Program Sponsorship" },
+          { value: "event", label: "Event Sponsorship" },
+          { value: "facility", label: "Facility Sponsorship" },
+          { value: "annual", label: "Annual Giving" },
+          { value: "custom", label: "Custom Sponsorship Package" }
+        ]}
+      />
+
+      {/* In-Kind Donations Modal */}
+      <GenericContactModal
+        isOpen={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        title="In-Kind Donation Inquiry"
+        subtitle="Donate goods, services, or expertise to support our daily operations"
+        inquiryType="In-Kind Donation"
+        options={[
+          { value: "goods", label: "Household Goods & Supplies" },
+          { value: "furniture", label: "Furniture & Appliances" },
+          { value: "services", label: "Professional Services" },
+          { value: "food", label: "Food & Groceries" },
+          { value: "clothing", label: "Clothing & Personal Items" },
+          { value: "other", label: "Other Donations" }
+        ]}
       />
     </Layout>
   );

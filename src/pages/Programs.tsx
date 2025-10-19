@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -152,17 +153,23 @@ const Programs = () => {
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
+          <Button
+            size="lg"
+            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+            onClick={() => setIsApplicationModalOpen(true)}
+          >
             Apply for Programs
           </Button>
-          <Button size="lg" className="hero-button-secondary btn-force-visible">
-            Learn More
-          </Button>
+          <a href="#featured-programs">
+            <Button size="lg" className="hero-button-secondary btn-force-visible">
+              Learn More
+            </Button>
+          </a>
         </div>
       </Hero>
 
       {/* Featured Programs */}
-      <section className="py-20 bg-gradient-soft">
+      <section id="featured-programs" className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Featured Programs"
@@ -227,9 +234,11 @@ const Programs = () => {
                   </div>
 
                   <div className="mt-auto">
-                    <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
-                      Learn More About This Program
-                    </Button>
+                    <Link to={`/programs/${program.id}`}>
+                      <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
+                        Learn More About This Program
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -290,10 +299,12 @@ const Programs = () => {
                       <span>{program.capacity}</span>
                     </div>
                   </div>
-                  
-                  <Button size="sm" variant="outline" className="w-full">
-                    Learn More
-                  </Button>
+
+                  <Link to={`/programs/${program.id}`}>
+                    <Button size="sm" variant="outline" className="w-full">
+                      Learn More
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}

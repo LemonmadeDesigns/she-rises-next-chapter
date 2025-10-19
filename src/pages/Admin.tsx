@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle, Trash2 } from 'lucide-react';
+import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle, Trash2, Plus, CalendarDays } from 'lucide-react';
+import EventManagement from '@/components/admin/EventManagement';
 
 interface VisitRequest {
   id: string;
@@ -256,11 +258,24 @@ export default function Admin() {
             Admin Dashboard
           </h1>
           <p className="text-muted-foreground">
-            Manage visit requests and scheduling
+            Manage visit requests, events, and scheduling
           </p>
         </div>
 
-        <div className="grid gap-6">
+        <Tabs defaultValue="visit-requests" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
+            <TabsTrigger value="visit-requests" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Visit Requests
+            </TabsTrigger>
+            <TabsTrigger value="events" className="flex items-center gap-2">
+              <CalendarDays className="h-4 w-4" />
+              Events Calendar
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="visit-requests" className="mt-6">
+            <div className="grid gap-6">
           {visitRequests.length === 0 ? (
             <Card>
               <CardContent className="p-8 text-center">
@@ -413,7 +428,13 @@ export default function Admin() {
               </Card>
             ))
           )}
-        </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="events" className="mt-6">
+            <EventManagement />
+          </TabsContent>
+        </Tabs>
       </div>
     </Layout>
   );
