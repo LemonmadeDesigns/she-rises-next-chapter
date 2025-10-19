@@ -12,6 +12,7 @@ import Programs from "./pages/Programs";
 import ProgramDetails from "./pages/ProgramDetails";
 import Events from "./pages/Events";
 import GetInvolved from "./pages/GetInvolved";
+import VolunteerOpportunityDetails from "./pages/VolunteerOpportunityDetails";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import DonationSuccess from "./pages/DonationSuccess";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/programs/:programId" element={<ProgramDetails />} />
           <Route path="/events" element={<Events />} />
           <Route path="/get-involved" element={<GetInvolved />} />
+          <Route path="/volunteer/:opportunityId" element={<VolunteerOpportunityDetails />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/donation-success" element={<DonationSuccess />} />

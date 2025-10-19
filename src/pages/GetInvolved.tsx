@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import BecomeVolunteerModal from "@/components/modals/BecomeVolunteerModal";
 import PartnerWithUsModal from "@/components/modals/PartnerWithUsModal";
@@ -380,14 +381,15 @@ const GetInvolved = () => {
                     <span>{opportunity.commitment}</span>
                   </div>
 
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setIsVolunteerModalOpen(true)}
-                  >
-                    Learn More
-                  </Button>
+                  <Link to={`/volunteer/${opportunity.id}`} className="w-full">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Learn More
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
