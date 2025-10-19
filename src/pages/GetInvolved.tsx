@@ -379,8 +379,13 @@ const GetInvolved = () => {
                     <Clock className="h-3 w-3" />
                     <span>{opportunity.commitment}</span>
                   </div>
-                  
-                  <Button size="sm" variant="outline" className="w-full">
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setIsVolunteerModalOpen(true)}
+                  >
                     Learn More
                   </Button>
                 </CardContent>
@@ -421,7 +426,10 @@ const GetInvolved = () => {
                   </ul>
 
                   <div className="mt-auto pt-6">
-                    <Button className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white">
+                    <Button
+                      className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white"
+                      onClick={() => setIsSponsorshipModalOpen(true)}
+                    >
                       Choose This Level
                     </Button>
                   </div>
