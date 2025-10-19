@@ -5,6 +5,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const contactFormSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Please enter a valid email address")
+    .max(255, "Email must be less than 255 characters"),
+  phone: z.string()
+    .trim()
+    .regex(/^[\d\s\-\+\(\)]+$/, "Please enter a valid phone number")
+    .min(10, "Phone number must be at least 10 digits")
+    .max(20, "Phone number must be less than 20 characters")
+    .optional()
+    .or(z.literal("")),
+  reason: z.string()
+    .min(1, "Please select a reason for contact"),
+  message: z.string()
+    .trim()
+    .min(10, "Message must be at least 10 characters")
+    .max(2000, "Message must be less than 2000 characters"),
+});
 
 interface ContactFormProps {
   className?: string;
@@ -40,41 +66,42 @@ const ContactForm = ({ className }: ContactFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0YWxlcGxidmdpY2p1Z2N3dGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjMzMTUsImV4cCI6MjA3MzQzOTMxNX0.imvT4rK3amfJm6KZRywwksQF4KSu-aLxpSP4Rt_wsOw'}`
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to send message: ${response.status} - ${errorText}`);
-      }
+      // Validate form data
+      const validatedData = contactFormSchema.parse(formData);
 
-      const result = await response.json();
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: validatedData,
+      });
+
+      if (error) throw error;
 
       toast({
         title: "Message sent!",
-        description: "Thank you for contacting us. We'll respond within 24-48 hours.",
+        description: "Thank you for contacting us. We'll get back to you soon.",
       });
-      
-      // Reset form
+
       setFormData({
         name: "",
         email: "",
         phone: "",
         reason: "",
-        message: ""
+        message: "",
       });
     } catch (error) {
-      toast({
-        title: "Error sending message",
-        description: "Please try again or call us at (909) 547-9998.",
-        variant: "destructive",
-      });
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast({
+          variant: "destructive",
+          title: "Validation Error",
+          description: firstError.message,
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error instanceof Error ? error.message : "Failed to send message. Please try again.",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -91,6 +118,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
             value={formData.name}
             onChange={handleChange}
             required
+            maxLength={100}
             className="mt-1"
           />
         </div>
@@ -104,6 +132,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
             value={formData.email}
             onChange={handleChange}
             required
+            maxLength={255}
             className="mt-1"
           />
         </div>
@@ -116,6 +145,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
             type="tel"
             value={formData.phone}
             onChange={handleChange}
+            maxLength={20}
             className="mt-1"
           />
         </div>
@@ -138,7 +168,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
         </div>
 
         <div>
-          <Label htmlFor="message">Message *</Label>
+          <Label htmlFor="message">Message * (10-2000 characters)</Label>
           <Textarea
             id="message"
             name="message"
@@ -146,6 +176,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
             onChange={handleChange}
             required
             rows={5}
+            maxLength={2000}
             className="mt-1"
           />
         </div>

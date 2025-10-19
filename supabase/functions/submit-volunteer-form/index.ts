@@ -109,6 +109,27 @@ const handler = async (req: Request): Promise<Response> => {
 
     const timestamp = new Date().toISOString();
 
+    // Sanitize inputs for HTML output
+    const escapeHtml = (text: string): string => {
+      const map: Record<string, string> = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, (m) => map[m]);
+    };
+
+    const safeName = escapeHtml(formData.fullName);
+    const safeEmail = escapeHtml(formData.email);
+    const safePhone = formData.phone ? escapeHtml(formData.phone) : "Not provided";
+    const safeLocation = formData.cityState ? escapeHtml(formData.cityState) : "Not provided";
+    const safeInterests = escapeHtml(formData.interests);
+    const safeAvailability = escapeHtml(formData.availability);
+    const safeSkills = formData.skills ? escapeHtml(formData.skills) : "Not provided";
+    const safeReferral = formData.referral ? escapeHtml(formData.referral) : "Not provided";
+
     // Compose email body
     const emailBody = `
 New Volunteer Signup
@@ -128,16 +149,16 @@ Client IP: ${clientIP}
     const htmlBody = `
       <h2>New Volunteer Signup</h2>
       <table style="border-collapse: collapse; width: 100%;">
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.fullName}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.email}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.phone || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Location:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.cityState || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Interests:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.interests}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Availability:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.availability}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Skills/Experience:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.skills || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Referral Source:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.referral || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Submitted At:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${timestamp}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Client IP:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${clientIP}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeName}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeEmail}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safePhone}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Location:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeLocation}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Interests:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeInterests}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Availability:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeAvailability}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Skills/Experience:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeSkills}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Referral Source:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeReferral}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Submitted At:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(timestamp)}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Client IP:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(clientIP)}</td></tr>
       </table>
     `;
 

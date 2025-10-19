@@ -117,6 +117,27 @@ const handler = async (req: Request): Promise<Response> => {
 
     const timestamp = new Date().toISOString();
 
+    // Sanitize inputs for HTML output
+    const escapeHtml = (text: string): string => {
+      const map: Record<string, string> = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, (m) => map[m]);
+    };
+
+    const safeOrgName = escapeHtml(formData.organizationName);
+    const safeContactName = escapeHtml(formData.contactName);
+    const safeEmail = escapeHtml(formData.email);
+    const safePhone = formData.phone ? escapeHtml(formData.phone) : "Not provided";
+    const safeWebsite = formData.website ? escapeHtml(formData.website) : "Not provided";
+    const safePartnershipTypes = escapeHtml(formData.partnershipTypes);
+    const safeProposal = escapeHtml(formData.proposal).replace(/\n/g, "<br>");
+    const safeTimeline = formData.timeline ? escapeHtml(formData.timeline) : "Not specified";
+
     // Compose email body
     const emailBody = `
 New Partner Inquiry
@@ -136,16 +157,16 @@ Client IP: ${clientIP}
     const htmlBody = `
       <h2>New Partner Inquiry</h2>
       <table style="border-collapse: collapse; width: 100%;">
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Organization:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.organizationName}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Contact:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.contactName}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.email}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.phone || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Website:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.website || "Not provided"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Partnership Type(s):</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.partnershipTypes}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Proposal/Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.proposal.replace(/\n/g, "<br>")}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Timeline:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.timeline || "Not specified"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Submitted At:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${timestamp}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Client IP:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${clientIP}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Organization:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeOrgName}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Contact:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeContactName}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeEmail}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Phone:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safePhone}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Website:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeWebsite}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Partnership Type(s):</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safePartnershipTypes}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Proposal/Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeProposal}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Timeline:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${safeTimeline}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Submitted At:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(timestamp)}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Client IP:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(clientIP)}</td></tr>
       </table>
     `;
 
