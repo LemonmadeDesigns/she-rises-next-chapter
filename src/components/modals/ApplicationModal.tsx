@@ -21,6 +21,7 @@ interface ApplicationFormData {
   email: string;
   phone: string;
   dateOfBirth: string;
+  age: string;
   address: string;
   city: string;
   state: string;
@@ -31,13 +32,46 @@ interface ApplicationFormData {
   emergencyRelation: string;
   emergencyPhone: string;
 
+  // Referral Information
+  referralSource: string;
+  paroleOfficerName: string;
+  paroleOfficerPhone: string;
+  paroleOfficerEmail: string;
+  caseNumber: string;
+  expectedReleaseDate: string;
+
+  // Eligibility & Demographics
+  justiceInvolved: string;
+  gender: string;
+  countryOfOrigin: string;
+  languageNeeds: string;
+  fundingSource: string;
+
+  // Housing Needs
+  immediateHousing: string;
+  children: string;
+  childrenCount: string;
+  childrenAges: string;
+  pastHousingSituation: string;
+
   // Background Information
   currentSituation: string;
   housingSituation: string;
   employment: string;
   education: string;
-  children: string;
-  childrenAges: string;
+
+  // Health & Support
+  physicalHealthNeeds: string;
+  mentalHealthNeeds: string;
+  substanceRecovery: string;
+
+  // Goals & Services Requested
+  employmentJobReadiness: string;
+  educationTraining: string;
+  familyReunification: string;
+  legalAidRecovery: string;
+  transportationAssistance: string;
+  otherGoals: string;
 
   // Program Information
   programsInterested: string[];
@@ -47,7 +81,8 @@ interface ApplicationFormData {
   medicalNeeds: string;
   transportation: string;
 
-  // Legal
+  // Program Acknowledgment & Legal
+  programAcknowledgment: boolean;
   backgroundCheck: boolean;
   consent: boolean;
 }
@@ -64,6 +99,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     email: "",
     phone: "",
     dateOfBirth: "",
+    age: "",
     address: "",
     city: "",
     state: "",
@@ -71,23 +107,47 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     emergencyName: "",
     emergencyRelation: "",
     emergencyPhone: "",
+    referralSource: "",
+    paroleOfficerName: "",
+    paroleOfficerPhone: "",
+    paroleOfficerEmail: "",
+    caseNumber: "",
+    expectedReleaseDate: "",
+    justiceInvolved: "",
+    gender: "",
+    countryOfOrigin: "",
+    languageNeeds: "",
+    fundingSource: "",
+    immediateHousing: "",
+    children: "",
+    childrenCount: "",
+    childrenAges: "",
+    pastHousingSituation: "",
     currentSituation: "",
     housingSituation: "",
     employment: "",
     education: "",
-    children: "",
-    childrenAges: "",
+    physicalHealthNeeds: "",
+    mentalHealthNeeds: "",
+    substanceRecovery: "",
+    employmentJobReadiness: "",
+    educationTraining: "",
+    familyReunification: "",
+    legalAidRecovery: "",
+    transportationAssistance: "",
+    otherGoals: "",
     programsInterested: [],
     goals: "",
     challenges: "",
     previousServices: "",
     medicalNeeds: "",
     transportation: "",
+    programAcknowledgment: false,
     backgroundCheck: false,
     consent: false,
   });
 
-  const totalSteps = 4;
+  const totalSteps = 7;
 
   const handleInputChange = (field: keyof ApplicationFormData, value: string | boolean | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -105,13 +165,19 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
-        return !!(formData.firstName && formData.lastName && formData.email && formData.phone);
+        return !!(formData.firstName && formData.lastName && formData.email && formData.phone && formData.dateOfBirth);
       case 2:
-        return !!(formData.emergencyName && formData.emergencyPhone && formData.currentSituation);
+        return !!(formData.emergencyName && formData.emergencyPhone);
       case 3:
-        return !!(formData.programsInterested.length > 0 && formData.goals);
+        return !!(formData.justiceInvolved && formData.gender);
       case 4:
-        return formData.backgroundCheck && formData.consent;
+        return !!(formData.immediateHousing);
+      case 5:
+        return true; // Health & Support fields are optional
+      case 6:
+        return !!(formData.programsInterested.length > 0 && formData.goals);
+      case 7:
+        return formData.programAcknowledgment && formData.backgroundCheck && formData.consent;
       default:
         return true;
     }
@@ -134,7 +200,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   };
 
   const handleSubmit = async () => {
-    if (!validateStep(4)) {
+    if (!validateStep(7)) {
       toast({
         title: "Please Complete All Required Fields",
         description: "All required fields and agreements must be completed.",
@@ -185,6 +251,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
       email: "",
       phone: "",
       dateOfBirth: "",
+      age: "",
       address: "",
       city: "",
       state: "",
@@ -192,18 +259,42 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
       emergencyName: "",
       emergencyRelation: "",
       emergencyPhone: "",
+      referralSource: "",
+      paroleOfficerName: "",
+      paroleOfficerPhone: "",
+      paroleOfficerEmail: "",
+      caseNumber: "",
+      expectedReleaseDate: "",
+      justiceInvolved: "",
+      gender: "",
+      countryOfOrigin: "",
+      languageNeeds: "",
+      fundingSource: "",
+      immediateHousing: "",
+      children: "",
+      childrenCount: "",
+      childrenAges: "",
+      pastHousingSituation: "",
       currentSituation: "",
       housingSituation: "",
       employment: "",
       education: "",
-      children: "",
-      childrenAges: "",
+      physicalHealthNeeds: "",
+      mentalHealthNeeds: "",
+      substanceRecovery: "",
+      employmentJobReadiness: "",
+      educationTraining: "",
+      familyReunification: "",
+      legalAidRecovery: "",
+      transportationAssistance: "",
+      otherGoals: "",
       programsInterested: [],
       goals: "",
       challenges: "",
       previousServices: "",
       medicalNeeds: "",
       transportation: "",
+      programAcknowledgment: false,
       backgroundCheck: false,
       consent: false,
     });
@@ -281,14 +372,25 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
                 />
               </div>
               <div>
-                <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                <Label htmlFor="dateOfBirth">Date of Birth *</Label>
                 <Input
                   id="dateOfBirth"
                   type="date"
                   value={formData.dateOfBirth}
                   onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                  required
                 />
               </div>
+            </div>
+            <div>
+              <Label htmlFor="age">Age</Label>
+              <Input
+                id="age"
+                type="number"
+                value={formData.age}
+                onChange={(e) => handleInputChange('age', e.target.value)}
+                placeholder="Age"
+              />
             </div>
             <div>
               <Label htmlFor="address">Address</Label>
@@ -330,7 +432,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
       case 2:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Emergency Contact & Background</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Emergency Contact & Referral Information</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="emergencyName">Emergency Contact Name *</Label>
@@ -342,75 +444,69 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
                 />
               </div>
               <div>
-                <Label htmlFor="emergencyRelation">Relationship</Label>
+                <Label htmlFor="emergencyPhone">Emergency Contact Phone *</Label>
                 <Input
-                  id="emergencyRelation"
-                  value={formData.emergencyRelation}
-                  onChange={(e) => handleInputChange('emergencyRelation', e.target.value)}
+                  id="emergencyPhone"
+                  type="tel"
+                  value={formData.emergencyPhone}
+                  onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
+                  required
                 />
               </div>
             </div>
             <div>
-              <Label htmlFor="emergencyPhone">Emergency Contact Phone *</Label>
+              <Label htmlFor="referralSource">Referral Source (Agency / Officer / Self)</Label>
               <Input
-                id="emergencyPhone"
-                type="tel"
-                value={formData.emergencyPhone}
-                onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
-                required
+                id="referralSource"
+                value={formData.referralSource}
+                onChange={(e) => handleInputChange('referralSource', e.target.value)}
+                placeholder="How did you hear about us?"
               />
             </div>
             <div>
-              <Label htmlFor="currentSituation">Current Housing/Living Situation *</Label>
-              <Select value={formData.currentSituation} onValueChange={(value) => handleInputChange('currentSituation', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="homeless">Currently Homeless</SelectItem>
-                  <SelectItem value="transitional">Transitional Housing</SelectItem>
-                  <SelectItem value="temporary">Temporary Housing with Family/Friends</SelectItem>
-                  <SelectItem value="shelter">Emergency Shelter</SelectItem>
-                  <SelectItem value="unsafe">Unsafe Housing Situation</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="employment">Employment Status</Label>
-              <Select value={formData.employment} onValueChange={(value) => handleInputChange('employment', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="unemployed">Unemployed</SelectItem>
-                  <SelectItem value="part-time">Part-time</SelectItem>
-                  <SelectItem value="full-time">Full-time</SelectItem>
-                  <SelectItem value="student">Student</SelectItem>
-                  <SelectItem value="disabled">Unable to Work</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="paroleOfficerName">Parole/Probation Officer Name</Label>
+              <Input
+                id="paroleOfficerName"
+                value={formData.paroleOfficerName}
+                onChange={(e) => handleInputChange('paroleOfficerName', e.target.value)}
+              />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="children">Do you have children?</Label>
-                <Select value={formData.children} onValueChange={(value) => handleInputChange('children', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Please select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="no">No</SelectItem>
-                    <SelectItem value="yes">Yes</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="paroleOfficerPhone">Officer Phone</Label>
+                <Input
+                  id="paroleOfficerPhone"
+                  type="tel"
+                  value={formData.paroleOfficerPhone}
+                  onChange={(e) => handleInputChange('paroleOfficerPhone', e.target.value)}
+                />
               </div>
               <div>
-                <Label htmlFor="childrenAges">If yes, ages of children</Label>
+                <Label htmlFor="paroleOfficerEmail">Officer Email</Label>
                 <Input
-                  id="childrenAges"
-                  value={formData.childrenAges}
-                  onChange={(e) => handleInputChange('childrenAges', e.target.value)}
-                  placeholder="e.g. 5, 8, 12"
+                  id="paroleOfficerEmail"
+                  type="email"
+                  value={formData.paroleOfficerEmail}
+                  onChange={(e) => handleInputChange('paroleOfficerEmail', e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="caseNumber">Case # (if applicable)</Label>
+                <Input
+                  id="caseNumber"
+                  value={formData.caseNumber}
+                  onChange={(e) => handleInputChange('caseNumber', e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="expectedReleaseDate">Expected Release or Sentencing Date</Label>
+                <Input
+                  id="expectedReleaseDate"
+                  type="date"
+                  value={formData.expectedReleaseDate}
+                  onChange={(e) => handleInputChange('expectedReleaseDate', e.target.value)}
                 />
               </div>
             </div>
@@ -420,7 +516,245 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
       case 3:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Program Information</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Eligibility & Demographics</h3>
+            <div>
+              <Label htmlFor="justiceInvolved">Justice-Involved? *</Label>
+              <Select value={formData.justiceInvolved} onValueChange={(value) => handleInputChange('justiceInvolved', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="gender">Gender *</Label>
+              <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="female">Female</SelectItem>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="countryOfOrigin">Country of Origin</Label>
+              <Input
+                id="countryOfOrigin"
+                value={formData.countryOfOrigin}
+                onChange={(e) => handleInputChange('countryOfOrigin', e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="languageNeeds">Language Needs</Label>
+              <Input
+                id="languageNeeds"
+                value={formData.languageNeeds}
+                onChange={(e) => handleInputChange('languageNeeds', e.target.value)}
+                placeholder="e.g., Spanish, ASL, etc."
+              />
+            </div>
+            <div>
+              <Label htmlFor="fundingSource">How will you be covering program fees?</Label>
+              <Select value={formData.fundingSource} onValueChange={(value) => handleInputChange('fundingSource', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="self-pay">Self-pay</SelectItem>
+                  <SelectItem value="family-support">Family support</SelectItem>
+                  <SelectItem value="probation-parole">Probation/Parole Agency</SelectItem>
+                  <SelectItem value="other-agency">Other agency (please specify)</SelectItem>
+                  <SelectItem value="no-funding">No funding at this time</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
+      case 4:
+        return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Housing Needs</h3>
+            <div>
+              <Label htmlFor="immediateHousing">Do you need immediate housing? *</Label>
+              <Select value={formData.immediateHousing} onValueChange={(value) => handleInputChange('immediateHousing', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="children">Do you have children?</Label>
+              <Select value={formData.children} onValueChange={(value) => handleInputChange('children', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="no">No</SelectItem>
+                  <SelectItem value="yes">Yes</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {formData.children === "yes" && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="childrenCount">How many?</Label>
+                  <Input
+                    id="childrenCount"
+                    type="number"
+                    value={formData.childrenCount}
+                    onChange={(e) => handleInputChange('childrenCount', e.target.value)}
+                    placeholder="Number of children"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="childrenAges">Ages</Label>
+                  <Input
+                    id="childrenAges"
+                    value={formData.childrenAges}
+                    onChange={(e) => handleInputChange('childrenAges', e.target.value)}
+                    placeholder="e.g. 5, 8, 12"
+                  />
+                </div>
+              </div>
+            )}
+            <div>
+              <Label htmlFor="pastHousingSituation">Past Housing Situation</Label>
+              <Select value={formData.pastHousingSituation} onValueChange={(value) => handleInputChange('pastHousingSituation', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="homeless">Homeless</SelectItem>
+                  <SelectItem value="shelter">Shelter</SelectItem>
+                  <SelectItem value="transitional">Transitional</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
+      case 5:
+        return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Health & Support</h3>
+            <div>
+              <Label htmlFor="physicalHealthNeeds">Physical Health Needs / Medications</Label>
+              <Textarea
+                id="physicalHealthNeeds"
+                value={formData.physicalHealthNeeds}
+                onChange={(e) => handleInputChange('physicalHealthNeeds', e.target.value)}
+                placeholder="Please list any physical health conditions or medications..."
+              />
+            </div>
+            <div>
+              <Label htmlFor="mentalHealthNeeds">Mental Health Needs</Label>
+              <Textarea
+                id="mentalHealthNeeds"
+                value={formData.mentalHealthNeeds}
+                onChange={(e) => handleInputChange('mentalHealthNeeds', e.target.value)}
+                placeholder="Please describe any mental health support needs..."
+              />
+            </div>
+            <div>
+              <Label htmlFor="substanceRecovery">Substance Recovery Support Needed?</Label>
+              <Select value={formData.substanceRecovery} onValueChange={(value) => handleInputChange('substanceRecovery', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
+      case 6:
+        return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Goals & Services Requested</h3>
+            <div>
+              <Label htmlFor="employmentJobReadiness">Employment / Job Readiness</Label>
+              <Select value={formData.employmentJobReadiness} onValueChange={(value) => handleInputChange('employmentJobReadiness', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="educationTraining">Education / Training</Label>
+              <Select value={formData.educationTraining} onValueChange={(value) => handleInputChange('educationTraining', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="familyReunification">Family Reunification Support</Label>
+              <Select value={formData.familyReunification} onValueChange={(value) => handleInputChange('familyReunification', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="legalAidRecovery">Legal Aid / ID Recovery</Label>
+              <Select value={formData.legalAidRecovery} onValueChange={(value) => handleInputChange('legalAidRecovery', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="transportationAssistance">Transportation Assistance</Label>
+              <Select value={formData.transportationAssistance} onValueChange={(value) => handleInputChange('transportationAssistance', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="yes">Yes</SelectItem>
+                  <SelectItem value="no">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="otherGoals">Other Goals</Label>
+              <Textarea
+                id="otherGoals"
+                value={formData.otherGoals}
+                onChange={(e) => handleInputChange('otherGoals', e.target.value)}
+                placeholder="Please describe any other goals or services you're interested in..."
+              />
+            </div>
             <div>
               <Label className="text-base font-medium">Which programs are you interested in? *</Label>
               <div className="grid grid-cols-1 gap-2 mt-2">
@@ -455,35 +789,29 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="challenges">What challenges are you currently facing?</Label>
-              <Textarea
-                id="challenges"
-                value={formData.challenges}
-                onChange={(e) => handleInputChange('challenges', e.target.value)}
-                placeholder="This helps us better understand how to support you..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="transportation">Do you have reliable transportation?</Label>
-              <Select value={formData.transportation} onValueChange={(value) => handleInputChange('transportation', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                  <SelectItem value="sometimes">Sometimes</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
           </div>
         );
 
-      case 4:
+      case 7:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Additional Information & Agreements</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Program Acknowledgment & Agreements</h3>
+            <div className="bg-muted p-4 rounded-lg">
+              <p className="text-sm text-foreground italic">
+                "I understand that She RISES provides transitional housing and supportive services. 
+                I agree to complete intake, follow program guidelines, and participate in supportive services as needed."
+              </p>
+            </div>
+            <div className="flex items-start space-x-2">
+              <Checkbox
+                id="programAcknowledgment"
+                checked={formData.programAcknowledgment}
+                onCheckedChange={(checked) => handleInputChange('programAcknowledgment', checked as boolean)}
+              />
+              <Label htmlFor="programAcknowledgment" className="text-sm font-normal leading-relaxed">
+                I acknowledge and agree to the program statement above *
+              </Label>
+            </div>
             <div>
               <Label htmlFor="previousServices">Have you received services from other organizations?</Label>
               <Textarea
