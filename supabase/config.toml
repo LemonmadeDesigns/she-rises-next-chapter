@@ -5,3 +5,12 @@ verify_jwt = false
 
 [functions.submit-partner-form]
 verify_jwt = false
+
+[functions.send-generic-contact]
+verify_jwt = false
+
+[functions.submit-program-application]
+verify_jwt = false
+
+[functions.submit-visit-request]
+verify_jwt = false
