@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { FileText, CheckCircle, X } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ApplicationModalProps {
   isOpen: boolean;
@@ -212,11 +213,11 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     setIsSubmitting(true);
 
     try {
-      // TODO: Replace with actual API call to save application
-      // Example: await fetch('/api/applications', { method: 'POST', body: JSON.stringify(formData) });
+      const { data, error } = await supabase.functions.invoke("submit-program-application", {
+        body: formData
+      });
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      if (error) throw error;
 
       setIsSubmitted(true);
 
@@ -232,6 +233,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
       }, 3000);
 
     } catch (error) {
+      console.error("Error submitting application:", error);
       toast({
         title: "Submission Failed",
         description: "There was an error submitting your application. Please try again.",

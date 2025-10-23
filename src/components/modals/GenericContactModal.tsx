@@ -48,18 +48,29 @@ const GenericContactModal = ({
     setIsSubmitting(true);
 
     try {
-      // Create message with all form details
       const fullMessage = `
 Inquiry Type: ${inquiryType}
 ${formData.organization ? `Organization: ${formData.organization}` : ''}
 ${formData.selection && options ? `${options[0]?.label || 'Selection'}: ${formData.selection}` : ''}
-Phone: ${formData.phone}
 
 Message:
 ${formData.message}
       `;
 
-      const { error } = await supabase
+      // Send email via edge function
+      const { error: emailError } = await supabase.functions.invoke("send-generic-contact", {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          message: fullMessage.trim()
+        }
+      });
+
+      if (emailError) throw emailError;
+
+      // Also save to database
+      const { error: dbError } = await supabase
         .from('contact_submissions')
         .insert([{
           name: formData.name,
@@ -68,7 +79,7 @@ ${formData.message}
           message: fullMessage.trim()
         }]);
 
-      if (error) throw error;
+      if (dbError) console.error('Database insert error:', dbError);
 
       setIsSubmitted(true);
       toast({
@@ -76,7 +87,6 @@ ${formData.message}
         description: "Thank you for reaching out. We'll get back to you soon.",
       });
 
-      // Reset form after 3 seconds
       setTimeout(() => {
         setFormData({
           name: "",

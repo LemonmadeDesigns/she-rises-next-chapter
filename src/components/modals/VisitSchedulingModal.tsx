@@ -58,7 +58,22 @@ export default function VisitSchedulingModal({ open, onOpenChange }: VisitSchedu
     try {
       const validatedData = visitRequestSchema.parse(formData);
       
-      const { error } = await supabase
+      // Send email via edge function
+      const { error: emailError } = await supabase.functions.invoke("submit-visit-request", {
+        body: {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone || null,
+          preferred_date: validatedData.preferred_date,
+          preferred_time: validatedData.preferred_time,
+          message: validatedData.message || null
+        }
+      });
+
+      if (emailError) throw emailError;
+
+      // Also save to database
+      const { error: dbError } = await supabase
         .from('visit_requests')
         .insert({
           name: validatedData.name,
@@ -69,15 +84,7 @@ export default function VisitSchedulingModal({ open, onOpenChange }: VisitSchedu
           message: validatedData.message || null
         });
 
-      if (error) {
-        console.error('Error submitting visit request:', error);
-        toast({
-          title: "Error",
-          description: "Failed to submit visit request. Please try again.",
-          variant: "destructive"
-        });
-        return;
-      }
+      if (dbError) console.error('Database insert error:', dbError);
 
       toast({
         title: "Request Submitted!",
@@ -85,7 +92,6 @@ export default function VisitSchedulingModal({ open, onOpenChange }: VisitSchedu
         variant: "default"
       });
 
-      // Reset form
       setFormData({
         name: '',
         email: '',
