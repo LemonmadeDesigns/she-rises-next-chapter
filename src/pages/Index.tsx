@@ -9,7 +9,9 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import ProgramCard from "@/components/cards/ProgramCard";
 import EventCard from "@/components/cards/EventCard";
-import heroImage from "@/assets/she-rises-banner.png";
+import heroImage from "@/assets/she-rises-banner-hero.jpg";
+import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
+import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
@@ -74,6 +76,8 @@ const Index = () => {
         }
         subtitle="Here we help you write the next chapter"
         backgroundImage={heroImage}
+        backgroundImageWebp={heroImageWebp}
+        backgroundImageAvif={heroImageAvif}
         fullHeight
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
