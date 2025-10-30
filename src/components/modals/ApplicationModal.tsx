@@ -16,73 +16,55 @@ interface ApplicationModalProps {
 }
 
 interface ApplicationFormData {
-  // Personal Information
+  // Personal Information (9 fields)
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   dateOfBirth: string;
-  age: string;
   address: string;
   city: string;
   state: string;
   zipCode: string;
 
-  // Emergency Contact
+  // Emergency Contact (3 fields)
   emergencyName: string;
   emergencyRelation: string;
   emergencyPhone: string;
 
-  // Referral Information
+  // Referral/Legal Information (6 fields)
   referralSource: string;
+  justiceInvolved: string;
   paroleOfficerName: string;
   paroleOfficerPhone: string;
-  paroleOfficerEmail: string;
   caseNumber: string;
   expectedReleaseDate: string;
 
-  // Eligibility & Demographics
-  justiceInvolved: string;
+  // Demographics (2 fields)
   gender: string;
-  countryOfOrigin: string;
   languageNeeds: string;
-  fundingSource: string;
 
-  // Housing Needs
+  // Housing Needs (4 fields)
   immediateHousing: string;
   children: string;
   childrenCount: string;
   childrenAges: string;
-  pastHousingSituation: string;
 
-  // Background Information
+  // Current Situation (2 fields)
   currentSituation: string;
-  housingSituation: string;
   employment: string;
-  education: string;
 
-  // Health & Support
+  // Health & Support (3 fields)
   physicalHealthNeeds: string;
   mentalHealthNeeds: string;
   substanceRecovery: string;
 
-  // Goals & Services Requested
-  employmentJobReadiness: string;
-  educationTraining: string;
-  familyReunification: string;
-  legalAidRecovery: string;
-  transportationAssistance: string;
-  otherGoals: string;
-
-  // Program Information
+  // Program Needs (3 fields)
   programsInterested: string[];
   goals: string;
   challenges: string;
-  previousServices: string;
-  medicalNeeds: string;
-  transportation: string;
 
-  // Program Acknowledgment & Legal
+  // Legal Agreements (3 fields)
   programAcknowledgment: boolean;
   backgroundCheck: boolean;
   consent: boolean;
@@ -95,54 +77,47 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   const { toast } = useToast();
 
   const [formData, setFormData] = useState<ApplicationFormData>({
+    // Personal Information
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
     dateOfBirth: "",
-    age: "",
     address: "",
     city: "",
     state: "",
     zipCode: "",
+    // Emergency Contact
     emergencyName: "",
     emergencyRelation: "",
     emergencyPhone: "",
+    // Referral/Legal Information
     referralSource: "",
+    justiceInvolved: "",
     paroleOfficerName: "",
     paroleOfficerPhone: "",
-    paroleOfficerEmail: "",
     caseNumber: "",
     expectedReleaseDate: "",
-    justiceInvolved: "",
+    // Demographics
     gender: "",
-    countryOfOrigin: "",
     languageNeeds: "",
-    fundingSource: "",
+    // Housing Needs
     immediateHousing: "",
     children: "",
     childrenCount: "",
     childrenAges: "",
-    pastHousingSituation: "",
+    // Current Situation
     currentSituation: "",
-    housingSituation: "",
     employment: "",
-    education: "",
+    // Health & Support
     physicalHealthNeeds: "",
     mentalHealthNeeds: "",
     substanceRecovery: "",
-    employmentJobReadiness: "",
-    educationTraining: "",
-    familyReunification: "",
-    legalAidRecovery: "",
-    transportationAssistance: "",
-    otherGoals: "",
+    // Program Needs
     programsInterested: [],
     goals: "",
     challenges: "",
-    previousServices: "",
-    medicalNeeds: "",
-    transportation: "",
+    // Legal Agreements
     programAcknowledgment: false,
     backgroundCheck: false,
     consent: false,
@@ -213,14 +188,13 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     setIsSubmitting(true);
 
     try {
-      // Format comprehensive application message
+      // Format streamlined application message (35 essential fields)
       const applicationMessage = `
 ═══════════════════════════════════════════
 PERSONAL INFORMATION
 ═══════════════════════════════════════════
 Name: ${formData.firstName} ${formData.lastName}
 Date of Birth: ${formData.dateOfBirth}
-Age: ${formData.age}
 Address: ${formData.address}
 City: ${formData.city}, ${formData.state} ${formData.zipCode}
 
@@ -232,23 +206,20 @@ Relationship: ${formData.emergencyRelation}
 Phone: ${formData.emergencyPhone}
 
 ═══════════════════════════════════════════
-REFERRAL INFORMATION
+REFERRAL & LEGAL INFORMATION
 ═══════════════════════════════════════════
 Referral Source: ${formData.referralSource}
+Justice Involved: ${formData.justiceInvolved}
 Parole Officer: ${formData.paroleOfficerName || 'N/A'}
 Parole Officer Phone: ${formData.paroleOfficerPhone || 'N/A'}
-Parole Officer Email: ${formData.paroleOfficerEmail || 'N/A'}
 Case Number: ${formData.caseNumber || 'N/A'}
 Expected Release Date: ${formData.expectedReleaseDate || 'N/A'}
 
 ═══════════════════════════════════════════
-ELIGIBILITY & DEMOGRAPHICS
+DEMOGRAPHICS
 ═══════════════════════════════════════════
-Justice Involved: ${formData.justiceInvolved}
 Gender: ${formData.gender}
-Country of Origin: ${formData.countryOfOrigin}
 Language Needs: ${formData.languageNeeds || 'None'}
-Funding Source: ${formData.fundingSource}
 
 ═══════════════════════════════════════════
 HOUSING NEEDS
@@ -256,52 +227,30 @@ HOUSING NEEDS
 Immediate Housing Needed: ${formData.immediateHousing}
 Children: ${formData.children}
 ${formData.children === 'Yes' ? `Number of Children: ${formData.childrenCount}\nChildren's Ages: ${formData.childrenAges}` : ''}
-Past Housing Situation: ${formData.pastHousingSituation}
 
 ═══════════════════════════════════════════
-BACKGROUND
+CURRENT SITUATION
 ═══════════════════════════════════════════
 Current Situation: ${formData.currentSituation}
-Housing Situation: ${formData.housingSituation}
 Employment Status: ${formData.employment}
-Education Level: ${formData.education}
 
 ═══════════════════════════════════════════
 HEALTH & SUPPORT NEEDS
 ═══════════════════════════════════════════
-Physical Health Needs: ${formData.physicalHealthNeeds || 'None'}
-Mental Health Needs: ${formData.mentalHealthNeeds || 'None'}
+Physical Health Needs: ${formData.physicalHealthNeeds || 'None specified'}
+Mental Health Needs: ${formData.mentalHealthNeeds || 'None specified'}
 Substance Recovery: ${formData.substanceRecovery}
 
 ═══════════════════════════════════════════
-SERVICES REQUESTED
-═══════════════════════════════════════════
-Employment/Job Readiness: ${formData.employmentJobReadiness || 'No'}
-Education/Training: ${formData.educationTraining || 'No'}
-Family Reunification: ${formData.familyReunification || 'No'}
-Legal Aid/Recovery: ${formData.legalAidRecovery || 'No'}
-Transportation Assistance: ${formData.transportationAssistance || 'No'}
-Other Goals: ${formData.otherGoals || 'None'}
-
-═══════════════════════════════════════════
-PROGRAM DETAILS
+PROGRAM NEEDS & GOALS
 ═══════════════════════════════════════════
 Programs Interested In: ${formData.programsInterested.join(', ') || 'Not specified'}
 
-Goals:
+Goals & Services Needed:
 ${formData.goals}
 
-Challenges:
+Challenges & Barriers:
 ${formData.challenges}
-
-Previous Services:
-${formData.previousServices || 'None'}
-
-Medical Needs:
-${formData.medicalNeeds || 'None'}
-
-Transportation:
-${formData.transportation || 'Not specified'}
       `.trim();
 
       // Submit to Google Apps Script
@@ -348,54 +297,47 @@ ${formData.transportation || 'Not specified'}
     setCurrentStep(1);
     setIsSubmitted(false);
     setFormData({
+      // Personal Information
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
       dateOfBirth: "",
-      age: "",
       address: "",
       city: "",
       state: "",
       zipCode: "",
+      // Emergency Contact
       emergencyName: "",
       emergencyRelation: "",
       emergencyPhone: "",
+      // Referral/Legal Information
       referralSource: "",
+      justiceInvolved: "",
       paroleOfficerName: "",
       paroleOfficerPhone: "",
-      paroleOfficerEmail: "",
       caseNumber: "",
       expectedReleaseDate: "",
-      justiceInvolved: "",
+      // Demographics
       gender: "",
-      countryOfOrigin: "",
       languageNeeds: "",
-      fundingSource: "",
+      // Housing Needs
       immediateHousing: "",
       children: "",
       childrenCount: "",
       childrenAges: "",
-      pastHousingSituation: "",
+      // Current Situation
       currentSituation: "",
-      housingSituation: "",
       employment: "",
-      education: "",
+      // Health & Support
       physicalHealthNeeds: "",
       mentalHealthNeeds: "",
       substanceRecovery: "",
-      employmentJobReadiness: "",
-      educationTraining: "",
-      familyReunification: "",
-      legalAidRecovery: "",
-      transportationAssistance: "",
-      otherGoals: "",
+      // Program Needs
       programsInterested: [],
       goals: "",
       challenges: "",
-      previousServices: "",
-      medicalNeeds: "",
-      transportation: "",
+      // Legal Agreements
       programAcknowledgment: false,
       backgroundCheck: false,
       consent: false,
@@ -485,16 +427,6 @@ ${formData.transportation || 'Not specified'}
               </div>
             </div>
             <div>
-              <Label htmlFor="age">Age</Label>
-              <Input
-                id="age"
-                type="number"
-                value={formData.age}
-                onChange={(e) => handleInputChange('age', e.target.value)}
-                placeholder="Age"
-              />
-            </div>
-            <div>
               <Label htmlFor="address">Address</Label>
               <Input
                 id="address"
@@ -557,6 +489,15 @@ ${formData.transportation || 'Not specified'}
               </div>
             </div>
             <div>
+              <Label htmlFor="emergencyRelation">Relationship to Applicant</Label>
+              <Input
+                id="emergencyRelation"
+                value={formData.emergencyRelation}
+                onChange={(e) => handleInputChange('emergencyRelation', e.target.value)}
+                placeholder="e.g., Mother, Sister, Friend"
+              />
+            </div>
+            <div>
               <Label htmlFor="referralSource">Referral Source (Agency / Officer / Self)</Label>
               <Input
                 id="referralSource"
@@ -573,25 +514,14 @@ ${formData.transportation || 'Not specified'}
                 onChange={(e) => handleInputChange('paroleOfficerName', e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="paroleOfficerPhone">Officer Phone</Label>
-                <Input
-                  id="paroleOfficerPhone"
-                  type="tel"
-                  value={formData.paroleOfficerPhone}
-                  onChange={(e) => handleInputChange('paroleOfficerPhone', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="paroleOfficerEmail">Officer Email</Label>
-                <Input
-                  id="paroleOfficerEmail"
-                  type="email"
-                  value={formData.paroleOfficerEmail}
-                  onChange={(e) => handleInputChange('paroleOfficerEmail', e.target.value)}
-                />
-              </div>
+            <div>
+              <Label htmlFor="paroleOfficerPhone">Officer Phone</Label>
+              <Input
+                id="paroleOfficerPhone"
+                type="tel"
+                value={formData.paroleOfficerPhone}
+                onChange={(e) => handleInputChange('paroleOfficerPhone', e.target.value)}
+              />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -645,14 +575,6 @@ ${formData.transportation || 'Not specified'}
               </Select>
             </div>
             <div>
-              <Label htmlFor="countryOfOrigin">Country of Origin</Label>
-              <Input
-                id="countryOfOrigin"
-                value={formData.countryOfOrigin}
-                onChange={(e) => handleInputChange('countryOfOrigin', e.target.value)}
-              />
-            </div>
-            <div>
               <Label htmlFor="languageNeeds">Language Needs</Label>
               <Input
                 id="languageNeeds"
@@ -660,21 +582,6 @@ ${formData.transportation || 'Not specified'}
                 onChange={(e) => handleInputChange('languageNeeds', e.target.value)}
                 placeholder="e.g., Spanish, ASL, etc."
               />
-            </div>
-            <div>
-              <Label htmlFor="fundingSource">How will you be covering program fees?</Label>
-              <Select value={formData.fundingSource} onValueChange={(value) => handleInputChange('fundingSource', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="self-pay">Self-pay</SelectItem>
-                  <SelectItem value="family-support">Family support</SelectItem>
-                  <SelectItem value="probation-parole">Probation/Parole Agency</SelectItem>
-                  <SelectItem value="other-agency">Other agency (please specify)</SelectItem>
-                  <SelectItem value="no-funding">No funding at this time</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
         );
@@ -731,18 +638,22 @@ ${formData.transportation || 'Not specified'}
               </div>
             )}
             <div>
-              <Label htmlFor="pastHousingSituation">Past Housing Situation</Label>
-              <Select value={formData.pastHousingSituation} onValueChange={(value) => handleInputChange('pastHousingSituation', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="homeless">Homeless</SelectItem>
-                  <SelectItem value="shelter">Shelter</SelectItem>
-                  <SelectItem value="transitional">Transitional</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+              <Label htmlFor="currentSituation">Current Living Situation</Label>
+              <Textarea
+                id="currentSituation"
+                value={formData.currentSituation}
+                onChange={(e) => handleInputChange('currentSituation', e.target.value)}
+                placeholder="Please describe your current living situation..."
+              />
+            </div>
+            <div>
+              <Label htmlFor="employment">Current Employment Status</Label>
+              <Input
+                id="employment"
+                value={formData.employment}
+                onChange={(e) => handleInputChange('employment', e.target.value)}
+                placeholder="e.g., Employed, Unemployed, Student"
+              />
             </div>
           </div>
         );
@@ -787,76 +698,7 @@ ${formData.transportation || 'Not specified'}
       case 6:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Goals & Services Requested</h3>
-            <div>
-              <Label htmlFor="employmentJobReadiness">Employment / Job Readiness</Label>
-              <Select value={formData.employmentJobReadiness} onValueChange={(value) => handleInputChange('employmentJobReadiness', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="educationTraining">Education / Training</Label>
-              <Select value={formData.educationTraining} onValueChange={(value) => handleInputChange('educationTraining', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="familyReunification">Family Reunification Support</Label>
-              <Select value={formData.familyReunification} onValueChange={(value) => handleInputChange('familyReunification', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="legalAidRecovery">Legal Aid / ID Recovery</Label>
-              <Select value={formData.legalAidRecovery} onValueChange={(value) => handleInputChange('legalAidRecovery', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="transportationAssistance">Transportation Assistance</Label>
-              <Select value={formData.transportationAssistance} onValueChange={(value) => handleInputChange('transportationAssistance', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="otherGoals">Other Goals</Label>
-              <Textarea
-                id="otherGoals"
-                value={formData.otherGoals}
-                onChange={(e) => handleInputChange('otherGoals', e.target.value)}
-                placeholder="Please describe any other goals or services you're interested in..."
-              />
-            </div>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">Programs & Goals</h3>
             <div>
               <Label className="text-base font-medium">Which programs are you interested in? *</Label>
               <div className="grid grid-cols-1 gap-2 mt-2">
@@ -888,7 +730,18 @@ ${formData.transportation || 'Not specified'}
                 value={formData.goals}
                 onChange={(e) => handleInputChange('goals', e.target.value)}
                 placeholder="Please describe your goals and what you hope to achieve..."
+                rows={4}
                 required
+              />
+            </div>
+            <div>
+              <Label htmlFor="challenges">What challenges or barriers are you currently facing?</Label>
+              <Textarea
+                id="challenges"
+                value={formData.challenges}
+                onChange={(e) => handleInputChange('challenges', e.target.value)}
+                placeholder="Please describe any challenges that might affect your program participation..."
+                rows={4}
               />
             </div>
           </div>
@@ -914,26 +767,8 @@ ${formData.transportation || 'Not specified'}
                 I acknowledge and agree to the program statement above *
               </Label>
             </div>
-            <div>
-              <Label htmlFor="previousServices">Have you received services from other organizations?</Label>
-              <Textarea
-                id="previousServices"
-                value={formData.previousServices}
-                onChange={(e) => handleInputChange('previousServices', e.target.value)}
-                placeholder="Please list any other services or programs you've participated in..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="medicalNeeds">Do you have any special medical or accessibility needs?</Label>
-              <Textarea
-                id="medicalNeeds"
-                value={formData.medicalNeeds}
-                onChange={(e) => handleInputChange('medicalNeeds', e.target.value)}
-                placeholder="This information helps us provide appropriate accommodations..."
-              />
-            </div>
 
-            <div className="space-y-4 border-t pt-4">
+            <div className="space-y-4 border-t pt-4 mt-6">
               <div className="flex items-start space-x-2">
                 <Checkbox
                   id="backgroundCheck"
