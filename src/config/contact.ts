@@ -7,7 +7,7 @@
 
 // Google Apps Script Web App URL
 // This endpoint handles all contact form submissions and sends emails to the admin
-export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxpSgxxZqm_Y1s785zrRYCYthhYiQf9ZPWiNh5AnsKwtoXC90MpHSUoBp12K_QoAssi/exec';
+export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycby-6KQ3eQKcbr2-f3fX9TBX8ggDduBvcjfr6teL9hB-BHHHDkIq_9gWjelzodTfUemw/exec';
 
 /**
  * Submits form data to the Google Apps Script endpoint
