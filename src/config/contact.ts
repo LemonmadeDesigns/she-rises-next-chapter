@@ -1,0 +1,43 @@
+/**
+ * Contact Form Configuration
+ *
+ * Centralized configuration for the Google Apps Script contact form endpoint.
+ * Update the GAS_ENDPOINT constant here to change it across all forms.
+ */
+
+// Google Apps Script Web App URL
+// This endpoint handles all contact form submissions and sends emails to the admin
+export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw2772qQ0OMNx3vfOUKMKnKhj8MXD8gYg5PsdbwIkptHiWEm4sQPyf5uE_ywakfPQwP/exec';
+
+/**
+ * Submits form data to the Google Apps Script endpoint
+ *
+ * @param name - Submitter's full name
+ * @param email - Submitter's email address
+ * @param subject - Email subject line
+ * @param message - Message content
+ * @param company - Honeypot field (should be empty for legitimate submissions)
+ * @returns Promise with response data
+ */
+export async function submitContactForm(
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+  company: string = ''
+): Promise<{ ok: boolean; error?: string }> {
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('subject', subject);
+  formData.append('message', message);
+  formData.append('company', company);
+
+  const response = await fetch(GAS_ENDPOINT, {
+    method: 'POST',
+    body: formData,
+  });
+
+  const result = await response.json();
+  return result;
+}

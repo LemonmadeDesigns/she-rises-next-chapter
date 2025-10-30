@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { Mail, CheckCircle } from "lucide-react";
+import { submitContactForm } from "@/config/contact";
 
 interface GenericContactModalProps {
   isOpen: boolean;
@@ -36,7 +36,8 @@ const GenericContactModal = ({
     email: "",
     phone: "",
     selection: "",
-    message: ""
+    message: "",
+    company: "" // Honeypot field
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -57,29 +58,18 @@ Message:
 ${formData.message}
       `;
 
-      // Send email via edge function
-      const { error: emailError } = await supabase.functions.invoke("send-generic-contact", {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          message: fullMessage.trim()
-        }
-      });
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        formData.name,
+        formData.email,
+        inquiryType, // Use inquiry type as subject
+        `${fullMessage.trim()}\n\nPhone: ${formData.phone || 'Not provided'}`,
+        formData.company
+      );
 
-      if (emailError) throw emailError;
-
-      // Also save to database
-      const { error: dbError } = await supabase
-        .from('contact_submissions')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          message: fullMessage.trim()
-        }]);
-
-      if (dbError) console.error('Database insert error:', dbError);
+      if (!result.ok) {
+        throw new Error(result.error || 'Failed to send message');
+      }
 
       setIsSubmitted(true);
       toast({
@@ -94,7 +84,8 @@ ${formData.message}
           email: "",
           phone: "",
           selection: "",
-          message: ""
+          message: "",
+          company: ""
         });
         setIsSubmitted(false);
         onClose();
@@ -118,7 +109,8 @@ ${formData.message}
       email: "",
       phone: "",
       selection: "",
-      message: ""
+      message: "",
+      company: ""
     });
     setIsSubmitted(false);
     onClose();
@@ -136,7 +128,18 @@ ${formData.message}
         </DialogHeader>
 
         {!isSubmitted ? (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="sherises-contact space-y-4">
+            {/* Honeypot field for spam protection */}
+            <input
+              type="text"
+              name="company"
+              style={{ display: 'none' }}
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.company}
+              onChange={(e) => handleInputChange('company', e.target.value)}
+            />
+
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2 sm:col-span-1">
                 <Label htmlFor="name">Name *</Label>

@@ -12,6 +12,7 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users } from "lucide-react";
 import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
+import { submitContactForm } from "@/config/contact";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({
@@ -21,10 +22,21 @@ const Contact = () => {
     subject: "",
     category: "",
     message: "",
-    urgent: false
+    urgent: false,
+    company: "" // Honeypot field
   });
-  
+
   const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
+
+  // Category mapping to convert values to full labels
+  const categoryLabels: { [key: string]: string } = {
+    services: "Program Services & Support",
+    volunteer: "Volunteer Opportunities",
+    donate: "Donations & Partnerships",
+    media: "Media & Press Inquiries",
+    feedback: "Feedback & Suggestions",
+    other: "Other"
+  };
 
   const contactInfo = [
     {
@@ -110,36 +122,26 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Contact form submitted:", contactForm);
-    
-    try {
-      console.log('Sending email with form data:', contactForm);
-      
-      const response = await fetch(`https://ktaleplbvgicjugcwthj.supabase.co/functions/v1/send-contact-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt0YWxlcGxidmdpY2p1Z2N3dGhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjMzMTUsImV4cCI6MjA3MzQzOTMxNX0.imvT4rK3amfJm6KZRywwksQF4KSu-aLxpSP4Rt_wsOw`
-        },
-        body: JSON.stringify({
-          name: contactForm.name,
-          email: contactForm.email,
-          phone: contactForm.phone,
-          reason: contactForm.category,
-          message: `Subject: ${contactForm.subject}\n\n${contactForm.message}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`
-        }),
-      });
 
-      console.log('Response status:', response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Response error:', errorText);
-        throw new Error(`Failed to send message: ${response.status} - ${errorText}`);
+    try {
+      // Get the full category label
+      const categoryLabel = contactForm.category ? categoryLabels[contactForm.category] : 'Not specified';
+
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        contactForm.name,
+        contactForm.email,
+        contactForm.subject || contactForm.category || 'Contact Form Submission',
+        `${contactForm.message}\n\nPhone: ${contactForm.phone || 'Not provided'}\nCategory: ${categoryLabel}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`,
+        contactForm.company
+      );
+
+      console.log('Response:', result);
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Failed to send message');
       }
 
-      const result = await response.json();
-      console.log('Email sent successfully:', result);
-      
       // Reset form
       setContactForm({
         name: "",
@@ -148,11 +150,12 @@ const Contact = () => {
         subject: "",
         category: "",
         message: "",
-        urgent: false
+        urgent: false,
+        company: ""
       });
-      
+
       alert('Thank you for contacting She Rises! We have received your message and will respond within 24-48 hours. Your voice matters to us.');
-      
+
     } catch (error) {
       console.error('Error sending email:', error);
       alert('There was an error sending your message. Please try again or call us at (909) 547-9998.');
@@ -220,7 +223,17 @@ const Contact = () => {
                   Send Us a Message
                 </h3>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="sherises-contact space-y-6">
+                  {/* Honeypot field for spam protection */}
+                  <input
+                    type="text"
+                    name="company"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    onChange={(e) => updateForm('company', e.target.value)}
+                  />
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="name">Full Name *</Label>

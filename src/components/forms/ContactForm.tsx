@@ -5,8 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { submitContactForm } from "@/config/contact";
 
 const contactFormSchema = z.object({
   name: z.string()
@@ -42,10 +42,21 @@ const ContactForm = ({ className }: ContactFormProps) => {
     email: "",
     phone: "",
     reason: "",
-    message: ""
+    message: "",
+    company: "" // Honeypot field
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  // Reason mapping to convert values to full labels
+  const reasonLabels: { [key: string]: string } = {
+    general: "General Inquiry",
+    services: "Need Services",
+    volunteer: "Want to Volunteer",
+    donate: "Donation Question",
+    partner: "Partnership Opportunity",
+    media: "Media Inquiry"
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -69,11 +80,21 @@ const ContactForm = ({ className }: ContactFormProps) => {
       // Validate form data
       const validatedData = contactFormSchema.parse(formData);
 
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: validatedData,
-      });
+      // Get the full reason label
+      const reasonLabel = validatedData.reason ? reasonLabels[validatedData.reason] || validatedData.reason : 'Not specified';
 
-      if (error) throw error;
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        validatedData.name,
+        validatedData.email,
+        reasonLabel, // Use full label as subject
+        `${validatedData.message}\n\nPhone: ${validatedData.phone || 'Not provided'}`,
+        formData.company
+      );
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Failed to send message');
+      }
 
       toast({
         title: "Message sent!",
@@ -86,6 +107,7 @@ const ContactForm = ({ className }: ContactFormProps) => {
         phone: "",
         reason: "",
         message: "",
+        company: "",
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -108,7 +130,18 @@ const ContactForm = ({ className }: ContactFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={className}>
+    <form onSubmit={handleSubmit} className={`sherises-contact ${className || ''}`}>
+      {/* Honeypot field for spam protection */}
+      <input
+        type="text"
+        name="company"
+        style={{ display: 'none' }}
+        tabIndex={-1}
+        autoComplete="off"
+        value={formData.company}
+        onChange={handleChange}
+      />
+
       <div className="space-y-4">
         <div>
           <Label htmlFor="name">Name *</Label>
