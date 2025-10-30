@@ -17,7 +17,7 @@
  * @param {string} email - The email address to receive notifications
  *
  * Example usage in Apps Script editor:
- *   setAdminEmail("LemonsTerrell43@gmail.com")
+ *   setAdminEmail("Empowerhavenhomes@gmail.com")
  */
 function setAdminEmail(email) {
   PropertiesService.getScriptProperties().setProperty('ADMIN_EMAIL', email);
@@ -48,8 +48,8 @@ function initializeProperties() {
 
   // Set default admin email if not already configured
   if (!props.getProperty('ADMIN_EMAIL')) {
-    props.setProperty('ADMIN_EMAIL', 'LemonsTerrell43@gmail.com');
-    Logger.log('Initialized ADMIN_EMAIL to: LemonsTerrell43@gmail.com');
+    props.setProperty('ADMIN_EMAIL', 'Empowerhavenhomes@gmail.com');
+    Logger.log('Initialized ADMIN_EMAIL to: Empowerhavenhomes@gmail.com');
   }
 
   // Set default auto-reply to enabled if not already configured
@@ -113,7 +113,7 @@ function doPost(e) {
 
     // Get configuration from Script Properties
     var props = PropertiesService.getScriptProperties();
-    var adminEmail = props.getProperty('ADMIN_EMAIL') || 'LemonsTerrell43@gmail.com';
+    var adminEmail = props.getProperty('ADMIN_EMAIL') || 'Empowerhavenhomes@gmail.com';
     var autoReplyEnabled = props.getProperty('AUTO_REPLY') !== 'false';
 
     // Create timestamp
