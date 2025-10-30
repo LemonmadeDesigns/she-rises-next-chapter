@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { submitContactForm } from '@/config/contact';
 import { z } from 'zod';
 
 const visitRequestSchema = z.object({
@@ -57,34 +57,30 @@ export default function VisitSchedulingModal({ open, onOpenChange }: VisitSchedu
 
     try {
       const validatedData = visitRequestSchema.parse(formData);
-      
-      // Send email via edge function
-      const { error: emailError } = await supabase.functions.invoke("submit-visit-request", {
-        body: {
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone || null,
-          preferred_date: validatedData.preferred_date,
-          preferred_time: validatedData.preferred_time,
-          message: validatedData.message || null
-        }
-      });
 
-      if (emailError) throw emailError;
+      // Format the visit request details for the message
+      const visitMessage = `
+Preferred Date: ${validatedData.preferred_date}
+Preferred Time: ${validatedData.preferred_time}
 
-      // Also save to database
-      const { error: dbError } = await supabase
-        .from('visit_requests')
-        .insert({
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone || null,
-          preferred_date: validatedData.preferred_date,
-          preferred_time: validatedData.preferred_time,
-          message: validatedData.message || null
-        });
+Additional Notes:
+${validatedData.message || 'None provided'}
+      `.trim();
 
-      if (dbError) console.error('Database insert error:', dbError);
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        validatedData.name,
+        validatedData.email,
+        'Visit Request',
+        visitMessage,
+        '', // honeypot
+        validatedData.phone || '',
+        'Visit'
+      );
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
 
       toast({
         title: "Request Submitted!",

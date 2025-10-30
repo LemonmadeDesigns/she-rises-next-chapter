@@ -17,6 +17,8 @@ export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw2772qQ0OM
  * @param subject - Email subject line
  * @param message - Message content
  * @param company - Honeypot field (should be empty for legitimate submissions)
+ * @param phone - Phone number (optional)
+ * @param formType - Type of form being submitted (e.g., "Contact", "Partnership", "Volunteer")
  * @returns Promise with response data
  */
 export async function submitContactForm(
@@ -24,7 +26,9 @@ export async function submitContactForm(
   email: string,
   subject: string,
   message: string,
-  company: string = ''
+  company: string = '',
+  phone: string = '',
+  formType: string = 'Contact'
 ): Promise<{ ok: boolean; error?: string }> {
   const formData = new FormData();
   formData.append('name', name);
@@ -32,6 +36,8 @@ export async function submitContactForm(
   formData.append('subject', subject);
   formData.append('message', message);
   formData.append('company', company);
+  formData.append('phone', phone);
+  formData.append('formType', formType);
 
   const response = await fetch(GAS_ENDPOINT, {
     method: 'POST',

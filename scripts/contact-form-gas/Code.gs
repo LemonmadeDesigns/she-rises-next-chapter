@@ -80,6 +80,8 @@ function doPost(e) {
     var email = params.email || '';
     var subject = params.subject || '';
     var message = params.message || '';
+    var phone = params.phone || ''; // Optional phone number
+    var formType = params.formType || 'Contact'; // Form type for categorization
     var company = params.company || ''; // Honeypot field
 
     // Honeypot check: if "company" field is filled, treat as spam
@@ -130,7 +132,7 @@ function doPost(e) {
     }
 
     // Log to Google Sheet
-    logToSheet(timestamp, name, email, subject, message);
+    logToSheet(timestamp, name, email, subject, message, phone, formType);
 
     // Return success response
     return jsonResponse({ ok: true });
@@ -231,8 +233,10 @@ function sendUserAcknowledgement(userEmail, userName) {
  * @param {string} email - Submitter's email
  * @param {string} subject - Message subject
  * @param {string} message - Message content
+ * @param {string} phone - Phone number (optional)
+ * @param {string} formType - Type of form submitted
  */
-function logToSheet(timestamp, name, email, subject, message) {
+function logToSheet(timestamp, name, email, subject, message, phone, formType) {
   try {
     // Open the existing Google Sheet by ID
     var sheetId = '1m0Ol6A0mWYnOfKzHTi0O81Z95voE54aMN7F0h4gwa-A';
@@ -242,9 +246,9 @@ function logToSheet(timestamp, name, email, subject, message) {
     // If sheet doesn't exist, create it with headers
     if (!sheet) {
       sheet = spreadsheet.insertSheet('SheRises Contact Messages');
-      sheet.appendRow(['Timestamp', 'Name', 'Email', 'Subject', 'Message', 'IP', 'User Agent']);
+      sheet.appendRow(['Timestamp', 'Name', 'Email', 'Subject', 'Message', 'IP', 'User Agent', 'Phone', 'Form Type']);
       // Format header row
-      sheet.getRange(1, 1, 1, 7).setFontWeight('bold').setBackground('#4A90E2').setFontColor('#FFFFFF');
+      sheet.getRange(1, 1, 1, 9).setFontWeight('bold').setBackground('#4A90E2').setFontColor('#FFFFFF');
     }
 
     // Note: IP and User Agent are not reliably available in Google Apps Script web apps
@@ -252,10 +256,10 @@ function logToSheet(timestamp, name, email, subject, message) {
     var ip = '';
     var userAgent = '';
 
-    // Append the new submission
-    sheet.appendRow([timestamp, name, email, subject, message, ip, userAgent]);
+    // Append the new submission with new columns
+    sheet.appendRow([timestamp, name, email, subject, message, ip, userAgent, phone || '', formType || 'Contact']);
 
-    Logger.log('Submission logged to sheet');
+    Logger.log('Submission logged to sheet - Form Type: ' + formType);
 
   } catch (error) {
     // Log error but don't fail the entire request

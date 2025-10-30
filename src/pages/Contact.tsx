@@ -132,8 +132,10 @@ const Contact = () => {
         contactForm.name,
         contactForm.email,
         contactForm.subject || contactForm.category || 'Contact Form Submission',
-        `${contactForm.message}\n\nPhone: ${contactForm.phone || 'Not provided'}\nCategory: ${categoryLabel}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`,
-        contactForm.company
+        `${contactForm.message}\n\nCategory: ${categoryLabel}${contactForm.urgent ? '\n\n**URGENT REQUEST**' : ''}`,
+        contactForm.company,
+        contactForm.phone,
+        'Contact'
       );
 
       console.log('Response:', result);

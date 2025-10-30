@@ -88,8 +88,10 @@ const ContactForm = ({ className }: ContactFormProps) => {
         validatedData.name,
         validatedData.email,
         reasonLabel, // Use full label as subject
-        `${validatedData.message}\n\nPhone: ${validatedData.phone || 'Not provided'}`,
-        formData.company
+        validatedData.message,
+        formData.company,
+        validatedData.phone || '',
+        'Contact'
       );
 
       if (!result.ok) {

@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { FileText, CheckCircle, X } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactForm } from "@/config/contact";
 
 interface ApplicationModalProps {
   isOpen: boolean;
@@ -213,11 +213,111 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("submit-program-application", {
-        body: formData
-      });
+      // Format comprehensive application message
+      const applicationMessage = `
+═══════════════════════════════════════════
+PERSONAL INFORMATION
+═══════════════════════════════════════════
+Name: ${formData.firstName} ${formData.lastName}
+Date of Birth: ${formData.dateOfBirth}
+Age: ${formData.age}
+Address: ${formData.address}
+City: ${formData.city}, ${formData.state} ${formData.zipCode}
 
-      if (error) throw error;
+═══════════════════════════════════════════
+EMERGENCY CONTACT
+═══════════════════════════════════════════
+Name: ${formData.emergencyName}
+Relationship: ${formData.emergencyRelation}
+Phone: ${formData.emergencyPhone}
+
+═══════════════════════════════════════════
+REFERRAL INFORMATION
+═══════════════════════════════════════════
+Referral Source: ${formData.referralSource}
+Parole Officer: ${formData.paroleOfficerName || 'N/A'}
+Parole Officer Phone: ${formData.paroleOfficerPhone || 'N/A'}
+Parole Officer Email: ${formData.paroleOfficerEmail || 'N/A'}
+Case Number: ${formData.caseNumber || 'N/A'}
+Expected Release Date: ${formData.expectedReleaseDate || 'N/A'}
+
+═══════════════════════════════════════════
+ELIGIBILITY & DEMOGRAPHICS
+═══════════════════════════════════════════
+Justice Involved: ${formData.justiceInvolved}
+Gender: ${formData.gender}
+Country of Origin: ${formData.countryOfOrigin}
+Language Needs: ${formData.languageNeeds || 'None'}
+Funding Source: ${formData.fundingSource}
+
+═══════════════════════════════════════════
+HOUSING NEEDS
+═══════════════════════════════════════════
+Immediate Housing Needed: ${formData.immediateHousing}
+Children: ${formData.children}
+${formData.children === 'Yes' ? `Number of Children: ${formData.childrenCount}\nChildren's Ages: ${formData.childrenAges}` : ''}
+Past Housing Situation: ${formData.pastHousingSituation}
+
+═══════════════════════════════════════════
+BACKGROUND
+═══════════════════════════════════════════
+Current Situation: ${formData.currentSituation}
+Housing Situation: ${formData.housingSituation}
+Employment Status: ${formData.employment}
+Education Level: ${formData.education}
+
+═══════════════════════════════════════════
+HEALTH & SUPPORT NEEDS
+═══════════════════════════════════════════
+Physical Health Needs: ${formData.physicalHealthNeeds || 'None'}
+Mental Health Needs: ${formData.mentalHealthNeeds || 'None'}
+Substance Recovery: ${formData.substanceRecovery}
+
+═══════════════════════════════════════════
+SERVICES REQUESTED
+═══════════════════════════════════════════
+Employment/Job Readiness: ${formData.employmentJobReadiness || 'No'}
+Education/Training: ${formData.educationTraining || 'No'}
+Family Reunification: ${formData.familyReunification || 'No'}
+Legal Aid/Recovery: ${formData.legalAidRecovery || 'No'}
+Transportation Assistance: ${formData.transportationAssistance || 'No'}
+Other Goals: ${formData.otherGoals || 'None'}
+
+═══════════════════════════════════════════
+PROGRAM DETAILS
+═══════════════════════════════════════════
+Programs Interested In: ${formData.programsInterested.join(', ') || 'Not specified'}
+
+Goals:
+${formData.goals}
+
+Challenges:
+${formData.challenges}
+
+Previous Services:
+${formData.previousServices || 'None'}
+
+Medical Needs:
+${formData.medicalNeeds || 'None'}
+
+Transportation:
+${formData.transportation || 'Not specified'}
+      `.trim();
+
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        `${formData.firstName} ${formData.lastName}`,
+        formData.email,
+        'Program Application',
+        applicationMessage,
+        '', // honeypot
+        formData.phone,
+        'Program Application'
+      );
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
 
       setIsSubmitted(true);
 

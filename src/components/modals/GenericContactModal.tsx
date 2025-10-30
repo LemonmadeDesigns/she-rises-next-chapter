@@ -63,8 +63,10 @@ ${formData.message}
         formData.name,
         formData.email,
         inquiryType, // Use inquiry type as subject
-        `${fullMessage.trim()}\n\nPhone: ${formData.phone || 'Not provided'}`,
-        formData.company
+        fullMessage.trim(),
+        formData.company,
+        formData.phone || '',
+        'General Inquiry'
       );
 
       if (!result.ok) {

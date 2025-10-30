@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactForm } from "@/config/contact";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 
 const volunteerSchema = z.object({
@@ -105,35 +105,39 @@ export default function BecomeVolunteerModal({
 
   const onSubmit = async (data: VolunteerFormData) => {
     setIsSubmitting(true);
-    
+
     try {
-      const { data: result, error } = await supabase.functions.invoke("submit-volunteer-form", {
-        body: {
-          fullName: data.fullName,
-          email: data.email,
-          phone: data.phone || "",
-          cityState: data.cityState || "",
-          interests: data.interests.join(", "),
-          availability: data.availability,
-          skills: data.skills || "",
-          referral: data.referral || "",
-          honeypot: data.honeypot,
-        },
-      });
+      // Format the volunteer application details for the message
+      const volunteerMessage = `
+City/State: ${data.cityState || 'Not provided'}
+Volunteer Interests: ${data.interests.join(", ")}
+Availability: ${data.availability}
+Skills/Experience: ${data.skills || 'Not provided'}
+How did you hear about us?: ${data.referral || 'Not provided'}
+      `.trim();
 
-      if (error) throw error;
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        data.fullName,
+        data.email,
+        'Volunteer Application',
+        volunteerMessage,
+        data.honeypot,
+        data.phone || '',
+        'Volunteer'
+      );
 
-      if (result?.ok) {
+      if (result.ok) {
         setIsSubmitted(true);
         reset();
         setSelectedInterests([]);
-        
+
         toast({
           title: "Application Submitted!",
           description: "Thank you for stepping up to volunteer! Our team will contact you soon.",
         });
       } else {
-        throw new Error(result?.error || "Submission failed");
+        throw new Error(result.error || "Submission failed");
       }
     } catch (error: any) {
       console.error("Submission error:", error);
