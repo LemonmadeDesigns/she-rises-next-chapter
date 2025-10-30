@@ -118,7 +118,7 @@ function doPost(e) {
 
     // Create timestamp
     var timestamp = new Date().toLocaleString('en-US', {
-      timeZone: 'America/New_York',
+      timeZone: 'America/Los_Angeles',
       dateStyle: 'full',
       timeStyle: 'long'
     });
