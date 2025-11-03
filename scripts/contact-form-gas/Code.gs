@@ -66,6 +66,18 @@ function initializeProperties() {
 // ============================================================================
 
 /**
+ * Handles GET requests and OPTIONS preflight requests for CORS.
+ * This is required for cross-origin requests to work properly.
+ *
+ * @param {Object} e - Event object
+ * @returns {GoogleAppsScript.Content.TextOutput} JSON response with CORS headers
+ */
+function doGet(e) {
+  // Return a simple response with CORS headers for preflight requests
+  return jsonResponse({ status: 'ready' });
+}
+
+/**
  * Handles POST requests from contact forms.
  * This is the main entry point when forms are submitted.
  *
@@ -281,6 +293,9 @@ function jsonResponse(data) {
   var output = ContentService.createTextOutput(JSON.stringify(data));
   output.setMimeType(ContentService.MimeType.JSON);
   // Add CORS headers to allow requests from any domain
+  output.setHeader('Access-Control-Allow-Origin', '*');
+  output.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   return output;
 }
 
