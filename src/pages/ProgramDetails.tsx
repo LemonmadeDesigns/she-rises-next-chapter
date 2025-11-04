@@ -20,9 +20,9 @@ const ProgramDetails = () => {
       category: "Housing",
       duration: "6-24 months",
       capacity: "20 women",
-      description: "Safe, supportive housing for women transitioning from incarceration, homelessness, or crisis situations. Our furnished apartments provide stability while residents work toward independence.",
+      description: "Safe, supportive housing for women transitioning from incarceration, homelessness, or crisis situations. Our shared living environment provides stability while residents work toward independence.",
       features: [
-        "Furnished private apartments",
+        "Shared supportive housing",
         "24/7 on-site support staff",
         "Case management services",
         "Life skills workshops",
@@ -85,14 +85,12 @@ const ProgramDetails = () => {
       category: "Family",
       duration: "Ongoing",
       capacity: "30 families",
-      description: "Supporting mothers in rebuilding relationships with their children and developing healthy parenting skills through education, counseling, and supervised visits.",
+      description: "Supporting mothers in rebuilding relationships with their children and developing healthy parenting skills through education and counseling.",
       features: [
         "Parenting education classes",
         "Family therapy and counseling",
-        "Supervised visitation support",
-        "Child development workshops",
-        "Court advocacy",
-        "Childcare during programs"
+        "Family reunification planning",
+        "Parent support groups"
       ],
       image: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=400&fit=crop&crop=center",
       featured: false,
@@ -175,37 +173,6 @@ const ProgramDetails = () => {
         "Coordination with other services"
       ]
     },
-    {
-      id: "legal-advocacy",
-      title: "Legal Advocacy & Support",
-      category: "Legal",
-      duration: "As needed",
-      capacity: "Unlimited",
-      description: "Legal guidance and advocacy to help women navigate the justice system, expunge records, and address legal barriers to housing and employment.",
-      features: [
-        "Legal consultation",
-        "Record expungement assistance",
-        "Court accompaniment",
-        "Know your rights education",
-        "Immigration support",
-        "Referrals to legal aid"
-      ],
-      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop&crop=center",
-      featured: false,
-      eligibility: [
-        "All women in our programs",
-        "Community members needing legal support",
-        "Free consultations available"
-      ],
-      whatToExpect: [
-        "Initial legal consultation",
-        "Assessment of legal needs",
-        "Information about rights and options",
-        "Referrals to appropriate legal resources",
-        "Court accompaniment when needed",
-        "Follow-up support throughout legal processes"
-      ]
-    }
   ];
 
   const program = programs.find(p => p.id === programId);
