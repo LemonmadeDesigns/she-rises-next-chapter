@@ -378,10 +378,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_session_id: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_session_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -389,10 +386,7 @@ export type Database = {
         }
         Returns: boolean
       }
-      is_admin_by_email: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      is_admin_by_email: { Args: never; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
