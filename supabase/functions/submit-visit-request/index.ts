@@ -93,7 +93,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "She Rises Visit Requests <onboarding@resend.dev>",
-        to: ["pransom@safehavenforempowerment.org"],
+        to: ["empowerhavenhomes@gmail.com"],
         subject: `New Visit Request — ${safeName} on ${safeDate}`,
         html: `
           <h2>New Visit Request</h2>
