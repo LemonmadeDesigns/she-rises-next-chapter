@@ -92,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
         'Authorization': `Bearer ${resendApiKey}`
       },
       body: JSON.stringify({
-        from: "She Rises Visit Requests <onboarding@resend.dev>",
+        from: "She Rises <empowerhavenhomes@gmail.com>",
         to: ["empowerhavenhomes@gmail.com"],
         subject: `New Visit Request — ${safeName} on ${safeDate}`,
         html: `
