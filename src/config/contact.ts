@@ -1,49 +1,55 @@
 /**
  * Contact Form Configuration
  *
- * Centralized configuration for the Google Apps Script contact form endpoint.
- * Update the GAS_ENDPOINT constant here to change it across all forms.
+ * Centralized configuration for the contact form endpoint.
+ * All front-end forms should use the Supabase Edge Function
+ * instead of the legacy Google Apps Script.
  */
 
-// Google Apps Script Web App URL
-// This endpoint handles all contact form submissions and sends emails to the admin
-export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxOC293r6OwGBHcOz4lL1pNWiYwQJ2fs1oxLbpLq7mS9czNHtGCN7aWz70r1WicTrSo/exec';
+// Public URL of the Supabase Edge Function that handles contact emails
+export const CONTACT_FUNCTION_URL =
+  'https://ktaleplbvgicjugcwthj.functions.supabase.co/send-contact-email';
+
+export interface SubmitContactResult {
+  ok: boolean;
+  error?: string;
+}
 
 /**
- * Submits form data to the Google Apps Script endpoint
- *
- * @param name - Submitter's full name
- * @param email - Submitter's email address
- * @param subject - Email subject line
- * @param message - Message content
- * @param company - Honeypot field (should be empty for legitimate submissions)
- * @param phone - Phone number (optional)
- * @param formType - Type of form being submitted (e.g., "Contact", "Partnership", "Volunteer")
- * @returns Promise with response data
+ * Submits form data to the Supabase `send-contact-email` edge function.
+ * Keeps the existing function signature so all callers continue to work.
  */
 export async function submitContactForm(
   name: string,
   email: string,
   subject: string,
   message: string,
-  company: string = '',
+  company: string = '', // honeypot (ignored server-side for now)
   phone: string = '',
   formType: string = 'Contact'
-): Promise<{ ok: boolean; error?: string }> {
-  const formData = new FormData();
-  formData.append('name', name);
-  formData.append('email', email);
-  formData.append('subject', subject);
-  formData.append('message', message);
-  formData.append('company', company);
-  formData.append('phone', phone);
-  formData.append('formType', formType);
-
-  const response = await fetch(GAS_ENDPOINT, {
+): Promise<SubmitContactResult> {
+  const response = await fetch(CONTACT_FUNCTION_URL, {
     method: 'POST',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      reason: subject,
+      category: formType,
+      message,
+    }),
   });
 
-  const result = await response.json();
-  return result;
+  const data = await response.json();
+
+  if (!response.ok || data?.error) {
+    return { ok: false, error: data?.error || 'Failed to submit contact form' };
+  }
+
+  // Edge function currently returns `{ success: true }` on success
+  return { ok: Boolean(data?.success ?? true) };
 }
+
