@@ -35,7 +35,7 @@ export default function TestAdmin() {
         };
 
         // Test 3: Check if user is admin (case-insensitive)
-        const adminEmails = ['pransom1319@gmail.com', 'lemonsterrell2021@gmail.com'];
+        const adminEmails = ['pransom1319@gmail.com', 'empowerhavenhomes@gmail.com'];
         const userEmail = session?.user?.email?.toLowerCase() || '';
         results.isAdmin = {
           success: userEmail && adminEmails.map(e => e.toLowerCase()).includes(userEmail),
