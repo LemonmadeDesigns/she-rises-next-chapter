@@ -139,7 +139,7 @@ const handler = async (req: Request): Promise<Response> => {
         'Authorization': `Bearer ${resendApiKey}`
       },
       body: JSON.stringify({
-        from: "She Rises <empowerhavenhomes@gmail.com>",
+        from: "She Rises Contact Form <onboarding@resend.dev>",
         to: ["empowerhavenhomes@gmail.com"],
         subject: `New Contact Form Submission: ${safeReason}`,
         html: `
@@ -172,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
         'Authorization': `Bearer ${resendApiKey}`
       },
       body: JSON.stringify({
-        from: "She Rises <empowerhavenhomes@gmail.com>",
+        from: "She Rises <onboarding@resend.dev>",
         to: [email],
         subject: "Thank you for contacting She Rises",
         html: `
