@@ -58,7 +58,7 @@ const Contact = () => {
       title: "Visit Us",
       details: "San Bernardino County",
       description: "Serving Southern California",
-      color: "bg-sage-green"
+      color: "bg-lotus-rose"
     }
   ];
 
