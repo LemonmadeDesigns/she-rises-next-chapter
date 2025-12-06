@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
-import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users, QrCode } from "lucide-react";
 import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 import { submitContactForm } from "@/config/contact";
@@ -59,6 +59,14 @@ const Contact = () => {
       details: "San Bernardino County",
       description: "Serving Southern California",
       color: "bg-lotus-rose"
+    },
+    {
+      icon: QrCode,
+      title: "Quick Connect",
+      details: "",
+      description: "Scan to save our contact info",
+      color: "bg-royal-plum",
+      isQrCode: true
     }
   ];
 
@@ -189,18 +197,41 @@ const Contact = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {contactInfo.map((info, index) => (
               <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
-                <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <info.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
-                  {info.title}
-                </h3>
-                <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
-                  {info.details}
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {info.description}
-                </p>
+                {info.isQrCode ? (
+                  <>
+                    <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                      <info.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                      {info.title}
+                    </h3>
+                    <div className="flex justify-center mb-3">
+                      <img
+                        src="/images/sherises_qr_code.png"
+                        alt="She Rises QR Code"
+                        className="w-32 h-32 object-contain rounded-lg border-2 border-crown-gold"
+                      />
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {info.description}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                      <info.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                      {info.title}
+                    </h3>
+                    <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
+                      {info.details}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {info.description}
+                    </p>
+                  </>
+                )}
               </Card>
             ))}
           </div>
