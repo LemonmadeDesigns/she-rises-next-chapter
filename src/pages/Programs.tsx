@@ -319,7 +319,7 @@ const Programs = () => {
               <CardContent className="p-6 text-center">
                 <Mail className="h-8 w-8 text-crown-gold mx-auto mb-3" />
                 <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                <p className="text-lg font-bold text-crown-gold mb-2">pransom@safehavenforempowerment.org</p>
+                <p className="text-sm font-bold text-crown-gold mb-2 break-all">pransom@safehavenforempowerment.org</p>
                 <p className="text-sm text-white/90">Response within 1-2 business days</p>
               </CardContent>
             </Card>
