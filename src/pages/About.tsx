@@ -64,6 +64,7 @@ const About = () => {
         backgroundImageAlt="She Rises: Empowering women through safe housing and supportive services"
         backgroundImageWidth={1920}
         backgroundImageHeight={1080}
+        parallax={true}
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Link to="/programs">

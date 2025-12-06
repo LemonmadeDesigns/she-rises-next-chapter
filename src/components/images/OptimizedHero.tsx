@@ -12,6 +12,7 @@ interface OptimizedHeroProps {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  style?: React.CSSProperties;
 }
 
 const OptimizedHero = ({
@@ -25,6 +26,7 @@ const OptimizedHero = ({
   className,
   sizes = "100vw",
   priority = true,
+  style,
 }: OptimizedHeroProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -56,7 +58,7 @@ const OptimizedHero = ({
   };
 
   return (
-    <div className={cn("absolute inset-0 w-full h-full", className)}>
+    <div className={cn("absolute inset-0 w-full h-full", className)} style={style}>
       {/* Blur placeholder - shows immediately */}
       {blurSrc && (
         <img

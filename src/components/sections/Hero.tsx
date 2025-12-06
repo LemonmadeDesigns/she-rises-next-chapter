@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import OptimizedHero from "@/components/images/OptimizedHero";
 
@@ -17,6 +17,7 @@ interface HeroProps {
   className?: string;
   overlay?: boolean;
   fullHeight?: boolean;
+  parallax?: boolean;
 }
 
 const Hero = ({
@@ -34,9 +35,36 @@ const Hero = ({
   className,
   overlay = true,
   fullHeight = false,
+  parallax = false,
 }: HeroProps) => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!parallax) return;
+
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const scrolled = -rect.top;
+        setScrollPosition(scrolled);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [parallax]);
+
+  const parallaxStyle = parallax ? {
+    transform: `translateY(${scrollPosition * 0.5}px)`,
+    transition: 'transform 0.1s ease-out',
+  } : {};
+
   return (
     <section
+      ref={sectionRef}
       className={cn(
         "relative overflow-hidden",
         fullHeight ? "h-screen" : "py-24 md:py-32",
@@ -55,6 +83,7 @@ const Hero = ({
             width={backgroundImageWidth}
             height={backgroundImageHeight}
             className="absolute inset-0"
+            style={parallaxStyle}
             priority={true}
           />
           {overlay && (

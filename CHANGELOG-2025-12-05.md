@@ -381,16 +381,17 @@ Comprehensive final updates to ensure all impact numbers, capacity information, 
 
 ### Changes Made
 
-**Homepage (src/pages/Index.tsx)**
+Homepage (src/pages/Index.tsx)
 
 Updated "Our Growing Impact" section to remove specific claims:
+
 - Changed from specific expansion details to general growth messaging
 - New impact items:
   - "Growing Community Impact"
   - "New Beds Opening 2025–2026"
   - "Expanding Support Services Across SoCal"
 
-**Events Page (src/pages/Events.tsx)**
+Events Page (src/pages/Events.tsx)
 
 1. Updated "Our Community Impact" section with accurate 2025 metrics:
    - 2 Community Events Attended
@@ -403,22 +404,25 @@ Updated "Our Growing Impact" section to remove specific claims:
    - Now shows nothing when filteredEvents is empty (cleaner UX)
    - Prevents confusing error messages when filters are applied
 
-**Programs Page (src/pages/Programs.tsx)**
+Programs Page (src/pages/Programs.tsx)
 
 Updated Transitional Housing capacity information:
+
 - Changed from: "Housing for multiple women at our current San Bernardino County home. Expansion planned to serve dozens of women across multiple sites in Southern California by 2026."
 - To: "Current Capacity: Growing (initial 6 beds expanding to 10+ in 2026)"
 - More specific and measurable capacity statement
 
-**Get Involved Page (src/pages/GetInvolved.tsx)**
+Get Involved Page (src/pages/GetInvolved.tsx)
 
 Replaced inflated statistics with honest growth messaging:
+
 - Removed: "150+ Active volunteers", "5,000+ Volunteer hours", "25+ Community partners", "$200K Impact value"
 - Added: "Growing Volunteer Interest", "Community Hours Contributed", "New & Emerging Partnerships", "Support from Local Donors & Community Members"
 
 ### Featured Events Verification
 
 Confirmed both featured events are properly configured:
+
 - HIRE Reentry Resource Fair — Orange County (`"featured": true`)
   - Image: `/images/sheRisesEvent/7059925313154428637.jpg`
   - Date: September 17, 2025
