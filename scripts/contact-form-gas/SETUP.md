@@ -35,14 +35,17 @@ This guide walks you through deploying the Google Apps Script backend and integr
 5. Check the **Execution log** at the bottom to confirm initialization
 
 **To change the admin email later:**
+
 1. Select `setAdminEmail` from the function dropdown
 2. Modify the function call in the editor temporarily:
+
    ```javascript
    function setAdminEmail(email) {
      // Add this line at the top temporarily:
      email = "your-new-email@example.com";
      // ... rest of function
    ```
+
 3. Run the function
 4. Remove the temporary line
 
@@ -55,7 +58,7 @@ This guide walks you through deploying the Google Apps Script backend and integr
 3. Choose **Web app**
 4. Configure deployment settings:
    - **Description**: "She Rises Contact Form Handler" (optional)
-   - **Execute as**: **Me** (your-email@gmail.com)
+   - **Execute as**: **Me** (<your-email@gmail.com>)
    - **Who has access**: **Anyone** (required for public form submissions)
 5. Click **Deploy**
 6. If prompted, click **Authorize access** and complete the authorization flow
@@ -80,6 +83,7 @@ Ensure each contact form on your website has:
 ### Optional Honeypot (Spam Protection)
 
 Add a hidden field to catch bots:
+
 ```html
 <input type="text" name="company" style="display:none;" tabindex="-1" autocomplete="off">
 ```
@@ -106,21 +110,27 @@ Add a hidden field to catch bots:
 
 1. Open `sherises-contact-snippet.js`
 2. Find the line:
+
    ```javascript
    const SHERISES_CONTACT_ENDPOINT = "PASTE_APPS_SCRIPT_WEB_APP_URL_HERE";
    ```
+
 3. Replace `"PASTE_APPS_SCRIPT_WEB_APP_URL_HERE"` with the Web App URL from Step 3:
+
    ```javascript
    const SHERISES_CONTACT_ENDPOINT = "https://script.google.com/macros/s/AKfyc.../exec";
    ```
+
 4. Add the script to your website:
 
    **Option A - Per Page:**
+
    ```html
    <script src="/path/to/sherises-contact-snippet.js"></script>
    ```
 
    **Option B - Inline (at bottom of page before `</body>`):**
+
    ```html
    <script>
      // Paste entire contents of sherises-contact-snippet.js here
@@ -162,6 +172,7 @@ Add a hidden field to catch bots:
 1. Open your Apps Script project
 2. Select `setAdminEmail` from the function dropdown
 3. In the editor, find the function and temporarily add:
+
    ```javascript
    function setAdminEmail(email) {
      email = "new-admin@example.com"; // Change this
@@ -169,6 +180,7 @@ Add a hidden field to catch bots:
      Logger.log('Admin email set to: ' + email);
    }
    ```
+
 4. Click **Run** (▶️)
 5. Remove the temporary line after execution
 
@@ -176,12 +188,14 @@ Add a hidden field to catch bots:
 
 1. Select `setAutoReply` from the function dropdown
 2. Temporarily modify:
+
    ```javascript
    function setAutoReply(enabled) {
      enabled = false; // Change to false
      // ... rest of function
    }
    ```
+
 3. Click **Run**
 4. Remove the temporary line
 
@@ -204,20 +218,24 @@ Add a hidden field to catch bots:
 ## Troubleshooting
 
 ### Form submits but nothing happens
+
 - Check browser console for errors (F12 → Console tab)
 - Verify the Web App URL in `sherises-contact-snippet.js` is correct
 - Confirm the form has `class="sherises-contact"`
 
 ### Emails not arriving
+
 - Check spam/junk folders
 - Verify admin email is set: Run `initializeProperties` again
 - Check Apps Script execution logs for errors
 
 ### "Authorization required" errors
+
 - Redeploy with **Execute as: Me** and **Who has access: Anyone**
 - Complete the authorization flow again
 
 ### Sheet not logging submissions
+
 - Verify you have edit access to the Google Sheet
 - Check the sheet ID in `Code.gs` matches the actual sheet
 - Review execution logs for sheet-related errors
@@ -236,9 +254,11 @@ Add a hidden field to catch bots:
 ## Support
 
 For issues specific to this integration:
+
 1. Check the **Execution log** in Apps Script editor
 2. Review browser console for client-side errors
 3. Verify all deployment steps were completed
 
 For general She Rises website questions:
-- Contact: LemonsTerrell43@gmail.com
+
+- Contact: <LemonsTerrell43@gmail.com>

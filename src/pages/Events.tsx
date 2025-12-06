@@ -384,30 +384,7 @@ const Events = () => {
           </Card>
           
           {/* Events Grid */}
-          {filteredEvents.length === 0 ? (
-            <Card>
-              <CardContent className="p-12 text-center">
-                <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-royal-plum mb-2">No Events Found</h3>
-                <p className="text-muted-foreground mb-4">
-                  {events.length === 0
-                    ? "No events have been scheduled yet. Check back soon!"
-                    : "No events match your current filters. Try adjusting your search criteria."}
-                </p>
-                {events.length > 0 && (
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSelectedCategory("all");
-                      setSelectedMonth("all");
-                    }}
-                  >
-                    Clear Filters
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          ) : (
+          {filteredEvents.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredEvents.map((event) => (
               <Card key={event.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
@@ -430,18 +407,18 @@ const Events = () => {
                       </Badge>
                     )}
                   </div>
-                  
+
                   <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
                     {event.title}
                   </h3>
-                  
+
                   <p className="text-muted-foreground text-sm mb-4 flex-1">
                     {event.description.length > 120
                       ? `${event.description.substring(0, 120)}...`
                       : event.description
                     }
                   </p>
-                  
+
                   <div className="space-y-2 mb-4 text-xs text-muted-foreground">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-3 w-3" />
@@ -491,24 +468,23 @@ const Events = () => {
           </p>
 
           <div className="max-w-3xl mx-auto">
-            <h3 className="font-serif text-2xl font-bold text-crown-gold mb-6">2025 Highlights:</h3>
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
               <ul className="space-y-4 text-left">
                 <li className="flex items-start">
                   <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Participation in regional reentry fairs</span>
+                  <span className="text-white text-lg">2 Community Events Attended</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Outreach to justice-impacted women and families</span>
+                  <span className="text-white text-lg">125+ Community Members Engaged</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Growing partnerships with community organizations</span>
+                  <span className="text-white text-lg">Ongoing Donation Partnerships</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Increasing visibility and support for women in transition</span>
+                  <span className="text-white text-lg">Growing Community Presence Across Inland Empire & Orange County</span>
                 </li>
               </ul>
             </div>

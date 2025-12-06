@@ -59,10 +59,9 @@ const Index = () => {
   ];
 
   const impactItems = [
-    "Transitional Housing Opening 2025 (San Bernardino County)",
-    "Reentry & empowerment services",
-    "Community partnerships across the Inland Empire & Orange County",
-    "Expansion planned for 2026–2027"
+    "Growing Community Impact",
+    "New Beds Opening 2025–2026",
+    "Expanding Support Services Across SoCal"
   ];
 
   return (

@@ -443,32 +443,36 @@ const GetInvolved = () => {
         </div>
       </section>
 
-      {/* Impact Statistics */}
+      {/* Our Growing Impact */}
       <section className="py-20 bg-royal-plum text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-            Your Support Creates Real Impact
+            Our Growing Impact
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            See how volunteer and sponsor contributions directly translate into positive outcomes for women in our community.
+            As a growing organization, we're building strong partnerships and volunteer support across Southern California.
           </p>
-          
-          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">150+</div>
-              <p className="text-white/90">Active volunteers</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">5,000</div>
-              <p className="text-white/90">Volunteer hours annually</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">25+</div>
-              <p className="text-white/90">Corporate partners</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">$200K</div>
-              <p className="text-white/90">Sponsor contributions annually</p>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
+              <ul className="space-y-4 text-left">
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Growing Volunteer Interest</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Community Hours Contributed</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">New & Emerging Partnerships</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Support from Local Donors & Community Members</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

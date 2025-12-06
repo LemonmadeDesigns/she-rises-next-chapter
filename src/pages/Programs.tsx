@@ -26,7 +26,7 @@ const Programs = () => {
         "Employment readiness resources",
         "Referrals for healthcare, mental health, childcare, and legal aid"
       ],
-      capacity: "Housing for multiple women at our current San Bernardino County home. Expansion planned to serve dozens of women across multiple sites in Southern California by 2026.",
+      capacity: "Current Capacity: Growing (initial 6 beds expanding to 10+ in 2026)",
       color: "bg-royal-plum"
     },
     {
