@@ -39,27 +39,41 @@ const Hero = ({
 }: HeroProps) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number>();
 
   useEffect(() => {
     if (!parallax) return;
 
     const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const scrolled = -rect.top;
-        setScrollPosition(scrolled);
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
       }
+
+      // Use requestAnimationFrame for smooth 60fps updates
+      rafRef.current = requestAnimationFrame(() => {
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          const scrolled = -rect.top;
+          setScrollPosition(scrolled);
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial call
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [parallax]);
 
   const parallaxStyle = parallax ? {
-    transform: `translateY(${scrollPosition * 0.5}px)`,
-    transition: 'transform 0.1s ease-out',
+    transform: `translate3d(0, ${scrollPosition * 0.5}px, 0)`,
+    willChange: 'transform',
   } : {};
 
   return (
