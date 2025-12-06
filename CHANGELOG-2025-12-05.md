@@ -314,12 +314,15 @@ Complete redesign of Programs page to accurately reflect She Rises' current and 
 **Date:** December 5, 2025 (Evening Update)
 
 ### Problem
+
 Events page not loading due to Supabase connection failure (`ERR_NAME_NOT_RESOLVED`)
 
 ### Solution
+
 Added fallback mechanism to use events.json when Supabase is unavailable
 
 ### Technical Changes
+
 - Imported `events.json` as fallback data source
 - Added try/catch error handling with fallback logic
 - When Supabase connection fails, Events page now uses local events data
@@ -330,10 +333,38 @@ Added fallback mechanism to use events.json when Supabase is unavailable
   - RCC Fall Festival Resource Fair (Nov 14, 2025, Riverside) - support category
 
 ### Result
+
 Events page now works reliably even when Supabase is:
+
 - Paused (common on free tier)
 - Experiencing connectivity issues
 - Project deleted or URL changed
+
+---
+
+## 10. Console Error/Warning Fixes
+
+**Date:** December 5, 2025 (Evening Update)
+
+### Issues Fixed
+
+**1. React fetchPriority Warning**
+- **Error:** "React does not recognize the `fetchPriority` prop on a DOM element"
+- **Location:** OptimizedHero.tsx component
+- **Fix:** Changed `fetchPriority` to `fetchpriority` (lowercase)
+- **Reason:** React expects lowercase for actual DOM attributes
+
+**2. Supabase Connection Errors**
+- **Error:** Continuous `ERR_NAME_NOT_RESOLVED` and "Failed to fetch" errors
+- **Location:** Supabase client initialization and auth token refresh
+- **Fix:** Disabled `autoRefreshToken` and `persistSession` in Supabase client config
+- **Result:** Eliminates console spam when Supabase project is paused/unavailable
+- **Note:** No functionality lost - Events page already uses fallback data
+
+### Technical Details
+- Modified `src/components/images/OptimizedHero.tsx`
+- Modified `src/integrations/supabase/client.ts`
+- Console is now clean without functional errors
 
 ---
 
