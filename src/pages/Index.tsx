@@ -124,6 +124,7 @@ const Index = () => {
           <SectionHeader
             title="Our Team in Action"
             subtitle="Celebrating community events and the women we serve"
+            className="mb-6"
           />
           <EventPhotosCarousel images={eventPhotos} />
         </div>
