@@ -195,7 +195,7 @@ const Contact = () => {
                 <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
                   {info.title}
                 </h3>
-                <div className="text-lg font-semibold text-crown-gold mb-2">
+                <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
                   {info.details}
                 </div>
                 <p className="text-sm text-muted-foreground">
