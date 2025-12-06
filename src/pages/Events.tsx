@@ -181,7 +181,7 @@ const Events = () => {
       {/* Hero Section */}
       <Hero
         title="Events & Workshops"
-        subtitle="Join our community for empowering events, educational workshops, and meaningful connections. Together, we rise stronger."
+        subtitle="Join us for community outreach, reentry fairs, and empowerment activities across Southern California. New events are added regularly."
         backgroundColor="#4B2E6D"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
@@ -466,32 +466,37 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Event Statistics */}
+      {/* Our Community Impact */}
       <section className="py-20 bg-royal-plum text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-            Community Impact Through Events
+            Our Community Impact
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            Our events bring the community together and create lasting connections while raising awareness and funds for our mission.
+            As a growing organization, She Rises is building strong connections through outreach, reentry partnerships, and community engagement across Southern California.
           </p>
-          
-          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">50+</div>
-              <p className="text-white/90">Events hosted annually</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">2,500+</div>
-              <p className="text-white/90">Community members engaged</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">$125K</div>
-              <p className="text-white/90">Raised through events last year</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">95%</div>
-              <p className="text-white/90">Participant satisfaction rate</p>
+
+          <div className="max-w-3xl mx-auto">
+            <h3 className="font-serif text-2xl font-bold text-crown-gold mb-6">2025 Highlights:</h3>
+            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
+              <ul className="space-y-4 text-left">
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Participation in regional reentry fairs</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Outreach to justice-impacted women and families</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Growing partnerships with community organizations</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Increasing visibility and support for women in transition</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
