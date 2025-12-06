@@ -43,28 +43,21 @@ const Contact = () => {
       icon: Phone,
       title: "Main Office",
       details: "(909) 547-9998",
-      description: "Monday - Friday, 9:00 AM - 5:00 PM",
+      description: "Monday - Friday, 9:00 AM - 5:00 PM PST",
       color: "bg-royal-plum"
-    },
-    {
-      icon: Phone,
-      title: "24/7 Crisis Hotline",
-      details: "(909) 547-9998",
-      description: "Available 24 hours a day, 7 days a week",
-      color: "bg-lotus-rose"
     },
     {
       icon: Mail,
       title: "Email Us",
       details: "pransom@safehavenforempowerment.org",
-      description: "We respond within 24 hours",
+      description: "We respond within 1-2 business days",
       color: "bg-crown-gold"
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      details: "123 Hope Street",
-      description: "Your City, State 12345",
+      details: "San Bernardino County",
+      description: "Serving Southern California",
       color: "bg-sage-green"
     }
   ];
@@ -317,8 +310,8 @@ const Contact = () => {
                           Crisis or Emergency?
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          If you're in immediate danger or experiencing a crisis, please call our 24/7 hotline at 
-                          <span className="font-bold text-lotus-rose"> (909) 547-9998</span> or dial 911.
+                          If you're in immediate danger, dial 911. For crisis support, call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
+                          She Rises is not a 24-hour crisis shelter.
                         </p>
                       </div>
                     </div>
@@ -356,10 +349,6 @@ const Contact = () => {
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="font-medium text-royal-plum">Sunday</span>
                       <span className="text-muted-foreground">Closed</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2">
-                      <span className="font-medium text-royal-plum">24/7 Crisis Line</span>
-                      <span className="text-lotus-rose font-bold">(909) 547-9998</span>
                     </div>
                   </div>
                 </CardContent>

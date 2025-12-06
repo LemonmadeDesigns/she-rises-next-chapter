@@ -23,11 +23,11 @@ const ProgramDetails = () => {
       description: "Safe, supportive housing for women transitioning from incarceration, homelessness, or crisis situations. Our shared living environment provides stability while residents work toward independence.",
       features: [
         "Shared supportive housing",
-        "24/7 on-site support staff",
-        "Case management services",
+        "On-site support and case management",
         "Life skills workshops",
         "Mental health counseling",
-        "Childcare assistance available"
+        "Childcare assistance available",
+        "Community guidelines and support"
       ],
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&crop=center",
       featured: true,

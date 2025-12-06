@@ -58,10 +58,11 @@ const Index = () => {
     }
   ];
 
-  const stats = [
-    { number: "300+", label: "women supported annually" },
-    { number: "1,000+", label: "successful reentries" },
-    { number: "5", label: "housing sites" }
+  const impactItems = [
+    "Transitional Housing Opening 2025 (San Bernardino County)",
+    "Reentry & empowerment services",
+    "Community partnerships across the Inland Empire & Orange County",
+    "Expansion planned for 2026–2027"
   ];
 
   return (
@@ -101,6 +102,24 @@ const Index = () => {
         </div>
       </Hero>
 
+      {/* Our Team in Action - Photo Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="Our Team in Action"
+            subtitle="Showcase the women and community behind She Rises"
+          />
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-soft rounded-2xl p-12 text-center">
+              <div className="text-muted-foreground mb-4">
+                <p className="text-lg">Photo gallery coming soon</p>
+                <p className="text-sm mt-2">Event photos and team highlights will be displayed here</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Three Pillars Section */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
@@ -131,14 +150,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Upcoming Events Teaser */}
+      {/* Recent Events & Community Outreach */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <SectionHeader
-            title="Upcoming Events"
-            subtitle="Join us for connection, resources, and community"
+            title="Recent Events & Community Outreach"
+            subtitle="Connecting with our community across Southern California"
           />
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {eventsData.events.slice(0, 2).map((event) => (
               <EventCard
@@ -150,12 +169,14 @@ const Index = () => {
                 description={event.description}
                 featured={event.featured}
                 href={`/events#${event.id}`}
-                donationsNeeded={event.donationsNeeded}
               />
             ))}
           </div>
-          
+
           <div className="text-center">
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              More events coming soon. We are actively partnering with agencies throughout Southern California.
+            </p>
             <Link to="/events">
               <Button variant="outline" size="lg" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
                 See All Events
@@ -165,20 +186,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Our Growing Impact Section */}
       <section className="py-16 bg-gradient-soft">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-soft">
-                <div className="text-4xl md:text-5xl font-bold text-royal-plum mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum text-center mb-4">
+              Our Growing Impact
+            </h2>
+            <p className="text-center text-muted-foreground mb-8 text-lg">
+              We are building a strong foundation to support women across Southern California.
+            </p>
+            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-soft">
+              <ul className="space-y-4">
+                {impactItems.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-crown-gold mr-3 text-xl">•</span>
+                    <span className="text-royal-plum text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>

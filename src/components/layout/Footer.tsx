@@ -35,6 +35,10 @@ const Footer = () => {
             <p className="text-white/90 mb-4 max-w-md">
               Every woman has a story... here we help you write the next chapter.
             </p>
+            <div className="text-sm text-white/70 mb-3 space-y-1">
+              <p>Not a 24-hour crisis shelter.</p>
+              <p>Serving Southern California. Transitional housing located in San Bernardino County.</p>
+            </div>
             <div className="italic text-lotus-rose font-serif text-lg">
               "When SHE rises, we all rise."
             </div>

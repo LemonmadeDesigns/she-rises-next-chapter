@@ -96,8 +96,8 @@ const Donate = () => {
     },
     {
       id: "crisis",
-      name: "Crisis Response",
-      description: "Supports 24/7 hotline and emergency intervention services",
+      name: "Emergency Support",
+      description: "Provides rapid response and connection to crisis resources",
       icon: Shield
     }
   ];

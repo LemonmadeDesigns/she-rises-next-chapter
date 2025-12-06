@@ -2,28 +2,32 @@
   "events": [
     {
       "id": "hire-fair",
-      "title": "HIRE Reentry Resource Fair",
+      "title": "HIRE Reentry Resource Fair — Orange County",
       "date": "2025-09-17",
-      "time": "11:00 AM - 2:00 PM",
-      "location": "Honda Center, Anaheim",
-      "description": "We'll be onsite; bring questions, meet partners.",
-      "details": "Join us at the HIRE Reentry Resource Fair where we'll be connecting women with employment opportunities, resources, and community partners.",
-      "donationsNeeded": [
-        "Gift cards ($10-$25 gas/groceries/Target/Walmart)",
-        "Hygiene kits (toothpaste, soap, feminine care, lotion)",
-        "Snacks & bottled water"
+      "time": "All Day",
+      "location": "Honda Center, Anaheim, CA",
+      "description": "She Rises participated as a community resource provider at the 4th Annual H.I.R.E. Reentry Resource Fair.",
+      "details": "She Rises participated as a community resource provider at the 4th Annual H.I.R.E. Reentry Resource Fair. We connected with justice-impacted individuals, shared information about our transitional housing program, and distributed empowerment and reentry resources.",
+      "highlights": [
+        "Community networking with reentry partners",
+        "Outreach to individuals seeking housing and employment support",
+        "Provided resource materials and intake information"
       ],
-      "donationDeadline": "2025-09-16",
       "featured": true
     },
     {
-      "id": "community-launch",
-      "title": "She Rises Community Launch",
-      "date": "2025-11-01",
-      "time": "TBD",
-      "location": "San Bernardino County",
-      "description": "Raffles & prizes; donations & giveaways; snacks & refreshments.",
-      "details": "Celebrate the launch of our new community center with activities, resources, and opportunities to connect with our mission.",
+      "id": "rcc-fall-festival",
+      "title": "RCC Fall Festival Resource Fair — Riverside County",
+      "date": "2025-11-14",
+      "time": "All Day",
+      "location": "Riverside City College, Riverside, CA",
+      "description": "She Rises hosted a resource booth at the RCC Rising Scholars Fall Festival.",
+      "details": "She Rises hosted a resource booth at the RCC Rising Scholars Fall Festival. We offered empowerment resources, program materials, and on-site guidance for women seeking support and stability.",
+      "highlights": [
+        "Engagement with community partners",
+        "Outreach to justice-impacted women and families",
+        "Shared information on transitional housing and services"
+      ],
       "featured": true
     }
   ]

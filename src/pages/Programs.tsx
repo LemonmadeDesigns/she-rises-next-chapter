@@ -22,11 +22,11 @@ const Programs = () => {
       description: "Safe, supportive housing for women transitioning from incarceration, homelessness, or crisis situations. Our shared living environment provides stability while residents work toward independence.",
       features: [
         "Shared supportive housing",
-        "24/7 on-site support staff",
-        "Case management services",
+        "On-site support and case management",
         "Life skills workshops",
         "Mental health counseling",
-        "Childcare assistance available"
+        "Childcare assistance available",
+        "Community guidelines and support"
       ],
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&crop=center",
       featured: true
@@ -292,32 +292,36 @@ const Programs = () => {
         </div>
       </section>
 
-      {/* Program Impact Statistics */}
+      {/* Program Impact */}
       <section className="py-20 bg-royal-plum text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-            Program Impact
+            Our Growing Impact
           </h2>
           <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            Our programs create lasting change in the lives of women and families throughout our community.
+            We are building a strong foundation to support women across Southern California through comprehensive programs.
           </p>
-          
-          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">300+</div>
-              <p className="text-white/90">Women served annually</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">85%</div>
-              <p className="text-white/90">Housing program success rate</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">200+</div>
-              <p className="text-white/90">Jobs secured through workforce development</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">150+</div>
-              <p className="text-white/90">Families reunified</p>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
+              <ul className="space-y-4 text-left">
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Transitional Housing Opening 2025 (San Bernardino County)</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Comprehensive reentry and empowerment services</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Community partnerships across the Inland Empire and Orange County</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-crown-gold mr-3 text-xl">•</span>
+                  <span className="text-white text-lg">Expansion planned for 2026–2027</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -401,30 +405,33 @@ const Programs = () => {
         </div>
       </section>
 
-      {/* Emergency Resources */}
+      {/* Contact Information */}
       <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl font-bold mb-6">
-            Need Immediate Help?
+            Ready to Get Started?
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            If you're in crisis or need immediate support, don't wait. Contact us now.
+          <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
+            Contact us to learn more about our programs and services.
           </p>
-          
+          <p className="text-sm text-white/80 mb-8 max-w-2xl mx-auto">
+            Not a 24-hour crisis shelter. For immediate crisis support, please call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
+          </p>
+
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <h3 className="font-bold text-lg mb-2">24/7 Crisis Hotline</h3>
+                <h3 className="font-bold text-lg mb-2">Contact She Rises</h3>
                 <p className="text-2xl font-bold text-crown-gold mb-2">(909) 547-9998</p>
-                <p className="text-sm text-white/90">Available 24 hours a day</p>
+                <p className="text-sm text-white/90">Call for program information</p>
               </CardContent>
             </Card>
-            
+
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <h3 className="font-bold text-lg mb-2">Walk-In Services</h3>
-                <p className="text-lg font-bold text-crown-gold mb-2">Mon-Fri 9AM-5PM</p>
-                <p className="text-sm text-white/90">123 Hope Street, Your City</p>
+                <h3 className="font-bold text-lg mb-2">Email Us</h3>
+                <p className="text-lg font-bold text-crown-gold mb-2">pransom@safehavenforempowerment.org</p>
+                <p className="text-sm text-white/90">We'll respond within 1-2 business days</p>
               </CardContent>
             </Card>
           </div>

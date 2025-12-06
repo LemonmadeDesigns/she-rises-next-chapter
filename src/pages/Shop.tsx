@@ -198,8 +198,8 @@ const Shop = () => {
               <p className="text-white/90">of profits support our programs</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">300+</div>
-              <p className="text-white/90">women supported annually</p>
+              <div className="text-4xl font-bold text-crown-gold mb-2">Quality</div>
+              <p className="text-white/90">products that make an impact</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-crown-gold mb-2">Local</div>

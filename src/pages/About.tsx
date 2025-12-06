@@ -43,8 +43,8 @@ const About = () => {
   ];
 
   const whatWeDo = [
-    "Provide safe, transitional housing with 24/7 support",
-    "Offer employment readiness training and job placement assistance", 
+    "Provide safe, transitional housing with on-site support and case management",
+    "Offer employment readiness training and job placement assistance",
     "Connect women with essential services: healthcare, legal aid, childcare",
     "Facilitate life skills workshops and peer mentoring programs",
     "Support family reunification and relationship rebuilding",
