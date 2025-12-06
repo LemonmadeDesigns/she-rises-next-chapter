@@ -1,6 +1,7 @@
 # She Rises Website Updates - December 5, 2025
 
 ## Summary
+
 Major content updates to ensure accuracy and reflect real activities of She Rises organization.
 
 ---
@@ -8,23 +9,28 @@ Major content updates to ensure accuracy and reflect real activities of She Rise
 ## 1. Homepage Updates (src/pages/Index.tsx)
 
 ### Removed Inaccurate Statistics
+
 - ❌ Removed "300+ women supported annually"
 - ❌ Removed "1,000+ successful reentries"
 - ❌ Removed "5 housing sites"
 
 ### Added "Our Growing Impact" Section
+
 Replaced statistics with accurate information:
+
 - ✅ Transitional Housing Opening 2025 (San Bernardino County)
 - ✅ Reentry & empowerment services
 - ✅ Community partnerships across the Inland Empire & Orange County
 - ✅ Expansion planned for 2026–2027
 
 ### Events Section Update
+
 - Changed title from "Upcoming Events" to **"Recent Events & Community Outreach"**
 - Updated subtitle to reflect Southern California community connection
 - Added closing message: "More events coming soon. We are actively partnering with agencies throughout Southern California."
 
 ### New Photo Section
+
 - Added **"Our Team in Action"** section below hero banner
 - Currently shows placeholder ready for event photos
 - Subtitle: "Showcase the women and community behind She Rises"
@@ -34,6 +40,7 @@ Replaced statistics with accurate information:
 ## 2. Events Data Update (src/content/events.json)
 
 ### HIRE Reentry Resource Fair
+
 - **Date:** September 17, 2025
 - **Location:** Honda Center, Anaheim, CA
 - **Description:** 4th Annual H.I.R.E. Reentry Resource Fair participation
@@ -43,6 +50,7 @@ Replaced statistics with accurate information:
   - Provided resource materials and intake information
 
 ### RCC Fall Festival Resource Fair
+
 - **Date:** November 14, 2025
 - **Location:** Riverside City College, Riverside, CA
 - **Description:** Resource booth at RCC Rising Scholars Fall Festival
@@ -56,6 +64,7 @@ Replaced statistics with accurate information:
 ## 3. Footer Updates (src/components/layout/Footer.tsx)
 
 Added important clarifications:
+
 - ✅ "Not a 24-hour crisis shelter."
 - ✅ "Serving Southern California. Transitional housing located in San Bernardino County."
 
@@ -64,13 +73,16 @@ Added important clarifications:
 ## 4. Removed 24/7 Availability Claims
 
 ### About Page (src/pages/About.tsx)
+
 - Changed "Provide safe, transitional housing with 24/7 support"
 - To: "Provide safe, transitional housing with on-site support and case management"
 
 ### Programs Page (src/pages/Programs.tsx) - **MAJOR OVERHAUL**
+
 **Complete page redesign with accurate program information:**
 
 #### Removed Programs (No Longer Displayed)
+
 - ❌ Workforce Development
 - ❌ Parenting & Family Reunification
 - ❌ Education & GED Program
@@ -78,7 +90,8 @@ Added important clarifications:
 
 #### New Accurate Programs (3 Programs)
 
-**1. Transitional Housing (Launching 2025)**
+##### 1. Transitional Housing (Launching 2025)
+
 - Badge: "Launching 2025"
 - Description: Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments
 - Features:
@@ -89,7 +102,8 @@ Added important clarifications:
   - Referrals for healthcare, mental health, childcare, and legal aid
 - Capacity: Housing for multiple women at current San Bernardino County home. Expansion planned to serve dozens of women across multiple sites by 2026.
 
-**2. Reentry Support & Empowerment Services**
+##### 2. Reentry Support & Empowerment Services
+
 - Description: Community-based services for women reentering society or seeking stability after crisis
 - Services Include:
   - Resume building & job search assistance
@@ -99,7 +113,8 @@ Added important clarifications:
   - Empowerment workshops & peer support
 - Availability: Open to women throughout Southern California
 
-**3. Community Outreach & Events**
+##### 3. Community Outreach & Events
+
 - Description: Active engagement to connect women with community resources and support networks
 - Recent Events:
   - HIRE Reentry Resource Fair — Anaheim
@@ -107,6 +122,7 @@ Added important clarifications:
 - Upcoming: Additional community events, workshops, and outreach activities throughout 2025
 
 #### Updated Page Sections
+
 - **Hero subtitle:** Now accurately describes She Rises as "growing organization" with programs "launching in phases throughout 2025–2026"
 - **Program display:** Horizontal card layout with color-coded sections (Royal Plum, Lotus Rose, Crown Gold)
 - **How to Get Started:** Changed from "How to Apply" to 3-step process:
@@ -117,10 +133,12 @@ Added important clarifications:
 - **Our Growing Impact section:** Consistent messaging about 2025 launch and expansion plans
 
 ### Program Details Page (src/pages/ProgramDetails.tsx)
+
 - Removed "24/7 on-site support staff"
 - Updated to "On-site support and case management"
 
 ### Contact Page (src/pages/Contact.tsx)
+
 - Removed duplicate "24/7 Crisis Hotline" entry
 - Updated office hours to "Monday - Friday, 9:00 AM - 5:00 PM PST"
 - Changed crisis messaging to direct users to:
@@ -132,10 +150,12 @@ Added important clarifications:
 - Changed location info to "San Bernardino County" with "Serving Southern California"
 
 ### Donate Page (src/pages/Donate.tsx)
+
 - Changed "Crisis Response" category from "Supports 24/7 hotline and emergency intervention services"
 - To: "Emergency Support - Provides rapid response and connection to crisis resources"
 
 ### Shop Page (src/pages/Shop.tsx)
+
 - Removed inaccurate "300+ women supported annually" stat
 - Replaced with "Quality products that make an impact"
 
@@ -144,6 +164,7 @@ Added important clarifications:
 ## 5. Project Organization
 
 ### SQL Files Consolidation
+
 - Created new `sql-scripts/` folder
 - Moved all root-level SQL files:
   - ✅ `add_all_events_with_real_images.sql`
@@ -152,6 +173,7 @@ Added important clarifications:
 - Supabase migrations remain in `supabase/migrations/`
 
 ### Files Kept (Analysis Completed)
+
 - `public/_redirects` - **NECESSARY** for SPA routing (React Router)
 - `dist/_redirects` - Build output, generated automatically
 - `.env` - Contains environment variables (not tracked in git)
@@ -163,6 +185,7 @@ Added important clarifications:
 ## 6. Package Updates
 
 ### Browser Compatibility
+
 - Updated `caniuse-lite` package to latest version
 - Resolved outdated browser data warning (was 8 months old)
 - Command used: `npm update caniuse-lite --legacy-peer-deps`
@@ -226,9 +249,11 @@ Added important clarifications:
 **Date:** December 5, 2025 (Evening Update)
 
 ### Summary
+
 Complete redesign of Programs page to accurately reflect She Rises' current and planned programs. Removed 4 aspirational programs and replaced with 3 accurate programs.
 
 ### Changes Made
+
 - Removed all outdated program cards
 - Created new horizontal card layout with color-coded sections
 - Updated hero messaging to reflect phased program launch (2025–2026)
@@ -236,11 +261,47 @@ Complete redesign of Programs page to accurately reflect She Rises' current and 
 - Maintained consistent "Not a 24-hour crisis shelter" messaging
 
 ### Design Improvements
+
 - Horizontal card layout (icon left, content right)
 - Color-coded programs for visual distinction
 - Clearer capacity and availability information
 - Removed misleading "duration" and "capacity" numbers
 - Focus on contact and conversation rather than formal application
+
+---
+
+## 8. Events Page Updates (LATEST UPDATE)
+
+**Date:** December 5, 2025 (Evening Update)
+
+### Changes Made
+
+**Hero Section:**
+- Updated subtitle from generic message to: "Join us for community outreach, reentry fairs, and empowerment activities across Southern California. New events are added regularly."
+
+**Community Impact Section:**
+- **Removed:** Inaccurate statistics section with false numbers:
+  - ❌ "50+ Events hosted annually"
+  - ❌ "2,500+ Community members engaged"
+  - ❌ "$125K Raised through events last year"
+  - ❌ "95% Participant satisfaction rate"
+
+- **Added:** "Our Community Impact" section with accurate messaging:
+  - Describes She Rises as "growing organization"
+  - Emphasizes building connections through outreach and partnerships
+  - **2025 Highlights:**
+    - Participation in regional reentry fairs
+    - Outreach to justice-impacted women and families
+    - Growing partnerships with community organizations
+    - Increasing visibility and support for women in transition
+
+**Newsletter Section:**
+- Kept as-is (no changes needed)
+
+**Note on Events Display:**
+- HIRE Reentry Resource Fair (Sept 17, 2025, Anaheim)
+- RCC Rising Scholars Fall Festival (Nov 14, 2025, Riverside)
+- These events load from Supabase database (separate from homepage events.json)
 
 ---
 
