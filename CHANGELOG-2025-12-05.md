@@ -277,9 +277,11 @@ Complete redesign of Programs page to accurately reflect She Rises' current and 
 ### Changes Made
 
 **Hero Section:**
+
 - Updated subtitle from generic message to: "Join us for community outreach, reentry fairs, and empowerment activities across Southern California. New events are added regularly."
 
 **Community Impact Section:**
+
 - **Removed:** Inaccurate statistics section with false numbers:
   - ❌ "50+ Events hosted annually"
   - ❌ "2,500+ Community members engaged"
@@ -296,12 +298,42 @@ Complete redesign of Programs page to accurately reflect She Rises' current and 
     - Increasing visibility and support for women in transition
 
 **Newsletter Section:**
+
 - Kept as-is (no changes needed)
 
 **Note on Events Display:**
+
 - HIRE Reentry Resource Fair (Sept 17, 2025, Anaheim)
 - RCC Rising Scholars Fall Festival (Nov 14, 2025, Riverside)
 - These events load from Supabase database (separate from homepage events.json)
+
+---
+
+## 9. Events Page Supabase Fallback Fix
+
+**Date:** December 5, 2025 (Evening Update)
+
+### Problem
+Events page not loading due to Supabase connection failure (`ERR_NAME_NOT_RESOLVED`)
+
+### Solution
+Added fallback mechanism to use events.json when Supabase is unavailable
+
+### Technical Changes
+- Imported `events.json` as fallback data source
+- Added try/catch error handling with fallback logic
+- When Supabase connection fails, Events page now uses local events data
+- Updated events.json with complete event information:
+  - Added category, type, address, image fields
+  - Added capacity and registered counts
+  - HIRE Reentry Resource Fair (Sept 17, 2025, Anaheim) - employment category
+  - RCC Fall Festival Resource Fair (Nov 14, 2025, Riverside) - support category
+
+### Result
+Events page now works reliably even when Supabase is:
+- Paused (common on free tier)
+- Experiencing connectivity issues
+- Project deleted or URL changed
 
 ---
 
