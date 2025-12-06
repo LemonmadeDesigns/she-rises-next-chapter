@@ -67,13 +67,54 @@ Added important clarifications:
 - Changed "Provide safe, transitional housing with 24/7 support"
 - To: "Provide safe, transitional housing with on-site support and case management"
 
-### Programs Page (src/pages/Programs.tsx)
-- Removed "24/7 on-site support staff" from features
-- Changed to "On-site support and case management"
-- Replaced "Program Impact Statistics" section with "Our Growing Impact"
-- Updated "Emergency Resources" section to clarify:
-  - She Rises contact info vs. external crisis lines (988, 211)
-  - Added disclaimer: "Not a 24-hour crisis shelter"
+### Programs Page (src/pages/Programs.tsx) - **MAJOR OVERHAUL**
+**Complete page redesign with accurate program information:**
+
+#### Removed Programs (No Longer Displayed)
+- ❌ Workforce Development
+- ❌ Parenting & Family Reunification
+- ❌ Education & GED Program
+- ❌ Mental Health & Wellness
+
+#### New Accurate Programs (3 Programs)
+
+**1. Transitional Housing (Launching 2025)**
+- Badge: "Launching 2025"
+- Description: Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments
+- Features:
+  - Safe, structured shared housing
+  - Case management & individualized goal planning
+  - Life skills, empowerment, and reentry support
+  - Employment readiness resources
+  - Referrals for healthcare, mental health, childcare, and legal aid
+- Capacity: Housing for multiple women at current San Bernardino County home. Expansion planned to serve dozens of women across multiple sites by 2026.
+
+**2. Reentry Support & Empowerment Services**
+- Description: Community-based services for women reentering society or seeking stability after crisis
+- Services Include:
+  - Resume building & job search assistance
+  - Support with IDs, benefits, and documentation
+  - Appointment and court support
+  - Resource navigation (housing, employment, education, childcare, etc.)
+  - Empowerment workshops & peer support
+- Availability: Open to women throughout Southern California
+
+**3. Community Outreach & Events**
+- Description: Active engagement to connect women with community resources and support networks
+- Recent Events:
+  - HIRE Reentry Resource Fair — Anaheim
+  - RCC Rising Scholars Fall Festival — Riverside
+- Upcoming: Additional community events, workshops, and outreach activities throughout 2025
+
+#### Updated Page Sections
+- **Hero subtitle:** Now accurately describes She Rises as "growing organization" with programs "launching in phases throughout 2025–2026"
+- **Program display:** Horizontal card layout with color-coded sections (Royal Plum, Lotus Rose, Crown Gold)
+- **How to Get Started:** Changed from "How to Apply" to 3-step process:
+  1. Reach Out (phone/email contact)
+  2. Initial Conversation (confidential, supportive discussion)
+  3. Next Steps Together (personalized planning)
+- **Contact section:** Maintained "Not a 24-hour crisis shelter" disclaimer with crisis resource referrals (988, 211)
+- **Our Growing Impact section:** Consistent messaging about 2025 launch and expansion plans
 
 ### Program Details Page (src/pages/ProgramDetails.tsx)
 - Removed "24/7 on-site support staff"
@@ -178,6 +219,31 @@ Added important clarifications:
 
 ---
 
-**Date Completed:** December 5, 2025
+---
+
+## 7. Programs Page Complete Overhaul (LATEST UPDATE)
+
+**Date:** December 5, 2025 (Evening Update)
+
+### Summary
+Complete redesign of Programs page to accurately reflect She Rises' current and planned programs. Removed 4 aspirational programs and replaced with 3 accurate programs.
+
+### Changes Made
+- Removed all outdated program cards
+- Created new horizontal card layout with color-coded sections
+- Updated hero messaging to reflect phased program launch (2025–2026)
+- Changed application process to supportive contact process
+- Maintained consistent "Not a 24-hour crisis shelter" messaging
+
+### Design Improvements
+- Horizontal card layout (icon left, content right)
+- Color-coded programs for visual distinction
+- Clearer capacity and availability information
+- Removed misleading "duration" and "capacity" numbers
+- Focus on contact and conversation rather than formal application
+
+---
+
+**Date Completed:** December 5, 2025 (Updated throughout day)
 **Updated By:** Development Team via Claude Code
 **Review Status:** Pending stakeholder review
