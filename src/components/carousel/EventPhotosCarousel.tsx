@@ -27,7 +27,7 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
   };
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto py-12">
+    <div className="relative w-full max-w-6xl mx-auto pb-12">
       {/* Carousel Container */}
       <div className="relative h-[400px] flex items-center justify-center perspective-1000">
         {/* Left Image */}
