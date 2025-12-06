@@ -199,20 +199,20 @@ const Contact = () => {
               <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
                 {info.isQrCode ? (
                   <>
-                    <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                      <info.icon className="h-8 w-8 text-white" />
+                    <div className={`w-12 h-12 ${info.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                      <info.icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                    <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
                       {info.title}
                     </h3>
-                    <div className="flex justify-center mb-3">
+                    <div className="flex justify-center mb-2">
                       <img
                         src="/images/sherises_qr_code.png"
-                        alt="She Rises QR Code"
-                        className="w-32 h-32 object-contain rounded-lg border-2 border-crown-gold"
+                        alt="She Rises Zelle QR Code"
+                        className="w-40 h-40 object-contain rounded-lg border-2 border-crown-gold"
                       />
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       {info.description}
                     </p>
                   </>
