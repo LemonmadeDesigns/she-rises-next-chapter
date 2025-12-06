@@ -9,6 +9,7 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import ProgramCard from "@/components/cards/ProgramCard";
 import EventCard from "@/components/cards/EventCard";
+import EventPhotosCarousel from "@/components/carousel/EventPhotosCarousel";
 import heroImage from "@/assets/she-rises-banner-hero.jpg";
 import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
 import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
@@ -33,6 +34,20 @@ const Index = () => {
       setEmail("");
     }
   };
+
+  const eventPhotos = [
+    "/images/sherises-imgs-01/IMG_1980.jpeg",
+    "/images/sherises-imgs-01/IMG_1981.jpeg",
+    "/images/sherises-imgs-01/IMG_1982.jpeg",
+    "/images/sherises-imgs-01/IMG_1983.jpeg",
+    "/images/sherises-imgs-01/IMG_1984.jpeg",
+    "/images/sherises-imgs-01/IMG_1985.jpeg",
+    "/images/sherises-imgs-01/IMG_1986.jpeg",
+    "/images/sherises-imgs-02/IMG_0736.HEIC(1).jpeg",
+    "/images/sherises-imgs-02/IMG_0777.HEIC.jpeg",
+    "/images/sherises-imgs-02/IMG_0779.HEIC.jpeg",
+    "/images/sherises-imgs-02/IMG_0782.HEIC.jpeg",
+  ];
 
   const pillars = [
     {
@@ -108,16 +123,9 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Our Team in Action"
-            subtitle="Showcase the women and community behind She Rises"
+            subtitle="Celebrating community events and the women we serve"
           />
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-soft rounded-2xl p-12 text-center">
-              <div className="text-muted-foreground mb-4">
-                <p className="text-lg">Photo gallery coming soon</p>
-                <p className="text-sm mt-2">Event photos and team highlights will be displayed here</p>
-              </div>
-            </div>
-          </div>
+          <EventPhotosCarousel images={eventPhotos} />
         </div>
       </section>
 

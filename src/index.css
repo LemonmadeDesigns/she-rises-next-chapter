@@ -334,4 +334,9 @@ All colors MUST be HSL.
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* 3D Perspective for carousel */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
 }
