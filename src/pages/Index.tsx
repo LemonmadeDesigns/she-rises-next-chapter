@@ -78,6 +78,8 @@ const Index = () => {
         backgroundImage={heroImage}
         backgroundImageWebp={heroImageWebp}
         backgroundImageAvif={heroImageAvif}
+        backgroundImagePosition="center 20%"
+        parallax={true}
         fullHeight
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">

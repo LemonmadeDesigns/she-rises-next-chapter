@@ -13,6 +13,7 @@ interface OptimizedHeroProps {
   sizes?: string;
   priority?: boolean;
   style?: React.CSSProperties;
+  objectPosition?: string;
 }
 
 const OptimizedHero = ({
@@ -27,6 +28,7 @@ const OptimizedHero = ({
   sizes = "100vw",
   priority = true,
   style,
+  objectPosition = "center",
 }: OptimizedHeroProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -98,6 +100,7 @@ const OptimizedHero = ({
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-500",
             isLoaded ? "opacity-100" : "opacity-0"
           )}
+          style={{ objectPosition }}
           loading={priority ? "eager" : "lazy"}
           fetchpriority={priority ? "high" : "auto"}
           decoding="async"

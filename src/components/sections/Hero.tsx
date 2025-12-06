@@ -12,6 +12,7 @@ interface HeroProps {
   backgroundImageAlt?: string;
   backgroundImageWidth?: number;
   backgroundImageHeight?: number;
+  backgroundImagePosition?: string;
   backgroundColor?: string;
   children?: ReactNode;
   className?: string;
@@ -30,6 +31,7 @@ const Hero = ({
   backgroundImageAlt = "She Rises: every woman deserves a safe place to rise",
   backgroundImageWidth = 1920,
   backgroundImageHeight = 1080,
+  backgroundImagePosition = "center",
   backgroundColor,
   children,
   className,
@@ -96,6 +98,7 @@ const Hero = ({
             alt={backgroundImageAlt}
             width={backgroundImageWidth}
             height={backgroundImageHeight}
+            objectPosition={backgroundImagePosition}
             className="absolute inset-0"
             style={parallaxStyle}
             priority={true}
