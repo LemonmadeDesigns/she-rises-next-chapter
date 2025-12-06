@@ -13,6 +13,7 @@ import LazyImage from "@/components/images/LazyImage";
 import { Calendar, Clock, MapPin, Users, Heart, Star, Filter, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import eventsData from "@/content/events.json";
 
 interface Event {
   id: string;
@@ -52,23 +53,36 @@ const Events = () => {
         .order('date', { ascending: true });
 
       if (error) {
-        console.error('Error loading events:', error);
-        toast({
-          title: "Error",
-          description: "Failed to load events.",
-          variant: "destructive"
-        });
+        console.warn('Supabase connection failed, using fallback events:', error);
+        // Fallback to events.json if Supabase is unavailable
+        const fallbackEvents = eventsData.events.map(event => ({
+          ...event,
+          registered: 0,
+          capacity: 50,
+          price: event.price || "Free",
+          category: event.category || "general",
+          type: event.type || "In-Person",
+          highlights: event.highlights || []
+        }));
+        setEvents(fallbackEvents);
+        setLoading(false);
         return;
       }
 
       setEvents(data || []);
     } catch (error) {
-      console.error('Error loading events:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load events.",
-        variant: "destructive"
-      });
+      console.warn('Supabase connection error, using fallback events:', error);
+      // Fallback to events.json if Supabase throws an error
+      const fallbackEvents = eventsData.events.map(event => ({
+        ...event,
+        registered: 0,
+        capacity: 50,
+        price: event.price || "Free",
+        category: event.category || "general",
+        type: event.type || "In-Person",
+        highlights: event.highlights || []
+      }));
+      setEvents(fallbackEvents);
     } finally {
       setLoading(false);
     }

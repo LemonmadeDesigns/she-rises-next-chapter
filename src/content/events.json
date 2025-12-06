@@ -3,32 +3,44 @@
     {
       "id": "hire-fair",
       "title": "HIRE Reentry Resource Fair — Orange County",
+      "category": "employment",
+      "type": "In-Person",
       "date": "2025-09-17",
       "time": "All Day",
       "location": "Honda Center, Anaheim, CA",
-      "description": "She Rises participated as a community resource provider at the 4th Annual H.I.R.E. Reentry Resource Fair.",
-      "details": "She Rises participated as a community resource provider at the 4th Annual H.I.R.E. Reentry Resource Fair. We connected with justice-impacted individuals, shared information about our transitional housing program, and distributed empowerment and reentry resources.",
+      "address": "2695 E Katella Ave, Anaheim, CA 92806",
+      "description": "She Rises participated as a community resource provider at the 4th Annual H.I.R.E. Reentry Resource Fair. We connected with justice-impacted individuals, shared information about our transitional housing program, and distributed empowerment and reentry resources.",
+      "image": "/images/sheRisesEvent/2655304675795419291.jpg",
+      "price": "Free",
+      "capacity": 150,
+      "registered": 38,
+      "featured": true,
       "highlights": [
         "Community networking with reentry partners",
         "Outreach to individuals seeking housing and employment support",
         "Provided resource materials and intake information"
-      ],
-      "featured": true
+      ]
     },
     {
       "id": "rcc-fall-festival",
       "title": "RCC Fall Festival Resource Fair — Riverside County",
+      "category": "support",
+      "type": "In-Person",
       "date": "2025-11-14",
       "time": "All Day",
       "location": "Riverside City College, Riverside, CA",
-      "description": "She Rises hosted a resource booth at the RCC Rising Scholars Fall Festival.",
-      "details": "She Rises hosted a resource booth at the RCC Rising Scholars Fall Festival. We offered empowerment resources, program materials, and on-site guidance for women seeking support and stability.",
+      "address": "4800 Magnolia Ave, Riverside, CA 92506",
+      "description": "She Rises hosted a resource booth at the RCC Rising Scholars Fall Festival. We offered empowerment resources, program materials, and on-site guidance for women seeking support and stability.",
+      "image": "/images/sheRisesEvent/5834705427993600355.jpg",
+      "price": "Free",
+      "capacity": 100,
+      "registered": 25,
+      "featured": true,
       "highlights": [
         "Engagement with community partners",
         "Outreach to justice-impacted women and families",
         "Shared information on transitional housing and services"
-      ],
-      "featured": true
+      ]
     }
   ]
 }
