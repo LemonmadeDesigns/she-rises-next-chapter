@@ -225,7 +225,7 @@ const Contact = () => {
                 </h3>
                 <div className="flex justify-center mb-4">
                   <img
-                    src="/images/sherises_qr_code.png"
+                    src="/images/sherises_qr_code.jpeg"
                     alt="She Rises Zelle QR Code"
                     className="w-48 h-48 object-contain rounded-lg border-2 border-crown-gold"
                   />
