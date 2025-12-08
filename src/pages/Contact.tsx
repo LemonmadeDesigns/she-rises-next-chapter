@@ -194,44 +194,45 @@ const Contact = () => {
             subtitle="Multiple ways to connect with us for support, questions, or collaboration"
           />
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {contactInfo.map((info, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {contactInfo.filter(info => !info.isQrCode).map((info, index) => (
               <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
-                {info.isQrCode ? (
-                  <>
-                    <div className={`w-12 h-12 ${info.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
-                      <info.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <h3 className="font-serif text-lg font-bold text-royal-plum mb-3">
-                      {info.title}
-                    </h3>
-                    <div className="flex justify-center mb-2">
-                      <img
-                        src="/images/sherises_qr_code.png"
-                        alt="She Rises Zelle QR Code"
-                        className="w-40 h-40 object-contain rounded-lg border-2 border-crown-gold"
-                      />
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {info.description}
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                      <info.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
-                      {info.title}
-                    </h3>
-                    <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
-                      {info.details}
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {info.description}
-                    </p>
-                  </>
-                )}
+                <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <info.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                  {info.title}
+                </h3>
+                <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
+                  {info.details}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {info.description}
+                </p>
+              </Card>
+            ))}
+          </div>
+
+          {/* QR Code Card - Centered Below */}
+          <div className="flex justify-center mb-16">
+            {contactInfo.filter(info => info.isQrCode).map((info, index) => (
+              <Card key={index} className="text-center p-6 shadow-soft transition-shadow max-w-xs w-full">
+                <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <info.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
+                  {info.title}
+                </h3>
+                <div className="flex justify-center mb-4">
+                  <img
+                    src="/images/sherises_qr_code.png"
+                    alt="She Rises Zelle QR Code"
+                    className="w-48 h-48 object-contain rounded-lg border-2 border-crown-gold"
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {info.description}
+                </p>
               </Card>
             ))}
           </div>
