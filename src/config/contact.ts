@@ -11,7 +11,7 @@ export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxOC293r6Ow
 
 // Google Apps Script Web App URL for Housing Intake forms
 // TODO: After deploying the intake form Google Apps Script, replace this URL with your deployment URL
-export const INTAKE_GAS_ENDPOINT = 'YOUR_INTAKE_FORM_DEPLOYMENT_URL_HERE';
+export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsIWJK3XiJK5F-i3XuGpi3RfcXs9oKf5sAZOAE4g563WG4xjyqDwyVlmyVlXNid4E_lQ/exec';
 
 /**
  * Submits form data to the Google Apps Script endpoint
@@ -73,12 +73,6 @@ export async function submitIntakeForm(
   phone: string = '',
   formType: string = 'Housing Intake Application'
 ): Promise<{ ok: boolean; error?: string }> {
-  // Check if intake endpoint is configured
-  if (INTAKE_GAS_ENDPOINT === 'YOUR_INTAKE_FORM_DEPLOYMENT_URL_HERE') {
-    console.warn('Intake form endpoint not configured, falling back to general contact endpoint');
-    return submitContactForm(name, email, subject, message, company, phone, formType);
-  }
-
   const formData = new FormData();
   formData.append('name', name);
   formData.append('email', email);
