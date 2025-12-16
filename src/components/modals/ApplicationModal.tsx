@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
-import { FileText, CheckCircle, X } from "lucide-react";
+import { FileText, CheckCircle } from "lucide-react";
 import { submitIntakeForm } from "@/config/contact";
 
 interface ApplicationModalProps {
@@ -897,20 +897,10 @@ Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting 
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="flex items-center gap-2 text-royal-plum">
-              <FileText className="h-5 w-5 text-crown-gold" />
-              SHE RISES – Housing Intake & Eligibility Screening
-            </DialogTitle>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleClose}
-              className="h-6 w-6 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+          <DialogTitle className="flex items-center gap-2 text-royal-plum">
+            <FileText className="h-5 w-5 text-crown-gold" />
+            SHE RISES – Housing Intake & Eligibility Screening
+          </DialogTitle>
         </DialogHeader>
 
         {!isSubmitted && (
