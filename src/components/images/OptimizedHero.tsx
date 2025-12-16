@@ -102,7 +102,7 @@ const OptimizedHero = ({
           )}
           style={{ objectPosition }}
           loading={priority ? "eager" : "lazy"}
-          fetchpriority={priority ? "high" : "auto"}
+          fetchPriority={priority ? "high" : "auto"}
           decoding="async"
           onLoad={handleImageLoad}
           onError={handleImageError}
