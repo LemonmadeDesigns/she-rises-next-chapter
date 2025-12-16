@@ -16,58 +16,57 @@ interface ApplicationModalProps {
 }
 
 interface ApplicationFormData {
-  // Personal Information (9 fields)
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  dateOfBirth: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-
-  // Emergency Contact (3 fields)
-  emergencyName: string;
-  emergencyRelation: string;
-  emergencyPhone: string;
-
-  // Referral/Legal Information (6 fields)
-  referralSource: string;
+  // Section 1: Basic Information
+  fullName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  age: string;
+  preferredLanguage: string;
+  genderIdentity: string;
+  genderIdentityOther: string;
   justiceInvolved: string;
-  paroleOfficerName: string;
-  paroleOfficerPhone: string;
-  caseNumber: string;
-  expectedReleaseDate: string;
+  currentlyHomeless: string;
+  currentCounty: string;
 
-  // Demographics (2 fields)
-  gender: string;
-  languageNeeds: string;
+  // Section 2: Location & Program Fit
+  preferredLocation: string;
+  willingToParticipate: string;
+  sharedHousing: string;
+  referralSource: string;
+  referralSourceOther: string;
 
-  // Housing Needs (4 fields)
-  immediateHousing: string;
-  children: string;
-  childrenCount: string;
-  childrenAges: string;
+  // Section 3: Housing Category
+  housingCategories: string[];
 
-  // Current Situation (2 fields)
-  currentSituation: string;
-  employment: string;
+  // Section 4: Pet Screening
+  hasPets: string;
+  petType: string;
+  isServiceAnimal: string;
+  hasVaccinationProof: string;
 
-  // Health & Support (3 fields)
-  physicalHealthNeeds: string;
-  mentalHealthNeeds: string;
-  substanceRecovery: string;
+  // Section 5: Medical & Insurance
+  medicalInsurance: string;
+  hasMedicalConditions: string;
+  medicalConditionsDetail: string;
 
-  // Program Needs (3 fields)
-  programsInterested: string[];
-  goals: string;
-  challenges: string;
+  // Section 6: Income & Benefits
+  employmentStatus: string;
+  benefits: string[];
+  monthlyIncome: string;
+  fundingExpectation: string[];
 
-  // Legal Agreements (3 fields)
-  programAcknowledgment: boolean;
-  backgroundCheck: boolean;
-  consent: boolean;
+  // Section 7: Safety & Readiness
+  domesticViolence: string;
+  substanceUse: string;
+  willingCaseManagement: string;
+
+  // Section 8: Case Management
+  hasCaseManager: string;
+  caseManagerInfo: string;
+  spoken211: string;
+
+  // Section 9: Consent
+  acknowledgment: boolean;
 }
 
 const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
@@ -77,83 +76,86 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   const { toast } = useToast();
 
   const [formData, setFormData] = useState<ApplicationFormData>({
-    // Personal Information
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    // Emergency Contact
-    emergencyName: "",
-    emergencyRelation: "",
-    emergencyPhone: "",
-    // Referral/Legal Information
-    referralSource: "",
+    // Section 1: Basic Information
+    fullName: "",
+    phoneNumber: "",
+    emailAddress: "",
+    age: "",
+    preferredLanguage: "",
+    genderIdentity: "",
+    genderIdentityOther: "",
     justiceInvolved: "",
-    paroleOfficerName: "",
-    paroleOfficerPhone: "",
-    caseNumber: "",
-    expectedReleaseDate: "",
-    // Demographics
-    gender: "",
-    languageNeeds: "",
-    // Housing Needs
-    immediateHousing: "",
-    children: "",
-    childrenCount: "",
-    childrenAges: "",
-    // Current Situation
-    currentSituation: "",
-    employment: "",
-    // Health & Support
-    physicalHealthNeeds: "",
-    mentalHealthNeeds: "",
-    substanceRecovery: "",
-    // Program Needs
-    programsInterested: [],
-    goals: "",
-    challenges: "",
-    // Legal Agreements
-    programAcknowledgment: false,
-    backgroundCheck: false,
-    consent: false,
+    currentlyHomeless: "",
+    currentCounty: "",
+    // Section 2: Location & Program Fit
+    preferredLocation: "",
+    willingToParticipate: "",
+    sharedHousing: "",
+    referralSource: "",
+    referralSourceOther: "",
+    // Section 3: Housing Category
+    housingCategories: [],
+    // Section 4: Pet Screening
+    hasPets: "",
+    petType: "",
+    isServiceAnimal: "",
+    hasVaccinationProof: "",
+    // Section 5: Medical & Insurance
+    medicalInsurance: "",
+    hasMedicalConditions: "",
+    medicalConditionsDetail: "",
+    // Section 6: Income & Benefits
+    employmentStatus: "",
+    benefits: [],
+    monthlyIncome: "",
+    fundingExpectation: [],
+    // Section 7: Safety & Readiness
+    domesticViolence: "",
+    substanceUse: "",
+    willingCaseManagement: "",
+    // Section 8: Case Management
+    hasCaseManager: "",
+    caseManagerInfo: "",
+    spoken211: "",
+    // Section 9: Consent
+    acknowledgment: false,
   });
 
-  const totalSteps = 7;
+  const totalSteps = 9;
 
   const handleInputChange = (field: keyof ApplicationFormData, value: string | boolean | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleProgramInterestChange = (program: string, checked: boolean) => {
+  const handleArrayChange = (field: 'housingCategories' | 'benefits' | 'fundingExpectation', value: string, checked: boolean) => {
     setFormData(prev => ({
       ...prev,
-      programsInterested: checked
-        ? [...prev.programsInterested, program]
-        : prev.programsInterested.filter(p => p !== program)
+      [field]: checked
+        ? [...prev[field], value]
+        : prev[field].filter((item: string) => item !== value)
     }));
   };
 
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
-        return !!(formData.firstName && formData.lastName && formData.email && formData.phone && formData.dateOfBirth);
+        return !!(formData.fullName && formData.phoneNumber && formData.emailAddress && formData.age && formData.currentlyHomeless && formData.currentCounty);
       case 2:
-        return !!(formData.emergencyName && formData.emergencyPhone);
+        return !!(formData.preferredLocation && formData.willingToParticipate && formData.sharedHousing);
       case 3:
-        return !!(formData.justiceInvolved && formData.gender);
+        return formData.housingCategories.length > 0;
       case 4:
-        return !!(formData.immediateHousing);
+        return !!formData.hasPets;
       case 5:
-        return true; // Health & Support fields are optional
+        return !!formData.medicalInsurance;
       case 6:
-        return !!(formData.programsInterested.length > 0 && formData.goals);
+        return !!formData.employmentStatus;
       case 7:
-        return formData.programAcknowledgment && formData.backgroundCheck && formData.consent;
+        return !!(formData.domesticViolence && formData.willingCaseManagement);
+      case 8:
+        return !!formData.hasCaseManager;
+      case 9:
+        return formData.acknowledgment;
       default:
         return true;
     }
@@ -176,7 +178,7 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   };
 
   const handleSubmit = async () => {
-    if (!validateStep(7)) {
+    if (!validateStep(9)) {
       toast({
         title: "Please Complete All Required Fields",
         description: "All required fields and agreements must be completed.",
@@ -188,80 +190,81 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     setIsSubmitting(true);
 
     try {
-      // Format streamlined application message (35 essential fields)
+      // Format application message with new structure
       const applicationMessage = `
 ═══════════════════════════════════════════
-PERSONAL INFORMATION
+SHE RISES - HOUSING INTAKE & ELIGIBILITY SCREENING
 ═══════════════════════════════════════════
-Name: ${formData.firstName} ${formData.lastName}
-Date of Birth: ${formData.dateOfBirth}
-Address: ${formData.address}
-City: ${formData.city}, ${formData.state} ${formData.zipCode}
 
+SECTION 1: BASIC INFORMATION
 ═══════════════════════════════════════════
-EMERGENCY CONTACT
-═══════════════════════════════════════════
-Name: ${formData.emergencyName}
-Relationship: ${formData.emergencyRelation}
-Phone: ${formData.emergencyPhone}
+Full Name: ${formData.fullName}
+Phone Number: ${formData.phoneNumber}
+Email Address: ${formData.emailAddress}
+Age: ${formData.age}
+Preferred Language: ${formData.preferredLanguage || 'Not specified'}
+Gender Identity: ${formData.genderIdentity}${formData.genderIdentityOther ? ` - ${formData.genderIdentityOther}` : ''}
+Justice-Involved: ${formData.justiceInvolved}
+Currently Homeless/Unstably Housed: ${formData.currentlyHomeless}
+Current County: ${formData.currentCounty}
 
+SECTION 2: LOCATION & PROGRAM FIT
 ═══════════════════════════════════════════
-REFERRAL & LEGAL INFORMATION
-═══════════════════════════════════════════
-Referral Source: ${formData.referralSource}
-Justice Involved: ${formData.justiceInvolved}
-Parole Officer: ${formData.paroleOfficerName || 'N/A'}
-Parole Officer Phone: ${formData.paroleOfficerPhone || 'N/A'}
-Case Number: ${formData.caseNumber || 'N/A'}
-Expected Release Date: ${formData.expectedReleaseDate || 'N/A'}
+Preferred Location: ${formData.preferredLocation}
+Willing to Participate in Structured Program: ${formData.willingToParticipate}
+Able to Live in Shared Housing: ${formData.sharedHousing}
+Referral Source: ${formData.referralSource}${formData.referralSourceOther ? ` - ${formData.referralSourceOther}` : ''}
 
+SECTION 3: HOUSING CATEGORY
 ═══════════════════════════════════════════
-DEMOGRAPHICS
-═══════════════════════════════════════════
-Gender: ${formData.gender}
-Language Needs: ${formData.languageNeeds || 'None'}
+Current Situation: ${formData.housingCategories.join(', ')}
 
+SECTION 4: PET SCREENING
 ═══════════════════════════════════════════
-HOUSING NEEDS
-═══════════════════════════════════════════
-Immediate Housing Needed: ${formData.immediateHousing}
-Children: ${formData.children}
-${formData.children === 'Yes' ? `Number of Children: ${formData.childrenCount}\nChildren's Ages: ${formData.childrenAges}` : ''}
+Has Pets: ${formData.hasPets}
+${formData.hasPets === 'Yes' ? `Pet Type: ${formData.petType || 'Not specified'}
+Is Service Animal: ${formData.isServiceAnimal || 'Not specified'}
+Has Vaccination Proof: ${formData.hasVaccinationProof || 'Not specified'}` : ''}
 
+SECTION 5: MEDICAL & INSURANCE
 ═══════════════════════════════════════════
-CURRENT SITUATION
-═══════════════════════════════════════════
-Current Situation: ${formData.currentSituation}
-Employment Status: ${formData.employment}
+Medical Insurance: ${formData.medicalInsurance}
+Has Medical Conditions: ${formData.hasMedicalConditions}
+${formData.hasMedicalConditions === 'YES' ? `Medical Conditions Detail: ${formData.medicalConditionsDetail}` : ''}
 
+SECTION 6: INCOME & BENEFITS
 ═══════════════════════════════════════════
-HEALTH & SUPPORT NEEDS
-═══════════════════════════════════════════
-Physical Health Needs: ${formData.physicalHealthNeeds || 'None specified'}
-Mental Health Needs: ${formData.mentalHealthNeeds || 'None specified'}
-Substance Recovery: ${formData.substanceRecovery}
+Employment Status: ${formData.employmentStatus}
+Benefits Received: ${formData.benefits.length > 0 ? formData.benefits.join(', ') : 'None'}
+Approximate Monthly Income: ${formData.monthlyIncome || 'Not specified'}
+Expected Funding: ${formData.fundingExpectation.length > 0 ? formData.fundingExpectation.join(', ') : 'Not specified'}
 
+SECTION 7: SAFETY & READINESS
 ═══════════════════════════════════════════
-PROGRAM NEEDS & GOALS
+Active Domestic Violence/Safety Concerns: ${formData.domesticViolence}
+Currently Using Substances: ${formData.substanceUse}
+Willing to Participate in Case Management: ${formData.willingCaseManagement}
+
+SECTION 8: CASE MANAGEMENT
 ═══════════════════════════════════════════
-Programs Interested In: ${formData.programsInterested.join(', ') || 'Not specified'}
+Has Case Manager: ${formData.hasCaseManager}
+${formData.hasCaseManager === 'Yes' ? `Case Manager Info: ${formData.caseManagerInfo}` : ''}
+Spoken with 211/Homeless Outreach: ${formData.spoken211}
 
-Goals & Services Needed:
-${formData.goals}
-
-Challenges & Barriers:
-${formData.challenges}
+SECTION 9: CONSENT
+═══════════════════════════════════════════
+Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting this form does not guarantee placement and is used for eligibility screening and referrals.' : 'No'}
       `.trim();
 
       // Submit to Google Apps Script
       const result = await submitContactForm(
-        `${formData.firstName} ${formData.lastName}`,
-        formData.email,
-        'Program Application',
+        formData.fullName,
+        formData.emailAddress,
+        'Housing Intake & Eligibility Screening',
         applicationMessage,
         '', // honeypot
-        formData.phone,
-        'Program Application'
+        formData.phoneNumber,
+        'Housing Intake Application'
       );
 
       if (!result.ok) {
@@ -272,14 +275,14 @@ ${formData.challenges}
 
       toast({
         title: "Application Submitted!",
-        description: "Thank you for your application. We'll be in touch within 2-3 business days.",
+        description: "Thank you for submitting your intake to SHE RISES. Our team will review your information and contact you regarding next steps or appropriate referrals. We aim to acknowledge referrals within 3-5 business days.",
       });
 
       // Reset form after a delay
       setTimeout(() => {
         resetForm();
         onClose();
-      }, 3000);
+      }, 4000);
 
     } catch (error) {
       console.error("Error submitting application:", error);
@@ -297,50 +300,49 @@ ${formData.challenges}
     setCurrentStep(1);
     setIsSubmitted(false);
     setFormData({
-      // Personal Information
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      dateOfBirth: "",
-      address: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      // Emergency Contact
-      emergencyName: "",
-      emergencyRelation: "",
-      emergencyPhone: "",
-      // Referral/Legal Information
-      referralSource: "",
+      // Section 1: Basic Information
+      fullName: "",
+      phoneNumber: "",
+      emailAddress: "",
+      age: "",
+      preferredLanguage: "",
+      genderIdentity: "",
+      genderIdentityOther: "",
       justiceInvolved: "",
-      paroleOfficerName: "",
-      paroleOfficerPhone: "",
-      caseNumber: "",
-      expectedReleaseDate: "",
-      // Demographics
-      gender: "",
-      languageNeeds: "",
-      // Housing Needs
-      immediateHousing: "",
-      children: "",
-      childrenCount: "",
-      childrenAges: "",
-      // Current Situation
-      currentSituation: "",
-      employment: "",
-      // Health & Support
-      physicalHealthNeeds: "",
-      mentalHealthNeeds: "",
-      substanceRecovery: "",
-      // Program Needs
-      programsInterested: [],
-      goals: "",
-      challenges: "",
-      // Legal Agreements
-      programAcknowledgment: false,
-      backgroundCheck: false,
-      consent: false,
+      currentlyHomeless: "",
+      currentCounty: "",
+      // Section 2: Location & Program Fit
+      preferredLocation: "",
+      willingToParticipate: "",
+      sharedHousing: "",
+      referralSource: "",
+      referralSourceOther: "",
+      // Section 3: Housing Category
+      housingCategories: [],
+      // Section 4: Pet Screening
+      hasPets: "",
+      petType: "",
+      isServiceAnimal: "",
+      hasVaccinationProof: "",
+      // Section 5: Medical & Insurance
+      medicalInsurance: "",
+      hasMedicalConditions: "",
+      medicalConditionsDetail: "",
+      // Section 6: Income & Benefits
+      employmentStatus: "",
+      benefits: [],
+      monthlyIncome: "",
+      fundingExpectation: [],
+      // Section 7: Safety & Readiness
+      domesticViolence: "",
+      substanceUse: "",
+      willingCaseManagement: "",
+      // Section 8: Case Management
+      hasCaseManager: "",
+      caseManagerInfo: "",
+      spoken211: "",
+      // Section 9: Consent
+      acknowledgment: false,
     });
   };
 
@@ -358,11 +360,12 @@ ${formData.challenges}
           </div>
           <div>
             <h3 className="text-lg font-semibold text-royal-plum mb-2">
-              Application Submitted Successfully!
+              Intake Submitted Successfully!
             </h3>
             <p className="text-muted-foreground">
-              Thank you for applying to our programs. Our team will review your application
-              and contact you within 2-3 business days.
+              Thank you for submitting your intake to SHE RISES. Our team will review your information
+              and contact you regarding next steps or appropriate referrals. We aim to acknowledge referrals
+              within 3-5 business days. Submission does not guarantee placement.
             </p>
           </div>
         </div>
@@ -373,92 +376,117 @@ ${formData.challenges}
       case 1:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Personal Information</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input
-                  id="firstName"
-                  value={formData.firstName}
-                  onChange={(e) => handleInputChange('firstName', e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input
-                  id="lastName"
-                  value={formData.lastName}
-                  onChange={(e) => handleInputChange('lastName', e.target.value)}
-                  required
-                />
-              </div>
-            </div>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 1: BASIC INFORMATION</h3>
             <div>
-              <Label htmlFor="email">Email Address *</Label>
+              <Label htmlFor="fullName">Full Name *</Label>
               <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
+                id="fullName"
+                value={formData.fullName}
+                onChange={(e) => handleInputChange('fullName', e.target.value)}
                 required
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="phone">Phone Number *</Label>
+                <Label htmlFor="phoneNumber">Phone Number *</Label>
                 <Input
-                  id="phone"
+                  id="phoneNumber"
                   type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  value={formData.phoneNumber}
+                  onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
                   required
                 />
               </div>
               <div>
-                <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                <Label htmlFor="emailAddress">Email Address *</Label>
                 <Input
-                  id="dateOfBirth"
-                  type="date"
-                  value={formData.dateOfBirth}
-                  onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                  id="emailAddress"
+                  type="email"
+                  value={formData.emailAddress}
+                  onChange={(e) => handleInputChange('emailAddress', e.target.value)}
                   required
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="age">Age *</Label>
+                <Input
+                  id="age"
+                  type="number"
+                  value={formData.age}
+                  onChange={(e) => handleInputChange('age', e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="preferredLanguage">Preferred Language</Label>
+                <Input
+                  id="preferredLanguage"
+                  value={formData.preferredLanguage}
+                  onChange={(e) => handleInputChange('preferredLanguage', e.target.value)}
+                  placeholder="e.g., English, Spanish"
                 />
               </div>
             </div>
             <div>
-              <Label htmlFor="address">Address</Label>
-              <Input
-                id="address"
-                value={formData.address}
-                onChange={(e) => handleInputChange('address', e.target.value)}
-              />
+              <Label htmlFor="genderIdentity">Gender Identity</Label>
+              <Select value={formData.genderIdentity} onValueChange={(value) => handleInputChange('genderIdentity', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Female">Female</SelectItem>
+                  <SelectItem value="Transgender Woman">Transgender Woman</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+              {formData.genderIdentity === "Other" && (
+                <Input
+                  className="mt-2"
+                  placeholder="Please specify"
+                  value={formData.genderIdentityOther}
+                  onChange={(e) => handleInputChange('genderIdentityOther', e.target.value)}
+                />
+              )}
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="city">City</Label>
-                <Input
-                  id="city"
-                  value={formData.city}
-                  onChange={(e) => handleInputChange('city', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="state">State</Label>
-                <Input
-                  id="state"
-                  value={formData.state}
-                  onChange={(e) => handleInputChange('state', e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="zipCode">Zip Code</Label>
-                <Input
-                  id="zipCode"
-                  value={formData.zipCode}
-                  onChange={(e) => handleInputChange('zipCode', e.target.value)}
-                />
-              </div>
+            <div>
+              <Label htmlFor="justiceInvolved">Justice-Involved?</Label>
+              <Select value={formData.justiceInvolved} onValueChange={(value) => handleInputChange('justiceInvolved', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="currentlyHomeless">Are you currently homeless or unstably housed? *</Label>
+              <Select value={formData.currentlyHomeless} onValueChange={(value) => handleInputChange('currentlyHomeless', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="currentCounty">County you are currently in *</Label>
+              <Select value={formData.currentCounty} onValueChange={(value) => handleInputChange('currentCounty', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="San Bernardino County">San Bernardino County</SelectItem>
+                  <SelectItem value="Riverside County">Riverside County</SelectItem>
+                  <SelectItem value="Los Angeles County">Los Angeles County</SelectItem>
+                  <SelectItem value="Orange County">Orange County</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         );
@@ -466,81 +494,69 @@ ${formData.challenges}
       case 2:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Emergency Contact & Referral Information</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="emergencyName">Emergency Contact Name *</Label>
-                <Input
-                  id="emergencyName"
-                  value={formData.emergencyName}
-                  onChange={(e) => handleInputChange('emergencyName', e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="emergencyPhone">Emergency Contact Phone *</Label>
-                <Input
-                  id="emergencyPhone"
-                  type="tel"
-                  value={formData.emergencyPhone}
-                  onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
-                  required
-                />
-              </div>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 2: LOCATION & PROGRAM FIT</h3>
+            <div>
+              <Label htmlFor="preferredLocation">Preferred city or county for housing *</Label>
+              <Select value={formData.preferredLocation} onValueChange={(value) => handleInputChange('preferredLocation', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Fontana / San Bernardino County">Fontana / San Bernardino County</SelectItem>
+                  <SelectItem value="Riverside County">Riverside County</SelectItem>
+                  <SelectItem value="Los Angeles County">Los Angeles County</SelectItem>
+                  <SelectItem value="Orange County">Orange County</SelectItem>
+                  <SelectItem value="No preference">No preference</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <Label htmlFor="emergencyRelation">Relationship to Applicant</Label>
-              <Input
-                id="emergencyRelation"
-                value={formData.emergencyRelation}
-                onChange={(e) => handleInputChange('emergencyRelation', e.target.value)}
-                placeholder="e.g., Mother, Sister, Friend"
-              />
+              <Label htmlFor="willingToParticipate">Are you willing to participate in a structured transitional housing program with house rules and case management? *</Label>
+              <Select value={formData.willingToParticipate} onValueChange={(value) => handleInputChange('willingToParticipate', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <Label htmlFor="referralSource">Referral Source (Agency / Officer / Self)</Label>
-              <Input
-                id="referralSource"
-                value={formData.referralSource}
-                onChange={(e) => handleInputChange('referralSource', e.target.value)}
-                placeholder="How did you hear about us?"
-              />
+              <Label htmlFor="sharedHousing">Are you able to live in a shared housing environment? *</Label>
+              <Select value={formData.sharedHousing} onValueChange={(value) => handleInputChange('sharedHousing', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <Label htmlFor="paroleOfficerName">Parole/Probation Officer Name</Label>
-              <Input
-                id="paroleOfficerName"
-                value={formData.paroleOfficerName}
-                onChange={(e) => handleInputChange('paroleOfficerName', e.target.value)}
-              />
-            </div>
-            <div>
-              <Label htmlFor="paroleOfficerPhone">Officer Phone</Label>
-              <Input
-                id="paroleOfficerPhone"
-                type="tel"
-                value={formData.paroleOfficerPhone}
-                onChange={(e) => handleInputChange('paroleOfficerPhone', e.target.value)}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="caseNumber">Case # (if applicable)</Label>
+              <Label htmlFor="referralSource">Referral Source (check one)</Label>
+              <Select value={formData.referralSource} onValueChange={(value) => handleInputChange('referralSource', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Self">Self</SelectItem>
+                  <SelectItem value="Outreach Team">Outreach Team</SelectItem>
+                  <SelectItem value="County / CES">County / CES</SelectItem>
+                  <SelectItem value="Probation / Parole">Probation / Parole</SelectItem>
+                  <SelectItem value="Hospital / Medical">Hospital / Medical</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+              {formData.referralSource === "Other" && (
                 <Input
-                  id="caseNumber"
-                  value={formData.caseNumber}
-                  onChange={(e) => handleInputChange('caseNumber', e.target.value)}
+                  className="mt-2"
+                  placeholder="Please specify"
+                  value={formData.referralSourceOther}
+                  onChange={(e) => handleInputChange('referralSourceOther', e.target.value)}
                 />
-              </div>
-              <div>
-                <Label htmlFor="expectedReleaseDate">Expected Release or Sentencing Date</Label>
-                <Input
-                  id="expectedReleaseDate"
-                  type="date"
-                  value={formData.expectedReleaseDate}
-                  onChange={(e) => handleInputChange('expectedReleaseDate', e.target.value)}
-                />
-              </div>
+              )}
             </div>
           </div>
         );
@@ -548,40 +564,27 @@ ${formData.challenges}
       case 3:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Eligibility & Demographics</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 3: HOUSING CATEGORY</h3>
             <div>
-              <Label htmlFor="justiceInvolved">Justice-Involved? *</Label>
-              <Select value={formData.justiceInvolved} onValueChange={(value) => handleInputChange('justiceInvolved', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="gender">Gender *</Label>
-              <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="female">Female</SelectItem>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="languageNeeds">Language Needs</Label>
-              <Input
-                id="languageNeeds"
-                value={formData.languageNeeds}
-                onChange={(e) => handleInputChange('languageNeeds', e.target.value)}
-                placeholder="e.g., Spanish, ASL, etc."
-              />
+              <Label className="text-base font-medium">Which best describes your current situation? (select all that apply) *</Label>
+              <div className="grid grid-cols-1 gap-2 mt-2">
+                {[
+                  "Experiencing homelessness",
+                  "Fleeing domestic violence",
+                  "Justice-involved / reentry",
+                  "Medical vulnerability",
+                  "Recently released from an institution"
+                ].map((category) => (
+                  <div key={category} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={category}
+                      checked={formData.housingCategories.includes(category)}
+                      onCheckedChange={(checked) => handleArrayChange('housingCategories', category, checked as boolean)}
+                    />
+                    <Label htmlFor={category} className="text-sm font-normal">{category}</Label>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
@@ -589,207 +592,298 @@ ${formData.challenges}
       case 4:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Housing Needs</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 4: PET SCREENING</h3>
             <div>
-              <Label htmlFor="immediateHousing">Do you need immediate housing? *</Label>
-              <Select value={formData.immediateHousing} onValueChange={(value) => handleInputChange('immediateHousing', value)}>
+              <Label htmlFor="hasPets">Do you have any pets or animals? *</Label>
+              <Select value={formData.hasPets} onValueChange={(value) => handleInputChange('hasPets', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Please select" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                  <SelectItem value="Yes">Yes</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label htmlFor="children">Do you have children?</Label>
-              <Select value={formData.children} onValueChange={(value) => handleInputChange('children', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="no">No</SelectItem>
-                  <SelectItem value="yes">Yes</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            {formData.children === "yes" && (
-              <div className="grid grid-cols-2 gap-4">
+            {formData.hasPets === "Yes" && (
+              <>
                 <div>
-                  <Label htmlFor="childrenCount">How many?</Label>
-                  <Input
-                    id="childrenCount"
-                    type="number"
-                    value={formData.childrenCount}
-                    onChange={(e) => handleInputChange('childrenCount', e.target.value)}
-                    placeholder="Number of children"
-                  />
+                  <Label htmlFor="petType">Type of animal</Label>
+                  <Select value={formData.petType} onValueChange={(value) => handleInputChange('petType', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Please select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Dog">Dog</SelectItem>
+                      <SelectItem value="Cat">Cat</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
-                  <Label htmlFor="childrenAges">Ages</Label>
-                  <Input
-                    id="childrenAges"
-                    value={formData.childrenAges}
-                    onChange={(e) => handleInputChange('childrenAges', e.target.value)}
-                    placeholder="e.g. 5, 8, 12"
-                  />
+                  <Label htmlFor="isServiceAnimal">Is the animal a trained service animal (ADA-defined)?</Label>
+                  <Select value={formData.isServiceAnimal} onValueChange={(value) => handleInputChange('isServiceAnimal', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Please select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Yes">Yes</SelectItem>
+                      <SelectItem value="No">No</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-              </div>
+                <div>
+                  <Label htmlFor="hasVaccinationProof">Do you have documentation and proof of current vaccinations?</Label>
+                  <Select value={formData.hasVaccinationProof} onValueChange={(value) => handleInputChange('hasVaccinationProof', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Please select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Yes">Yes</SelectItem>
+                      <SelectItem value="No">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="bg-muted p-4 rounded-lg">
+                  <p className="text-sm text-muted-foreground italic">
+                    Internal note: SHE RISES does not accommodate pets at this time. Only verified service animals may be considered.
+                  </p>
+                </div>
+              </>
             )}
-            <div>
-              <Label htmlFor="currentSituation">Current Living Situation</Label>
-              <Textarea
-                id="currentSituation"
-                value={formData.currentSituation}
-                onChange={(e) => handleInputChange('currentSituation', e.target.value)}
-                placeholder="Please describe your current living situation..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="employment">Current Employment Status</Label>
-              <Input
-                id="employment"
-                value={formData.employment}
-                onChange={(e) => handleInputChange('employment', e.target.value)}
-                placeholder="e.g., Employed, Unemployed, Student"
-              />
-            </div>
           </div>
         );
 
       case 5:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Health & Support</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 5: MEDICAL & INSURANCE</h3>
             <div>
-              <Label htmlFor="physicalHealthNeeds">Physical Health Needs / Medications</Label>
-              <Textarea
-                id="physicalHealthNeeds"
-                value={formData.physicalHealthNeeds}
-                onChange={(e) => handleInputChange('physicalHealthNeeds', e.target.value)}
-                placeholder="Please list any physical health conditions or medications..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="mentalHealthNeeds">Mental Health Needs</Label>
-              <Textarea
-                id="mentalHealthNeeds"
-                value={formData.mentalHealthNeeds}
-                onChange={(e) => handleInputChange('mentalHealthNeeds', e.target.value)}
-                placeholder="Please describe any mental health support needs..."
-              />
-            </div>
-            <div>
-              <Label htmlFor="substanceRecovery">Substance Recovery Support Needed?</Label>
-              <Select value={formData.substanceRecovery} onValueChange={(value) => handleInputChange('substanceRecovery', value)}>
+              <Label htmlFor="medicalInsurance">Do you have medical insurance? *</Label>
+              <Select value={formData.medicalInsurance} onValueChange={(value) => handleInputChange('medicalInsurance', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Please select" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="yes">Yes</SelectItem>
-                  <SelectItem value="no">No</SelectItem>
+                  <SelectItem value="Medi-Cal">Medi-Cal</SelectItem>
+                  <SelectItem value="Medicaid">Medicaid</SelectItem>
+                  <SelectItem value="Medicare">Medicare</SelectItem>
+                  <SelectItem value="Private insurance">Private insurance</SelectItem>
+                  <SelectItem value="None">None</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <Label htmlFor="hasMedicalConditions">Do you have any medical conditions that require ongoing care or accommodations?</Label>
+              <Select value={formData.hasMedicalConditions} onValueChange={(value) => handleInputChange('hasMedicalConditions', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="YES">YES</SelectItem>
+                  <SelectItem value="NO">NO</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {formData.hasMedicalConditions === "YES" && (
+              <div>
+                <Label htmlFor="medicalConditionsDetail">Please explain</Label>
+                <Textarea
+                  id="medicalConditionsDetail"
+                  value={formData.medicalConditionsDetail}
+                  onChange={(e) => handleInputChange('medicalConditionsDetail', e.target.value)}
+                  placeholder="Please describe your medical conditions..."
+                  rows={4}
+                />
+              </div>
+            )}
           </div>
         );
 
       case 6:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Programs & Goals</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 6: INCOME & BENEFITS</h3>
             <div>
-              <Label className="text-base font-medium">Which programs are you interested in? *</Label>
+              <Label htmlFor="employmentStatus">Are you currently employed? *</Label>
+              <Select value={formData.employmentStatus} onValueChange={(value) => handleInputChange('employmentStatus', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Full-time">Full-time</SelectItem>
+                  <SelectItem value="Part-time">Part-time</SelectItem>
+                  <SelectItem value="Unemployed">Unemployed</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label className="text-base font-medium">Do you receive any of the following benefits?</Label>
               <div className="grid grid-cols-1 gap-2 mt-2">
                 {[
-                  "Safe Haven Housing Program",
-                  "Rise & Thrive Transition Program",
-                  "Empowerment Workshops",
-                  "Career Development Services",
-                  "Financial Literacy Program",
-                  "Childcare Support",
-                  "Legal Advocacy Services",
-                  "Mental Health Support"
-                ].map((program) => (
-                  <div key={program} className="flex items-center space-x-2">
+                  "SSI",
+                  "SSDI",
+                  "EBT / CalFresh",
+                  "General Relief",
+                  "IHSS",
+                  "None"
+                ].map((benefit) => (
+                  <div key={benefit} className="flex items-center space-x-2">
                     <Checkbox
-                      id={program}
-                      checked={formData.programsInterested.includes(program)}
-                      onCheckedChange={(checked) => handleProgramInterestChange(program, checked as boolean)}
+                      id={benefit}
+                      checked={formData.benefits.includes(benefit)}
+                      onCheckedChange={(checked) => handleArrayChange('benefits', benefit, checked as boolean)}
                     />
-                    <Label htmlFor={program} className="text-sm font-normal">{program}</Label>
+                    <Label htmlFor={benefit} className="text-sm font-normal">{benefit}</Label>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <Label htmlFor="goals">What are your main goals for participating in our programs? *</Label>
-              <Textarea
-                id="goals"
-                value={formData.goals}
-                onChange={(e) => handleInputChange('goals', e.target.value)}
-                placeholder="Please describe your goals and what you hope to achieve..."
-                rows={4}
-                required
-              />
+              <Label htmlFor="monthlyIncome">Approximate monthly income</Label>
+              <Select value={formData.monthlyIncome} onValueChange={(value) => handleInputChange('monthlyIncome', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="$0">$0</SelectItem>
+                  <SelectItem value="$1–500">$1–500</SelectItem>
+                  <SelectItem value="$501–1,000">$501–1,000</SelectItem>
+                  <SelectItem value="$1,000+">$1,000+</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <Label htmlFor="challenges">What challenges or barriers are you currently facing?</Label>
-              <Textarea
-                id="challenges"
-                value={formData.challenges}
-                onChange={(e) => handleInputChange('challenges', e.target.value)}
-                placeholder="Please describe any challenges that might affect your program participation..."
-                rows={4}
-              />
+              <Label className="text-base font-medium">How do you expect your stay to be funded? (check all that apply)</Label>
+              <div className="grid grid-cols-1 gap-2 mt-2">
+                {[
+                  "County or agency referral",
+                  "Probation / Parole support",
+                  "Self-pay",
+                  "Family / third-party support",
+                  "Unsure at this time"
+                ].map((funding) => (
+                  <div key={funding} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={funding}
+                      checked={formData.fundingExpectation.includes(funding)}
+                      onCheckedChange={(checked) => handleArrayChange('fundingExpectation', funding, checked as boolean)}
+                    />
+                    <Label htmlFor={funding} className="text-sm font-normal">{funding}</Label>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
 
       case 7:
         return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 7: SAFETY & READINESS</h3>
+            <div>
+              <Label htmlFor="domesticViolence">Are you currently experiencing active domestic violence or immediate safety concerns? *</Label>
+              <Select value={formData.domesticViolence} onValueChange={(value) => handleInputChange('domesticViolence', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="substanceUse">Are you currently using substances?</Label>
+              <Select value={formData.substanceUse} onValueChange={(value) => handleInputChange('substanceUse', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                  <SelectItem value="Prefer not to answer">Prefer not to answer</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="willingCaseManagement">Are you willing to participate in case management, goal planning, and house meetings? *</Label>
+              <Select value={formData.willingCaseManagement} onValueChange={(value) => handleInputChange('willingCaseManagement', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
+      case 8:
+        return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 8: CASE MANAGEMENT</h3>
+            <div>
+              <Label htmlFor="hasCaseManager">Do you currently have a case manager or outreach worker? *</Label>
+              <Select value={formData.hasCaseManager} onValueChange={(value) => handleInputChange('hasCaseManager', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {formData.hasCaseManager === "Yes" && (
+              <div>
+                <Label htmlFor="caseManagerInfo">If yes, please list name and agency</Label>
+                <Input
+                  id="caseManagerInfo"
+                  value={formData.caseManagerInfo}
+                  onChange={(e) => handleInputChange('caseManagerInfo', e.target.value)}
+                  placeholder="Name and agency"
+                />
+              </div>
+            )}
+            <div>
+              <Label htmlFor="spoken211">Have you spoken with 211 or a homeless outreach worker about housing services?</Label>
+              <Select value={formData.spoken211} onValueChange={(value) => handleInputChange('spoken211', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Yes">Yes</SelectItem>
+                  <SelectItem value="No">No</SelectItem>
+                  <SelectItem value="Not sure">Not sure</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        );
+
+      case 9:
+        return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-royal-plum mb-4">Program Acknowledgment & Agreements</h3>
+            <h3 className="text-lg font-semibold text-royal-plum mb-4">SECTION 9: CONSENT</h3>
             <div className="bg-muted p-4 rounded-lg">
-              <p className="text-sm text-foreground italic">
-                "I understand that She RISES provides transitional housing and supportive services. 
-                I agree to complete intake, follow program guidelines, and participate in supportive services as needed."
+              <p className="text-sm text-muted-foreground">
+                Thank you for your interest in SHE RISES – Safe Haven for Empowerment.
+                This intake helps us determine program eligibility and appropriate referrals.
+                Submitting this form does not guarantee placement.
               </p>
             </div>
             <div className="flex items-start space-x-2">
               <Checkbox
-                id="programAcknowledgment"
-                checked={formData.programAcknowledgment}
-                onCheckedChange={(checked) => handleInputChange('programAcknowledgment', checked as boolean)}
+                id="acknowledgment"
+                checked={formData.acknowledgment}
+                onCheckedChange={(checked) => handleInputChange('acknowledgment', checked as boolean)}
               />
-              <Label htmlFor="programAcknowledgment" className="text-sm font-normal leading-relaxed">
-                I acknowledge and agree to the program statement above *
+              <Label htmlFor="acknowledgment" className="text-sm font-normal leading-relaxed">
+                I understand that submitting this form does not guarantee placement and is used for eligibility screening and referrals. *
               </Label>
-            </div>
-
-            <div className="space-y-4 border-t pt-4 mt-6">
-              <div className="flex items-start space-x-2">
-                <Checkbox
-                  id="backgroundCheck"
-                  checked={formData.backgroundCheck}
-                  onCheckedChange={(checked) => handleInputChange('backgroundCheck', checked as boolean)}
-                />
-                <Label htmlFor="backgroundCheck" className="text-sm leading-relaxed">
-                  I understand that a background check may be required for certain programs and I consent to this process. *
-                </Label>
-              </div>
-
-              <div className="flex items-start space-x-2">
-                <Checkbox
-                  id="consent"
-                  checked={formData.consent}
-                  onCheckedChange={(checked) => handleInputChange('consent', checked as boolean)}
-                />
-                <Label htmlFor="consent" className="text-sm leading-relaxed">
-                  I consent to She Rises contacting me about my application and services. I understand that my information will be kept confidential and used only for program purposes. *
-                </Label>
-              </div>
             </div>
           </div>
         );
@@ -806,7 +900,7 @@ ${formData.challenges}
           <div className="flex items-center justify-between">
             <DialogTitle className="flex items-center gap-2 text-royal-plum">
               <FileText className="h-5 w-5 text-crown-gold" />
-              Program Application
+              SHE RISES – Housing Intake & Eligibility Screening
             </DialogTitle>
             <Button
               variant="ghost"

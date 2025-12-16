@@ -162,12 +162,20 @@ const Events = () => {
   const formatDate = (dateString: string) => {
     if (dateString.includes("Every")) return dateString;
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { 
-      weekday: "long", 
-      year: "numeric", 
-      month: "long", 
-      day: "numeric" 
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
     });
+  };
+
+  const isEventPast = (dateString: string) => {
+    if (dateString.includes("Every")) return false; // Recurring events are never "past"
+    const eventDate = new Date(dateString);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to midnight for date comparison
+    return eventDate < today;
   };
 
   const handleRegisterClick = (event: Event) => {
@@ -303,9 +311,9 @@ const Events = () => {
                     <Button
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
                       onClick={() => handleRegisterClick(event)}
-                      disabled={(event.registered || 0) >= (event.capacity || 0)}
+                      disabled={(event.registered || 0) >= (event.capacity || 0) || isEventPast(event.date)}
                     >
-                      {(event.registered || 0) >= (event.capacity || 0) ? 'Event Full' : 'Register Now'}
+                      {isEventPast(event.date) ? 'Event Passed' : (event.registered || 0) >= (event.capacity || 0) ? 'Event Full' : 'Register Now'}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -443,9 +451,9 @@ const Events = () => {
                       size="sm"
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
                       onClick={() => handleRegisterClick(event)}
-                      disabled={(event.registered || 0) >= (event.capacity || 0)}
+                      disabled={(event.registered || 0) >= (event.capacity || 0) || isEventPast(event.date)}
                     >
-                      {(event.registered || 0) >= (event.capacity || 0) ? 'Full' : 'Register'}
+                      {isEventPast(event.date) ? 'Passed' : (event.registered || 0) >= (event.capacity || 0) ? 'Full' : 'Register'}
                     </Button>
                   </div>
                   </div>
