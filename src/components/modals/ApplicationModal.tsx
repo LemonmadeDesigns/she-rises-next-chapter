@@ -67,6 +67,9 @@ interface ApplicationFormData {
 
   // Section 9: Consent
   acknowledgment: boolean;
+
+  // Security: Honeypot field (should remain empty)
+  company: string;
 }
 
 const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
@@ -119,6 +122,8 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
     spoken211: "",
     // Section 9: Consent
     acknowledgment: false,
+    // Security: Honeypot field
+    company: "",
   });
 
   const totalSteps = 9;
@@ -178,6 +183,18 @@ const ApplicationModal = ({ isOpen, onClose }: ApplicationModalProps) => {
   };
 
   const handleSubmit = async () => {
+    // Check honeypot field - if filled, it's likely a bot
+    if (formData.company) {
+      console.warn('Suspected bot submission blocked');
+      toast({
+        title: "Submission Error",
+        description: "There was an error processing your submission. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     if (!validateStep(9)) {
       toast({
         title: "Please Complete All Required Fields",
@@ -262,7 +279,7 @@ Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting 
         formData.emailAddress,
         'Housing Intake & Eligibility Screening',
         applicationMessage,
-        '', // honeypot
+        formData.company, // honeypot - should be empty for legitimate submissions
         formData.phoneNumber,
         'Housing Intake Application'
       );
@@ -343,6 +360,8 @@ Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting 
       spoken211: "",
       // Section 9: Consent
       acknowledgment: false,
+      // Security: Honeypot field
+      company: "",
     });
   };
 
@@ -902,6 +921,18 @@ Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting 
             SHE RISES – Housing Intake & Eligibility Screening
           </DialogTitle>
         </DialogHeader>
+
+        {/* Honeypot field - hidden from users, should remain empty */}
+        <input
+          type="text"
+          name="company"
+          value={formData.company}
+          onChange={(e) => handleInputChange('company', e.target.value)}
+          style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
 
         {!isSubmitted && (
           <div className="mb-6">

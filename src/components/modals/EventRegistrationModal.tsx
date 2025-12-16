@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Calendar, Clock, MapPin, Users, User, Mail, Phone, X, CheckCircle } from "lucide-react";
+import { submitContactForm } from "@/config/contact";
+import { useToast } from "@/hooks/use-toast";
 
 interface Event {
   id: string;
@@ -29,6 +31,7 @@ interface EventRegistrationModalProps {
 }
 
 const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationModalProps) => {
+  const { toast } = useToast();
   const [registrationForm, setRegistrationForm] = useState({
     firstName: "",
     lastName: "",
@@ -41,35 +44,139 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
     howHeard: "",
     newsletter: true,
     attendeesCount: 1,
-    specialRequests: ""
+    specialRequests: "",
+    company: "" // Honeypot field for bot detection
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Event registration submitted:", { event: event?.id, ...registrationForm });
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds and close modal
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setRegistrationForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        emergencyContact: "",
-        emergencyPhone: "",
-        dietaryRestrictions: "",
-        accessibility: "",
-        howHeard: "",
-        newsletter: true,
-        attendeesCount: 1,
-        specialRequests: ""
+
+    // Check honeypot field - if filled, it's likely a bot
+    if (registrationForm.company) {
+      console.warn('Suspected bot submission blocked');
+      toast({
+        title: "Submission Error",
+        description: "There was an error processing your registration. Please try again.",
+        variant: "destructive",
       });
-      onClose();
-    }, 3000);
+      return;
+    }
+
+    // Validate required fields
+    if (!registrationForm.firstName || !registrationForm.lastName || !registrationForm.email || !registrationForm.phone) {
+      toast({
+        title: "Missing Required Fields",
+        description: "Please fill in all required fields (marked with *).",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(registrationForm.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Format the registration message
+      const registrationMessage = `
+═══════════════════════════════════════════
+EVENT REGISTRATION
+═══════════════════════════════════════════
+
+Event: ${event?.title}
+Date: ${formatDate(event?.date || '')}
+Time: ${event?.time}
+Location: ${event?.location}
+
+REGISTRANT INFORMATION
+═══════════════════════════════════════════
+Name: ${registrationForm.firstName} ${registrationForm.lastName}
+Email: ${registrationForm.email}
+Phone: ${registrationForm.phone}
+
+EMERGENCY CONTACT
+═══════════════════════════════════════════
+Name: ${registrationForm.emergencyContact || 'Not provided'}
+Phone: ${registrationForm.emergencyPhone || 'Not provided'}
+
+EVENT DETAILS
+═══════════════════════════════════════════
+Number of Attendees: ${registrationForm.attendeesCount}
+Dietary Restrictions: ${registrationForm.dietaryRestrictions || 'None'}
+Accessibility Needs: ${registrationForm.accessibility || 'None'}
+Special Requests: ${registrationForm.specialRequests || 'None'}
+
+ADDITIONAL INFORMATION
+═══════════════════════════════════════════
+How They Heard About Event: ${registrationForm.howHeard || 'Not specified'}
+Newsletter Subscription: ${registrationForm.newsletter ? 'Yes' : 'No'}
+      `.trim();
+
+      // Submit to Google Apps Script
+      const result = await submitContactForm(
+        `${registrationForm.firstName} ${registrationForm.lastName}`,
+        registrationForm.email,
+        `Event Registration: ${event?.title}`,
+        registrationMessage,
+        registrationForm.company, // honeypot
+        registrationForm.phone,
+        'Event Registration'
+      );
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
+
+      setIsSubmitted(true);
+
+      toast({
+        title: "Registration Successful!",
+        description: "You will receive a confirmation email shortly.",
+      });
+
+      // Reset form after 3 seconds and close modal
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setRegistrationForm({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          emergencyContact: "",
+          emergencyPhone: "",
+          dietaryRestrictions: "",
+          accessibility: "",
+          howHeard: "",
+          newsletter: true,
+          attendeesCount: 1,
+          specialRequests: "",
+          company: ""
+        });
+        onClose();
+      }, 3000);
+
+    } catch (error) {
+      console.error("Error submitting registration:", error);
+      toast({
+        title: "Registration Failed",
+        description: "There was an error submitting your registration. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const updateForm = (field: string, value: string | number | boolean) => {
@@ -107,6 +214,18 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
                 </DialogTitle>
               </div>
             </DialogHeader>
+
+            {/* Honeypot field - hidden from users, should remain empty */}
+            <input
+              type="text"
+              name="company"
+              value={registrationForm.company}
+              onChange={(e) => updateForm('company', e.target.value)}
+              style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
 
             {/* Event Details Summary */}
             <Card className="mb-6">
@@ -353,12 +472,12 @@ const EventRegistrationModal = ({ isOpen, onClose, event }: EventRegistrationMod
                   >
                     Cancel
                   </Button>
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="flex-1 bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
-                    disabled={spotsRemaining <= 0}
+                    disabled={spotsRemaining <= 0 || isSubmitting}
                   >
-                    {spotsRemaining <= 0 ? 'Event Full' : 'Complete Registration'}
+                    {isSubmitting ? 'Submitting...' : spotsRemaining <= 0 ? 'Event Full' : 'Complete Registration'}
                   </Button>
                 </div>
               </div>
