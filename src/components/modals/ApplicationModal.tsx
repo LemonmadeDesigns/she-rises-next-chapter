@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { FileText, CheckCircle, X } from "lucide-react";
-import { submitContactForm } from "@/config/contact";
+import { submitIntakeForm } from "@/config/contact";
 
 interface ApplicationModalProps {
   isOpen: boolean;
@@ -256,8 +256,8 @@ SECTION 9: CONSENT
 Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting this form does not guarantee placement and is used for eligibility screening and referrals.' : 'No'}
       `.trim();
 
-      // Submit to Google Apps Script
-      const result = await submitContactForm(
+      // Submit to Google Apps Script (dedicated intake form endpoint)
+      const result = await submitIntakeForm(
         formData.fullName,
         formData.emailAddress,
         'Housing Intake & Eligibility Screening',
