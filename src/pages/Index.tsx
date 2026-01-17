@@ -110,7 +110,7 @@ const Index = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white text-white hover:bg-white hover:text-royal-plum px-10 py-6 text-lg rounded-2xl backdrop-blur-md bg-white/10"
+              className="border-2 border-blue-600 text-white hover:bg-blue-700 px-10 py-6 text-lg rounded-2xl bg-blue-600"
             >
               Donate Now <Heart className="ml-2 h-5 w-5" />
             </Button>

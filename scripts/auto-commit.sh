@@ -29,26 +29,43 @@ check_changes() {
 # Function to run build and check for errors
 check_build() {
     echo -e "${YELLOW}Running build to check for errors...${NC}"
-    
+
     # Run TypeScript compiler to check for errors
+    echo -e "${YELLOW}Step 1/3: TypeScript check...${NC}"
     npx tsc --noEmit 2>&1 | tee /tmp/tsc-output.txt
     TSC_EXIT_CODE=${PIPESTATUS[0]}
-    
+
     if [ $TSC_EXIT_CODE -ne 0 ]; then
         echo -e "${RED}TypeScript compilation errors found:${NC}"
         cat /tmp/tsc-output.txt
         return 1
     fi
-    
+    echo -e "${GREEN}✓ TypeScript check passed${NC}"
+
     # Run ESLint to check for linting errors
+    echo -e "${YELLOW}Step 2/3: ESLint check...${NC}"
     npx eslint src --ext .ts,.tsx 2>&1 | tee /tmp/eslint-output.txt
     ESLINT_EXIT_CODE=${PIPESTATUS[0]}
-    
+
     if [ $ESLINT_EXIT_CODE -ne 0 ]; then
         echo -e "${YELLOW}ESLint warnings/errors found (continuing anyway)${NC}"
+    else
+        echo -e "${GREEN}✓ ESLint check passed${NC}"
     fi
-    
-    echo -e "${GREEN}✓ Build check passed!${NC}"
+
+    # Run full Vite build to ensure production build works
+    echo -e "${YELLOW}Step 3/3: Vite production build...${NC}"
+    npm run build 2>&1 | tee /tmp/vite-output.txt
+    VITE_EXIT_CODE=${PIPESTATUS[0]}
+
+    if [ $VITE_EXIT_CODE -ne 0 ]; then
+        echo -e "${RED}Vite build failed:${NC}"
+        cat /tmp/vite-output.txt
+        return 1
+    fi
+    echo -e "${GREEN}✓ Vite build passed${NC}"
+
+    echo -e "${GREEN}✓ All checks passed!${NC}"
     return 0
 }
 
