@@ -271,7 +271,7 @@ export default function Auth() {
                     
                     <Button
                       type="submit"
-                      className="w-full bg-crown-gold hover:bg-[#673ab7] text-royal-plum hover:text-white"
+                      className="w-full bg-crown-gold hover:bg-[#673ab7] text-royal-plum hover:text-white hover:border-white border-2"
                       disabled={loading}
                     >
                       {loading ? 'Signing In...' : 'Sign In'}
@@ -322,7 +322,7 @@ export default function Auth() {
                     
                     <Button
                       type="submit"
-                      className="w-full bg-crown-gold hover:bg-[#673ab7] text-royal-plum hover:text-white"
+                      className="w-full bg-crown-gold hover:bg-[#673ab7] text-royal-plum hover:text-white hover:border-white border-2"
                       disabled={loading}
                     >
                       {loading ? 'Creating Account...' : 'Sign Up'}
