@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { z } from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,6 +11,39 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Calendar, Clock, MapPin, Plus, Pencil, Trash2, Star, Users, Image as ImageIcon } from 'lucide-react';
+
+const VALID_CATEGORIES = ['general', 'fundraising', 'wellness', 'employment', 'support', 'volunteer', 'education'] as const;
+const VALID_TYPES = ['In-Person', 'Virtual', 'Hybrid'] as const;
+
+const eventSchema = z.object({
+  title: z.string().trim().min(1, 'Title is required').max(200, 'Title must be 200 characters or less'),
+  category: z.enum(VALID_CATEGORIES, { errorMap: () => ({ message: 'Invalid category' }) }),
+  type: z.enum(VALID_TYPES, { errorMap: () => ({ message: 'Invalid event type' }) }),
+  date: z.string().min(1, 'Date is required').regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format'),
+  time: z.string().max(100, 'Time must be 100 characters or less').optional().or(z.literal('')),
+  location: z.string().max(200, 'Location must be 200 characters or less').optional().or(z.literal('')),
+  address: z.string().max(300, 'Address must be 300 characters or less').optional().or(z.literal('')),
+  description: z.string().trim().min(1, 'Description is required').max(2000, 'Description must be 2000 characters or less'),
+  image: z.string().max(500, 'Image URL must be 500 characters or less')
+    .refine((val) => !val || val.startsWith('/') || val.startsWith('http://') || val.startsWith('https://'), {
+      message: 'Image must be a valid URL (http/https) or a relative path starting with /',
+    })
+    .optional()
+    .or(z.literal('')),
+  price: z.string().max(50, 'Price must be 50 characters or less').optional().or(z.literal('')),
+  capacity: z.string().refine((val) => {
+    if (!val) return true;
+    const num = parseInt(val);
+    return !isNaN(num) && num >= 0 && num <= 100000;
+  }, { message: 'Capacity must be a number between 0 and 100,000' }),
+  registered: z.string().refine((val) => {
+    if (!val) return true;
+    const num = parseInt(val);
+    return !isNaN(num) && num >= 0 && num <= 100000;
+  }, { message: 'Registered must be a number between 0 and 100,000' }),
+  featured: z.boolean(),
+  highlights: z.string().max(5000, 'Highlights must be 5000 characters or less').optional().or(z.literal('')),
+});
 
 interface Event {
   id: string;
@@ -115,25 +149,39 @@ const EventManagement = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate form data with Zod schema
+    const validation = eventSchema.safeParse(formData);
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast({
+        title: "Validation Error",
+        description: firstError.message,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const validated = validation.data;
+
     try {
-      const highlightsArray = formData.highlights
-        ? formData.highlights.split('\n').filter(h => h.trim() !== '')
+      const highlightsArray = validated.highlights
+        ? validated.highlights.split('\n').map(h => h.trim()).filter(h => h !== '').slice(0, 50)
         : [];
 
       const eventData = {
-        title: formData.title,
-        category: formData.category,
-        type: formData.type,
-        date: formData.date,
-        time: formData.time || null,
-        location: formData.location || null,
-        address: formData.address || null,
-        description: formData.description,
-        image: formData.image || null,
-        price: formData.price || 'Free',
-        capacity: parseInt(formData.capacity) || 50,
-        registered: parseInt(formData.registered) || 0,
-        featured: formData.featured,
+        title: validated.title,
+        category: validated.category,
+        type: validated.type,
+        date: validated.date,
+        time: validated.time || null,
+        location: validated.location || null,
+        address: validated.address || null,
+        description: validated.description,
+        image: validated.image || null,
+        price: validated.price || 'Free',
+        capacity: Math.max(0, parseInt(validated.capacity) || 50),
+        registered: Math.max(0, parseInt(validated.registered) || 0),
+        featured: validated.featured,
         highlights: highlightsArray.length > 0 ? highlightsArray : null
       };
 
@@ -169,7 +217,7 @@ const EventManagement = () => {
       console.error('Error saving event:', error);
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to save event.",
+        description: "Failed to save event. Please try again.",
         variant: "destructive"
       });
     }
@@ -291,11 +339,12 @@ const EventManagement = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
-                  <Label htmlFor="title">Event Title *</Label>
+                  <Label htmlFor="title">Event Title * <span className="text-xs text-muted-foreground">(max 200 chars)</span></Label>
                   <Input
                     id="title"
                     value={formData.title}
                     onChange={(e) => handleInputChange('title', e.target.value)}
+                    maxLength={200}
                     required
                   />
                 </div>
@@ -359,6 +408,7 @@ const EventManagement = () => {
                     id="location"
                     value={formData.location}
                     onChange={(e) => handleInputChange('location', e.target.value)}
+                    maxLength={200}
                     placeholder="e.g., Community Center"
                   />
                 </div>
@@ -369,6 +419,7 @@ const EventManagement = () => {
                     id="address"
                     value={formData.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
+                    maxLength={300}
                     placeholder="e.g., 123 Main St, City"
                   />
                 </div>
@@ -404,22 +455,24 @@ const EventManagement = () => {
                 </div>
 
                 <div className="col-span-2">
-                  <Label htmlFor="image">Image URL</Label>
+                  <Label htmlFor="image">Image URL <span className="text-xs text-muted-foreground">(must start with / or https://)</span></Label>
                   <Input
                     id="image"
                     value={formData.image}
                     onChange={(e) => handleInputChange('image', e.target.value)}
-                    placeholder="https://..."
+                    maxLength={500}
+                    placeholder="https://... or /images/..."
                   />
                 </div>
 
                 <div className="col-span-2">
-                  <Label htmlFor="description">Description *</Label>
+                  <Label htmlFor="description">Description * <span className="text-xs text-muted-foreground">(max 2000 chars)</span></Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) => handleInputChange('description', e.target.value)}
                     rows={3}
+                    maxLength={2000}
                     required
                   />
                 </div>
@@ -431,7 +484,8 @@ const EventManagement = () => {
                     value={formData.highlights}
                     onChange={(e) => handleInputChange('highlights', e.target.value)}
                     rows={4}
-                    placeholder="Enter each highlight on a new line"
+                    maxLength={5000}
+                    placeholder="Enter each highlight on a new line (max 50 items)"
                   />
                 </div>
 
