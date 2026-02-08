@@ -45,6 +45,7 @@ This directory contains the Google Apps Script code for handling housing intake 
 4. Save the file
 
 Example:
+
 ```typescript
 export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx.../exec';
 ```
@@ -56,7 +57,7 @@ export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx..
 3. Click "Contact Us About Programs"
 4. Fill out and submit the intake form
 5. Check your new Google Sheet - you should see the submission appear
-6. Check your email (pransom@safehavenforempowerment.org) for the notification
+6. Check your email (<pransom@safehavenforempowerment.org>) for the notification
 
 ## How It Works
 
@@ -67,6 +68,7 @@ export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx..
 ## Spreadsheet Columns
 
 The script automatically creates the following columns:
+
 - Timestamp
 - Full Name, Phone, Email, Age
 - Demographics (Gender, Language, Justice-Involved status)
@@ -82,6 +84,7 @@ The script automatically creates the following columns:
 ## Updating the Script
 
 If you need to make changes:
+
 1. Open your Google Sheet
 2. Go to Extensions > Apps Script
 3. Make your changes
@@ -96,19 +99,37 @@ The URL stays the same, so you don't need to update your website code.
 ## Troubleshooting
 
 **Forms not appearing in the sheet?**
+
 - Check that the Web App is deployed with "Execute as: Me" and "Anyone" access
 - Verify the URL in `src/config/contact.ts` matches your deployment URL
 - Check your browser console for errors
 
 **Not receiving emails?**
+
 - Verify the email address in the script: `pransom@safehavenforempowerment.org`
 - Check your spam folder
 - Make sure you authorized the script to send emails
 
 **Getting permission errors?**
+
 - Re-deploy the script and go through the authorization process again
 - Make sure you're using your Google account that owns the spreadsheet
 
 ## Support
 
 For issues or questions, refer to the [Google Apps Script documentation](https://developers.google.com/apps-script).
+
+---
+
+New deployment
+
+Deployment successfully updated.
+Version 1 on Dec 16, 2025, 8:19 AM
+
+> Deployment ID:
+
+AKfycbwsIWJK3XiJK5F-i3XuGpi3RfcXs9oKf5sAZOAE4g563WG4xjyqDwyVlmyVlXNid4E_lQ
+
+> Web app URL:
+
+<https://script.google.com/macros/s/AKfycbwsIWJK3XiJK5F-i3XuGpi3RfcXs9oKf5sAZOAE4g563WG4xjyqDwyVlmyVlXNid4E_lQ/exec>

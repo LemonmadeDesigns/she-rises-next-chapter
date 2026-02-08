@@ -147,7 +147,7 @@ const Header = () => {
               </DropdownMenu>
             ) : (
               <Link to="/auth">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="hover:bg-[#673ab7] hover:text-white hover:border-[#673ab7]">
                   Sign In
                 </Button>
               </Link>
@@ -232,7 +232,7 @@ const Header = () => {
                 </div>
               ) : (
                 <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full mt-2">
+                  <Button variant="outline" className="w-full mt-2 hover:bg-[#673ab7] hover:text-white hover:border-[#673ab7]">
                     Sign In
                   </Button>
                 </Link>
