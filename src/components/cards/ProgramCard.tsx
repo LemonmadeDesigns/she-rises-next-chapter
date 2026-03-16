@@ -40,7 +40,7 @@ const ProgramCard = ({
       className
     )}>
       {image && (
-        <div className="aspect-video relative overflow-hidden">
+        <div className="aspect-video relative overflow-hidden" style={{ top: '0.1em' }}>
           <LazyImage
             src={image}
             alt={`${title} - She Rises program`}
