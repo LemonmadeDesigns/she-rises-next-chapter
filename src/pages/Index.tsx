@@ -13,6 +13,8 @@ import EventPhotosCarousel from "@/components/carousel/EventPhotosCarousel";
 import heroImage from "@/assets/she-rises-banner-hero.jpg";
 import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
 import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
+import innercodeLogo from "@/assets/innercode-logo.png";
+import awipLogo from "@/assets/awip-logo.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
@@ -259,17 +261,24 @@ const Index = () => {
             subtitle="Together, we're building stronger communities"
           />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-center">
-            {/* Partner Placeholders - Add actual logos when available */}
-            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
-              <div className="text-center text-gray-600">
-                <div className="text-lg font-semibold mb-2">InnerCode</div>
-                <div className="text-sm text-gray-500">Technology Partner</div>
+            {/* InnerCode */}
+            <div className="bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem] overflow-hidden flex flex-col">
+              <div className="h-40 bg-muted/50 flex items-center justify-center p-6">
+                <img src={innercodeLogo} alt="InnerCode - Technology Partner" className="max-h-full max-w-full object-contain" />
+              </div>
+              <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                <div className="text-lg font-semibold text-foreground mb-1">InnerCode</div>
+                <div className="text-sm text-muted-foreground">Technology Partner</div>
               </div>
             </div>
-            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem]">
-              <div className="text-center text-gray-600">
-                <div className="text-lg font-semibold mb-2">AWIP</div>
-                <div className="text-sm text-gray-500">Community Partner</div>
+            {/* AWIP */}
+            <div className="bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem] overflow-hidden flex flex-col">
+              <div className="h-40 bg-muted/50 flex items-center justify-center p-6">
+                <img src={awipLogo} alt="A Work In Progress - Community Partner" className="max-h-full max-w-full object-contain" />
+              </div>
+              <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                <div className="text-lg font-semibold text-foreground mb-1">A Work In Progress</div>
+                <div className="text-sm text-muted-foreground">Community Partner</div>
               </div>
             </div>
             {/* Placeholder for future partners */}
