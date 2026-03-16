@@ -292,7 +292,7 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-gold">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6 text-shadow-section">
             Empower Women on Their Journey
           </h2>
           <p className="text-lg text-royal-plum/80 mb-8 max-w-2xl mx-auto">

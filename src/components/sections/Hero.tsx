@@ -104,7 +104,7 @@ const Hero = ({
             priority={true}
           />
           {overlay && (
-            <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/30 via-transparent to-royal-plum/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/40 via-black/20 to-royal-plum/70" />
           )}
         </>
       )}
