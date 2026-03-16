@@ -40,12 +40,12 @@ const ProgramCard = ({
       className
     )}>
       {image && (
-        <div className="aspect-video relative overflow-hidden">
+        <div className="aspect-video relative overflow-hidden" style={{ top: '0.1em' }}>
           <LazyImage
             src={image}
             alt={`${title} - She Rises program`}
             aspectRatio="16/9"
-            className="hover:scale-105 transition-transform duration-300 [&_img]:!object-top"
+            className="hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute top-4 left-4 z-10">
