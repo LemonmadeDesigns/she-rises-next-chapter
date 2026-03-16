@@ -78,6 +78,9 @@ export default {
       textShadow: {
         'glow': 'var(--text-shadow-glow)',
         'subtle': 'var(--text-shadow-subtle)',
+        'hero': 'var(--text-shadow-hero)',
+        'hero-strong': 'var(--text-shadow-hero-strong)',
+        'section': 'var(--text-shadow-section)',
       },
       fontFamily: {
         'serif': ['Playfair Display', 'serif'],
