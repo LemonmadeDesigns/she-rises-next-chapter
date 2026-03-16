@@ -153,7 +153,7 @@ const Index = () => {
 
           {/* Pull Quote */}
           <div className="mt-16 text-center">
-            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic">
+            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic text-shadow-section">
               "When SHE rises, we all rise."
             </blockquote>
           </div>

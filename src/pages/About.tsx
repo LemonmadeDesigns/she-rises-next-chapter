@@ -233,10 +233,10 @@ const About = () => {
       {/* CTA Section */}
       <section className="py-20 bg-royal-plum text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6 text-shadow-hero">
             Ready to Make a Difference?
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto text-shadow-subtle">
             Join us in empowering women to write their next chapter. Every contribution, 
             volunteer hour, and voice of support helps create lasting change.
           </p>
