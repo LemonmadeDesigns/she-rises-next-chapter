@@ -137,6 +137,23 @@ All colors MUST be HSL.
     color: hsl(0deg 0% 98.91% / 80%);
   }
 
+  /* Hero text shadow utilities */
+  .text-shadow-hero {
+    text-shadow: var(--text-shadow-hero);
+  }
+
+  .text-shadow-hero-strong {
+    text-shadow: var(--text-shadow-hero-strong);
+  }
+
+  .text-shadow-section {
+    text-shadow: var(--text-shadow-section);
+  }
+
+  .text-shadow-subtle {
+    text-shadow: var(--text-shadow-subtle);
+  }
+
   /* Force button contrast fixes for production */
   .hero-button-secondary {
     background-color: hsl(265 42% 31%) !important; /* royal-plum */
@@ -211,39 +228,38 @@ All colors MUST be HSL.
   /* Modern Beautiful Cart Button */
   .cart-button {
     position: relative !important;
-    background: transparent !important; /* transparent background */
+    background: transparent !important;
     border: none !important;
     border-radius: 16px !important;
     padding: 12px 16px !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     backdrop-filter: none !important;
-    overflow: visible !important; /* allow badge to show outside button bounds */
+    overflow: visible !important;
   }
-
 
   .cart-button:hover {
     transform: translateY(-2px) !important;
-    background: transparent !important; /* keep background transparent */
+    background: transparent !important;
   }
 
   .cart-button:active {
     transform: translateY(0px) !important;
-    box-shadow: 0 4px 12px rgba(251, 208, 81, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* deep shadow for active state */
+    box-shadow: 0 4px 12px rgba(251, 208, 81, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
   }
 
   .cart-button .cart-icon {
-    color: #fbd051 !important; /* only the cart icon gets this color */
+    color: #fbd051 !important;
     transition: all 0.3s ease !important;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important; /* slight shadow */
-    width: 24px !important; /* make cart bigger */
-    height: 24px !important; /* make cart bigger */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+    width: 24px !important;
+    height: 24px !important;
     position: relative !important;
-    z-index: 2 !important; /* icon appears above shimmer */
+    z-index: 2 !important;
   }
 
   .cart-button:hover .cart-icon {
     transform: scale(1.1) rotate(5deg) !important;
-    color: #fbd051 !important; /* keep same color on hover */
+    color: #fbd051 !important;
   }
 
   /* Beautiful Cart Badge */
@@ -251,7 +267,7 @@ All colors MUST be HSL.
     position: absolute !important;
     top: -8px !important;
     right: -8px !important;
-    background: linear-gradient(135deg, hsl(349 63% 73%), hsl(349 63% 83%)) !important; /* lotus-rose gradient */
+    background: linear-gradient(135deg, hsl(349 63% 73%), hsl(349 63% 83%)) !important;
     color: white !important;
     border: 2px solid white !important;
     border-radius: 50% !important;
@@ -264,7 +280,7 @@ All colors MUST be HSL.
     font-weight: 700 !important;
     box-shadow: 0 2px 8px hsl(349 63% 73% / 0.4) !important;
     animation: cart-badge-pulse 2s infinite !important;
-    z-index: 3 !important; /* badge appears above everything */
+    z-index: 3 !important;
   }
 
   @keyframes cart-badge-pulse {
@@ -283,7 +299,6 @@ All colors MUST be HSL.
     transform: scale(1.15) !important;
   }
 
-  /* Mobile cart button adjustments */
   @media (max-width: 768px) {
     .cart-button {
       padding: 10px 14px !important;
@@ -299,7 +314,6 @@ All colors MUST be HSL.
     }
   }
 
-  /* Add smooth cart icon animation when items are added */
   @keyframes cart-shake {
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(-5deg) scale(1.1); }
@@ -341,5 +355,52 @@ All colors MUST be HSL.
   /* 3D Perspective for carousel */
   .perspective-1000 {
     perspective: 1000px;
+  }
+
+  /* Modern section divider */
+  .section-divider {
+    position: relative;
+  }
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(var(--crown-gold)), hsl(var(--lotus-rose)));
+    border-radius: 2px;
+  }
+
+  /* Smooth fade-in animation for sections */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Glassmorphism card variant */
+  .glass-card {
+    background: hsla(0, 0%, 100%, 0.7) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid hsla(0, 0%, 100%, 0.3) !important;
+  }
+
+  /* Gradient text utility */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(var(--lotus-rose)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
