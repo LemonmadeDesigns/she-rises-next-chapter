@@ -84,9 +84,9 @@ const Index = () => {
       {/* Hero Section */}
       <Hero
         title={
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white text-shadow-hero-strong">
             Every Woman Deserves a<br />
-            <span className="text-crown-gold drop-shadow-xl">Safe Place to Rise</span>
+            <span className="text-crown-gold" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6), 0 0 40px rgba(242,201,76,0.3)' }}>Safe Place to Rise</span>
           </h1>
         }
         subtitle="Here we help you write the next chapter"
