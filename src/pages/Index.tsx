@@ -84,9 +84,9 @@ const Index = () => {
       {/* Hero Section */}
       <Hero
         title={
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white text-shadow-hero-strong">
             Every Woman Deserves a<br />
-            <span className="text-crown-gold drop-shadow-xl">Safe Place to Rise</span>
+            <span className="text-crown-gold" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6), 0 0 40px rgba(242,201,76,0.3)' }}>Safe Place to Rise</span>
           </h1>
         }
         subtitle="Here we help you write the next chapter"
@@ -153,7 +153,7 @@ const Index = () => {
 
           {/* Pull Quote */}
           <div className="mt-16 text-center">
-            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic">
+            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic text-shadow-section">
               "When SHE rises, we all rise."
             </blockquote>
           </div>
@@ -292,7 +292,7 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-gold">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6 text-shadow-section">
             Empower Women on Their Journey
           </h2>
           <p className="text-lg text-royal-plum/80 mb-8 max-w-2xl mx-auto">

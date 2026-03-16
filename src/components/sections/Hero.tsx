@@ -104,7 +104,7 @@ const Hero = ({
             priority={true}
           />
           {overlay && (
-            <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/30 via-transparent to-royal-plum/70" />
+            <div className="absolute inset-0 bg-gradient-to-b from-royal-plum/40 via-black/20 to-royal-plum/70" />
           )}
         </>
       )}
@@ -119,7 +119,7 @@ const Hero = ({
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {typeof title === "string" ? (
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white drop-shadow-2xl">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white text-shadow-hero-strong">
               {title}
             </h1>
           ) : (
@@ -128,7 +128,7 @@ const Hero = ({
           
           {subtitle && (
             typeof subtitle === "string" ? (
-              <p className="text-xl md:text-2xl text-white/90 mb-8 drop-shadow-lg">
+              <p className="text-xl md:text-2xl text-white/90 mb-8 text-shadow-hero">
                 {subtitle}
               </p>
             ) : (

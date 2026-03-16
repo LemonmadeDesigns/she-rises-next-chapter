@@ -19,12 +19,12 @@ const SectionHeader = ({
       centered && "text-center",
       className
     )}>
-      <h2 className="font-serif text-4xl md:text-5xl font-bold text-royal-plum mb-4">
+      <h2 className="font-serif text-4xl md:text-5xl font-bold text-royal-plum mb-4 text-shadow-section">
         {title}
       </h2>
       {subtitle && (
         <>
-          <div className="w-24 h-1 bg-crown-gold mx-auto mb-4" />
+          <div className="w-24 h-1 bg-gradient-to-r from-crown-gold to-lotus-rose mx-auto mb-4 rounded-full" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {subtitle}
           </p>
