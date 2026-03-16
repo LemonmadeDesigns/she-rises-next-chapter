@@ -92,16 +92,16 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-[#fbd051]",
+                  "px-3 py-1.5 rounded-lg text-sm font-semibold tracking-wide uppercase transition-all duration-200",
                   isActive(item.href)
-                    ? "text-[#fbd051] border-b-2 border-[#fbd051] pb-1"
-                    : "text-foreground/80"
+                    ? "text-[#fbd051] bg-white/10 shadow-sm"
+                    : "text-white/85 hover:text-[#fbd051] hover:bg-white/10"
                 )}
               >
                 {item.name}
