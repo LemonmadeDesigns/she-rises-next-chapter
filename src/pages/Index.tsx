@@ -13,6 +13,8 @@ import EventPhotosCarousel from "@/components/carousel/EventPhotosCarousel";
 import heroImage from "@/assets/she-rises-banner-hero.jpg";
 import heroImageWebp from "@/assets/she-rises-banner-hero.webp";
 import heroImageAvif from "@/assets/she-rises-banner-hero.avif";
+import innercodeLogo from "@/assets/innercode-logo.png";
+import awipLogo from "@/assets/awip-logo.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
