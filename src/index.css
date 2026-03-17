@@ -215,7 +215,7 @@ All colors MUST be HSL.
     border-radius: 9px !important;
     border: 2px #E07A8A solid !important; /* lotus-rose */
     padding: 2px !important;
-    // top: 0.1em !important;
+    /* top: 0.1em !important; */
   }
 
   /* Remove borders from hero/banner images */
