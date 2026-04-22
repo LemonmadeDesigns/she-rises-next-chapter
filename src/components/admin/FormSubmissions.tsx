@@ -31,7 +31,8 @@ import {
   Filter,
   Download,
   RefreshCw,
-  Search
+  Search,
+  Copy
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
@@ -549,13 +550,49 @@ const FormSubmissions = () => {
               </div>
             </div>
           )}
-          <DialogFooter>
+          <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setViewDialogOpen(false)}>
               Close
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                if (selectedSubmission) {
+                  navigator.clipboard.writeText(selectedSubmission.email).then(() => {
+                    toast({
+                      title: "Email copied",
+                      description: `${selectedSubmission.email} has been copied to your clipboard`,
+                    });
+                  });
+                }
+              }}
+            >
+              <Copy className="h-4 w-4 mr-2" />
+              Copy Email
+            </Button>
             <Button onClick={() => {
               if (selectedSubmission) {
-                window.location.href = `mailto:${selectedSubmission.email}?subject=Re: ${selectedSubmission.subject || 'Your message'}`;
+                const subject = encodeURIComponent(`Re: ${selectedSubmission.subject || selectedSubmission.form_type || 'Your message'}`);
+                const body = encodeURIComponent(`\n\n---\nOriginal message from ${selectedSubmission.name} (${new Date(selectedSubmission.created_at).toLocaleString()}):\n\n${selectedSubmission.message || ''}`);
+                const mailtoLink = `mailto:${selectedSubmission.email}?subject=${subject}&body=${body}`;
+
+                try {
+                  window.location.href = mailtoLink;
+                } catch (error) {
+                  // Fallback: copy email to clipboard
+                  navigator.clipboard.writeText(selectedSubmission.email).then(() => {
+                    toast({
+                      title: "Email copied to clipboard",
+                      description: `Couldn't open email client. ${selectedSubmission.email} has been copied instead.`,
+                    });
+                  }).catch(() => {
+                    toast({
+                      variant: "destructive",
+                      title: "Error",
+                      description: "Failed to open email client",
+                    });
+                  });
+                }
               }
             }}>
               <Mail className="h-4 w-4 mr-2" />
