@@ -233,9 +233,9 @@ const Events = () => {
           {featuredEvents.length === 0 ? (
             <Card className="mb-16">
               <CardContent className="p-12 text-center">
-                <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-royal-plum mb-2">No Featured Events Yet</h3>
-                <p className="text-muted-foreground">Check back soon for upcoming featured events!</p>
+                <Calendar className="h-16 w-16 text-[#737373] dark:text-[#B3B3B3] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-2">No Featured Events Yet</h3>
+                <p className="text-[#4A4A4A] dark:text-[#E0E0E0]">Check back soon for upcoming featured events!</p>
               </CardContent>
             </Card>
           ) : (
@@ -259,46 +259,46 @@ const Events = () => {
                       Featured
                     </Badge>
                   </div>
-                  
-                  <h3 className="font-serif text-2xl font-bold text-royal-plum mb-4">
+
+                  <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                     {event.title}
                   </h3>
-                  
-                  <p className="text-muted-foreground mb-6 flex-1">
+
+                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-1">
                     {event.description}
                   </p>
 
                   <div className="space-y-3 mb-6 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
+                    <div className="flex items-center gap-2 text-[#4A4A4A] dark:text-[#E0E0E0]">
                       <Calendar className="h-4 w-4" />
                       <span>{formatDate(event.date)}</span>
                     </div>
                     {event.time && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
+                      <div className="flex items-center gap-2 text-[#4A4A4A] dark:text-[#E0E0E0]">
                         <Clock className="h-4 w-4" />
                         <span>{event.time}</span>
                       </div>
                     )}
                     {event.location && (
-                      <div className="flex items-center gap-2 text-muted-foreground">
+                      <div className="flex items-center gap-2 text-[#4A4A4A] dark:text-[#E0E0E0]">
                         <MapPin className="h-4 w-4" />
                         <span>{event.location}</span>
                       </div>
                     )}
-                    <div className="flex items-center gap-2 text-muted-foreground">
+                    <div className="flex items-center gap-2 text-[#4A4A4A] dark:text-[#E0E0E0]">
                       <Users className="h-4 w-4" />
                       <span>{event.registered || 0}/{event.capacity || 0} registered</span>
                     </div>
                   </div>
-                  
+
                   {event.highlights && event.highlights.length > 0 && (
                     <div className="space-y-2 mb-6">
-                      <h4 className="font-semibold text-royal-plum">Event Highlights:</h4>
+                      <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2]">Event Highlights:</h4>
                       <ul className="space-y-1">
                         {event.highlights.slice(0, 3).map((highlight, index) => (
                           <li key={index} className="flex items-start">
                             <div className="w-2 h-2 bg-crown-gold rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                            <span className="text-sm text-muted-foreground">{highlight}</span>
+                            <span className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{highlight}</span>
                           </li>
                         ))}
                       </ul>
@@ -307,7 +307,7 @@ const Events = () => {
 
                   <div className="mt-auto">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-royal-plum text-lg">{event.price || 'Free'}</span>
+                    <span className="font-bold text-[#3D2645] dark:text-[#F2F2F2] text-lg">{event.price || 'Free'}</span>
                     <Button
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
                       onClick={() => handleRegisterClick(event)}
@@ -339,7 +339,7 @@ const Events = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <div className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-[#3D2645] dark:text-[#F2F2F2] mb-2">
                     Category
                   </div>
                   <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -357,7 +357,7 @@ const Events = () => {
                 </div>
 
                 <div>
-                  <div className="block text-sm font-medium text-royal-plum mb-2">
+                  <div className="block text-sm font-medium text-[#3D2645] dark:text-[#F2F2F2] mb-2">
                     Month
                   </div>
                   <Select value={selectedMonth} onValueChange={setSelectedMonth}>
@@ -416,18 +416,18 @@ const Events = () => {
                     )}
                   </div>
 
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
+                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
                     {event.title}
                   </h3>
 
-                  <p className="text-muted-foreground text-sm mb-4 flex-1">
+                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm mb-4 flex-1">
                     {event.description.length > 120
                       ? `${event.description.substring(0, 120)}...`
                       : event.description
                     }
                   </p>
 
-                  <div className="space-y-2 mb-4 text-xs text-muted-foreground">
+                  <div className="space-y-2 mb-4 text-xs text-[#4A4A4A] dark:text-[#E0E0E0]">
                     <div className="flex items-center gap-2">
                       <Calendar className="h-3 w-3" />
                       <span>{formatDate(event.date)}</span>
@@ -446,7 +446,7 @@ const Events = () => {
 
                   <div className="mt-auto">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-royal-plum">{event.price || 'Free'}</span>
+                    <span className="font-bold text-[#3D2645] dark:text-[#F2F2F2]">{event.price || 'Free'}</span>
                     <Button
                       size="sm"
                       className="bg-royal-plum hover:bg-royal-plum/90 text-white"
@@ -503,10 +503,10 @@ const Events = () => {
       {/* Call to Action */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl font-bold text-royal-plum mb-6">
+          <h2 className="font-serif text-3xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-6">
             Want to Host an Event?
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-[#4A4A4A] dark:text-[#E0E0E0] mb-8 max-w-2xl mx-auto">
             Partner with She Rises to create meaningful events that support our mission and empower women in our community.
           </p>
           

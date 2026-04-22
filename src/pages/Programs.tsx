@@ -108,25 +108,25 @@ const Programs = () => {
 
                     {/* Content Section */}
                     <div className="p-8 md:w-3/4">
-                      <h3 className="font-serif text-2xl md:text-3xl font-bold text-royal-plum mb-4">
+                      <h3 className="font-serif text-2xl md:text-3xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                         {program.title}
                       </h3>
 
-                      <p className="text-muted-foreground text-lg mb-6">
+                      <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-lg mb-6">
                         {program.description}
                       </p>
 
                       {/* Features */}
                       {program.features && (
                         <div className="mb-6">
-                          <h4 className="font-semibold text-royal-plum mb-3">
+                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
                             {program.id === "transitional-housing" ? "Program Features:" : "Services Include:"}
                           </h4>
                           <ul className="space-y-2">
                             {program.features.map((feature, idx) => (
                               <li key={idx} className="flex items-start">
                                 <span className="text-crown-gold mr-3 text-lg">•</span>
-                                <span className="text-muted-foreground">{feature}</span>
+                                <span className="text-[#4A4A4A] dark:text-[#E0E0E0]">{feature}</span>
                               </li>
                             ))}
                           </ul>
@@ -136,28 +136,28 @@ const Programs = () => {
                       {/* Capacity Info */}
                       {program.capacity && (
                         <div className="bg-warm-cream p-4 rounded-lg mb-4">
-                          <h4 className="font-semibold text-royal-plum mb-2">Capacity:</h4>
-                          <p className="text-sm text-muted-foreground">{program.capacity}</p>
+                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Capacity:</h4>
+                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.capacity}</p>
                         </div>
                       )}
 
                       {/* Availability Info */}
                       {program.availability && (
                         <div className="bg-warm-cream p-4 rounded-lg mb-4">
-                          <h4 className="font-semibold text-royal-plum mb-2">Availability:</h4>
-                          <p className="text-sm text-muted-foreground">{program.availability}</p>
+                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Availability:</h4>
+                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.availability}</p>
                         </div>
                       )}
 
                       {/* Recent Events */}
                       {program.recentEvents && (
                         <div className="mb-4">
-                          <h4 className="font-semibold text-royal-plum mb-2">Recent Events:</h4>
+                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Recent Events:</h4>
                           <ul className="space-y-1 mb-4">
                             {program.recentEvents.map((event, idx) => (
                               <li key={idx} className="flex items-start">
                                 <span className="text-crown-gold mr-2">•</span>
-                                <span className="text-muted-foreground text-sm">{event}</span>
+                                <span className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm">{event}</span>
                               </li>
                             ))}
                           </ul>
@@ -167,8 +167,8 @@ const Programs = () => {
                       {/* Upcoming */}
                       {program.upcoming && (
                         <div className="bg-gradient-gold/20 p-4 rounded-lg">
-                          <h4 className="font-semibold text-royal-plum mb-2">Upcoming:</h4>
-                          <p className="text-sm text-muted-foreground">{program.upcoming}</p>
+                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Upcoming:</h4>
+                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.upcoming}</p>
                         </div>
                       )}
                     </div>
@@ -228,18 +228,18 @@ const Programs = () => {
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-white">1</span>
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 Reach Out
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
                 Contact us by phone or email to discuss your needs and learn about our programs.
               </p>
               <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-center gap-2 text-royal-plum">
+                <div className="flex items-center justify-center gap-2 text-[#3D2645] dark:text-[#F2F2F2]">
                   <Phone className="h-4 w-4" />
                   <span>(909) 547-9998</span>
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-[#737373] dark:text-[#B3B3B3]">
                   Mon-Fri: 9AM-5PM PST
                 </div>
               </div>
@@ -249,13 +249,13 @@ const Programs = () => {
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-white">2</span>
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 Initial Conversation
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
                 We'll discuss your situation, answer questions, and determine which services may be right for you.
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0] space-y-1">
                 <li>• Confidential conversation</li>
                 <li>• No judgment, only support</li>
                 <li>• Referrals if needed</li>
@@ -266,13 +266,13 @@ const Programs = () => {
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl font-bold text-white">3</span>
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 Next Steps Together
               </h3>
-              <p className="text-muted-foreground mb-4">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
                 If She Rises is the right fit, we'll work with you on intake, planning, and getting started.
               </p>
-              <ul className="text-sm text-muted-foreground space-y-1">
+              <ul className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0] space-y-1">
                 <li>• Personalized planning</li>
                 <li>• Clear expectations</li>
                 <li>• Ongoing support</li>
