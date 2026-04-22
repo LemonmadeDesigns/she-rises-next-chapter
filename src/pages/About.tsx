@@ -7,8 +7,6 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import { Link } from "react-router-dom";
 
 
-import heroWomanImageWebp from "@/assets/hero-woman-hero.webp";
-import heroWomanImageAvif from "@/assets/hero-woman-hero.avif";
 import { aboutHeroBlurDataUrl } from "@/assets/about-hero-blur-data";
 import heroWomanImage from "@/assets/hero-woman.jpg";
 import preciousRansomImage from "@/assets/precious-ransom.jpg";
@@ -58,8 +56,6 @@ const About = () => {
         title="Our Mission"
         subtitle="She Rises provides safe housing, supportive services, and reentry resources that empower women experiencing homelessness and rebuilding after incarceration."
         backgroundImage={heroWomanImage}
-        backgroundImageWebp={heroWomanImageWebp}
-        backgroundImageAvif={heroWomanImageAvif}
         backgroundImageBlur={aboutHeroBlurDataUrl}
         backgroundImageAlt="She Rises: Empowering women through safe housing and supportive services"
         backgroundImageWidth={1920}

@@ -48,6 +48,11 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
             className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
             style={{ borderRadius: "12px" }}
           />
+          {/* Caption under featured image */}
+          <div className="text-center mt-4">
+            <p className="text-base font-medium text-foreground">Community Impact Event</p>
+            <p className="text-sm text-muted-foreground">Southern California</p>
+          </div>
         </div>
 
         {/* Right Image */}

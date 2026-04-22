@@ -83,94 +83,178 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <Hero
-        title={
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white text-shadow-hero-strong">
-            Every Woman Deserves a<br />
-            <span className="text-crown-gold" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.6), 0 0 40px rgba(242,201,76,0.3)' }}>Safe Place to Rise</span>
-          </h1>
-        }
-        subtitle="Here we help you write the next chapter"
-        backgroundImage={heroImage}
-        backgroundImageWebp={heroImageWebp}
-        backgroundImageAvif={heroImageAvif}
-        backgroundImagePosition="center 20%"
-        parallax={true}
-        fullHeight
-      >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
-          <Link to="/about">
-            <Button 
-              size="lg" 
-              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold px-10 py-6 text-lg rounded-2xl shadow-2xl"
-            >
-              Learn More <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-          <Link to="/donate">
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2 border-blue-600 text-white hover:bg-blue-700 px-10 py-6 text-lg rounded-2xl bg-blue-600"
-            >
-              Donate Now <Heart className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+      {/* Hero Section - Premium Modern with Floating Card */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Image with Parallax */}
+        <div className="absolute inset-0">
+          <img
+            src={heroImage}
+            alt="She Rises Hero"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center 35%' }}
+          />
+          {/* Lighter Sophisticated Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-deep-plum/60 via-deep-plum/40 to-deep-plum/30"></div>
         </div>
-      </Hero>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 py-32">
+          <div className="max-w-6xl mx-auto">
+            {/* Main Hero Content */}
+            <div className="mb-12">
+              <div className="w-20 h-1 bg-rose-gold mb-8"></div>
+              <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[1.1] drop-shadow-2xl">
+                Every Woman<br />
+                Deserves a Safe<br />
+                <span className="text-rose-gold">Place to Rise</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-white/95 max-w-2xl mb-10 leading-relaxed drop-shadow-lg">
+                Supporting women through safe housing, empowerment, and lasting transformation
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/about">
+                  <Button
+                    size="lg"
+                    className="bg-rose-gold hover:bg-rose-gold/90 text-white font-semibold px-10 py-6 text-lg rounded-none shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                  >
+                    Our Story <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/donate">
+                  <Button
+                    size="lg"
+                    className="bg-white/95 hover:bg-white text-deep-plum font-semibold px-10 py-6 text-lg rounded-none shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
+                  >
+                    Donate Now <Heart className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Floating Impact Card */}
+            <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl max-w-4xl">
+              <div className="grid grid-cols-3 gap-8 text-center">
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-rose-gold mb-2">50+</div>
+                  <div className="text-white/80 text-sm md:text-base">Women Supported</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-rose-gold mb-2">85%</div>
+                  <div className="text-white/80 text-sm md:text-base">Success Rate</div>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold text-rose-gold mb-2">2+</div>
+                  <div className="text-white/80 text-sm md:text-base">Years of Impact</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-3 bg-white/60 rounded-full"></div>
+          </div>
+        </div>
+      </section>
 
       {/* Our Team in Action - Photo Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-soft-gray dark:bg-muted">
         <div className="container mx-auto px-4">
           <SectionHeader
-            title="Our Team in Action"
-            subtitle="Celebrating community events and the women we serve"
-            className="mb-6"
+            title="Our Impact in Action"
+            subtitle="Celebrating community, connection, and transformation"
+            className="mb-12"
           />
           <EventPhotosCarousel images={eventPhotos} />
         </div>
       </section>
 
-      {/* Three Pillars Section */}
-      <section className="py-20 bg-gradient-soft">
+      {/* Our Programs - Large Visual Cards with Overlays */}
+      <section className="py-32 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Our Programs"
-            subtitle="We help women stabilize, rebuild, and thrive through comprehensive support services"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Section Header */}
+          <div className="max-w-3xl mb-20">
+            <div className="w-20 h-1 bg-rose-gold mb-6"></div>
+            <h2 className="font-serif text-5xl md:text-6xl font-bold text-deep-plum dark:text-foreground mb-6">
+              Our Programs
+            </h2>
+            <p className="text-xl text-foreground/70 dark:text-muted-foreground leading-relaxed">
+              Comprehensive support services that help women stabilize, rebuild, and thrive through every step of their journey
+            </p>
+          </div>
+
+          {/* Large Image Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             {pillars.map((pillar, index) => (
-              <ProgramCard
-                key={index}
-                title={pillar.title}
-                description={pillar.description}
-                icon={pillar.icon}
-                image={pillar.image}
-                href={pillar.href}
-              />
+              <Link key={index} to={pillar.href} className="group block">
+                <div className="relative h-[500px] overflow-hidden">
+                  {/* Image */}
+                  <img
+                    src={pillar.image}
+                    alt={pillar.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep-plum via-deep-plum/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+
+                  {/* Content */}
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                    <div className="w-12 h-1 bg-rose-gold mb-4 transform origin-left transition-all duration-500 group-hover:w-20"></div>
+                    <h3 className="font-serif text-3xl font-bold mb-3 transform transition-transform duration-500 group-hover:translate-y-[-4px]">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-white/90 text-base leading-relaxed mb-4 transform transition-all duration-500 opacity-90 group-hover:opacity-100">
+                      {pillar.description}
+                    </p>
+                    <div className="flex items-center text-rose-gold font-semibold transform transition-transform duration-500 group-hover:translate-x-2">
+                      Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
 
-          {/* Pull Quote */}
-          <div className="mt-16 text-center">
-            <blockquote className="text-3xl md:text-4xl font-serif text-royal-plum italic text-shadow-section">
-              "When SHE rises, we all rise."
-            </blockquote>
+          {/* Pull Quote with Premium Gradient Background */}
+          <div className="relative py-32 overflow-hidden">
+            {/* Stunning Gradient Background with Flowing Waves Effect - theme-aware */}
+            <div className="absolute inset-0 bg-gradient-to-br from-deep-plum via-[#4A2C5E] to-[#2D4A6E] dark:from-[#5A3D64] dark:via-[#6B4575] dark:to-[#4A5B7E]"></div>
+
+            {/* Animated Wave Overlay */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute inset-0 bg-gradient-to-tr from-rose-gold/20 via-transparent to-blue-400/20"></div>
+            </div>
+
+            {/* Subtle Pattern Overlay */}
+            <div className="absolute inset-0 opacity-5 dark:opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                backgroundSize: '50px 50px'
+              }}></div>
+            </div>
+
+            <div className="relative text-center max-w-4xl mx-auto px-8">
+              <div className="text-8xl md:text-9xl text-rose-gold/40 dark:text-rose-gold/50 font-serif leading-none mb-[-40px] drop-shadow-lg">"</div>
+              <blockquote className="text-4xl md:text-5xl font-serif text-white dark:text-foreground italic leading-tight drop-shadow-2xl">
+                When SHE rises, we all rise.
+              </blockquote>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Recent Events & Community Outreach */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-soft-gray dark:bg-muted">
         <div className="container mx-auto px-4">
           <SectionHeader
-            title="Recent Events & Community Outreach"
-            subtitle="Connecting with our community across Southern California"
+            title="Community Events & Outreach"
+            subtitle="Building connections across Southern California"
+            className="mb-12"
           />
 
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 gap-8 mb-10 max-w-6xl mx-auto">
             {eventsData.events.slice(0, 2).map((event) => (
               <EventCard
                 key={event.id}
@@ -186,138 +270,209 @@ const Index = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto text-base">
               More events coming soon. We are actively partnering with agencies throughout Southern California.
             </p>
             <Link to="/events">
-              <Button variant="outline" size="lg" className="border-lotus-rose text-lotus-rose hover:bg-lotus-rose hover:text-white">
-                See All Events
+              <Button variant="outline" size="lg" className="border-deep-plum text-deep-plum hover:bg-deep-plum hover:text-white transition-all duration-300">
+                View All Events
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Our Growing Impact Section */}
-      <section className="py-16 bg-gradient-soft">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum text-center mb-4">
-              Our Growing Impact
-            </h2>
-            <p className="text-center text-muted-foreground mb-8 text-lg">
-              We are building a strong foundation to support women across Southern California.
-            </p>
-            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-soft">
-              <ul className="space-y-4">
-                {impactItems.map((item, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-crown-gold mr-3 text-xl">•</span>
-                    <span className="text-royal-plum text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Our Growing Impact - Dark Section with Large Numbers */}
+      <section className="relative py-32 bg-deep-plum dark:bg-background text-white dark:text-foreground overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5 dark:opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-20">
+              <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
+              <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6">
+                Our Growing Impact
+              </h2>
+              <p className="text-xl text-white/80 dark:text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Building a strong foundation to support women across Southern California
+              </p>
+            </div>
+
+            {/* Impact Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+              {impactItems.map((item, index) => (
+                <div key={index} className="text-center group">
+                  <div className="text-7xl md:text-8xl font-bold text-rose-gold mb-4 transform transition-transform duration-500 group-hover:scale-110">
+                    0{index + 1}
+                  </div>
+                  <div className="w-16 h-1 bg-rose-gold/50 mx-auto mb-4"></div>
+                  <p className="text-xl text-white/90 dark:text-foreground/90 leading-relaxed">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="text-center pt-12 border-t border-white/10 dark:border-border">
+              <p className="text-lg text-white/70 dark:text-muted-foreground mb-6">
+                Join us in making a lasting difference in women's lives
+              </p>
+              <Link to="/about">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-rose-gold text-rose-gold hover:bg-rose-gold hover:text-white dark:hover:text-deep-plum font-semibold px-10 py-6 text-lg rounded-none transition-all duration-300"
+                >
+                  Learn More About Our Mission
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-serif text-3xl font-bold text-royal-plum mb-4">
-              Stay Connected
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Join our mailing list to receive updates about our programs, events, and ways to get involved
-            </p>
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-              <Input
-                id="newsletter-email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1"
-                autoComplete="email"
-                required
-              />
-              <Button type="submit" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
-                Subscribe
-              </Button>
-            </form>
+      {/* Newsletter Section - Premium Design */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Background with Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-soft-gray to-white dark:from-background dark:via-muted dark:to-background"></div>
+
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white/80 dark:bg-card/80 backdrop-blur-sm border border-gray-200 dark:border-border p-12 md:p-16 shadow-xl">
+              <div className="text-center mb-8">
+                <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-deep-plum dark:text-foreground mb-4">
+                  Stay Connected
+                </h2>
+                <p className="text-lg text-foreground/70 dark:text-muted-foreground leading-relaxed">
+                  Receive updates about our programs, events, and ways to get involved
+                </p>
+              </div>
+
+              <form onSubmit={handleNewsletterSubmit} className="max-w-xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                  <Input
+                    id="newsletter-email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 h-14 px-6 text-base border-2 border-gray-300 dark:border-border focus:border-rose-gold focus:ring-rose-gold rounded-none"
+                    autoComplete="email"
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    className="bg-rose-gold hover:bg-rose-gold/90 text-white font-semibold h-14 px-10 text-base rounded-none transition-all duration-300 hover:scale-105 shadow-lg"
+                  >
+                    Subscribe
+                  </Button>
+                </div>
+                <p className="text-sm text-foreground/50 dark:text-muted-foreground mt-4 text-center">
+                  We respect your privacy. Unsubscribe at any time.
+                </p>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Partner/Sponsor Section */}
-      <section className="py-16 bg-warm-cream">
+      {/* Partners Section - Sophisticated Grid */}
+      <section className="py-24 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Our Partners"
-            subtitle="Together, we're building stronger communities"
-          />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-center justify-center">
+          <div className="text-center mb-16">
+            <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
+            <h2 className="font-serif text-5xl md:text-6xl font-bold text-deep-plum dark:text-foreground mb-6">
+              Our Partners
+            </h2>
+            <p className="text-xl text-foreground/70 dark:text-muted-foreground max-w-2xl mx-auto">
+              Together, building stronger communities
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {/* InnerCode */}
-            <div className="bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem] overflow-hidden flex flex-col">
-              <div className="h-40 bg-muted/50 flex items-center justify-center p-6">
-                <img src={innercodeLogo} alt="InnerCode - Technology Partner" className="max-h-full max-w-full object-contain" />
-              </div>
-              <div className="p-6 text-center flex-1 flex flex-col justify-center">
-                <div className="text-lg font-semibold text-foreground mb-1">InnerCode</div>
-                <div className="text-sm text-muted-foreground">Technology Partner</div>
+            <div className="group relative aspect-square bg-gradient-to-br from-soft-gray to-white dark:from-muted dark:to-card p-10 flex items-center justify-center border border-gray-200 dark:border-border transition-all duration-500 hover:border-rose-gold hover:shadow-lg">
+              <div className="text-center w-full">
+                <img src={innercodeLogo} alt="InnerCode" className="max-h-32 w-full object-contain mx-auto mb-4 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <div className="text-sm font-semibold text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500">Technology Partner</div>
               </div>
             </div>
+
             {/* AWIP */}
-            <div className="bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 hover:scale-105 min-h-[19rem] overflow-hidden flex flex-col">
-              <div className="h-40 bg-muted/50 flex items-center justify-center p-6">
-                <img src={awipLogo} alt="A Work In Progress - Community Partner" className="max-h-full max-w-full object-contain" />
-              </div>
-              <div className="p-6 text-center flex-1 flex flex-col justify-center">
-                <div className="text-lg font-semibold text-foreground mb-1">A Work In Progress</div>
-                <div className="text-sm text-muted-foreground">Community Partner</div>
+            <div className="group relative aspect-square bg-gradient-to-br from-soft-gray to-white dark:from-muted dark:to-card p-10 flex items-center justify-center border border-gray-200 dark:border-border transition-all duration-500 hover:border-rose-gold hover:shadow-lg">
+              <div className="text-center w-full">
+                <img src={awipLogo} alt="A Work In Progress" className="max-h-32 w-full object-contain mx-auto mb-4 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <div className="text-sm font-semibold text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-500">Community Partner</div>
               </div>
             </div>
-            {/* Placeholder for future partners */}
-            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 group min-h-[19rem]">
-              <div className="text-center text-gray-400 group-hover:text-lotus-rose transition-colors">
-                <div className="text-sm font-medium mb-1">Your Organization</div>
-                <div className="text-xs">Partner with us</div>
+
+            {/* Placeholder slots */}
+            <div className="group aspect-square border-2 border-dashed border-gray-300 dark:border-border flex items-center justify-center hover:border-rose-gold transition-all duration-500">
+              <div className="text-center text-gray-400 dark:text-muted-foreground group-hover:text-rose-gold transition-colors">
+                <div className="text-base font-medium">Your Logo</div>
               </div>
             </div>
-            <div className="flex items-center justify-center p-8 bg-white rounded-xl shadow-soft hover:shadow-lg transition-all duration-300 group min-h-[19rem]">
-              <div className="text-center text-gray-400 group-hover:text-lotus-rose transition-colors">
-                <div className="text-sm font-medium mb-1">Become a Partner</div>
-                <div className="text-xs">Join our mission</div>
+
+            <div className="group aspect-square border-2 border-dashed border-gray-300 dark:border-border flex items-center justify-center hover:border-rose-gold transition-all duration-500">
+              <div className="text-center text-gray-400 dark:text-muted-foreground group-hover:text-rose-gold transition-colors">
+                <div className="text-base font-medium">Partner With Us</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-gold">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-royal-plum mb-6 text-shadow-section">
-            Empower Women on Their Journey
-          </h2>
-          <p className="text-lg text-royal-plum/80 mb-8 max-w-2xl mx-auto">
-            Your support helps women write their next chapter with dignity, safety, and opportunity
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/get-involved">
-              <Button size="lg" variant="outline" className="border-royal-plum text-royal-plum hover:bg-royal-plum hover:text-white">
-                Get Involved
-              </Button>
-            </Link>
-            <Link to="/donate">
-              <Button size="lg" className="bg-royal-plum hover:bg-royal-plum/90 text-white">
-                Donate Today
-              </Button>
-            </Link>
+      {/* Final CTA - Full-width Image Background */}
+      <section className="relative py-40 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={eventPhotos[0]}
+            alt="Join Our Mission"
+            className="w-full h-full object-cover"
+          />
+          {/* Improved Gradual Gradient Overlay - lighter and more gradual */}
+          <div className="absolute inset-0 bg-gradient-to-b from-deep-plum/70 via-deep-plum/50 to-deep-plum/70"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <div className="w-20 h-1 bg-rose-gold mb-8 mx-auto"></div>
+            <h2 className="font-serif text-5xl md:text-7xl font-bold mb-8 leading-tight drop-shadow-2xl">
+              Empower Women on<br />Their Journey
+            </h2>
+            <p className="text-xl md:text-2xl text-white/95 mb-12 leading-relaxed max-w-2xl mx-auto drop-shadow-lg">
+              Your support helps women write their next chapter with dignity, safety, and opportunity
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/donate">
+                <Button
+                  size="lg"
+                  className="bg-rose-gold hover:bg-rose-gold/90 text-white font-semibold px-12 py-7 text-lg rounded-none shadow-2xl transition-all duration-300 hover:scale-105"
+                >
+                  Make a Donation <Heart className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/get-involved">
+                <Button
+                  size="lg"
+                  className="bg-white/95 hover:bg-white text-deep-plum font-semibold px-12 py-7 text-lg rounded-none shadow-2xl transition-all duration-300 hover:scale-105"
+                >
+                  Get Involved <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

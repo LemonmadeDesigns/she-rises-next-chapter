@@ -8,62 +8,59 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* She Rises Brand Colors - Updated from Logo */
-    --background: 20 60% 96%; /* Warm cream #FBF7F0 */
-    --foreground: 0 0% 20%; /* Charcoal #333333 */
+    /* She Rises Brand Colors - Modernized Simplified Palette */
+    --background: 0 0% 98%; /* Soft Off-White #FAFAF9 */
+    --foreground: 0 0% 18%; /* Charcoal #2D2D2D */
 
-    --card: 20 60% 96%;
-    --card-foreground: 0 0% 20%;
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 0 0% 18%;
 
-    --popover: 20 60% 96%;
-    --popover-foreground: 0 0% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
 
-    /* Crown Gold - main brand color from logo */
-    --primary: 45 95% 65%; /* #F2C94C - Crown Gold */
-    --primary-foreground: 0 0% 20%;
+    /* Deep Plum - Primary brand color (elegant, mysterious) */
+    --primary: 282 28% 24%; /* #3D2645 - Deep Plum */
+    --primary-foreground: 0 0% 100%;
 
-    /* Lotus Rose - secondary actions from logo */
-    --secondary: 349 63% 73%; /* #E07A8A - Lotus Rose */
-    --secondary-foreground: 0 0% 20%;
+    /* Muted Rose Gold - Accent/Highlight color (sophisticated warmth) */
+    --secondary: 32 40% 65%; /* #D4A574 - Rose Gold */
+    --secondary-foreground: 0 0% 18%;
 
-    --muted: 20 30% 90%;
+    --muted: 0 0% 96%; /* Soft gray #F5F5F4 */
     --muted-foreground: 0 0% 45%;
 
-    /* Accent remains crown gold */
-    --accent: 45 95% 65%; /* #F2C94C */
-    --accent-foreground: 0 0% 20%;
+    /* Accent is Rose Gold */
+    --accent: 32 40% 65%; /* #D4A574 */
+    --accent-foreground: 0 0% 18%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 20 60% 96%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 20 20% 85%;
-    --input: 20 20% 85%;
-    --ring: 45 95% 65%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 32 40% 65%;
 
-    /* She Rises specific colors - Updated from Logo */
-    --royal-plum: 265 42% 31%; /* Keep for dark accents */
-    --lotus-rose: 349 63% 73%; /* Pink from logo */
-    --crown-gold: 45 95% 65%; /* Gold from logo */
-    --warm-cream: 20 60% 96%; /* Background cream */
-    
-    /* Gradients - Updated for new color scheme */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(var(--lotus-rose)));
-    --gradient-gold: linear-gradient(135deg, hsl(var(--crown-gold)), hsl(45 100% 80%));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--crown-gold) / 0.3), hsl(var(--lotus-rose) / 0.2));
-    --gradient-soft: linear-gradient(180deg, hsl(var(--warm-cream)), hsl(var(--lotus-rose) / 0.1));
-    
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--crown-gold) / 0.3);
-    --shadow-soft: 0 4px 20px -5px hsl(var(--lotus-rose) / 0.2);
-    --shadow-glow: 0 0 40px hsl(var(--crown-gold) / 0.2);
-    
-    /* Text shadows for better contrast */
-    --text-shadow-glow: 0 0 20px rgba(242, 201, 76, 0.8);
-    --text-shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.5);
-    --text-shadow-hero: 0 2px 8px rgba(0, 0, 0, 0.7), 0 4px 24px rgba(0, 0, 0, 0.4);
-    --text-shadow-hero-strong: 0 2px 12px rgba(0, 0, 0, 0.8), 0 6px 32px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 0, 0, 0.3);
-    --text-shadow-section: 0 1px 3px rgba(0, 0, 0, 0.12);
-    
+    /* She Rises specific colors - Simplified Modern Palette */
+    --deep-plum: 282 28% 24%; /* #3D2645 - Primary accent */
+    --rose-gold: 32 40% 65%; /* #D4A574 - Highlight accent */
+    --soft-gray: 0 0% 96%; /* #F5F5F4 - Subtle backgrounds */
+    --warm-tint: 32 60% 97%; /* #FBF8F3 - Rose-gold tinted bg */
+
+    /* Simplified Gradients - Minimal and elegant */
+    --gradient-subtle: linear-gradient(180deg, #FFFFFF 0%, #F5F5F4 100%);
+    --gradient-warm: linear-gradient(180deg, #FAFAF9 0%, #FBF8F3 100%);
+    --gradient-hero-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+
+    /* Refined Shadows - Softer, more professional */
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Refined Text shadows - Minimal */
+    --text-shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --text-shadow-hero: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --text-shadow-hero-strong: 0 2px 8px rgba(0, 0, 0, 0.5);
+
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
@@ -84,41 +81,57 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 265 42% 15%;
-    --foreground: 350 60% 97%;
+    /* Dark mode - Deep plum tones with lighter accents */
+    --background: 282 28% 12%; /* Very dark plum #1A0F1D */
+    --foreground: 0 0% 95%; /* Off-white text #F2F2F2 */
 
-    --card: 265 42% 20%;
-    --card-foreground: 350 60% 97%;
+    --card: 282 28% 18%; /* Dark plum cards #2A1A30 */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 265 42% 20%;
-    --popover-foreground: 350 60% 97%;
+    --popover: 282 28% 18%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 45 85% 63%;
-    --primary-foreground: 0 0% 20%;
+    /* Deep Plum - stays as primary in dark mode */
+    --primary: 282 28% 35%; /* Lighter plum #5A3D64 */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 349 63% 73%;
-    --secondary-foreground: 0 0% 20%;
+    /* Rose Gold - accent color */
+    --secondary: 32 40% 70%; /* Lighter rose gold #DEB088 */
+    --secondary-foreground: 282 28% 12%;
 
-    --muted: 265 20% 25%;
-    --muted-foreground: 350 20% 70%;
+    --muted: 282 20% 22%; /* Muted dark plum */
+    --muted-foreground: 0 0% 70%; /* Light gray text */
 
-    --accent: 45 85% 63%;
-    --accent-foreground: 0 0% 20%;
+    /* Accent is Rose Gold */
+    --accent: 32 40% 70%; /* #DEB088 */
+    --accent-foreground: 282 28% 12%;
 
     --destructive: 0 62.8% 50%;
-    --destructive-foreground: 350 60% 97%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 265 20% 30%;
-    --input: 265 20% 30%;
-    --ring: 45 85% 63%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 282 20% 25%;
+    --input: 282 20% 25%;
+    --ring: 32 40% 70%;
+
+    /* She Rises specific dark mode colors */
+    --deep-plum: 282 28% 35%; /* Lighter for dark mode */
+    --rose-gold: 32 40% 70%; /* Lighter for dark mode */
+    --soft-gray: 282 15% 20%; /* Dark gray */
+    --warm-tint: 282 20% 16%; /* Dark warm tint */
+
+    /* Dark mode gradients */
+    --gradient-subtle: linear-gradient(180deg, #2A1A30 0%, #1A0F1D 100%);
+    --gradient-warm: linear-gradient(180deg, #2A1A30 0%, #251821 100%);
+    --gradient-hero-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+
+    --sidebar-background: 282 28% 12%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 282 28% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 282 20% 22%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 282 20% 25%;
+    --sidebar-ring: 32 40% 70%;
   }
 }
 
@@ -324,24 +337,32 @@ All colors MUST be HSL.
     animation: cart-shake 0.6s ease-in-out !important;
   }
 
-  /* Global pronounced but subtle shadow for all cards and boxes */
+  /* Modern refined shadows for cards and boxes */
   .shadow-soft {
-    box-shadow: 2px 2px 6px darkslategrey !important;
+    box-shadow: var(--shadow-soft) !important;
   }
 
-  /* Apply shadow to common card elements */
+  .shadow-card {
+    box-shadow: var(--shadow-card) !important;
+  }
+
+  .shadow-medium {
+    box-shadow: var(--shadow-medium) !important;
+  }
+
+  /* Apply refined shadow to common card elements */
   [class*="Card"],
   .card,
   [class*="card"],
   [data-radix-collection-item] {
-    box-shadow: 2px 2px 6px darkslategrey !important;
+    box-shadow: var(--shadow-card) !important;
   }
 
-  /* Ensure all Card components have the shadow */
+  /* Ensure all Card components have the refined shadow */
   [data-radix-accordion-item],
   [role="group"],
   .bg-white:not(.cart-button):not(.hero-button-secondary):not(.hero-button-tertiary):not(.btn-force-visible) {
-    box-shadow: 2px 2px 6px darkslategrey !important;
+    box-shadow: var(--shadow-card) !important;
   }
 
   /* Text truncation utility */

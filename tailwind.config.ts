@@ -20,11 +20,17 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        "royal-plum": "#4B2E6D",
-        "lotus-rose": "#E07A8A",
-        "crown-gold": "#F2C94C",
-        "warm-cream": "#FFF7F0",
-        "charcoal": "#333333",
+        // Modern simplified palette - using CSS variables for dark mode support
+        "deep-plum": "hsl(var(--deep-plum))",
+        "rose-gold": "hsl(var(--rose-gold))",
+        "soft-gray": "hsl(var(--soft-gray))",
+        "warm-tint": "hsl(var(--warm-tint))",
+        // Legacy colors (for backward compatibility) - also using CSS variables
+        "royal-plum": "hsl(var(--deep-plum))",
+        "lotus-rose": "hsl(var(--rose-gold))",
+        "crown-gold": "hsl(var(--rose-gold))",
+        "warm-cream": "hsl(var(--soft-gray))",
+        "charcoal": "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -65,15 +71,14 @@ export default {
         },
       },
       backgroundImage: {
-        "gradient-primary": "var(--gradient-primary)",
-        "gradient-gold": "var(--gradient-gold)",
-        "gradient-hero": "var(--gradient-hero)",
-        "gradient-soft": "var(--gradient-soft)",
+        "gradient-subtle": "var(--gradient-subtle)",
+        "gradient-warm": "var(--gradient-warm)",
+        "gradient-hero-overlay": "var(--gradient-hero-overlay)",
       },
       boxShadow: {
-        "elegant": "var(--shadow-elegant)",
+        "card": "var(--shadow-card)",
         "soft": "var(--shadow-soft)",
-        "glow": "var(--shadow-glow)",
+        "medium": "var(--shadow-medium)",
       },
       textShadow: {
         'glow': 'var(--text-shadow-glow)',
