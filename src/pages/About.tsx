@@ -110,8 +110,8 @@ const About = () => {
               </div>
               <div className="relative p-12">
                 <div className="w-16 h-1 bg-white mb-6"></div>
-                <h3 className="font-serif text-3xl font-bold text-deep-plum dark:text-background mb-6">Our Vision</h3>
-                <p className="text-lg text-deep-plum/90 dark:text-background/90 leading-relaxed">
+                <h3 className="font-serif text-3xl font-bold mb-6 dark:text-background" style={{ color: '#3D2645' }}>Our Vision</h3>
+                <p className="text-lg leading-relaxed dark:text-background/90" style={{ color: '#3D2645' }}>
                   A community where women have the stability, tools, and encouragement to write her next chapter.
                 </p>
               </div>
@@ -126,10 +126,10 @@ const About = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-deep-plum dark:text-foreground mb-6">
+              <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6 dark:text-foreground" style={{ color: '#3D2645' }}>
                 Our Values
               </h2>
-              <p className="text-xl text-foreground/70 dark:text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-xl max-w-3xl mx-auto dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                 The principles that guide our work and define our commitment to the women we serve
               </p>
             </div>
@@ -141,10 +141,10 @@ const About = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-rose-gold to-[#C99A6E] rounded-2xl flex items-center justify-center mx-auto mb-4 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110">
                       <value.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h4 className="font-serif text-lg font-bold text-deep-plum dark:text-foreground mb-3">
+                    <h4 className="font-serif text-lg font-bold mb-3 dark:text-foreground" style={{ color: '#3D2645' }}>
                       {value.title}
                     </h4>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                       {value.description}
                     </p>
                   </div>
@@ -161,22 +161,22 @@ const About = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-deep-plum dark:text-foreground mb-6">
+              <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6 dark:text-foreground" style={{ color: '#3D2645' }}>
                 What We Do in 60 Seconds
               </h2>
-              <p className="text-xl text-foreground/70 dark:text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-xl max-w-3xl mx-auto dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                 A quick overview of how we support women in their journey to independence
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12">
-              <div className="bg-white dark:bg-card border border-gray-200 dark:border-border rounded-2xl p-10 shadow-lg">
-                <h4 className="font-serif text-2xl font-bold text-deep-plum dark:text-foreground mb-8">We Provide:</h4>
+              <div className="bg-gradient-to-br from-soft-gray to-white dark:bg-card border-2 border-gray-300 dark:border-border rounded-2xl p-10 shadow-xl">
+                <h4 className="font-serif text-2xl font-bold mb-8" style={{ color: '#3D2645' }}>We Provide:</h4>
                 <ul className="space-y-4">
                   {whatWeDo.map((item, index) => (
                     <li key={index} className="flex items-start group">
                       <div className="w-3 h-3 bg-rose-gold rounded-full mt-2 mr-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></div>
-                      <span className="text-deep-plum dark:text-muted-foreground leading-relaxed">{item}</span>
+                      <span className="dark:text-muted-foreground leading-relaxed" style={{ color: '#3D2645' }}>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -217,10 +217,10 @@ const About = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <div className="w-20 h-1 bg-rose-gold mb-6 mx-auto"></div>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-deep-plum dark:text-foreground mb-6">
+              <h2 className="font-serif text-5xl md:text-6xl font-bold mb-6 dark:text-foreground" style={{ color: '#3D2645' }}>
                 Meet Our Founder
               </h2>
-              <p className="text-xl text-foreground/70 dark:text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-xl max-w-3xl mx-auto dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                 Leadership driven by experience, compassion, and unwavering dedication
               </p>
             </div>
@@ -229,18 +229,18 @@ const About = () => {
               <div className="p-12 md:p-16">
                 <div className="grid md:grid-cols-3 gap-12 items-center">
                   <div className="md:col-span-2 space-y-6">
-                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-deep-plum dark:text-foreground">
+                    <h3 className="font-serif text-3xl md:text-4xl font-bold dark:text-foreground" style={{ color: '#3D2645' }}>
                       Precious Ransom
                     </h3>
                     <div className="text-lg text-rose-gold font-semibold">Executive Director</div>
-                    <p className="text-foreground/80 dark:text-muted-foreground text-lg leading-relaxed">
+                    <p className="text-lg leading-relaxed dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                       With over a decade of experience in social services and community advocacy,
                       Precious founded She Rises after witnessing firsthand the challenges women face
                       when transitioning from incarceration back to community life. Her vision combines
                       practical support with dignified care, creating pathways for lasting transformation.
                     </p>
                     <div className="bg-soft-gray dark:bg-muted border-l-4 border-rose-gold pl-6 py-4 italic">
-                      <p className="text-deep-plum dark:text-foreground text-xl leading-relaxed">
+                      <p className="text-xl leading-relaxed dark:text-foreground" style={{ color: '#3D2645' }}>
                         "Every woman who walks through our doors has a story of resilience. Our job is to
                         provide the foundation they need to write their next chapter with confidence and hope."
                       </p>
@@ -257,13 +257,13 @@ const About = () => {
                       />
                     </div>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-center gap-2 text-foreground/70 dark:text-muted-foreground hover:text-rose-gold transition-colors">
+                      <div className="flex items-center justify-center gap-2 hover:text-rose-gold transition-colors dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                         <Mail className="h-5 w-5" />
                         <a href="mailto:pransom@safehavenforempowerment.org" className="text-sm">
                           pransom@safehavenforempowerment.org
                         </a>
                       </div>
-                      <div className="flex items-center justify-center gap-2 text-foreground/70 dark:text-muted-foreground hover:text-rose-gold transition-colors">
+                      <div className="flex items-center justify-center gap-2 hover:text-rose-gold transition-colors dark:text-muted-foreground" style={{ color: '#5A4A66' }}>
                         <Phone className="h-5 w-5" />
                         <a href="tel:+19095479998" className="text-sm">(909) 547-9998</a>
                       </div>
