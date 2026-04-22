@@ -1,13 +1,25 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const resendApiKey = Deno.env.get("RESEND_API_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
+
+function isString(v: unknown, max = 2000): v is string {
+  return typeof v === "string" && v.length <= max;
+}
+function isEmail(v: unknown): v is string {
+  return typeof v === "string" && v.length <= 255 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+function isPhone(v: unknown): v is string {
+  return typeof v === "string" && v.length <= 20 && /^[\d\s\-\+\(\)]+$/.test(v);
+}
+function isDate(v: unknown): v is string {
+  return typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+}
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
@@ -58,6 +70,44 @@ const handler = async (req: Request): Promise<Response> => {
 
     const formData = await req.json();
     const timestamp = new Date().toISOString();
+
+    // Comprehensive input validation
+    const errors: string[] = [];
+    if (!isString(formData?.firstName, 100) || formData.firstName.trim().length < 1) errors.push("firstName invalid");
+    if (!isString(formData?.lastName, 100) || formData.lastName.trim().length < 1) errors.push("lastName invalid");
+    if (!isEmail(formData?.email)) errors.push("email invalid");
+    if (!isPhone(formData?.phone)) errors.push("phone invalid");
+    if (formData?.dateOfBirth && !isDate(formData.dateOfBirth)) errors.push("dateOfBirth invalid");
+    if (formData?.expectedReleaseDate && !isDate(formData.expectedReleaseDate)) errors.push("expectedReleaseDate invalid");
+    if (formData?.paroleOfficerEmail && !isEmail(formData.paroleOfficerEmail)) errors.push("paroleOfficerEmail invalid");
+    if (formData?.paroleOfficerPhone && !isPhone(formData.paroleOfficerPhone)) errors.push("paroleOfficerPhone invalid");
+    if (formData?.emergencyPhone && !isPhone(formData.emergencyPhone)) errors.push("emergencyPhone invalid");
+
+    // Cap free-text fields
+    const longTextFields = [
+      "address","city","state","zipCode","emergencyName","emergencyRelation",
+      "referralSource","paroleOfficerName","caseNumber","justiceInvolved","gender",
+      "countryOfOrigin","languageNeeds","fundingSource","immediateHousing","children",
+      "childrenCount","childrenAges","pastHousingSituation","currentSituation",
+      "housingSituation","employment","education","physicalHealthNeeds","mentalHealthNeeds",
+      "substanceRecovery","employmentJobReadiness","educationTraining","familyReunification",
+      "legalAidRecovery","transportationAssistance","otherGoals","goals","previousServices","medicalNeeds"
+    ];
+    for (const f of longTextFields) {
+      const v = formData?.[f];
+      if (v != null && !isString(v, 5000)) errors.push(`${f} invalid`);
+    }
+    if (formData?.programsInterested && !Array.isArray(formData.programsInterested)) {
+      errors.push("programsInterested invalid");
+    }
+
+    if (errors.length > 0) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "Invalid input" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
 
     const escapeHtml = (text: string): string => {
       const map: Record<string, string> = {
@@ -126,7 +176,7 @@ const handler = async (req: Request): Promise<Response> => {
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Legal Aid/ID Recovery:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.legalAidRecovery || 'Not provided')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Transportation Assistance:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.transportationAssistance || 'Not provided')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Other Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.otherGoals || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Programs Interested In:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.programsInterested.map((p: string) => escapeHtml(p)).join(', ')}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Programs Interested In:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${(formData.programsInterested || []).map((p: string) => escapeHtml(String(p))).join(', ')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Main Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.goals || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Previous Services:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.previousServices || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Medical/Accessibility Needs:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.medicalNeeds || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
@@ -137,14 +187,25 @@ const handler = async (req: Request): Promise<Response> => {
       </table>
     `;
 
-    const emailResponse = await resend.emails.send({
-      from: "She Rises Program Applications <onboarding@resend.dev>",
-      to: ["pransom@safehavenforempowerment.org"],
-      subject: `New Program Application — ${formData.firstName} ${formData.lastName}`,
-      html: htmlBody,
+    const emailResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: "She Rises Program Applications <onboarding@resend.dev>",
+        to: ["pransom@safehavenforempowerment.org"],
+        subject: `New Program Application — ${escapeHtml(formData.firstName)} ${escapeHtml(formData.lastName)}`,
+        html: htmlBody,
+      }),
     });
 
-    console.log("Program application email sent successfully:", emailResponse);
+    if (!emailResponse.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    console.log("Program application email sent successfully");
 
     return new Response(
       JSON.stringify({ ok: true }),
@@ -159,7 +220,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in submit-program-application function:", error);
     return new Response(
-      JSON.stringify({ ok: false, error: error.message }),
+      JSON.stringify({ ok: false, error: "An error occurred while processing your request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
