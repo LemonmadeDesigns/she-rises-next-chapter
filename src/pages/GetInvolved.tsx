@@ -10,6 +10,7 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { Heart, Clock, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
+import getInvolvedHeroImage from "@/assets/mentoring.jpg";
 
 const GetInvolved = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
@@ -115,7 +116,7 @@ const GetInvolved = () => {
     {
       id: "platinum",
       name: "Platinum Partner",
-      amount: "$10,000+",
+      amount: "$1,000+",
       benefits: [
         "Logo on all marketing materials",
         "Dedicated program naming opportunity",
@@ -127,8 +128,8 @@ const GetInvolved = () => {
     },
     {
       id: "gold",
-      name: "Gold Supporter", 
-      amount: "$5,000+",
+      name: "Gold Supporter",
+      amount: "$500+",
       benefits: [
         "Logo on website and newsletter",
         "Annual impact report",
@@ -141,7 +142,7 @@ const GetInvolved = () => {
     {
       id: "silver",
       name: "Silver Champion",
-      amount: "$2,500+",
+      amount: "$250+",
       benefits: [
         "Website recognition",
         "Event tickets for 4 people",
@@ -154,7 +155,7 @@ const GetInvolved = () => {
     {
       id: "bronze",
       name: "Bronze Ally",
-      amount: "$1,000+",
+      amount: "$100+",
       benefits: [
         "Website listing",
         "Event tickets for 2 people",
@@ -173,7 +174,13 @@ const GetInvolved = () => {
       <Hero
         title="Get Involved"
         subtitle="Join our mission to empower women and transform lives. Whether through volunteering, partnerships, or sponsorship, your support creates lasting change in our community."
-        backgroundColor="#4B2E6D"
+        backgroundImage={getInvolvedHeroImage}
+        backgroundImageAlt="Get Involved with She Rises - Volunteer and Partnership Opportunities"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
+        backgroundImagePosition="center 30%"
+        parallax={true}
+        className="py-32 md:py-40"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Button 
@@ -208,8 +215,8 @@ const GetInvolved = () => {
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Volunteer</h3>
-              <p className="text-muted-foreground mb-4">Share your time and skills to directly support women in our programs.</p>
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Volunteer</h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Share your time and skills to directly support women in our programs.</p>
               <a href="#volunteer-opportunities">
                 <Button variant="outline" size="sm" className="w-full">
                   Learn More
@@ -221,8 +228,8 @@ const GetInvolved = () => {
               <div className="w-16 h-16 bg-lotus-rose rounded-full flex items-center justify-center mx-auto mb-4">
                 <Building2 className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Corporate Partnership</h3>
-              <p className="text-muted-foreground mb-4">Partner with us to create meaningful employee engagement opportunities.</p>
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Corporate Partnership</h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Partner with us to create meaningful employee engagement opportunities.</p>
               <Button
                 variant="outline"
                 size="sm"
@@ -237,8 +244,8 @@ const GetInvolved = () => {
               <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
                 <DollarSign className="h-8 w-8 text-royal-plum" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">Sponsorship</h3>
-              <p className="text-muted-foreground mb-4">Sponsor programs, events, or facilities to maximize your community impact.</p>
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Sponsorship</h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Sponsor programs, events, or facilities to maximize your community impact.</p>
               <Button
                 variant="outline"
                 size="sm"
@@ -253,8 +260,8 @@ const GetInvolved = () => {
               <div className="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mx-auto mb-4">
                 <Gift className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">In-Kind Donations</h3>
-              <p className="text-muted-foreground mb-4">Donate goods, services, or expertise to support our daily operations.</p>
+              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">In-Kind Donations</h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Donate goods, services, or expertise to support our daily operations.</p>
               <Button
                 variant="outline"
                 size="sm"
@@ -296,26 +303,26 @@ const GetInvolved = () => {
                     </Badge>
                   </div>
                   
-                  <h3 className="font-serif text-2xl font-bold text-royal-plum mb-4">
+                  <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                     {opportunity.title}
                   </h3>
-                  
-                  <p className="text-muted-foreground mb-6">
+
+                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6">
                     {opportunity.description}
                   </p>
-                  
-                  <div className="flex items-center gap-2 mb-6 text-sm text-muted-foreground">
+
+                  <div className="flex items-center gap-2 mb-6 text-sm text-[#737373] dark:text-[#B3B3B3]">
                     <Clock className="h-4 w-4" />
                     <span>Commitment: {opportunity.commitment}</span>
                   </div>
-                  
+
                   <div className="space-y-2 mb-6">
-                    <h4 className="font-semibold text-royal-plum">Requirements:</h4>
+                    <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2]">Requirements:</h4>
                     <ul className="space-y-1">
                       {opportunity.requirements.map((req, index) => (
                         <li key={index} className="flex items-start">
                           <CheckCircle className="h-4 w-4 text-crown-gold mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{req}</span>
+                          <span className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{req}</span>
                         </li>
                       ))}
                     </ul>
@@ -365,18 +372,18 @@ const GetInvolved = () => {
                     )}
                   </div>
                   
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
+                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
                     {opportunity.title}
                   </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {opportunity.description.length > 120 
-                      ? `${opportunity.description.substring(0, 120)}...` 
+
+                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm mb-4">
+                    {opportunity.description.length > 120
+                      ? `${opportunity.description.substring(0, 120)}...`
                       : opportunity.description
                     }
                   </p>
-                  
-                  <div className="flex items-center gap-2 mb-4 text-xs text-muted-foreground">
+
+                  <div className="flex items-center gap-2 mb-4 text-xs text-[#737373] dark:text-[#B3B3B3]">
                     <Clock className="h-3 w-3" />
                     <span>{opportunity.commitment}</span>
                   </div>
@@ -411,7 +418,7 @@ const GetInvolved = () => {
               <Card key={level.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
                 <div className={`h-4 ${level.color}`}></div>
                 <CardContent className="p-6 flex-1 flex flex-col">
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-2">
                     {level.name}
                   </h3>
                   <div className="text-2xl font-bold text-crown-gold mb-4">
@@ -422,7 +429,7 @@ const GetInvolved = () => {
                     {level.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="h-4 w-4 text-crown-gold mt-0.5 mr-2 flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">{benefit}</span>
+                        <span className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -482,7 +489,7 @@ const GetInvolved = () => {
       <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
           <Heart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
-          <h2 className="font-serif text-3xl font-bold mb-4">
+          <h2 className="font-serif text-3xl font-bold mb-4 text-[#3D2645]">
             Ready to Make a Difference?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
