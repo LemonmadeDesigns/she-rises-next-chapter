@@ -176,7 +176,7 @@ const About = () => {
                   {whatWeDo.map((item, index) => (
                     <li key={index} className="flex items-start group">
                       <div className="w-3 h-3 bg-rose-gold rounded-full mt-2 mr-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></div>
-                      <span className="text-[#4A4A4A] dark:text-[#B3B3B3] leading-relaxed">{item}</span>
+                      <span className="text-[#4A4A4A] dark:text-[#E0E0E0] leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -303,12 +303,12 @@ const About = () => {
                 </Button>
               </Link>
               <Link to="/donate">
-                <Button size="lg" className="bg-white/95 hover:bg-white text-deep-plum font-semibold rounded-full px-12 py-7 text-lg transition-all duration-300 hover:scale-105 shadow-2xl">
+                <Button size="lg" className="bg-white/95 hover:bg-white text-[#3D2645] dark:text-[#3D2645] font-semibold rounded-full px-12 py-7 text-lg transition-all duration-300 hover:scale-105 shadow-2xl">
                   Donate Now
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="border-2 border-white/60 text-white hover:bg-white/10 rounded-full px-12 py-7 text-lg transition-all duration-300 hover:scale-105 shadow-2xl">
+                <Button size="lg" variant="outline" className="border-2 border-white/60 bg-transparent text-white hover:bg-white/10 hover:text-white rounded-full px-12 py-7 text-lg transition-all duration-300 hover:scale-105 shadow-2xl">
                   Contact Us
                 </Button>
               </Link>
