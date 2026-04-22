@@ -38,65 +38,63 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
   };
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto pb-12">
+    <div className="relative w-full max-w-7xl mx-auto pb-12 px-4">
       {/* Carousel Container */}
-      <div className="relative h-[400px] overflow-hidden flex items-center justify-center">
+      <div className="relative h-[400px] flex items-center justify-center gap-6">
 
-        {/* Image Track - Smooth Sliding */}
-        <div className="relative w-full h-full flex items-center justify-center">
+        {/* Previous Image (Left) */}
+        <div
+          className="z-10 transition-all duration-500 ease-out flex-shrink-0"
+          style={{
+            transform: `scale(0.8)`,
+            opacity: 0.7
+          }}
+        >
+          <img
+            src={getImageAtPosition(-1)}
+            alt="Previous event photo"
+            className="w-[280px] h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
+            loading="lazy"
+            onClick={goToPrevious}
+          />
+        </div>
 
-          {/* Previous Image (Left) */}
-          <div
-            className="absolute left-0 z-10 transition-all duration-500 ease-out"
-            style={{
-              transform: `translateX(${isAnimating ? '-100%' : '-20%'}) scale(0.75)`,
-              opacity: 0.6
-            }}
-          >
-            <img
-              src={getImageAtPosition(-1)}
-              alt="Previous event photo"
-              className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
-              loading="lazy"
-            />
+        {/* Current Image (Center) */}
+        <div
+          className="z-20 transition-all duration-500 ease-out flex-shrink-0"
+          style={{
+            transform: `scale(1)`,
+            opacity: 1
+          }}
+        >
+          <img
+            src={getImageAtPosition(0)}
+            alt="Featured event photo"
+            className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
+            loading="eager"
+          />
+          {/* Caption under featured image */}
+          <div className="text-center mt-4">
+            <p className="text-base font-medium text-foreground">Community Impact Event</p>
+            <p className="text-sm text-muted-foreground">Southern California</p>
           </div>
+        </div>
 
-          {/* Current Image (Center) */}
-          <div
-            className="relative z-20 transition-all duration-500 ease-out"
-            style={{
-              transform: `translateX(0) scale(1)`,
-              opacity: 1
-            }}
-          >
-            <img
-              src={getImageAtPosition(0)}
-              alt="Featured event photo"
-              className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
-              loading="eager"
-            />
-            {/* Caption under featured image */}
-            <div className="text-center mt-4">
-              <p className="text-base font-medium text-foreground">Community Impact Event</p>
-              <p className="text-sm text-muted-foreground">Southern California</p>
-            </div>
-          </div>
-
-          {/* Next Image (Right) */}
-          <div
-            className="absolute right-0 z-10 transition-all duration-500 ease-out"
-            style={{
-              transform: `translateX(${isAnimating ? '100%' : '20%'}) scale(0.75)`,
-              opacity: 0.6
-            }}
-          >
-            <img
-              src={getImageAtPosition(1)}
-              alt="Next event photo"
-              className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
-              loading="lazy"
-            />
-          </div>
+        {/* Next Image (Right) */}
+        <div
+          className="z-10 transition-all duration-500 ease-out flex-shrink-0"
+          style={{
+            transform: `scale(0.8)`,
+            opacity: 0.7
+          }}
+        >
+          <img
+            src={getImageAtPosition(1)}
+            alt="Next event photo"
+            className="w-[280px] h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
+            loading="lazy"
+            onClick={goToNext}
+          />
         </div>
 
         {/* Navigation Buttons */}
