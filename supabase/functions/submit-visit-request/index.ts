@@ -34,6 +34,19 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
+function validateEmail(email: string): boolean {
+  return typeof email === 'string' && email.length <= 255 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function validatePhone(phone: string): boolean {
+  return typeof phone === 'string' && phone.length <= 20 && /^[\d\s\-\+\(\)]+$/.test(phone);
+}
+function validateLength(s: string, min: number, max: number): boolean {
+  return typeof s === 'string' && s.length >= min && s.length <= max;
+}
+function validateDate(s: string): boolean {
+  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s);
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
