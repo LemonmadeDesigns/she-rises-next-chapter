@@ -107,7 +107,7 @@ const Header = () => {
         )}>
           {/* Logo - Fixed position, no movement on scroll */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="relative pt-4">
+            <div className="relative" style={{ paddingTop: '3rem' }}>
               <img
                 src={logo}
                 alt="She Rises - Safe Haven for Empowerment logo"

@@ -92,6 +92,9 @@ const Index = () => {
             alt="She Rises Hero"
             className="w-full h-full object-cover"
             style={{ objectPosition: 'center 35%' }}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
           />
           {/* Lighter Sophisticated Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-deep-plum/60 via-deep-plum/40 to-deep-plum/30"></div>

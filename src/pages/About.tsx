@@ -170,13 +170,13 @@ const About = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-12">
-              <div className="bg-soft-gray dark:bg-card border border-gray-200 dark:border-border rounded-2xl p-10">
+              <div className="bg-white dark:bg-card border border-gray-200 dark:border-border rounded-2xl p-10 shadow-lg">
                 <h4 className="font-serif text-2xl font-bold text-deep-plum dark:text-foreground mb-8">We Provide:</h4>
                 <ul className="space-y-4">
                   {whatWeDo.map((item, index) => (
                     <li key={index} className="flex items-start group">
                       <div className="w-3 h-3 bg-rose-gold rounded-full mt-2 mr-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-125"></div>
-                      <span className="text-foreground/80 dark:text-muted-foreground">{item}</span>
+                      <span className="text-deep-plum dark:text-muted-foreground leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
