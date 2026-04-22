@@ -1,19 +1,16 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Layout from "@/components/layout/Layout";
-import Hero from "@/components/sections/Hero";
-import SectionHeader from "@/components/sections/SectionHeader";
 import StripePaymentForm from "@/components/donation/StripePaymentForm";
 import { donationService, type DonationData } from "@/services/donationService";
-import { Heart, DollarSign, Home, Users, Briefcase, GraduationCap, Shield, CheckCircle, CreditCard, Calendar, AlertCircle, Loader2 } from "lucide-react";
+import { Heart, Home, Users, Briefcase, Shield, CheckCircle, AlertCircle, Loader2, Sparkles } from "lucide-react";
 
 const Donate = () => {
   const navigate = useNavigate();
@@ -21,13 +18,10 @@ const Donate = () => {
   const [paymentStep, setPaymentStep] = useState<'form' | 'payment'>('form');
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
+
   interface DonationFormState extends Omit<DonationData, 'frequency' | 'paymentMethod'> {
     frequency: 'one-time' | 'monthly';
     paymentMethod: 'credit' | 'paypal';
-    cardNumber: string;
-    expiryDate: string;
-    cvv: string;
-    nameOnCard: string;
   }
 
   const [donationForm, setDonationForm] = useState<DonationFormState>({
@@ -43,10 +37,6 @@ const Donate = () => {
     state: "",
     zip: "",
     paymentMethod: "credit",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-    nameOnCard: "",
     anonymous: false,
     newsletter: true,
     tribute: "",
@@ -54,102 +44,38 @@ const Donate = () => {
     tributeNotify: ""
   });
 
-  const donationAmounts = [
-    { amount: 25, impact: "Provides a week of meals for one woman" },
-    { amount: 50, impact: "Covers transportation for job interviews for a month" },
-    { amount: 100, impact: "Funds childcare for program participation" },
-    { amount: 250, impact: "Sponsors a woman's mental health counseling sessions" },
-    { amount: 500, impact: "Covers housing assistance for one week" },
-    { amount: 1000, impact: "Funds a complete job training program" }
+  // Quick donate amounts with emoji icons
+  const quickAmounts = [
+    { amount: 25, label: "$25", impact: "Meals for a week", icon: "🍽️" },
+    { amount: 50, label: "$50", impact: "Job interview prep", icon: "💼" },
+    { amount: 100, label: "$100", impact: "Counseling session", icon: "💚" },
+    { amount: 250, label: "$250", impact: "Housing support", icon: "🏠" },
   ];
 
   const designations = [
-    {
-      id: "general",
-      name: "Greatest Need",
-      description: "Allows us to direct funds where they're needed most",
-      icon: Heart
-    },
-    {
-      id: "housing",
-      name: "Housing Program",
-      description: "Supports transitional housing and emergency shelter services",
-      icon: Home
-    },
-    {
-      id: "employment",
-      name: "Workforce Development",
-      description: "Funds job training, placement services, and career support",
-      icon: Briefcase
-    },
-    {
-      id: "family",
-      name: "Family Services", 
-      description: "Supports parenting programs and family reunification efforts",
-      icon: Users
-    },
-    {
-      id: "education",
-      name: "Education Programs",
-      description: "Funds GED classes, college prep, and educational support",
-      icon: GraduationCap
-    },
-    {
-      id: "crisis",
-      name: "Emergency Support",
-      description: "Provides rapid response and connection to crisis resources",
-      icon: Shield
-    }
+    { id: "general", name: "Greatest Need", icon: Heart },
+    { id: "housing", name: "Housing", icon: Home },
+    { id: "employment", name: "Employment", icon: Briefcase },
+    { id: "family", name: "Family Services", icon: Users },
+    { id: "crisis", name: "Emergency", icon: Shield },
   ];
 
-  const impactStats = [
-    {
-      amount: "$25",
-      provides: "One week of nutritious meals",
-      frequency: "monthly"
-    },
-    {
-      amount: "$50", 
-      provides: "Job interview preparation workshop",
-      frequency: "monthly"
-    },
-    {
-      amount: "$100",
-      provides: "Mental health counseling session",
-      frequency: "monthly"
-    },
-    {
-      amount: "$250",
-      provides: "Complete legal advocacy package",
-      frequency: "monthly"
+  const handleQuickDonate = async (amount: number) => {
+    if (!donationForm.email || !donationForm.firstName) {
+      setErrors(['Please fill in your name and email first']);
+      return;
     }
-  ];
 
-  const testimonials = [
-    {
-      quote: "Thanks to generous donors like you, I was able to rebuild my life and now have stable housing and a career I love.",
-      name: "Sarah M.",
-      program: "Housing & Employment Program Graduate"
-    },
-    {
-      quote: "The support I received helped me reunite with my children and build the family we all deserved.",
-      name: "Maria L.",
-      program: "Family Services Program Participant"
-    },
-    {
-      quote: "Every donation, no matter the size, represents hope and a chance for women like me to rise again.",
-      name: "Jennifer K.", 
-      program: "Program Alumna & Current Mentor"
-    }
-  ];
+    setDonationForm(prev => ({ ...prev, amount: amount.toString() }));
+    await handleSubmit(undefined, amount);
+  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent, quickAmount?: number) => {
+    if (e) e.preventDefault();
     setErrors([]);
 
-    // Validate form
     const formDataForValidation: DonationData = {
-      amount: donationForm.amount,
+      amount: quickAmount?.toString() || donationForm.amount,
       frequency: donationForm.frequency === 'monthly' ? 'monthly' : 'one-time',
       designation: donationForm.designation,
       firstName: donationForm.firstName,
@@ -177,23 +103,13 @@ const Donate = () => {
     setIsProcessing(true);
 
     try {
-      // For credit card payments, create payment intent and show Stripe form
-      if (donationForm.paymentMethod === 'credit') {
-        const response = await donationService.processDonation(formDataForValidation);
+      const response = await donationService.processDonation(formDataForValidation);
 
-        if (response.success && response.clientSecret) {
-          setClientSecret(response.clientSecret);
-          setPaymentStep('payment');
-        } else {
-          setErrors([response.error || 'Failed to initialize payment']);
-        }
+      if (response.success && response.clientSecret) {
+        setClientSecret(response.clientSecret);
+        setPaymentStep('payment');
       } else {
-        // For PayPal, process directly
-        const response = await donationService.processDonation(formDataForValidation);
-
-        if (!response.success) {
-          setErrors([response.error || 'Payment processing failed']);
-        }
+        setErrors([response.error || 'Failed to initialize payment']);
       }
     } catch (error) {
       console.error('Donation error:', error);
@@ -204,10 +120,7 @@ const Donate = () => {
   };
 
   const handlePaymentSuccess = async (paymentIntent: { id: string }) => {
-    // Send receipt email
     await donationService.sendReceipt(paymentIntent.id, donationForm.email);
-
-    // Navigate to success page with donation details
     navigate(`/donation-success?amount=${donationForm.amount}&frequency=${donationForm.frequency}&donation_id=${paymentIntent.id}&designation=${donationForm.designation}`);
   };
 
@@ -218,693 +131,362 @@ const Donate = () => {
   };
 
   const updateForm = (field: string, value: string | boolean) => {
-    setDonationForm(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
-
-  const selectAmount = (amount: number) => {
-    setDonationForm(prev => ({
-      ...prev,
-      amount: amount.toString()
-    }));
-  };
-
-  const scrollToDonationForm = () => {
-    const donationSection = document.getElementById('donation-form');
-    if (donationSection) {
-      donationSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    setDonationForm(prev => ({ ...prev, [field]: value }));
   };
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <Hero
-        title="Make a Difference Today"
-        subtitle="Your donation creates lasting change in the lives of women and families in our community. Every contribution helps women rebuild their lives with dignity and hope."
-        backgroundColor="#4B2E6D"
-      >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button 
-            size="lg" 
-            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
-            onClick={scrollToDonationForm}
-          >
-            Donate Now
-          </Button>
-          <Button 
-            size="lg" 
-            className="hero-button-secondary btn-force-visible"
-            onClick={() => window.location.href = '/monthly-giving'}
-          >
-            Monthly Giving
-          </Button>
-        </div>
-      </Hero>
+      {/* Hero Section - Modern Gradient */}
+      <section className="relative bg-gradient-to-br from-royal-plum via-[#5a3a7d] to-royal-plum text-white py-20 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
 
-      {/* Impact Section */}
-      <section className="py-20 bg-gradient-soft">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Your Impact"
-            subtitle="See how your donation directly transforms lives in our community"
-          />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {impactStats.map((stat, index) => (
-              <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
-                <div className="text-3xl font-bold text-crown-gold mb-2">
-                  {stat.amount}
-                </div>
-                <div className="text-sm text-muted-foreground mb-2">
-                  {stat.frequency}
-                </div>
-                <p className="text-royal-plum font-medium">
-                  {stat.provides}
-                </p>
-              </Card>
-            ))}
-          </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Sparkles className="h-4 w-4 text-crown-gold" />
+              <span className="text-sm font-medium">Every gift creates lasting change</span>
+            </div>
 
-          {/* Donation Impact Stories */}
-          <div className="bg-white rounded-2xl p-8">
-            <h3 className="font-serif text-2xl font-bold text-royal-plum mb-8 text-center">
-              Stories of Impact
-            </h3>
-            
-            <div className="grid lg:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-l-4 border-l-crown-gold">
-                  <CardContent className="p-6">
-                    <blockquote className="text-muted-foreground mb-4 italic">
-                      "{testimonial.quote}"
-                    </blockquote>
-                    <div className="text-sm">
-                      <div className="font-semibold text-royal-plum">{testimonial.name}</div>
-                      <div className="text-muted-foreground">{testimonial.program}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6">
+              Transform Lives Today
+            </h1>
+
+            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+              Your generosity empowers women to rebuild their lives with dignity, hope, and endless possibilities.
+            </p>
+
+            {/* Impact Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="text-3xl font-bold text-crown-gold">500+</div>
+                <div className="text-sm text-white/80">Women served</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="text-3xl font-bold text-crown-gold">85%</div>
+                <div className="text-sm text-white/80">To programs</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="text-3xl font-bold text-crown-gold">$350K</div>
+                <div className="text-sm text-white/80">Annual impact</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="text-3xl font-bold text-crown-gold">100%</div>
+                <div className="text-sm text-white/80">Tax deductible</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Donation Form */}
-      <section id="donation-form" className="py-20 bg-white">
+      {/* Main Donation Section */}
+      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-warm-cream/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <SectionHeader
-              title="Make Your Donation"
-              subtitle="Choose your donation amount and help us continue our vital work"
-            />
-            
-            <Card>
-              <CardContent className="p-8">
-                {/* Show error messages */}
-                {errors.length > 0 && (
-                  <Alert variant="destructive" className="mb-6">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>
-                      <ul className="list-disc pl-4">
-                        {errors.map((error, index) => (
-                          <li key={index}>{error}</li>
-                        ))}
-                      </ul>
-                    </AlertDescription>
-                  </Alert>
-                )}
+          <div className="max-w-3xl mx-auto">
 
-                {/* Show payment form or donation form based on step */}
-                {paymentStep === 'payment' && clientSecret ? (
-                  <div>
-                    <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6">
-                      Complete Your Payment
-                    </h3>
-                    <StripePaymentForm
-                      clientSecret={clientSecret}
-                      amount={parseFloat(donationForm.amount)}
-                      onSuccess={handlePaymentSuccess}
-                      onError={handlePaymentError}
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        setPaymentStep('form');
-                        setClientSecret(null);
-                      }}
-                      className="mt-4 w-full"
-                    >
-                      Back to Donation Form
-                    </Button>
-                  </div>
-                ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Donation Amount */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Donation Amount
-                    </Label>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                      {donationAmounts.map((item) => (
-                        <button
-                          key={item.amount}
-                          type="button"
-                          className={`
-                            w-full h-44
-                            p-4
-                            rounded-xl border
-                            shadow-sm
-                            flex flex-col items-center justify-center gap-2
-                            text-center
-                            overflow-hidden
-                            box-border
-                            transition-colors
-                            ${
-                              donationForm.amount === item.amount.toString()
-                                ? "bg-crown-gold border-crown-gold/50 text-royal-plum"
-                                : "bg-white border-black/10 hover:bg-warm-cream text-black"
-                            }
-                          `}
-                          onClick={() => selectAmount(item.amount)}
-                          aria-pressed={donationForm.amount === item.amount.toString()}
-                        >
-                          <div className="text-2xl font-bold mb-2">${item.amount}</div>
-                          <div className="text-xs leading-tight line-clamp-3">
-                            {item.impact}
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                      <Label htmlFor="custom-amount">Other Amount:</Label>
-                      <div className="relative">
-                        <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="custom-amount"
-                          type="number"
-                          value={donationForm.amount}
-                          onChange={(e) => updateForm('amount', e.target.value)}
-                          className="pl-10 w-32"
-                          placeholder="0.00"
-                        />
-                      </div>
-                    </div>
-                  </div>
+            {/* Error Messages */}
+            {errors.length > 0 && (
+              <Alert variant="destructive" className="mb-6">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  <ul className="list-disc pl-4">
+                    {errors.map((error, index) => (
+                      <li key={index}>{error}</li>
+                    ))}
+                  </ul>
+                </AlertDescription>
+              </Alert>
+            )}
 
-                  {/* Frequency */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Donation Frequency
-                    </Label>
-                    <RadioGroup 
-                      value={donationForm.frequency} 
-                      onValueChange={(value) => updateForm('frequency', value)}
-                      className="flex gap-8"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="one-time" id="one-time" />
-                        <Label htmlFor="one-time">One-time donation</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="monthly" id="monthly" />
-                        <Label htmlFor="monthly">Monthly giving</Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
+            {/* Payment Form or Donation Form */}
+            {paymentStep === 'payment' && clientSecret ? (
+              <Card className="shadow-xl">
+                <CardContent className="p-6 md:p-8">
+                  <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6">
+                    Complete Your ${donationForm.amount} Donation
+                  </h3>
+                  <StripePaymentForm
+                    clientSecret={clientSecret}
+                    amount={parseFloat(donationForm.amount)}
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setPaymentStep('form');
+                      setClientSecret(null);
+                    }}
+                    className="mt-4 w-full"
+                  >
+                    Back to Form
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="shadow-xl border-2 border-crown-gold/20">
+                <CardContent className="p-6 md:p-10">
+                  <form onSubmit={handleSubmit} className="space-y-8">
 
-                  {/* Designation */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Designate Your Gift
-                    </Label>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {designations.map((designation) => (
-                        <Card 
-                          key={designation.id}
-                          className={`cursor-pointer transition-all ${
-                            donationForm.designation === designation.id 
-                              ? "ring-2 ring-crown-gold bg-crown-gold/5" 
-                              : "hover:shadow-md"
-                          }`}
-                          onClick={() => updateForm('designation', designation.id)}
-                        >
-                          <CardContent className="p-4">
-                            <div className="flex items-center gap-3 mb-2">
-                              <designation.icon className="h-5 w-5 text-crown-gold" />
-                              <h4 className="font-semibold text-royal-plum text-sm">
-                                {designation.name}
-                              </h4>
+                    {/* Quick Donate Buttons - Prominent */}
+                    <div className="text-center">
+                      <h2 className="font-serif text-2xl md:text-3xl font-bold text-royal-plum mb-2">
+                        Choose Your Impact
+                      </h2>
+                      <p className="text-muted-foreground mb-6">Select an amount or enter your own</p>
+
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                        {quickAmounts.map((item) => (
+                          <button
+                            key={item.amount}
+                            type="button"
+                            className={`
+                              group relative p-6 rounded-2xl border-2 transition-all duration-200
+                              ${donationForm.amount === item.amount.toString()
+                                ? "bg-crown-gold border-crown-gold shadow-lg scale-105"
+                                : "bg-white border-gray-200 hover:border-crown-gold hover:shadow-md hover:scale-102"
+                              }
+                            `}
+                            onClick={() => updateForm('amount', item.amount.toString())}
+                          >
+                            <div className="text-3xl mb-2">{item.icon}</div>
+                            <div className={`text-2xl font-bold mb-1 ${
+                              donationForm.amount === item.amount.toString() ? "text-royal-plum" : "text-royal-plum"
+                            }`}>
+                              {item.label}
                             </div>
-                            <p className="text-xs text-muted-foreground">
-                              {designation.description}
-                            </p>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
+                            <div className={`text-xs ${
+                              donationForm.amount === item.amount.toString() ? "text-royal-plum/80" : "text-muted-foreground"
+                            }`}>
+                              {item.impact}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
 
-                  {/* Personal Information */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Contact Information
-                    </Label>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <Label htmlFor="firstName">First Name *</Label>
-                        <Input
-                          id="firstName"
-                          value={donationForm.firstName}
-                          onChange={(e) => updateForm('firstName', e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="lastName">Last Name *</Label>
-                        <Input
-                          id="lastName"
-                          value={donationForm.lastName}
-                          onChange={(e) => updateForm('lastName', e.target.value)}
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <Label htmlFor="email">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={donationForm.email}
-                          onChange={(e) => updateForm('email', e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          value={donationForm.phone}
-                          onChange={(e) => updateForm('phone', e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="mb-4">
-                      <Label htmlFor="address">Address</Label>
-                      <Input
-                        id="address"
-                        value={donationForm.address}
-                        onChange={(e) => updateForm('address', e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div>
-                        <Label htmlFor="city">City</Label>
-                        <Input
-                          id="city"
-                          value={donationForm.city}
-                          onChange={(e) => updateForm('city', e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="state">State</Label>
-                        <Input
-                          id="state"
-                          value={donationForm.state}
-                          onChange={(e) => updateForm('state', e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="zip">ZIP Code</Label>
-                        <Input
-                          id="zip"
-                          value={donationForm.zip}
-                          onChange={(e) => updateForm('zip', e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Payment Information */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Payment Information
-                    </Label>
-                    
-                    <RadioGroup 
-                      value={donationForm.paymentMethod} 
-                      onValueChange={(value) => updateForm('paymentMethod', value)}
-                      className="flex gap-8 mb-4"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="credit" id="credit" />
-                        <Label htmlFor="credit" className="flex items-center gap-2">
-                          <CreditCard className="h-4 w-4" />
-                          Credit/Debit Card
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="paypal" id="paypal" />
-                        <Label htmlFor="paypal">PayPal</Label>
-                      </div>
-                    </RadioGroup>
-
-                    {donationForm.paymentMethod === 'credit' && (
-                      <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
-                        <div>
-                          <Label htmlFor="nameOnCard">Name on Card *</Label>
+                      {/* Custom Amount */}
+                      <div className="flex items-center justify-center gap-3">
+                        <Label htmlFor="custom-amount" className="text-base font-medium">Custom Amount:</Label>
+                        <div className="relative w-40">
+                          <span className="absolute left-3 top-3 text-muted-foreground font-medium">$</span>
                           <Input
-                            id="nameOnCard"
-                            value={donationForm.nameOnCard}
-                            onChange={(e) => updateForm('nameOnCard', e.target.value)}
+                            id="custom-amount"
+                            type="number"
+                            value={donationForm.amount}
+                            onChange={(e) => updateForm('amount', e.target.value)}
+                            className="pl-7 text-lg h-12 border-2"
+                            placeholder="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Frequency Toggle */}
+                    <div className="bg-warm-cream/50 rounded-xl p-6">
+                      <Label className="text-lg font-semibold text-royal-plum mb-4 block text-center">
+                        Make it Monthly? 💝
+                      </Label>
+                      <RadioGroup
+                        value={donationForm.frequency}
+                        onValueChange={(value) => updateForm('frequency', value)}
+                        className="grid grid-cols-2 gap-4"
+                      >
+                        <div className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                          donationForm.frequency === 'one-time' ? 'border-crown-gold bg-crown-gold/10' : 'border-gray-200 bg-white'
+                        }`}>
+                          <RadioGroupItem value="one-time" id="one-time" className="sr-only" />
+                          <Label htmlFor="one-time" className="cursor-pointer block text-center">
+                            <div className="font-semibold text-royal-plum">One-Time</div>
+                            <div className="text-sm text-muted-foreground">Single donation</div>
+                          </Label>
+                        </div>
+                        <div className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                          donationForm.frequency === 'monthly' ? 'border-crown-gold bg-crown-gold/10' : 'border-gray-200 bg-white'
+                        }`}>
+                          <RadioGroupItem value="monthly" id="monthly" className="sr-only" />
+                          <Label htmlFor="monthly" className="cursor-pointer block text-center">
+                            <div className="font-semibold text-royal-plum">Monthly</div>
+                            <div className="text-sm text-muted-foreground">Recurring gift</div>
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+
+                    {/* Designation - Simplified Icons */}
+                    <div>
+                      <Label className="text-lg font-semibold text-royal-plum mb-4 block">
+                        Where should we use your gift?
+                      </Label>
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                        {designations.map((des) => (
+                          <button
+                            key={des.id}
+                            type="button"
+                            className={`p-4 rounded-xl border-2 transition-all ${
+                              donationForm.designation === des.id
+                                ? "border-crown-gold bg-crown-gold/10"
+                                : "border-gray-200 hover:border-crown-gold/50"
+                            }`}
+                            onClick={() => updateForm('designation', des.id)}
+                          >
+                            <des.icon className={`h-6 w-6 mx-auto mb-2 ${
+                              donationForm.designation === des.id ? 'text-crown-gold' : 'text-royal-plum'
+                            }`} />
+                            <div className="text-sm font-medium text-royal-plum text-center">
+                              {des.name}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Contact Info - Simplified */}
+                    <div>
+                      <Label className="text-lg font-semibold text-royal-plum mb-4 block">
+                        Your Information
+                      </Label>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="firstName">First Name *</Label>
+                          <Input
+                            id="firstName"
+                            value={donationForm.firstName}
+                            onChange={(e) => updateForm('firstName', e.target.value)}
+                            className="h-12"
                             required
                           />
                         </div>
                         <div>
-                          <Label htmlFor="cardNumber">Card Number *</Label>
+                          <Label htmlFor="lastName">Last Name *</Label>
                           <Input
-                            id="cardNumber"
-                            value={donationForm.cardNumber}
-                            onChange={(e) => updateForm('cardNumber', e.target.value)}
-                            placeholder="1234 5678 9012 3456"
+                            id="lastName"
+                            value={donationForm.lastName}
+                            onChange={(e) => updateForm('lastName', e.target.value)}
+                            className="h-12"
                             required
                           />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="expiryDate">Expiry Date *</Label>
-                            <Input
-                              id="expiryDate"
-                              value={donationForm.expiryDate}
-                              onChange={(e) => updateForm('expiryDate', e.target.value)}
-                              placeholder="MM/YY"
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="cvv">CVV *</Label>
-                            <Input
-                              id="cvv"
-                              value={donationForm.cvv}
-                              onChange={(e) => updateForm('cvv', e.target.value)}
-                              placeholder="123"
-                              required
-                            />
-                          </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={donationForm.email}
+                            onChange={(e) => updateForm('email', e.target.value)}
+                            className="h-12"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone">Phone (optional)</Label>
+                          <Input
+                            id="phone"
+                            value={donationForm.phone}
+                            onChange={(e) => updateForm('phone', e.target.value)}
+                            className="h-12"
+                          />
                         </div>
                       </div>
-                    )}
-                  </div>
+                    </div>
 
-                  {/* Additional Options */}
-                  <div>
-                    <Label className="text-lg font-semibold text-royal-plum mb-4 block">
-                      Additional Options
-                    </Label>
-                    
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="anonymous"
-                          checked={donationForm.anonymous}
-                          onCheckedChange={(checked) => updateForm('anonymous', checked as boolean)}
-                        />
-                        <Label htmlFor="anonymous" className="text-sm">
-                          Make this donation anonymous
-                        </Label>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
+                    {/* Options - Checkboxes */}
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-warm-cream/30">
                         <Checkbox
                           id="newsletter"
                           checked={donationForm.newsletter}
                           onCheckedChange={(checked) => updateForm('newsletter', checked as boolean)}
                         />
-                        <Label htmlFor="newsletter" className="text-sm">
-                          Subscribe to our newsletter for impact updates
+                        <Label htmlFor="newsletter" className="text-sm cursor-pointer flex-1">
+                          Send me impact updates and success stories
+                        </Label>
+                      </div>
+
+                      <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-warm-cream/30">
+                        <Checkbox
+                          id="anonymous"
+                          checked={donationForm.anonymous}
+                          onCheckedChange={(checked) => updateForm('anonymous', checked as boolean)}
+                        />
+                        <Label htmlFor="anonymous" className="text-sm cursor-pointer flex-1">
+                          Make this donation anonymous
                         </Label>
                       </div>
                     </div>
-                    
-                    {/* Memorial/Tribute */}
-                    <div className="mt-6 p-4 bg-warm-cream rounded-lg">
-                      <h4 className="font-semibold text-royal-plum mb-2">Honor or Memorial Gift</h4>
-                      <div className="mb-4">
-                        <Label htmlFor="tribute">Make this gift in honor/memory of:</Label>
-                        <Input
-                          id="tribute"
-                          value={donationForm.tribute}
-                          onChange={(e) => updateForm('tribute', e.target.value)}
-                          placeholder="Optional: Person's name"
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <Label htmlFor="tributeMessage">Special message:</Label>
-                        <Textarea
-                          id="tributeMessage"
-                          value={donationForm.tributeMessage}
-                          onChange={(e) => updateForm('tributeMessage', e.target.value)}
-                          placeholder="Optional: Add a personal message"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="tributeNotify">Notify family at email address:</Label>
-                        <Input
-                          id="tributeNotify"
-                          type="email"
-                          value={donationForm.tributeNotify}
-                          onChange={(e) => updateForm('tributeNotify', e.target.value)}
-                          placeholder="Optional: family@email.com"
-                        />
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Submit Button */}
-                  <div className="border-t pt-8">
-                    <div className="text-center mb-6">
-                      <div className="text-2xl font-bold text-royal-plum mb-2">
-                        Total: ${donationForm.amount || '0'}
-                        {donationForm.frequency === 'monthly' && (
-                          <span className="text-sm font-normal text-muted-foreground"> monthly</span>
+                    {/* Submit Button - Large and Prominent */}
+                    <div className="pt-6">
+                      <div className="text-center mb-6">
+                        <div className="text-3xl md:text-4xl font-bold text-royal-plum mb-2">
+                          ${donationForm.amount || '0'}
+                          {donationForm.frequency === 'monthly' && (
+                            <span className="text-lg font-normal text-muted-foreground">/month</span>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+                          <CheckCircle className="h-4 w-4 text-crown-gold" />
+                          Secure & Tax-Deductible
+                        </p>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full bg-gradient-to-r from-crown-gold to-[#d4a846] hover:from-[#d4a846] hover:to-crown-gold text-royal-plum font-bold text-lg py-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                        disabled={!donationForm.amount || !donationForm.firstName || !donationForm.email || isProcessing}
+                      >
+                        {isProcessing ? (
+                          <>
+                            <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <Heart className="mr-2 h-6 w-6" />
+                            Donate Now
+                          </>
                         )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        Your donation is secure and tax-deductible
-                      </p>
+                      </Button>
                     </div>
-                    
-                    <Button 
-                      type="submit" 
-                      size="lg" 
-                      className="w-full bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold text-lg py-6"
-                      disabled={!donationForm.amount || !donationForm.firstName || !donationForm.email}
-                    >
-                      {isProcessing ? (
-                        <>
-                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          <Heart className="mr-2 h-5 w-5" />
-                          Complete Donation
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </form>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
 
-      {/* Other Ways to Give */}
-      <section className="py-20 bg-gradient-soft">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Other Ways to Give"
-            subtitle="Explore additional giving opportunities that fit your preferences"
-          />
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center p-6">
-              <Calendar className="h-12 w-12 text-crown-gold mx-auto mb-4" />
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
-                Planned Giving
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Include She Rises in your estate planning for lasting impact through bequests, trusts, or beneficiary designations.
-              </p>
-              <Button variant="outline" size="sm">
-                Learn More
-              </Button>
-            </Card>
-            
-            <Card className="text-center p-6">
-              <Users className="h-12 w-12 text-crown-gold mx-auto mb-4" />
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
-                Corporate Giving
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Partner with us through corporate sponsorships, employee giving programs, or cause marketing initiatives.
-              </p>
-              <Button variant="outline" size="sm">
-                Partner With Us
-              </Button>
-            </Card>
-            
-            <Card className="text-center p-6">
-              <Heart className="h-12 w-12 text-crown-gold mx-auto mb-4" />
-              <h3 className="font-serif text-xl font-bold text-royal-plum mb-3">
-                In-Kind Donations
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Donate goods, services, or professional expertise to directly support our programs and operations.
-              </p>
-              <Button variant="outline" size="sm">
-                View Wish List
-              </Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Donor Recognition */}
-      <section className="py-20 bg-royal-plum text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-            Your Generosity Matters
-          </h2>
-          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            Join hundreds of generous donors who believe in empowering women and transforming lives in our community.
-          </p>
-          
-          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto mb-12">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">500+</div>
-              <p className="text-white/90">Individual donors annually</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">25+</div>
-              <p className="text-white/90">Corporate partners</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">$350K</div>
-              <p className="text-white/90">Raised annually</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">100%</div>
-              <p className="text-white/90">Goes to programs</p>
-            </div>
-          </div>
-          
-          <div className="bg-white/10 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="font-serif text-xl font-bold mb-4">Monthly Giving Circle</h3>
-            <p className="text-white/90 mb-6">
-              Join our Monthly Giving Circle for as little as $25/month and receive quarterly impact reports, 
-              exclusive event invitations, and direct updates from program participants.
-            </p>
-            <Link to="/monthly-giving">
-              <Button size="lg" className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold">
-                Join Monthly Giving
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Financial Transparency */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            title="Financial Transparency"
-            subtitle="We're committed to responsible stewardship of your donations"
-          />
-          
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6">
-                  How Your Donation is Used
-                </h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-lotus-rose rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">85%</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-royal-plum">Direct Programs</h4>
-                      <p className="text-sm text-muted-foreground">Housing, employment, counseling, and family services</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-crown-gold rounded-full flex items-center justify-center">
-                      <span className="text-royal-plum font-bold">10%</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-royal-plum">Administrative</h4>
-                      <p className="text-sm text-muted-foreground">Operations, facilities, and essential support services</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-sage-green rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">5%</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-royal-plum">Fundraising</h4>
-                      <p className="text-sm text-muted-foreground">Donor stewardship and sustainable funding efforts</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="mt-8">
-                  <Button variant="outline">
-                    View Annual Report
-                  </Button>
-                </div>
+            {/* Trust Badges */}
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-4 w-4 text-crown-gold" />
+                <span>SSL Encrypted</span>
               </div>
-              
-              <div className="bg-gradient-soft rounded-2xl p-8">
-                <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
-                  Your Donation is Secure
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-crown-gold" />
-                    <span className="text-sm">SSL encrypted payment processing</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-crown-gold" />
-                    <span className="text-sm">PCI DSS compliant security standards</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-crown-gold" />
-                    <span className="text-sm">501(c)(3) tax-deductible status</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-crown-gold" />
-                    <span className="text-sm">GuideStar Gold Seal of Transparency</span>
-                  </div>
-                </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-4 w-4 text-crown-gold" />
+                <span>501(c)(3) Nonprofit</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-4 w-4 text-crown-gold" />
+                <span>GuideStar Certified</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Stories - Simplified */}
+      <section className="py-16 bg-royal-plum text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
+              Your Gift Creates Real Change
+            </h2>
+            <blockquote className="text-xl md:text-2xl italic text-white/90 mb-4">
+              "Thanks to donors like you, I rebuilt my life and now have stable housing and a career I love."
+            </blockquote>
+            <p className="text-white/70">— Sarah M., Program Graduate</p>
           </div>
         </div>
       </section>
