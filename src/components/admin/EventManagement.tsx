@@ -272,22 +272,37 @@ const EventManagement = () => {
   };
 
   const toggleFeatured = async (event: Event) => {
+    const newFeaturedStatus = !event.featured;
+
+    // Optimistically update local state first for immediate UI feedback
+    setEvents(prev =>
+      prev.map(e =>
+        e.id === event.id ? { ...e, featured: newFeaturedStatus } : e
+      )
+    );
+
     try {
       const { error } = await supabase
         .from('events')
-        .update({ featured: !event.featured })
+        .update({ featured: newFeaturedStatus })
         .eq('id', event.id);
 
       if (error) throw error;
 
       toast({
-        title: event.featured ? "Event Unfeatured" : "Event Featured",
-        description: `The event has been ${event.featured ? 'removed from' : 'added to'} featured events.`,
+        title: newFeaturedStatus ? "Event Featured" : "Event Unfeatured",
+        description: `The event has been ${newFeaturedStatus ? 'added to' : 'removed from'} featured events.`,
       });
-
-      loadEvents();
     } catch (error) {
       console.error('Error toggling featured status:', error);
+
+      // Revert the optimistic update on error
+      setEvents(prev =>
+        prev.map(e =>
+          e.id === event.id ? { ...e, featured: event.featured } : e
+        )
+      );
+
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to update event.",

@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -40,44 +41,46 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <CartProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter
-          future={{
-            v7_startTransition: true,
-            v7_relativeSplatPath: true,
-          }}
-        >
-          <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/programs/:programId" element={<ProgramDetails />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/get-involved" element={<GetInvolved />} />
-          <Route path="/volunteer/:opportunityId" element={<VolunteerOpportunityDetails />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/donation-success" element={<DonationSuccess />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/:productId" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/admin" element={<Admin />} />
-          
-          <Route path="/image-test" element={<ImageTest />} />
-          <Route path="/monthly-giving" element={<MonthlyGiving />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-      </TooltipProvider>
-    </CartProvider>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+      <CartProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter
+            future={{
+              v7_startTransition: true,
+              v7_relativeSplatPath: true,
+            }}
+          >
+            <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/programs/:programId" element={<ProgramDetails />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/get-involved" element={<GetInvolved />} />
+            <Route path="/volunteer/:opportunityId" element={<VolunteerOpportunityDetails />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/donation-success" element={<DonationSuccess />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/:productId" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/admin" element={<Admin />} />
+
+            <Route path="/image-test" element={<ImageTest />} />
+            <Route path="/monthly-giving" element={<MonthlyGiving />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        </TooltipProvider>
+      </CartProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
