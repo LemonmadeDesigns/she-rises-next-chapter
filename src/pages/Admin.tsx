@@ -8,8 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle, Trash2, Plus, CalendarDays } from 'lucide-react';
+import { Calendar, Clock, Mail, Phone, User, MessageSquare, CheckCircle, XCircle, AlertCircle, Trash2, Plus, CalendarDays, FileText } from 'lucide-react';
 import EventManagement from '@/components/admin/EventManagement';
+import FormSubmissions from '@/components/admin/FormSubmissions';
 
 interface VisitRequest {
   id: string;
@@ -263,7 +264,7 @@ export default function Admin() {
         </div>
 
         <Tabs defaultValue="visit-requests" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
+          <TabsList className="grid w-full grid-cols-3 max-w-2xl">
             <TabsTrigger value="visit-requests" className="flex items-center gap-2">
               <User className="h-4 w-4" />
               Visit Requests
@@ -271,6 +272,10 @@ export default function Admin() {
             <TabsTrigger value="events" className="flex items-center gap-2">
               <CalendarDays className="h-4 w-4" />
               Events Calendar
+            </TabsTrigger>
+            <TabsTrigger value="form-submissions" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Form Submissions
             </TabsTrigger>
           </TabsList>
 
@@ -433,6 +438,10 @@ export default function Admin() {
 
           <TabsContent value="events" className="mt-6">
             <EventManagement />
+          </TabsContent>
+
+          <TabsContent value="form-submissions" className="mt-6">
+            <FormSubmissions />
           </TabsContent>
         </Tabs>
       </div>
