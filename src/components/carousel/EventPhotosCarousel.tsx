@@ -8,19 +8,30 @@ interface EventPhotosCarouselProps {
 
 const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const goToNext = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const goToPrevious = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const goToSlide = (index: number) => {
+    if (isAnimating || index === currentIndex) return;
+    setIsAnimating(true);
     setCurrentIndex(index);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
+  // Helper to get image at a specific position relative to current
   const getImageAtPosition = (offset: number) => {
     const index = (currentIndex + offset + images.length) % images.length;
     return images[index];
@@ -29,40 +40,63 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
   return (
     <div className="relative w-full max-w-6xl mx-auto pb-12">
       {/* Carousel Container */}
-      <div className="relative h-[400px] flex items-center justify-center perspective-1000">
-        {/* Left Image */}
-        <div className="absolute left-0 z-10 transform -translate-x-8 scale-75 opacity-60 transition-all duration-500">
-          <img
-            src={getImageAtPosition(-1)}
-            alt="Event photo"
-            className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
-            style={{ borderRadius: "12px" }}
-          />
-        </div>
+      <div className="relative h-[400px] overflow-hidden flex items-center justify-center">
 
-        {/* Center Image (Featured) */}
-        <div className="relative z-20 transform scale-100 transition-all duration-500">
-          <img
-            src={getImageAtPosition(0)}
-            alt="Featured event photo"
-            className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
-            style={{ borderRadius: "12px" }}
-          />
-          {/* Caption under featured image */}
-          <div className="text-center mt-4">
-            <p className="text-base font-medium text-foreground">Community Impact Event</p>
-            <p className="text-sm text-muted-foreground">Southern California</p>
+        {/* Image Track - Smooth Sliding */}
+        <div className="relative w-full h-full flex items-center justify-center">
+
+          {/* Previous Image (Left) */}
+          <div
+            className="absolute left-0 z-10 transition-all duration-500 ease-out"
+            style={{
+              transform: `translateX(${isAnimating ? '-100%' : '-20%'}) scale(0.75)`,
+              opacity: 0.6
+            }}
+          >
+            <img
+              src={getImageAtPosition(-1)}
+              alt="Previous event photo"
+              className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
+              loading="lazy"
+            />
           </div>
-        </div>
 
-        {/* Right Image */}
-        <div className="absolute right-0 z-10 transform translate-x-8 scale-75 opacity-60 transition-all duration-500">
-          <img
-            src={getImageAtPosition(1)}
-            alt="Event photo"
-            className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
-            style={{ borderRadius: "12px" }}
-          />
+          {/* Current Image (Center) */}
+          <div
+            className="relative z-20 transition-all duration-500 ease-out"
+            style={{
+              transform: `translateX(0) scale(1)`,
+              opacity: 1
+            }}
+          >
+            <img
+              src={getImageAtPosition(0)}
+              alt="Featured event photo"
+              className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
+              loading="eager"
+            />
+            {/* Caption under featured image */}
+            <div className="text-center mt-4">
+              <p className="text-base font-medium text-foreground">Community Impact Event</p>
+              <p className="text-sm text-muted-foreground">Southern California</p>
+            </div>
+          </div>
+
+          {/* Next Image (Right) */}
+          <div
+            className="absolute right-0 z-10 transition-all duration-500 ease-out"
+            style={{
+              transform: `translateX(${isAnimating ? '100%' : '20%'}) scale(0.75)`,
+              opacity: 0.6
+            }}
+          >
+            <img
+              src={getImageAtPosition(1)}
+              alt="Next event photo"
+              className="w-[350px] h-[280px] object-cover rounded-xl shadow-lg"
+              loading="lazy"
+            />
+          </div>
         </div>
 
         {/* Navigation Buttons */}
@@ -70,7 +104,8 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           onClick={goToPrevious}
           variant="outline"
           size="icon"
-          className="absolute left-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full"
+          disabled={isAnimating}
+          className="absolute left-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50"
           aria-label="Previous photo"
         >
           <ChevronLeft className="h-6 w-6" />
@@ -80,7 +115,8 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           onClick={goToNext}
           variant="outline"
           size="icon"
-          className="absolute right-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full"
+          disabled={isAnimating}
+          className="absolute right-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50"
           aria-label="Next photo"
         >
           <ChevronRight className="h-6 w-6" />
@@ -93,12 +129,14 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            disabled={isAnimating}
+            className={`h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed ${
               index === currentIndex
                 ? "bg-crown-gold w-8"
-                : "bg-gray-300 hover:bg-gray-400"
+                : "bg-gray-300 hover:bg-gray-400 w-3"
             }`}
             aria-label={`Go to photo ${index + 1}`}
+            aria-current={index === currentIndex ? "true" : "false"}
           />
         ))}
       </div>
