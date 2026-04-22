@@ -18,7 +18,7 @@ export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsI
 // Google Apps Script Web App URL for reading Google Sheets data
 // TODO: After deploying the GET endpoint, add your Web App URL here
 // See scripts/contact-form-gas/SYNC-SETUP.md for instructions
-export const SHEETS_READ_ENDPOINT = '';
+export const SHEETS_READ_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxuPS41An4EL5_DBd06nbKS8rcPT2mJ8qb9Bokzhrnr_fnsBT6gz1gNG7xq8T7ubR-uUA/exec';
 
 /**
  * Submits form data to the Google Apps Script endpoint AND Supabase database
@@ -43,7 +43,7 @@ export async function submitContactForm(
   phone: string = '',
   formType: string = 'Contact',
   category?: string,
-  additionalData?: Record<string, any>
+  additionalData?: Record<string, unknown>
 ): Promise<{ ok: boolean; error?: string }> {
   // Check honeypot - if filled, it's spam
   if (company) {
@@ -119,7 +119,7 @@ export async function submitIntakeForm(
   company: string = '',
   phone: string = '',
   formType: string = 'Housing Intake Application',
-  additionalData?: Record<string, any>
+  additionalData?: Record<string, unknown>
 ): Promise<{ ok: boolean; error?: string }> {
   // Check honeypot - if filled, it's spam
   if (company) {
@@ -182,7 +182,7 @@ export async function syncFromGoogleSheets(): Promise<{
   skipped: number;
   error?: string;
 }> {
-  if (\!SHEETS_READ_ENDPOINT) {
+  if (!SHEETS_READ_ENDPOINT) {
     return {
       ok: false,
       imported: 0,
@@ -195,7 +195,7 @@ export async function syncFromGoogleSheets(): Promise<{
     const response = await fetch(SHEETS_READ_ENDPOINT);
     const result = await response.json();
 
-    if (\!result.ok || \!result.data) {
+    if (!result.ok || !result.data) {
       throw new Error(result.error || 'Failed to fetch data from Google Sheets');
     }
 
@@ -203,7 +203,7 @@ export async function syncFromGoogleSheets(): Promise<{
     let skipped = 0;
 
     for (const row of result.data) {
-      if (\!row.Name || \!row.Email) {
+      if (!row.Name || !row.Email) {
         skipped++;
         continue;
       }
