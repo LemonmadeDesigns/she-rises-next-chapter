@@ -163,10 +163,10 @@ const Header = () => {
               size="sm"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className={cn(
-                "rounded-full hover:bg-white/10",
+                "rounded-full",
                 scrolled
-                  ? "text-white dark:text-foreground"
-                  : "text-white"
+                  ? "text-white dark:text-foreground hover:bg-white/20"
+                  : "text-white hover:bg-white/10"
               )}
             >
               {theme === "dark" ? (
@@ -194,9 +194,9 @@ const Header = () => {
                     variant="outline"
                     size="sm"
                     className={cn(
-                      "flex items-center gap-2 rounded-full border-2 backdrop-blur-sm",
+                      "flex items-center gap-2 rounded-full border-2",
                       scrolled || isMenuOpen
-                        ? "border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+                        ? "bg-white/10 border-white/40 text-white hover:bg-white/20 hover:border-white/60"
                         : "border-[#3D2645]/30 bg-white/95 text-[#3D2645] hover:bg-white hover:border-[#3D2645]/50 shadow-sm"
                     )}
                     style={!scrolled && !isMenuOpen ? { color: '#3D2645', backgroundColor: 'rgba(255, 255, 255, 0.95)' } : undefined}
