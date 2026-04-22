@@ -58,7 +58,7 @@ const Header = () => {
     await supabase.auth.signOut();
   };
 
-  // Check admin status via API call to backend
+  // Check admin status via user_roles table
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -68,13 +68,15 @@ const Header = () => {
         return;
       }
 
-      // Try to query visit_requests - only admins have access via RLS
-      const { error } = await supabase
-        .from('visit_requests')
-        .select('id')
-        .limit(1);
+      // Check if user has admin role in user_roles table
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
 
-      setIsAdmin(!error);
+      setIsAdmin(!!data && !error);
     };
 
     checkAdminStatus();
