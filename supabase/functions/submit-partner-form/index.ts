@@ -211,7 +211,7 @@ Client IP: ${clientIP}
   } catch (error: any) {
     console.error("Error in submit-partner-form function:", error);
     return new Response(
-      JSON.stringify({ ok: false, error: error.message }),
+      JSON.stringify({ ok: false, error: "Submission failed. Please try again later." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
