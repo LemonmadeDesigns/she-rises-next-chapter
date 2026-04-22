@@ -9,6 +9,11 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import ApplicationModal from "@/components/modals/ApplicationModal";
 import { Home, Users, Calendar, Phone, Mail } from "lucide-react";
 
+import transitionalHomeImage from "@/assets/transitional-home.jpg";
+import employmentReadinessImage from "@/assets/employment-readiness.jpg";
+import mentoringImage from "@/assets/mentoring.jpg";
+import programsHeroImage from "@/assets/hero-woman.jpg";
+
 const Programs = () => {
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
 
@@ -18,6 +23,7 @@ const Programs = () => {
       title: "Transitional Housing",
       subtitle: "Launching 2025",
       icon: Home,
+      image: transitionalHomeImage,
       description: "Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments. Our home provides structure, stability, and individualized support as women work toward independence.",
       features: [
         "Safe, structured shared housing",
@@ -34,6 +40,7 @@ const Programs = () => {
       title: "Reentry Support & Empowerment Services",
       subtitle: "",
       icon: Users,
+      image: employmentReadinessImage,
       description: "Community-based services designed to support women reentering society or seeking stability after crisis or hardship.",
       features: [
         "Resume building & job search assistance",
@@ -50,6 +57,7 @@ const Programs = () => {
       title: "Community Outreach & Events",
       subtitle: "",
       icon: Calendar,
+      image: mentoringImage,
       description: "She Rises actively engages in outreach efforts to connect women with essential community resources, partners, and support networks.",
       recentEvents: [
         "HIRE Reentry Resource Fair — Anaheim",
@@ -66,7 +74,11 @@ const Programs = () => {
       <Hero
         title="Our Programs"
         subtitle="She Rises provides supportive services to help women rebuild their lives with dignity, stability, and purpose. As a growing organization, our programs are launching in phases throughout 2025–2026 to meet the needs of justice-impacted and at-risk women across Southern California."
-        backgroundColor="#4B2E6D"
+        backgroundImage={programsHeroImage}
+        backgroundImageAlt="She Rises Programs - Empowering women through supportive services"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
+        parallax={true}
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Button
@@ -92,17 +104,24 @@ const Programs = () => {
               <Card key={program.id} className="overflow-hidden shadow-soft">
                 <CardContent className="p-0">
                   <div className="md:flex">
-                    {/* Icon/Visual Section */}
-                    <div className={`${program.color} p-8 md:w-1/4 flex items-center justify-center`}>
-                      <div className="text-center">
-                        <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <program.icon className="h-10 w-10 text-white" />
-                        </div>
-                        {program.subtitle && (
-                          <Badge className="bg-white/90 text-royal-plum font-semibold">
+                    {/* Image Section */}
+                    <div className="md:w-1/4 relative overflow-hidden">
+                      <img
+                        src={program.image}
+                        alt={program.title}
+                        className="w-full h-full object-cover min-h-[300px] md:min-h-full"
+                      />
+                      {program.subtitle && (
+                        <div className="absolute top-4 left-4 right-4">
+                          <Badge className="bg-crown-gold text-royal-plum font-semibold shadow-lg">
                             {program.subtitle}
                           </Badge>
-                        )}
+                        </div>
+                      )}
+                      <div className="absolute bottom-4 right-4">
+                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm">
+                          <program.icon className="h-8 w-8 text-royal-plum" />
+                        </div>
                       </div>
                     </div>
 
@@ -295,7 +314,7 @@ const Programs = () => {
       {/* Contact Information */}
       <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl font-bold mb-6">
+          <h2 className="font-serif text-3xl font-bold text-white mb-6">
             Ready to Get Started?
           </h2>
           <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
@@ -308,18 +327,18 @@ const Programs = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <Phone className="h-8 w-8 text-crown-gold mx-auto mb-3" />
-                <h3 className="font-bold text-lg mb-2">Contact She Rises</h3>
-                <p className="text-2xl font-bold text-crown-gold mb-2">(909) 547-9998</p>
+                <Phone className="h-8 w-8 text-white mx-auto mb-3" />
+                <h3 className="font-bold text-lg text-white mb-2">Contact She Rises</h3>
+                <p className="text-2xl font-bold text-white mb-2">(909) 547-9998</p>
                 <p className="text-sm text-white/90">Mon-Fri: 9AM-5PM PST</p>
               </CardContent>
             </Card>
 
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <Mail className="h-8 w-8 text-crown-gold mx-auto mb-3" />
-                <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                <p className="text-sm font-bold text-crown-gold mb-2 break-all">pransom@safehavenforempowerment.org</p>
+                <Mail className="h-8 w-8 text-white mx-auto mb-3" />
+                <h3 className="font-bold text-lg text-white mb-2">Email Us</h3>
+                <p className="text-sm font-bold text-white mb-2 break-all">pransom@safehavenforempowerment.org</p>
                 <p className="text-sm text-white/90">Response within 1-2 business days</p>
               </CardContent>
             </Card>
