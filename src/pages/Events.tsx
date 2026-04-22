@@ -204,7 +204,13 @@ const Events = () => {
       <Hero
         title="Events & Workshops"
         subtitle="Join us for community outreach, reentry fairs, and empowerment activities across Southern California. New events are added regularly."
-        backgroundColor="#4B2E6D"
+        backgroundImage="/images/sheRisesEvent/2703810718057889108.jpg"
+        backgroundImageAlt="She Rises Community Events"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
+        backgroundImagePosition="center 35%"
+        parallax={true}
+        className="py-32 md:py-40"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <a href="#all-events">

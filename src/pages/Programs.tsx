@@ -12,7 +12,7 @@ import { Home, Users, Calendar, Phone, Mail } from "lucide-react";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import employmentReadinessImage from "@/assets/employment-readiness.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
-import programsHeroImage from "@/assets/hero-woman.jpg";
+import programsHeroImage from "@/assets/employment-readiness.jpg";
 
 const Programs = () => {
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
@@ -327,8 +327,8 @@ const Programs = () => {
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <Phone className="h-8 w-8 text-white mx-auto mb-3" />
-                <h3 className="font-bold text-lg text-white mb-2">Contact She Rises</h3>
+                <Phone className="h-8 w-8 text-[#3D2645] mx-auto mb-3" />
+                <h3 className="font-bold text-lg text-[#3D2645] mb-2">Contact She Rises</h3>
                 <p className="text-2xl font-bold text-white mb-2">(909) 547-9998</p>
                 <p className="text-sm text-white/90">Mon-Fri: 9AM-5PM PST</p>
               </CardContent>
@@ -336,8 +336,8 @@ const Programs = () => {
 
             <Card className="bg-white/10 border-white/20 text-white shadow-soft">
               <CardContent className="p-6 text-center">
-                <Mail className="h-8 w-8 text-white mx-auto mb-3" />
-                <h3 className="font-bold text-lg text-white mb-2">Email Us</h3>
+                <Mail className="h-8 w-8 text-[#3D2645] mx-auto mb-3" />
+                <h3 className="font-bold text-lg text-[#3D2645] mb-2">Email Us</h3>
                 <p className="text-sm font-bold text-white mb-2 break-all">pransom@safehavenforempowerment.org</p>
                 <p className="text-sm text-white/90">Response within 1-2 business days</p>
               </CardContent>
