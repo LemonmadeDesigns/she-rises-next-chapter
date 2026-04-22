@@ -7,7 +7,7 @@ import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import ProductCard from "@/components/cards/ProductCard";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, ShoppingBag, Heart, Star } from "lucide-react";
 import productsData from "@/content/products.json";
 import ShopFeaturedButton from "@/components/ui/shop-featured-button";
 import ViewAllCategoriesButton from "@/components/ui/view-all-categories-button";
@@ -56,8 +56,14 @@ const Shop = () => {
       {/* Hero Section */}
       <Hero
         title="She Rises Shop"
-        subtitle="Support our mission while getting beautiful, meaningful products that celebrate empowerment and resilience."
-        backgroundColor="#4B2E6D"
+        subtitle="Support our mission while getting beautiful, meaningful products that celebrate empowerment and resilience. Every purchase directly funds our programs."
+        backgroundImage="/images/sheRisesEvent/5834705427993600355.jpg"
+        backgroundImageAlt="She Rises Shop - Empowering Products"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
+        backgroundImagePosition="center 25%"
+        parallax={true}
+        className="py-32 md:py-40"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <ShopFeaturedButton />
@@ -161,18 +167,19 @@ const Shop = () => {
           ) : (
             <Card className="text-center py-12">
               <CardContent>
-                <h3 className="text-xl font-semibold text-royal-plum mb-2">
+                <ShoppingBag className="h-16 w-16 text-crown-gold mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">
                   No products found
                 </h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
                   Try adjusting your search or filter criteria
                 </p>
-                <Button 
+                <Button
                   onClick={() => {
                     setSearchTerm("");
                     setSelectedCategory("all");
                   }}
-                  className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum"
+                  className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
                 >
                   Clear Search
                 </Button>
@@ -183,28 +190,50 @@ const Shop = () => {
       </section>
 
       {/* Mission Statement */}
-      <section className="py-20 text-white" style={{ backgroundColor: '#e68f9f' }}>
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-20 bg-gradient-to-br from-lotus-rose to-[#d17b8e] text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+        <div className="relative container mx-auto px-4 text-center">
+          <Heart className="h-16 w-16 text-crown-gold mx-auto mb-6" />
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
             Every Purchase Makes a Difference
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            When you shop with She Rises, you're not just getting quality products—you're directly 
+          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+            When you shop with She Rises, you're not just getting quality products—you're directly
             supporting programs that help women rebuild their lives with dignity and hope.
           </p>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">100%</div>
-              <p className="text-white/90">of profits support our programs</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">Quality</div>
-              <p className="text-white/90">products that make an impact</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-crown-gold mb-2">Local</div>
-              <p className="text-white/90">products when possible</p>
-            </div>
+            <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Star className="h-8 w-8 text-royal-plum" />
+                </div>
+                <div className="text-4xl font-bold text-[#3D2645] mb-2">100%</div>
+                <p className="text-white">of profits support our programs</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ShoppingBag className="h-8 w-8 text-royal-plum" />
+                </div>
+                <div className="text-4xl font-bold text-[#3D2645] mb-2">Quality</div>
+                <p className="text-white">products that make an impact</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Heart className="h-8 w-8 text-royal-plum" />
+                </div>
+                <div className="text-4xl font-bold text-[#3D2645] mb-2">Local</div>
+                <p className="text-white">products when possible</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

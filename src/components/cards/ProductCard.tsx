@@ -93,7 +93,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className="overflow-hidden shadow-soft hover:border-2 hover:border-lotus-rose transition-all duration-300 bg-white group h-full flex flex-col">
+    <Card className="overflow-hidden shadow-soft hover:border-2 hover:border-lotus-rose transition-all duration-300 bg-white dark:bg-white group h-full flex flex-col">
       <Link to={`/shop/${product.id}`}>
         <div className="aspect-square relative overflow-hidden bg-warm-cream">
           {(() => {
@@ -170,17 +170,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
       
       <CardContent className="p-4 flex-1 flex flex-col">
         <div className="mb-3">
-          <Badge variant="outline" className="text-xs mb-2 capitalize">
+          <Badge variant="outline" className="text-xs mb-2 capitalize text-[#3D2645] dark:text-[#3D2645] border-[#3D2645] dark:border-[#3D2645]">
             {product.category}
           </Badge>
           <Link to={`/shop/${product.id}`}>
-            <h3 className="font-semibold text-royal-plum hover:text-lotus-rose transition-colors">
+            <h3 className="font-semibold text-[#3D2645] dark:text-[#3D2645] hover:text-lotus-rose transition-colors">
               {product.name}
             </h3>
           </Link>
         </div>
-        
-        <p className="text-sm text-muted-foreground mb-3 line-clamp-2 flex-1">
+
+        <p className="text-sm text-[#4A4A4A] dark:text-[#4A4A4A] mb-3 line-clamp-2 flex-1">
           {product.description}
         </p>
 
@@ -206,7 +206,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Price */}
           <div className="mb-3 text-center">
-            <span className="text-lg font-bold text-royal-plum">
+            <span className="text-lg font-bold text-[#3D2645] dark:text-[#3D2645]">
               ${product.price.toFixed(2)}
             </span>
           </div>
