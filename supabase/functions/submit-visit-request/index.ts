@@ -34,6 +34,19 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
+function validateEmail(email: string): boolean {
+  return typeof email === 'string' && email.length <= 255 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function validatePhone(phone: string): boolean {
+  return typeof phone === 'string' && phone.length <= 20 && /^[\d\s\-\+\(\)]+$/.test(phone);
+}
+function validateLength(s: string, min: number, max: number): boolean {
+  return typeof s === 'string' && s.length >= min && s.length <= max;
+}
+function validateDate(s: string): boolean {
+  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s);
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -71,11 +84,33 @@ const handler = async (req: Request): Promise<Response> => {
     if (!name || !email || !preferred_date || !preferred_time) {
       return new Response(
         JSON.stringify({ error: "Name, email, preferred date, and preferred time are required" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
-        }
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
+    }
+
+    if (!validateLength(name.trim(), 2, 100)) {
+      return new Response(JSON.stringify({ error: "Name must be 2-100 characters" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
+    }
+    if (!validateEmail(email.trim())) {
+      return new Response(JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
+    }
+    if (phone && !validatePhone(phone.trim())) {
+      return new Response(JSON.stringify({ error: "Invalid phone number" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
+    }
+    if (!validateDate(preferred_date)) {
+      return new Response(JSON.stringify({ error: "Invalid preferred date format (YYYY-MM-DD)" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
+    }
+    if (!validateLength(preferred_time, 1, 50)) {
+      return new Response(JSON.stringify({ error: "Invalid preferred time" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
+    }
+    if (message && message.length > 2000) {
+      return new Response(JSON.stringify({ error: "Message must be under 2000 characters" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } });
     }
 
     const safeName = escapeHtml(name.trim());
