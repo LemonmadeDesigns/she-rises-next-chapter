@@ -95,25 +95,26 @@ const Header = () => {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-deep-plum/95 dark:bg-card/95 backdrop-blur-lg shadow-lg"
+        scrolled || isMenuOpen
+          ? "bg-deep-plum dark:bg-card backdrop-blur-lg shadow-lg"
           : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4">
         <div className={cn(
           "flex items-center justify-between transition-all duration-300",
-          scrolled ? "h-20" : "h-32"
+          scrolled ? "h-16 md:h-20" : "h-20 md:h-32"
         )}>
-          {/* Logo - Fixed position, no movement on scroll */}
+          {/* Logo - Responsive sizing, properly contained */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="relative" style={{ paddingTop: '3rem' }}>
-              <img
-                src={logo}
-                alt="She Rises - Safe Haven for Empowerment logo"
-                className="w-auto h-32 md:h-32 object-contain logo-bordered drop-shadow-2xl"
-              />
-            </div>
+            <img
+              src={logo}
+              alt="She Rises - Safe Haven for Empowerment logo"
+              className={cn(
+                "object-contain logo-bordered drop-shadow-2xl transition-all duration-300",
+                scrolled ? "h-10 md:h-14" : "h-14 md:h-24"
+              )}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -248,17 +249,17 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-border">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-deep-plum dark:bg-card border-t border-white/10 shadow-xl z-50 backdrop-blur-lg">
+            <div className="px-4 pt-4 pb-4 space-y-2 max-w-full overflow-x-hidden">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "block px-3 py-2 text-base font-medium rounded-md transition-colors",
+                    "block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 text-center",
                     isActive(item.href)
-                      ? "text-[#fbd051] bg-[#fbd051]/10"
-                      : "text-foreground hover:text-[#fbd051] hover:bg-muted"
+                      ? "text-[#fbd051] bg-[#fbd051]/20 border border-[#fbd051]/30"
+                      : "text-white dark:text-foreground/90 hover:text-[#fbd051] hover:bg-white/10 border border-transparent"
                   )}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -271,7 +272,7 @@ const Header = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-full mt-2 flex items-center justify-center gap-2"
+                className="w-full mt-2 flex items-center justify-center gap-2 bg-white/10 border-white/20 text-white dark:text-foreground hover:bg-white/20"
               >
                 {theme === "dark" ? (
                   <>
@@ -285,27 +286,27 @@ const Header = () => {
                   </>
                 )}
               </Button>
-              
+
               {user ? (
-                <div className="px-3 py-2 space-y-2">
-                  <p className="text-sm text-muted-foreground">Signed in as:</p>
-                  <p className="text-sm font-medium truncate">{user.email}</p>
+                <div className="px-4 py-3 space-y-2 bg-white/5 rounded-lg border border-white/10 mt-2">
+                  <p className="text-sm text-white/70 dark:text-foreground/70 text-center">Signed in as:</p>
+                  <p className="text-sm font-medium text-white dark:text-foreground truncate text-center">{user.email}</p>
                   {isAdmin && (
                     <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
-                      <Button variant="outline" size="sm" className="w-full">
+                      <Button variant="outline" size="sm" className="w-full bg-white/10 border-white/20 text-white dark:text-foreground hover:bg-white/20">
                         <Settings className="h-4 w-4 mr-2" />
                         Admin Dashboard
                       </Button>
                     </Link>
                   )}
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={() => {
                       handleSignOut();
                       setIsMenuOpen(false);
                     }}
-                    className="w-full"
+                    className="w-full bg-white/10 border-white/20 text-white dark:text-foreground hover:bg-white/20"
                   >
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -313,14 +314,14 @@ const Header = () => {
                 </div>
               ) : (
                 <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full mt-2 hover:bg-[#673ab7] hover:text-white hover:border-white">
+                  <Button variant="outline" className="w-full mt-2 bg-white/10 border-white/20 text-white dark:text-foreground hover:bg-[#fbd051] hover:text-deep-plum hover:border-[#fbd051]">
                     Sign In
                   </Button>
                 </Link>
               )}
-              
+
               <Link to="/donate" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full mt-2 bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-semibold">
+                <Button className="w-full mt-2 bg-[#fbd051] hover:bg-[#fbd051]/90 text-[#3D2645] font-semibold shadow-lg">
                   Donate
                 </Button>
               </Link>
