@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -170,18 +169,27 @@ Client IP: ${clientIP}
       </table>
     `;
 
-    // Send email via Resend
-    const emailResponse = await resend.emails.send({
-      from: "Safe Haven <no-reply@safehavenforempowerment.org>",
-      to: ["empowerhavenhomes@gmail.com"],
-      // Uncomment to add BCC for ops team
-      // bcc: ["ops@safehavenforempowerment.org"],
-      subject: "New Partner Inquiry — Safe Haven",
-      text: emailBody,
-      html: htmlBody,
+    // Send email via Resend REST API
+    const emailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "Safe Haven <no-reply@safehavenforempowerment.org>",
+        to: ["empowerhavenhomes@gmail.com"],
+        subject: "New Partner Inquiry — Safe Haven",
+        text: emailBody,
+        html: htmlBody,
+      }),
     });
 
-    console.log("Partner form email sent successfully:", emailResponse);
+    if (!emailResponse.ok) {
+      throw new Error("Failed to send email");
+    }
+
+    console.log("Partner form email sent successfully");
 
     // Log submission to console
     console.log("Partner form submission:", {
@@ -203,7 +211,7 @@ Client IP: ${clientIP}
   } catch (error: any) {
     console.error("Error in submit-partner-form function:", error);
     return new Response(
-      JSON.stringify({ ok: false, error: error.message }),
+      JSON.stringify({ ok: false, error: "Submission failed. Please try again later." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
