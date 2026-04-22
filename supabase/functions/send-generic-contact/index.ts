@@ -34,6 +34,20 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+function validatePhone(phone: string): boolean {
+  const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+  return phoneRegex.test(phone) && phone.length <= 20;
+}
+
+function validateStringLength(str: string, min: number, max: number): boolean {
+  return str.length >= min && str.length <= max;
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -66,6 +80,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const { name, email, phone, message }: GenericContactRequest = JSON.parse(await req.text());
 
+    // Comprehensive validation
     if (!name || !email || !message) {
       return new Response(
         JSON.stringify({ error: "Name, email, and message are required" }),
@@ -76,6 +91,36 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
+    // Validate field lengths
+    if (!validateStringLength(name, 2, 100)) {
+      return new Response(
+        JSON.stringify({ error: "Name must be between 2 and 100 characters" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!validateEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Please enter a valid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!validateStringLength(message, 10, 2000)) {
+      return new Response(
+        JSON.stringify({ error: "Message must be between 10 and 2000 characters" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (phone && !validatePhone(phone)) {
+      return new Response(
+        JSON.stringify({ error: "Please enter a valid phone number" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Sanitize inputs for HTML output
     const safeName = escapeHtml(name.trim());
     const safeEmail = escapeHtml(email.trim());
     const safePhone = phone ? escapeHtml(phone.trim()) : '';

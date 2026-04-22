@@ -27,24 +27,73 @@ const CartContext = createContext<{
   dispatch: React.Dispatch<CartAction>;
 } | null>(null);
 
+// Security: Validate cart item data
+const validateCartItem = (item: CartItem): boolean => {
+  // Validate required fields
+  if (!item.id || !item.name || typeof item.price !== 'number' || typeof item.quantity !== 'number') {
+    console.error('Invalid cart item: missing required fields');
+    return false;
+  }
+
+  // Validate price is positive and reasonable
+  if (item.price < 0 || item.price > 10000) {
+    console.error('Invalid cart item: price out of range');
+    return false;
+  }
+
+  // Validate quantity is positive integer and within limits
+  if (item.quantity < 1 || item.quantity > 99 || !Number.isInteger(item.quantity)) {
+    console.error('Invalid cart item: quantity out of range');
+    return false;
+  }
+
+  // Validate string fields length
+  if (item.name.length > 200 || item.id.length > 100) {
+    console.error('Invalid cart item: string fields too long');
+    return false;
+  }
+
+  return true;
+};
+
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
+      // Security: Validate item before adding
+      if (!validateCartItem(action.payload)) {
+        console.error('Attempted to add invalid item to cart');
+        return state; // Return unchanged state
+      }
+
       const existingItemIndex = state.items.findIndex(
-        item => item.id === action.payload.id && 
-                item.size === action.payload.size && 
+        item => item.id === action.payload.id &&
+                item.size === action.payload.size &&
                 item.color === action.payload.color
       );
 
       let newItems: CartItem[];
-      
+
       if (existingItemIndex > -1) {
+        const newQuantity = state.items[existingItemIndex].quantity + action.payload.quantity;
+
+        // Security: Limit max quantity per item
+        if (newQuantity > 99) {
+          console.error('Maximum quantity limit reached');
+          return state;
+        }
+
         newItems = state.items.map((item, index) =>
           index === existingItemIndex
-            ? { ...item, quantity: item.quantity + action.payload.quantity }
+            ? { ...item, quantity: newQuantity }
             : item
         );
       } else {
+        // Security: Limit total number of unique items in cart
+        if (state.items.length >= 50) {
+          console.error('Maximum cart items limit reached');
+          return state;
+        }
+
         newItems = [...state.items, action.payload];
       }
 
@@ -76,6 +125,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     case 'UPDATE_QUANTITY': {
       if (action.payload.quantity <= 0) {
         return cartReducer(state, { type: 'REMOVE_ITEM', payload: action.payload.id });
+      }
+
+      // Security: Validate quantity
+      if (!Number.isInteger(action.payload.quantity) || action.payload.quantity > 99) {
+        console.error('Invalid quantity update attempted');
+        return state;
       }
 
       const newItems = state.items.map(item =>

@@ -91,6 +91,19 @@ const Header = () => {
 
   const isActive = (href: string) => location.pathname === href;
 
+  // Mask email to prevent harvesting
+  const maskEmail = (email: string): string => {
+    const [localPart, domain] = email.split('@');
+    if (!localPart || !domain) return 'User';
+
+    // Show first 2 chars and last char of local part
+    const maskedLocal = localPart.length > 3
+      ? `${localPart.slice(0, 2)}***${localPart.slice(-1)}`
+      : `${localPart.slice(0, 1)}***`;
+
+    return `${maskedLocal}@${domain}`;
+  };
+
   return (
     <header
       className={cn(
@@ -181,7 +194,7 @@ const Header = () => {
                     className="flex items-center gap-2 rounded-full border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 backdrop-blur-sm"
                   >
                     <User className="h-4 w-4" />
-                    <span className="max-w-[100px] truncate">{user.email}</span>
+                    <span className="max-w-[100px] truncate">{maskEmail(user.email || '')}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -290,7 +303,7 @@ const Header = () => {
               {user ? (
                 <div className="px-4 py-3 space-y-2 bg-white/5 rounded-lg border border-white/10 mt-2">
                   <p className="text-sm text-white/70 dark:text-foreground/70 text-center">Signed in as:</p>
-                  <p className="text-sm font-medium text-white dark:text-foreground truncate text-center">{user.email}</p>
+                  <p className="text-sm font-medium text-white dark:text-foreground truncate text-center">{maskEmail(user.email || '')}</p>
                   {isAdmin && (
                     <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
                       <Button variant="outline" size="sm" className="w-full bg-white/10 border-white/20 text-white dark:text-foreground hover:bg-white/20">
