@@ -193,7 +193,12 @@ const Header = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex items-center gap-2 rounded-full border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 backdrop-blur-sm"
+                    className={cn(
+                      "flex items-center gap-2 rounded-full border-2 backdrop-blur-sm",
+                      scrolled || isMenuOpen
+                        ? "border-white/30 text-white hover:bg-white/10 hover:border-white/50"
+                        : "border-deep-plum/30 bg-white/90 text-deep-plum hover:bg-white hover:border-deep-plum/50"
+                    )}
                   >
                     <User className="h-4 w-4" />
                     <span className="max-w-[100px] truncate">{maskEmail(user.email || '')}</span>
