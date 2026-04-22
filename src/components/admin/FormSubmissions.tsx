@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { syncFromGoogleSheets } from "@/config/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,7 +33,8 @@ import {
   Download,
   RefreshCw,
   Search,
-  Copy
+  Copy,
+  CloudDownload
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
@@ -58,6 +60,7 @@ const FormSubmissions = () => {
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState<FormSubmission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<FormSubmission | null>(null);
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -92,6 +95,35 @@ const FormSubmissions = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Sync from Google Sheets
+  const handleSync = async () => {
+    setSyncing(true);
+    try {
+      const result = await syncFromGoogleSheets();
+
+      if (!result.ok) {
+        throw new Error(result.error || 'Failed to sync');
+      }
+
+      toast({
+        title: "Sync Complete",
+        description: `Imported ${result.imported} new submissions, skipped ${result.skipped} duplicates`,
+      });
+
+      // Refresh submissions after sync
+      await fetchSubmissions();
+    } catch (error) {
+      console.error('Error syncing:', error);
+      toast({
+        variant: "destructive",
+        title: "Sync Failed",
+        description: error instanceof Error ? error.message : "Failed to sync from Google Sheets",
+      });
+    } finally {
+      setSyncing(false);
     }
   };
 
@@ -299,6 +331,15 @@ const FormSubmissions = () => {
           </p>
         </div>
         <div className="flex gap-2">
+          <Button
+            onClick={handleSync}
+            variant="outline"
+            size="sm"
+            disabled={syncing}
+          >
+            <CloudDownload className={`h-4 w-4 mr-2 ${syncing ? 'animate-bounce' : ''}`} />
+            {syncing ? 'Syncing...' : 'Sync from Google Sheets'}
+          </Button>
           <Button onClick={fetchSubmissions} variant="outline" size="sm">
             <RefreshCw className="h-4 w-4 mr-2" />
             Refresh

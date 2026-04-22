@@ -15,6 +15,11 @@ export const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxOC293r6Ow
 // TODO: After deploying the intake form Google Apps Script, replace this URL with your deployment URL
 export const INTAKE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsIWJK3XiJK5F-i3XuGpi3RfcXs9oKf5sAZOAE4g563WG4xjyqDwyVlmyVlXNid4E_lQ/exec';
 
+// Google Apps Script Web App URL for reading Google Sheets data
+// TODO: After deploying the GET endpoint, add your Web App URL here
+// See scripts/contact-form-gas/SYNC-SETUP.md for instructions
+export const SHEETS_READ_ENDPOINT = '';
+
 /**
  * Submits form data to the Google Apps Script endpoint AND Supabase database
  *
@@ -164,6 +169,90 @@ export async function submitIntakeForm(
     return {
       ok: false,
       error: error instanceof Error ? error.message : 'Failed to submit form'
+    };
+  }
+}
+
+/**
+ * Fetches all submissions from Google Sheets and syncs them to Supabase
+ */
+export async function syncFromGoogleSheets(): Promise<{
+  ok: boolean;
+  imported: number;
+  skipped: number;
+  error?: string;
+}> {
+  if (\!SHEETS_READ_ENDPOINT) {
+    return {
+      ok: false,
+      imported: 0,
+      skipped: 0,
+      error: 'Google Sheets endpoint not configured. See scripts/contact-form-gas/SYNC-SETUP.md'
+    };
+  }
+
+  try {
+    const response = await fetch(SHEETS_READ_ENDPOINT);
+    const result = await response.json();
+
+    if (\!result.ok || \!result.data) {
+      throw new Error(result.error || 'Failed to fetch data from Google Sheets');
+    }
+
+    let imported = 0;
+    let skipped = 0;
+
+    for (const row of result.data) {
+      if (\!row.Name || \!row.Email) {
+        skipped++;
+        continue;
+      }
+
+      const { data: existing } = await supabase
+        .from('form_submissions')
+        .select('id')
+        .eq('name', row.Name)
+        .eq('email', row.Email)
+        .eq('created_at', new Date(row.Timestamp).toISOString())
+        .single();
+
+      if (existing) {
+        skipped++;
+        continue;
+      }
+
+      const { error: insertError } = await supabase
+        .from('form_submissions')
+        .insert({
+          form_type: row.Subject?.includes('Housing') ? 'Housing Intake' :
+                     row.Subject?.includes('Volunteer') ? 'Volunteer' :
+                     row.Subject?.includes('Partnership') ? 'Partnership' :
+                     'Contact',
+          name: row.Name,
+          email: row.Email,
+          phone: row.Phone || null,
+          subject: row.Subject || null,
+          message: row.Message || null,
+          status: 'unread',
+          created_at: new Date(row.Timestamp).toISOString()
+        });
+
+      if (insertError) {
+        console.error('Error inserting row:', insertError);
+        skipped++;
+      } else {
+        imported++;
+      }
+    }
+
+    return { ok: true, imported, skipped };
+  } catch (error) {
+    console.error('Error syncing from Google Sheets:', error);
+    return {
+      ok: false,
+      imported: 0,
+      skipped: 0,
+      error: error instanceof Error ? error.message : 'Failed to sync from Google Sheets'
     };
   }
 }
