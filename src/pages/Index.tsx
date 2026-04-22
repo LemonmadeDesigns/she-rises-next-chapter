@@ -76,7 +76,7 @@ const Index = () => {
   ];
 
   const impactItems = [
-    "Growing Community Impact",
+    "100+ Women Supported",
     "New Beds Opening 2025–2026",
     "Expanding Support Services Across SoCal"
   ];
