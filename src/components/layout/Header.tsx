@@ -197,8 +197,9 @@ const Header = () => {
                       "flex items-center gap-2 rounded-full border-2 backdrop-blur-sm",
                       scrolled || isMenuOpen
                         ? "border-white/30 text-white hover:bg-white/10 hover:border-white/50"
-                        : "border-deep-plum/30 bg-white/90 text-deep-plum hover:bg-white hover:border-deep-plum/50"
+                        : "border-[#3D2645]/30 bg-white/95 text-[#3D2645] hover:bg-white hover:border-[#3D2645]/50 shadow-sm"
                     )}
+                    style={!scrolled && !isMenuOpen ? { color: '#3D2645', backgroundColor: 'rgba(255, 255, 255, 0.95)' } : undefined}
                   >
                     <User className="h-4 w-4" />
                     <span className="max-w-[100px] truncate">{maskEmail(user.email || '')}</span>
