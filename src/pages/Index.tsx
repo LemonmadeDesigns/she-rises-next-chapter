@@ -138,7 +138,7 @@ const Index = () => {
             <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-2xl max-w-4xl">
               <div className="grid grid-cols-3 gap-8 text-center">
                 <div>
-                  <div className="text-4xl md:text-5xl font-bold text-rose-gold mb-2">50+</div>
+                  <div className="text-4xl md:text-5xl font-bold text-rose-gold mb-2">100+</div>
                   <div className="text-white/80 text-sm md:text-base">Women Supported</div>
                 </div>
                 <div>
