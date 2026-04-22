@@ -176,7 +176,7 @@ const handler = async (req: Request): Promise<Response> => {
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Legal Aid/ID Recovery:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.legalAidRecovery || 'Not provided')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Transportation Assistance:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.transportationAssistance || 'Not provided')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Other Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.otherGoals || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Programs Interested In:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${formData.programsInterested.map((p: string) => escapeHtml(p)).join(', ')}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Programs Interested In:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${(formData.programsInterested || []).map((p: string) => escapeHtml(String(p))).join(', ')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Main Goals:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.goals || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Previous Services:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.previousServices || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Medical/Accessibility Needs:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${escapeHtml(formData.medicalNeeds || 'Not provided').replace(/\n/g, '<br>')}</td></tr>
@@ -187,14 +187,25 @@ const handler = async (req: Request): Promise<Response> => {
       </table>
     `;
 
-    const emailResponse = await resend.emails.send({
-      from: "She Rises Program Applications <onboarding@resend.dev>",
-      to: ["pransom@safehavenforempowerment.org"],
-      subject: `New Program Application — ${formData.firstName} ${formData.lastName}`,
-      html: htmlBody,
+    const emailResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: "She Rises Program Applications <onboarding@resend.dev>",
+        to: ["pransom@safehavenforempowerment.org"],
+        subject: `New Program Application — ${escapeHtml(formData.firstName)} ${escapeHtml(formData.lastName)}`,
+        html: htmlBody,
+      }),
     });
 
-    console.log("Program application email sent successfully:", emailResponse);
+    if (!emailResponse.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    console.log("Program application email sent successfully");
 
     return new Response(
       JSON.stringify({ ok: true }),
@@ -209,7 +220,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in submit-program-application function:", error);
     return new Response(
-      JSON.stringify({ ok: false, error: error.message }),
+      JSON.stringify({ ok: false, error: "An error occurred while processing your request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
