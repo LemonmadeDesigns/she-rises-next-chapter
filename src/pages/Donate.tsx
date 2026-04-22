@@ -46,9 +46,9 @@ const Donate = () => {
 
   // Quick donate amounts with emoji icons
   const quickAmounts = [
-    { amount: 25, label: "$25", impact: "Meals for a week", icon: "🍽️" },
-    { amount: 50, label: "$50", impact: "Job interview prep", icon: "💼" },
-    { amount: 100, label: "$100", impact: "Counseling session", icon: "💚" },
+    { amount: 50, label: "$50", impact: "Meals for a week", icon: "🍽️" },
+    { amount: 100, label: "$100", impact: "Job interview prep", icon: "💼" },
+    { amount: 150, label: "$150", impact: "Counseling session", icon: "💚" },
     { amount: 250, label: "$250", impact: "Housing support", icon: "🏠" },
   ];
 
@@ -158,7 +158,7 @@ const Donate = () => {
             {/* Impact Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-3xl font-bold text-crown-gold">500+</div>
+                <div className="text-3xl font-bold text-crown-gold">100+</div>
                 <div className="text-sm text-white/80">Women served</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -477,7 +477,7 @@ const Donate = () => {
       </section>
 
       {/* Impact Stories - Simplified */}
-      <section className="py-16 bg-royal-plum text-white">
+      <section className="py-16 bg-gradient-to-br from-[#5a3a7d] via-[#6b4a8e] to-[#5a3a7d] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
