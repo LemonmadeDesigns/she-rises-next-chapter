@@ -71,6 +71,7 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
             src={getImageAtPosition(0)}
             alt="Featured event photo"
             className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
+            style={{ objectPosition: 'center top' }}
             loading="eager"
           />
           {/* Caption under featured image */}
