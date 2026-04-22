@@ -208,12 +208,29 @@ export async function syncFromGoogleSheets(): Promise<{
         continue;
       }
 
+      // Parse timestamp - handle various formats
+      let timestamp: string;
+      try {
+        // Try parsing the timestamp
+        const date = new Date(row.Timestamp);
+        if (isNaN(date.getTime())) {
+          // If invalid, use current time
+          timestamp = new Date().toISOString();
+        } else {
+          timestamp = date.toISOString();
+        }
+      } catch {
+        // Fallback to current time if parsing fails
+        timestamp = new Date().toISOString();
+      }
+
+      // Check if submission already exists (by name and email only, since timestamp might vary)
       const { data: existing } = await supabase
         .from('form_submissions')
         .select('id')
         .eq('name', row.Name)
         .eq('email', row.Email)
-        .eq('created_at', new Date(row.Timestamp).toISOString())
+        .limit(1)
         .single();
 
       if (existing) {
@@ -234,7 +251,7 @@ export async function syncFromGoogleSheets(): Promise<{
           subject: row.Subject || null,
           message: row.Message || null,
           status: 'unread',
-          created_at: new Date(row.Timestamp).toISOString()
+          created_at: timestamp
         });
 
       if (insertError) {

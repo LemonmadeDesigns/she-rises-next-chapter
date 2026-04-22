@@ -93,7 +93,7 @@ const Index = () => {
             className="w-full h-full object-cover"
             style={{ objectPosition: 'center 35%' }}
             loading="eager"
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="async"
           />
           {/* Lighter Sophisticated Gradient Overlay */}
