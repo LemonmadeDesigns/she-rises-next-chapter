@@ -169,18 +169,27 @@ Client IP: ${clientIP}
       </table>
     `;
 
-    // Send email via Resend
-    const emailResponse = await resend.emails.send({
-      from: "Safe Haven <no-reply@safehavenforempowerment.org>",
-      to: ["empowerhavenhomes@gmail.com"],
-      // Uncomment to add BCC for ops team
-      // bcc: ["ops@safehavenforempowerment.org"],
-      subject: "New Partner Inquiry — Safe Haven",
-      text: emailBody,
-      html: htmlBody,
+    // Send email via Resend REST API
+    const emailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "Safe Haven <no-reply@safehavenforempowerment.org>",
+        to: ["empowerhavenhomes@gmail.com"],
+        subject: "New Partner Inquiry — Safe Haven",
+        text: emailBody,
+        html: htmlBody,
+      }),
     });
 
-    console.log("Partner form email sent successfully:", emailResponse);
+    if (!emailResponse.ok) {
+      throw new Error("Failed to send email");
+    }
+
+    console.log("Partner form email sent successfully");
 
     // Log submission to console
     console.log("Partner form submission:", {
