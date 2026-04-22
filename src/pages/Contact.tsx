@@ -13,6 +13,7 @@ import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users,
 import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 import { submitContactForm } from "@/config/contact";
+import contactHeroImage from "@/assets/transitional-home.jpg";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({
@@ -178,7 +179,13 @@ const Contact = () => {
       <Hero
         title="Contact Us"
         subtitle="We're here to help. Reach out to us for support, questions, or to learn more about how you can get involved with our mission."
-        backgroundColor="#4B2E6D"
+        backgroundImage={contactHeroImage}
+        backgroundImageAlt="Contact She Rises - We're Here to Help"
+        backgroundImageWidth={1920}
+        backgroundImageHeight={1080}
+        backgroundImagePosition="center 40%"
+        parallax={true}
+        className="py-32 md:py-40"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <SendMessageButton />
@@ -194,43 +201,19 @@ const Contact = () => {
             subtitle="Multiple ways to connect with us for support, questions, or collaboration"
           />
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {contactInfo.filter(info => !info.isQrCode).map((info, index) => (
               <Card key={index} className="text-center p-6 shadow-soft transition-shadow">
                 <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <info.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-royal-plum mb-2">
+                <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-2">
                   {info.title}
                 </h3>
                 <div className="text-sm font-semibold text-crown-gold mb-2 break-all">
                   {info.details}
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  {info.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-
-          {/* QR Code Card - Centered Below */}
-          <div className="flex justify-center mb-16">
-            {contactInfo.filter(info => info.isQrCode).map((info, index) => (
-              <Card key={index} className="text-center p-6 shadow-soft transition-shadow max-w-xs w-full">
-                <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <info.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
-                  {info.title}
-                </h3>
-                <div className="flex justify-center mb-4">
-                  <img
-                    src="/images/sherises_qr_code.jpeg"
-                    alt="She Rises Zelle QR Code"
-                    className="w-48 h-48 object-contain rounded-lg border-2 border-crown-gold"
-                  />
-                </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-[#737373] dark:text-[#B3B3B3]">
                   {info.description}
                 </p>
               </Card>
@@ -246,7 +229,7 @@ const Contact = () => {
             {/* Contact Form */}
             <Card>
               <CardContent className="p-8">
-                <h3 className="font-serif text-2xl font-bold text-royal-plum mb-6">
+                <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-6">
                   Send Us a Message
                 </h3>
                 
@@ -358,29 +341,29 @@ const Contact = () => {
             </Card>
 
             {/* Office Info and Hours */}
-            <div className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
               {/* Office Hours */}
               <Card>
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <Clock className="h-6 w-6 text-crown-gold" />
-                    <h3 className="font-serif text-2xl font-bold text-royal-plum">
+                    <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
                       Office Hours
                     </h3>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-royal-plum">Monday - Friday</span>
-                      <span className="text-muted-foreground">9:00 AM - 5:00 PM</span>
+                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Monday - Friday</span>
+                      <span className="text-[#737373] dark:text-[#B3B3B3]">9:00 AM - 5:00 PM</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-royal-plum">Saturday</span>
-                      <span className="text-muted-foreground">10:00 AM - 2:00 PM</span>
+                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday</span>
+                      <span className="text-[#737373] dark:text-[#B3B3B3]">10:00 AM - 2:00 PM</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-royal-plum">Sunday</span>
-                      <span className="text-muted-foreground">Closed</span>
+                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Sunday</span>
+                      <span className="text-[#737373] dark:text-[#B3B3B3]">Closed</span>
                     </div>
                   </div>
                 </CardContent>
@@ -391,26 +374,52 @@ const Contact = () => {
                 <CardContent className="p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <MapPin className="h-6 w-6 text-crown-gold" />
-                    <h3 className="font-serif text-2xl font-bold text-royal-plum">
+                    <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
                       Our Location
                     </h3>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div>
-                      <p className="font-medium text-royal-plum">She Rises - Safe Haven for Empowerment</p>
-                      <p className="text-muted-foreground">123 Hope Street</p>
-                      <p className="text-muted-foreground">Your City, State 12345</p>
+                      <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
+                      <p className="text-[#737373] dark:text-[#B3B3B3]">123 Hope Street</p>
+                      <p className="text-[#737373] dark:text-[#B3B3B3]">Your City, State 12345</p>
                     </div>
-                    
+
                     <div className="bg-gradient-soft rounded-lg p-4">
-                      <p className="text-sm text-royal-plum font-medium mb-2">Getting Here:</p>
-                      <ul className="text-sm text-muted-foreground space-y-1">
+                      <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium mb-2">Getting Here:</p>
+                      <ul className="text-sm text-[#737373] dark:text-[#B3B3B3] space-y-1">
                         <li>• Free parking available on-site</li>
                         <li>• Public transit: Bus routes 15, 23, 45</li>
                         <li>• Wheelchair accessible entrance</li>
                         <li>• Childcare available during appointments</li>
                       </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* QR Code - Full Width Below */}
+              <Card className="md:col-span-2">
+                <CardContent className="p-8">
+                  <div className="flex flex-col md:flex-row items-center gap-8">
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mb-4">
+                        <QrCode className="h-8 w-8 text-white" />
+                      </div>
+                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
+                        Quick Connect
+                      </h3>
+                      <p className="text-sm text-[#737373] dark:text-[#B3B3B3] mb-4">
+                        Scan to save our contact info
+                      </p>
+                    </div>
+                    <div className="flex justify-center flex-1">
+                      <img
+                        src="/images/sherises_qr_code.jpeg"
+                        alt="She Rises Zelle QR Code"
+                        className="w-64 h-64 object-contain rounded-lg border-4 border-crown-gold shadow-lg"
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -432,22 +441,22 @@ const Contact = () => {
             {departments.map((dept, index) => (
               <Card key={index} className="shadow-soft transition-shadow h-full flex flex-col">
                 <CardContent className="p-6 flex flex-col h-full">
-                  <h3 className="font-serif text-xl font-bold text-royal-plum mb-4">
+                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                     {dept.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm mb-6 flex-grow">
+                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm mb-6 flex-grow">
                     {dept.description}
                   </p>
                   <div className="space-y-3 mt-auto">
                     <div className="flex items-center gap-2 text-sm">
                       <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`mailto:${dept.email}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                      <a href={`mailto:${dept.email}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
                         {dept.email}
                       </a>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`tel:${dept.phone}`} className="text-royal-plum font-medium hover:text-lotus-rose transition-colors">
+                      <a href={`tel:${dept.phone}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
                         {dept.phone}
                       </a>
                     </div>
@@ -477,7 +486,7 @@ const Contact = () => {
               <Card key={index} className="bg-white/10 border-white/20 text-white shadow-soft">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-lg mb-2">{contact.service}</h3>
-                  <div className="text-2xl font-bold text-crown-gold mb-2">{contact.number}</div>
+                  <div className="text-2xl font-bold text-[#3D2645] mb-2">{contact.number}</div>
                   <p className="text-sm text-white/90">Available {contact.available}</p>
                 </CardContent>
               </Card>
@@ -502,10 +511,10 @@ const Contact = () => {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="p-6 h-full flex flex-col">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 How do I apply for housing assistance?
               </h3>
-              <p className="text-muted-foreground mb-6 flex-grow">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
                 Contact our Program Services team at (909) 547-9998 or visit our Programs page for detailed application information and eligibility requirements.
               </p>
               <div className="mt-auto">
@@ -528,10 +537,10 @@ const Contact = () => {
             </Card>
             
             <Card className="p-6 h-full flex flex-col">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 What volunteer opportunities are available?
               </h3>
-              <p className="text-muted-foreground mb-6 flex-grow">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
                 We offer various volunteer roles including direct support, administrative help, and event assistance. Training is provided for all positions.
               </p>
               <div className="mt-auto">
@@ -554,10 +563,10 @@ const Contact = () => {
             </Card>
             
             <Card className="p-6 h-full flex flex-col">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 How can my organization partner with She Rises?
               </h3>
-              <p className="text-muted-foreground mb-6 flex-grow">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
                 We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 547-9998 to discuss partnership opportunities.
               </p>
               <div className="mt-auto">
@@ -580,10 +589,10 @@ const Contact = () => {
             </Card>
             
             <Card className="p-6 h-full flex flex-col">
-              <h3 className="font-serif text-lg font-bold text-royal-plum mb-4">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
                 Is there a cost for your services?
               </h3>
-              <p className="text-muted-foreground mb-6 flex-grow">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
                 All our support services are provided free of charge to participants. We believe that financial barriers should never prevent someone from getting help.
               </p>
               <div className="mt-auto">
@@ -609,7 +618,7 @@ const Contact = () => {
       </section>
 
       {/* Connect With Us */}
-      <section className="py-20 bg-royal-plum text-white">
+      <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
           <Heart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
           <h2 className="font-serif text-3xl font-bold mb-4">
