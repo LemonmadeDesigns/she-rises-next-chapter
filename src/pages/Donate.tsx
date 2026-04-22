@@ -230,10 +230,10 @@ const Donate = () => {
 
                     {/* Quick Donate Buttons - Prominent */}
                     <div className="text-center">
-                      <h2 className="font-serif text-2xl md:text-3xl font-bold text-royal-plum mb-2">
+                      <h2 className="font-serif text-2xl md:text-3xl font-bold text-royal-plum dark:text-crown-gold mb-2">
                         Choose Your Impact
                       </h2>
-                      <p className="text-muted-foreground mb-6">Select an amount or enter your own</p>
+                      <p className="text-muted-foreground dark:text-gray-300 mb-6">Select an amount or enter your own</p>
 
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                         {quickAmounts.map((item) => (
@@ -282,8 +282,8 @@ const Donate = () => {
                     </div>
 
                     {/* Frequency Toggle */}
-                    <div className="bg-warm-cream/50 rounded-xl p-6">
-                      <Label className="text-lg font-semibold text-royal-plum mb-4 block text-center">
+                    <div className="bg-warm-cream/50 dark:bg-white/5 rounded-xl p-6">
+                      <Label className="text-lg font-semibold text-royal-plum dark:text-crown-gold mb-4 block text-center">
                         Make it Monthly? 💝
                       </Label>
                       <RadioGroup
@@ -292,21 +292,25 @@ const Donate = () => {
                         className="grid grid-cols-2 gap-4"
                       >
                         <div className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                          donationForm.frequency === 'one-time' ? 'border-crown-gold bg-crown-gold/10' : 'border-gray-200 bg-white'
+                          donationForm.frequency === 'one-time'
+                            ? 'border-crown-gold bg-crown-gold/10 dark:bg-crown-gold/20'
+                            : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800'
                         }`}>
                           <RadioGroupItem value="one-time" id="one-time" className="sr-only" />
                           <Label htmlFor="one-time" className="cursor-pointer block text-center">
-                            <div className="font-semibold text-royal-plum">One-Time</div>
-                            <div className="text-sm text-muted-foreground">Single donation</div>
+                            <div className="font-semibold text-royal-plum dark:text-white">One-Time</div>
+                            <div className="text-sm text-muted-foreground dark:text-gray-300">Single donation</div>
                           </Label>
                         </div>
                         <div className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                          donationForm.frequency === 'monthly' ? 'border-crown-gold bg-crown-gold/10' : 'border-gray-200 bg-white'
+                          donationForm.frequency === 'monthly'
+                            ? 'border-crown-gold bg-crown-gold/10 dark:bg-crown-gold/20'
+                            : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800'
                         }`}>
                           <RadioGroupItem value="monthly" id="monthly" className="sr-only" />
                           <Label htmlFor="monthly" className="cursor-pointer block text-center">
-                            <div className="font-semibold text-royal-plum">Monthly</div>
-                            <div className="text-sm text-muted-foreground">Recurring gift</div>
+                            <div className="font-semibold text-royal-plum dark:text-white">Monthly</div>
+                            <div className="text-sm text-muted-foreground dark:text-gray-300">Recurring gift</div>
                           </Label>
                         </div>
                       </RadioGroup>
@@ -314,7 +318,7 @@ const Donate = () => {
 
                     {/* Designation - Simplified Icons */}
                     <div>
-                      <Label className="text-lg font-semibold text-royal-plum mb-4 block">
+                      <Label className="text-lg font-semibold text-royal-plum dark:text-crown-gold mb-4 block">
                         Where should we use your gift?
                       </Label>
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -324,15 +328,15 @@ const Donate = () => {
                             type="button"
                             className={`p-4 rounded-xl border-2 transition-all ${
                               donationForm.designation === des.id
-                                ? "border-crown-gold bg-crown-gold/10"
-                                : "border-gray-200 hover:border-crown-gold/50"
+                                ? "border-crown-gold bg-crown-gold/10 dark:bg-crown-gold/20"
+                                : "border-gray-200 dark:border-gray-600 hover:border-crown-gold/50 dark:bg-gray-800"
                             }`}
                             onClick={() => updateForm('designation', des.id)}
                           >
                             <des.icon className={`h-6 w-6 mx-auto mb-2 ${
-                              donationForm.designation === des.id ? 'text-crown-gold' : 'text-royal-plum'
+                              donationForm.designation === des.id ? 'text-crown-gold' : 'text-royal-plum dark:text-crown-gold'
                             }`} />
-                            <div className="text-sm font-medium text-royal-plum text-center">
+                            <div className="text-sm font-medium text-royal-plum dark:text-white text-center">
                               {des.name}
                             </div>
                           </button>
@@ -342,7 +346,7 @@ const Donate = () => {
 
                     {/* Contact Info - Simplified */}
                     <div>
-                      <Label className="text-lg font-semibold text-royal-plum mb-4 block">
+                      <Label className="text-lg font-semibold text-royal-plum dark:text-crown-gold mb-4 block">
                         Your Information
                       </Label>
 
