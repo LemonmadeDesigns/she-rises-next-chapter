@@ -548,9 +548,9 @@ const EventManagement = () => {
                       size="sm"
                       variant="outline"
                       onClick={() => toggleFeatured(event)}
-                      className="text-crown-gold border-crown-gold hover:bg-crown-gold/10"
+                      className={`border-crown-gold hover:bg-crown-gold/10 ${event.featured ? 'text-crown-gold' : 'text-gray-400'}`}
                     >
-                      <Star className={`h-4 w-4 ${event.featured ? 'fill-current' : ''}`} />
+                      <Star className={`h-4 w-4 ${event.featured ? 'fill-crown-gold' : 'fill-none'}`} />
                     </Button>
                     <Button
                       size="sm"
