@@ -1,4 +1,5 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface DonationData {
   amount: string;
@@ -26,31 +27,31 @@ export interface DonationResponse {
   receiptUrl?: string;
   error?: string;
   clientSecret?: string;
+  /** True when the backend reports Stripe is not yet configured. */
+  notConfigured?: boolean;
 }
 
-// Initialize Stripe - Replace with your actual publishable key
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder');
+// Initialize Stripe — falls back to a placeholder so the app never crashes
+// when VITE_STRIPE_PUBLISHABLE_KEY is missing. Real charges require both
+// the publishable key here AND STRIPE_SECRET_KEY in the edge function.
+const STRIPE_PK = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : Promise.resolve(null);
 
 class DonationService {
   /**
-   * Process a donation using Stripe
+   * Process a donation — calls the create-payment-intent edge function.
+   * If Stripe is not configured server-side, returns notConfigured: true.
    */
   async processDonation(donationData: DonationData): Promise<DonationResponse> {
     try {
-      // Validate donation amount
       const amount = parseFloat(donationData.amount);
       if (isNaN(amount) || amount <= 0) {
         throw new Error('Please enter a valid donation amount');
       }
 
-      // Create payment intent on the backend
-      const response = await fetch('/api/donations/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: Math.round(amount * 100), // Convert to cents
+      const { data, error } = await supabase.functions.invoke('create-payment-intent', {
+        body: {
+          amount: Math.round(amount * 100),
           currency: 'usd',
           frequency: donationData.frequency,
           designation: donationData.designation,
@@ -59,47 +60,31 @@ class DonationService {
             lastName: donationData.lastName,
             email: donationData.email,
             phone: donationData.phone,
-            address: donationData.address,
-            city: donationData.city,
-            state: donationData.state,
-            zip: donationData.zip,
             anonymous: donationData.anonymous,
-            newsletter: donationData.newsletter,
           },
-          tribute: donationData.tribute ? {
-            honoree: donationData.tribute,
-            message: donationData.tributeMessage,
-            notifyEmail: donationData.tributeNotify,
-          } : undefined,
-        }),
+        },
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create payment intent');
+      if (error) throw new Error(error.message || 'Failed to reach payment service');
+
+      if (data?.configured === false) {
+        return {
+          success: false,
+          notConfigured: true,
+          error:
+            "Online card donations aren't enabled yet. Please check back soon — or contact us directly to give.",
+        };
       }
 
-      const { clientSecret, donationId } = await response.json();
-
-      // Get Stripe instance
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error('Stripe failed to load');
+      if (!data?.clientSecret) {
+        return { success: false, error: 'Payment service did not return a client secret.' };
       }
 
-      // For PayPal, redirect to PayPal checkout
-      if (donationData.paymentMethod === 'paypal') {
-        return this.processPayPalDonation(donationData, donationId);
-      }
-
-      // For credit card, use Stripe Elements (this would be handled in the component)
-      // Return the client secret for the component to complete the payment
       return {
         success: true,
-        donationId,
-        clientSecret,
+        donationId: data.donationId,
+        clientSecret: data.clientSecret,
       };
-
     } catch (error) {
       console.error('Donation processing error:', error);
       return {
