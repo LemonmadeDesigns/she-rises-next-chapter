@@ -55,7 +55,7 @@ export async function submitContactForm(
     // 1. Save to Supabase database for admin access
     const { error: dbError } = await supabase
       .from('form_submissions')
-      .insert({
+      .insert([{
         form_type: formType,
         name,
         email,
@@ -63,9 +63,9 @@ export async function submitContactForm(
         subject,
         message,
         category: category || null,
-        form_data: additionalData || null,
+        form_data: (additionalData || null) as never,
         status: 'unread'
-      });
+      }]);
 
     if (dbError) {
       console.error('Error saving to database:', dbError);
@@ -131,16 +131,16 @@ export async function submitIntakeForm(
     // 1. Save to Supabase database for admin access
     const { error: dbError } = await supabase
       .from('form_submissions')
-      .insert({
+      .insert([{
         form_type: formType,
         name,
         email,
         phone: phone || null,
         subject,
         message,
-        form_data: additionalData || null,
+        form_data: (additionalData || null) as never,
         status: 'unread'
-      });
+      }]);
 
     if (dbError) {
       console.error('Error saving to database:', dbError);

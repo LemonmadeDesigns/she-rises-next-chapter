@@ -1,7 +1,40 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+
+async function sendEmail(payload: {
+  from: string;
+  to: string[];
+  subject: string;
+  html?: string;
+  text?: string;
+  reply_to?: string;
+}) {
+  if (!RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY not set; skipping email send");
+    return { id: "skipped" };
+  }
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Resend API error: ${res.status} ${text}`);
+  }
+  return res.json();
+}
+
+const resend = {
+  emails: {
+    send: (payload: { from: string; to: string[]; subject: string; html?: string; text?: string; reply_to?: string }) =>
+      sendEmail(payload),
+  },
+};
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

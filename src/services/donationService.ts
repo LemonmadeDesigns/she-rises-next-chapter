@@ -1,4 +1,5 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface DonationData {
   amount: string;
@@ -26,31 +27,31 @@ export interface DonationResponse {
   receiptUrl?: string;
   error?: string;
   clientSecret?: string;
+  /** True when the backend reports Stripe is not yet configured. */
+  notConfigured?: boolean;
 }
 
-// Initialize Stripe - Replace with your actual publishable key
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder');
+// Initialize Stripe — falls back to a placeholder so the app never crashes
+// when VITE_STRIPE_PUBLISHABLE_KEY is missing. Real charges require both
+// the publishable key here AND STRIPE_SECRET_KEY in the edge function.
+const STRIPE_PK = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : Promise.resolve(null);
 
 class DonationService {
   /**
-   * Process a donation using Stripe
+   * Process a donation — calls the create-payment-intent edge function.
+   * If Stripe is not configured server-side, returns notConfigured: true.
    */
   async processDonation(donationData: DonationData): Promise<DonationResponse> {
     try {
-      // Validate donation amount
       const amount = parseFloat(donationData.amount);
       if (isNaN(amount) || amount <= 0) {
         throw new Error('Please enter a valid donation amount');
       }
 
-      // Create payment intent on the backend
-      const response = await fetch('/api/donations/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: Math.round(amount * 100), // Convert to cents
+      const { data, error } = await supabase.functions.invoke('create-payment-intent', {
+        body: {
+          amount: Math.round(amount * 100),
           currency: 'usd',
           frequency: donationData.frequency,
           designation: donationData.designation,
@@ -59,47 +60,31 @@ class DonationService {
             lastName: donationData.lastName,
             email: donationData.email,
             phone: donationData.phone,
-            address: donationData.address,
-            city: donationData.city,
-            state: donationData.state,
-            zip: donationData.zip,
             anonymous: donationData.anonymous,
-            newsletter: donationData.newsletter,
           },
-          tribute: donationData.tribute ? {
-            honoree: donationData.tribute,
-            message: donationData.tributeMessage,
-            notifyEmail: donationData.tributeNotify,
-          } : undefined,
-        }),
+        },
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to create payment intent');
+      if (error) throw new Error(error.message || 'Failed to reach payment service');
+
+      if (data?.configured === false) {
+        return {
+          success: false,
+          notConfigured: true,
+          error:
+            "Online card donations aren't enabled yet. Please check back soon — or contact us directly to give.",
+        };
       }
 
-      const { clientSecret, donationId } = await response.json();
-
-      // Get Stripe instance
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error('Stripe failed to load');
+      if (!data?.clientSecret) {
+        return { success: false, error: 'Payment service did not return a client secret.' };
       }
 
-      // For PayPal, redirect to PayPal checkout
-      if (donationData.paymentMethod === 'paypal') {
-        return this.processPayPalDonation(donationData, donationId);
-      }
-
-      // For credit card, use Stripe Elements (this would be handled in the component)
-      // Return the client secret for the component to complete the payment
       return {
         success: true,
-        donationId,
-        clientSecret,
+        donationId: data.donationId,
+        clientSecret: data.clientSecret,
       };
-
     } catch (error) {
       console.error('Donation processing error:', error);
       return {
@@ -110,46 +95,20 @@ class DonationService {
   }
 
   /**
-   * Process a PayPal donation
+   * PayPal flow — not yet implemented. Returns notConfigured so callers
+   * can show a friendly message instead of erroring.
    */
-  private async processPayPalDonation(donationData: DonationData, donationId: string): Promise<DonationResponse> {
-    try {
-      const response = await fetch('/api/donations/create-paypal-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          donationId,
-          amount: donationData.amount,
-          frequency: donationData.frequency,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create PayPal order');
-      }
-
-      const { approvalUrl } = await response.json();
-
-      // Redirect to PayPal for payment approval
-      window.location.href = approvalUrl;
-
-      return {
-        success: true,
-        donationId,
-      };
-    } catch (error) {
-      console.error('PayPal donation error:', error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'PayPal payment failed',
-      };
-    }
+  private async processPayPalDonation(_donationData: DonationData, donationId: string): Promise<DonationResponse> {
+    return {
+      success: false,
+      notConfigured: true,
+      donationId,
+      error: 'PayPal donations are not enabled yet.',
+    };
   }
 
   /**
-   * Confirm a Stripe payment after user completes the payment form
+   * Confirm a Stripe payment after user completes the payment form.
    */
   async confirmStripePayment(
     clientSecret: string,
@@ -158,7 +117,7 @@ class DonationService {
     try {
       const stripe = await stripePromise;
       if (!stripe) {
-        throw new Error('Stripe failed to load');
+        return { success: false, notConfigured: true, error: 'Stripe is not configured.' };
       }
 
       const { error, paymentIntent } = await stripe.confirmPayment({
@@ -170,22 +129,12 @@ class DonationService {
         redirect: 'if_required',
       });
 
-      if (error) {
-        throw new Error(error.message);
-      }
+      if (error) throw new Error(error.message);
 
       if (paymentIntent?.status === 'succeeded') {
-        return {
-          success: true,
-          donationId: paymentIntent.id,
-          receiptUrl: (paymentIntent as any).charges?.data[0]?.receipt_url,
-        };
+        return { success: true, donationId: paymentIntent.id };
       }
-
-      return {
-        success: false,
-        error: 'Payment was not completed',
-      };
+      return { success: false, error: 'Payment was not completed' };
     } catch (error) {
       console.error('Payment confirmation error:', error);
       return {
@@ -196,86 +145,29 @@ class DonationService {
   }
 
   /**
-   * Set up recurring donation subscription
+   * Recurring donations — backend not implemented yet. Returns notConfigured.
    */
-  async setupRecurringDonation(donationData: DonationData): Promise<DonationResponse> {
-    try {
-      const response = await fetch('/api/donations/create-subscription', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: Math.round(parseFloat(donationData.amount) * 100),
-          currency: 'usd',
-          interval: 'month',
-          designation: donationData.designation,
-          donor: {
-            firstName: donationData.firstName,
-            lastName: donationData.lastName,
-            email: donationData.email,
-            phone: donationData.phone,
-            anonymous: donationData.anonymous,
-          },
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create subscription');
-      }
-
-      const { subscriptionId, clientSecret } = await response.json();
-
-      return {
-        success: true,
-        donationId: subscriptionId,
-        clientSecret,
-      };
-    } catch (error) {
-      console.error('Recurring donation error:', error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to set up recurring donation',
-      };
-    }
+  async setupRecurringDonation(_donationData: DonationData): Promise<DonationResponse> {
+    return {
+      success: false,
+      notConfigured: true,
+      error: 'Recurring donations are not enabled yet.',
+    };
   }
 
   /**
-   * Send donation receipt via email
+   * Send donation receipt via email — no-op until a receipt edge function exists.
    */
-  async sendReceipt(donationId: string, email: string): Promise<void> {
-    try {
-      await fetch('/api/donations/send-receipt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          donationId,
-          email,
-        }),
-      });
-    } catch (error) {
-      console.error('Failed to send receipt:', error);
-    }
+  async sendReceipt(_donationId: string, _email: string): Promise<void> {
+    // Stripe sends its own receipts when receipt_email is set on the PaymentIntent.
+    return;
   }
 
   /**
-   * Get donation history for a donor
+   * Donation history — not implemented yet.
    */
-  async getDonationHistory(email: string): Promise<any[]> {
-    try {
-      const response = await fetch(`/api/donations/history?email=${encodeURIComponent(email)}`);
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch donation history');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Failed to get donation history:', error);
-      return [];
-    }
+  async getDonationHistory(_email: string): Promise<any[]> {
+    return [];
   }
 
   /**

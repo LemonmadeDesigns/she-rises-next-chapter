@@ -84,8 +84,8 @@ const FormSubmissions = () => {
 
       if (error) throw error;
 
-      setSubmissions(data || []);
-      setFilteredSubmissions(data || []);
+      setSubmissions((data || []) as unknown as FormSubmission[]);
+      setFilteredSubmissions((data || []) as unknown as FormSubmission[]);
     } catch (error) {
       console.error('Error fetching submissions:', error);
       toast({

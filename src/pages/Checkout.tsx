@@ -8,11 +8,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Layout from "@/components/layout/Layout";
 import AuthRequired from "@/components/auth/AuthRequired";
+import StripePaymentForm from "@/components/donation/StripePaymentForm";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowLeft, Lock, CreditCard, Truck, ShieldCheck, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Lock, CreditCard, Truck, ShieldCheck, CheckCircle, AlertCircle } from "lucide-react";
 
 const Checkout = () => {
   const { state, dispatch } = useCart();
@@ -21,7 +24,9 @@ const Checkout = () => {
   
   const [step, setStep] = useState(1); // 1: Info, 2: Payment, 3: Confirmation
   const [isProcessing, setIsProcessing] = useState(false);
-  
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentNotice, setPaymentNotice] = useState<string | null>(null);
+
   // Form state
   const [shippingForm, setShippingForm] = useState({
     firstName: "",
@@ -97,13 +102,6 @@ const Checkout = () => {
     return required.every(field => shippingForm[field as keyof typeof shippingForm].trim() !== '');
   };
 
-  const validateStep2 = () => {
-    if (paymentMethod === 'credit-card') {
-      return paymentForm.cardNumber && paymentForm.expiryDate && paymentForm.cvv && paymentForm.nameOnCard;
-    }
-    return true;
-  };
-
   const handleNext = () => {
     if (step === 1 && !validateStep1()) {
       toast({
@@ -113,33 +111,71 @@ const Checkout = () => {
       });
       return;
     }
-    
-    if (step === 2 && !validateStep2()) {
-      toast({
-        title: "Missing payment information",
-        description: "Please complete your payment details.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
     setStep(step + 1);
   };
 
   const handlePlaceOrder = async () => {
     setIsProcessing(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR_CART' });
-      setStep(3);
-      setIsProcessing(false);
-      
-      toast({
-        title: "Order placed successfully!",
-        description: "Thank you for your purchase. You'll receive a confirmation email shortly.",
+    setPaymentNotice(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('create-order-intent', {
+        body: {
+          email: shippingForm.email,
+          items: state.items.map((i) => ({
+            product_id: i.id,
+            quantity: i.quantity,
+            size: i.size,
+          })),
+          shipping: {
+            name: `${shippingForm.firstName} ${shippingForm.lastName}`.trim(),
+            address: shippingForm.address,
+            city: shippingForm.city,
+            state: shippingForm.state,
+            zip: shippingForm.zipCode,
+            country: shippingForm.country,
+          },
+        },
       });
-    }, 2000);
+
+      if (error) throw error;
+
+      if (data?.configured === false) {
+        setPaymentNotice(
+          data.message ||
+            "Online card payments aren't enabled yet. Please contact us to complete your purchase."
+        );
+        return;
+      }
+
+      if (!data?.clientSecret) {
+        setPaymentNotice('Payment service did not return a client secret.');
+        return;
+      }
+
+      setClientSecret(data.clientSecret);
+    } catch (err) {
+      console.error('Order error:', err);
+      setPaymentNotice(
+        err instanceof Error ? err.message : 'Failed to start checkout. Please try again.'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    dispatch({ type: 'CLEAR_CART' });
+    setStep(3);
+    toast({
+      title: 'Order placed successfully!',
+      description: "Thank you for your purchase. You'll receive a confirmation email shortly.",
+    });
+  };
+
+  const handlePaymentError = (msg: string) => {
+    setPaymentNotice(msg);
+    setClientSecret(null);
   };
 
   const formatCardNumber = (value: string) => {
@@ -387,6 +423,13 @@ const Checkout = () => {
 
             {step === 2 && (
               <div className="space-y-8">
+                {paymentNotice && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{paymentNotice}</AlertDescription>
+                  </Alert>
+                )}
+
                 {/* Payment Method */}
                 <Card>
                   <CardContent className="p-6">
@@ -405,60 +448,26 @@ const Checkout = () => {
                   </CardContent>
                 </Card>
 
-                {/* Credit Card Details */}
-                {paymentMethod === 'credit-card' && (
+                {/* Stripe Elements card form (after Place Order initializes the intent) */}
+                {clientSecret ? (
                   <Card>
                     <CardContent className="p-6">
                       <h4 className="font-semibold text-royal-plum mb-4">Card Information</h4>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="nameOnCard">Name on Card *</Label>
-                          <Input
-                            id="nameOnCard"
-                            name="nameOnCard"
-                            value={paymentForm.nameOnCard}
-                            onChange={handlePaymentChange}
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="cardNumber">Card Number *</Label>
-                          <Input
-                            id="cardNumber"
-                            name="cardNumber"
-                            value={paymentForm.cardNumber}
-                            onChange={handleCardNumberChange}
-                            placeholder="1234 5678 9012 3456"
-                            maxLength={19}
-                            required
-                          />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="expiryDate">Expiry Date *</Label>
-                            <Input
-                              id="expiryDate"
-                              name="expiryDate"
-                              value={paymentForm.expiryDate}
-                              onChange={handleExpiryChange}
-                              placeholder="MM/YY"
-                              maxLength={5}
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="cvv">CVV *</Label>
-                            <Input
-                              id="cvv"
-                              name="cvv"
-                              value={paymentForm.cvv}
-                              onChange={handlePaymentChange}
-                              maxLength={4}
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <StripePaymentForm
+                        clientSecret={clientSecret}
+                        amount={total}
+                        onSuccess={handlePaymentSuccess}
+                        onError={handlePaymentError}
+                      />
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card>
+                    <CardContent className="p-6">
+                      <p className="text-sm text-muted-foreground">
+                        Click <strong>Continue to Payment</strong> below to securely enter
+                        your card details.
+                      </p>
                     </CardContent>
                   </Card>
                 )}
@@ -480,7 +489,6 @@ const Checkout = () => {
                     {!sameAsShipping && (
                       <div className="space-y-4">
                         <h4 className="font-semibold text-royal-plum">Billing Address</h4>
-                        {/* Billing form fields would go here */}
                         <p className="text-sm text-muted-foreground">
                           Billing address form fields would be rendered here when different from shipping.
                         </p>
@@ -494,12 +502,12 @@ const Checkout = () => {
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
               {step > 1 && (
-                <Button variant="outline" onClick={() => setStep(step - 1)}>
+                <Button variant="outline" onClick={() => { setStep(step - 1); setClientSecret(null); setPaymentNotice(null); }}>
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back
                 </Button>
               )}
-              
+
               <div className="ml-auto">
                 {step < 2 ? (
                   <Button
@@ -508,15 +516,15 @@ const Checkout = () => {
                   >
                     Continue to Payment
                   </Button>
-                ) : (
+                ) : !clientSecret ? (
                   <Button
                     onClick={handlePlaceOrder}
                     disabled={isProcessing}
                     className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
                   >
-                    {isProcessing ? 'Processing...' : `Place Order - $${total.toFixed(2)}`}
+                    {isProcessing ? 'Loading...' : `Continue to Payment - $${total.toFixed(2)}`}
                   </Button>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

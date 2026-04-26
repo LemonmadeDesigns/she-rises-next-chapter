@@ -108,6 +108,12 @@ const Donate = () => {
       if (response.success && response.clientSecret) {
         setClientSecret(response.clientSecret);
         setPaymentStep('payment');
+      } else if (response.notConfigured) {
+        // Friendly message — Stripe not yet configured. No console error spam.
+        setErrors([
+          response.error ||
+            "Online card donations aren't enabled yet. Please contact us to give directly.",
+        ]);
       } else {
         setErrors([response.error || 'Failed to initialize payment']);
       }
