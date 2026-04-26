@@ -102,13 +102,6 @@ const Checkout = () => {
     return required.every(field => shippingForm[field as keyof typeof shippingForm].trim() !== '');
   };
 
-  const validateStep2 = () => {
-    if (paymentMethod === 'credit-card') {
-      return paymentForm.cardNumber && paymentForm.expiryDate && paymentForm.cvv && paymentForm.nameOnCard;
-    }
-    return true;
-  };
-
   const handleNext = () => {
     if (step === 1 && !validateStep1()) {
       toast({
@@ -118,16 +111,6 @@ const Checkout = () => {
       });
       return;
     }
-    
-    if (step === 2 && !validateStep2()) {
-      toast({
-        title: "Missing payment information",
-        description: "Please complete your payment details.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
     setStep(step + 1);
   };
 
