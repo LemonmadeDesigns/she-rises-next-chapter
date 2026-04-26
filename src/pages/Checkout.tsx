@@ -440,6 +440,13 @@ const Checkout = () => {
 
             {step === 2 && (
               <div className="space-y-8">
+                {paymentNotice && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{paymentNotice}</AlertDescription>
+                  </Alert>
+                )}
+
                 {/* Payment Method */}
                 <Card>
                   <CardContent className="p-6">
@@ -458,60 +465,26 @@ const Checkout = () => {
                   </CardContent>
                 </Card>
 
-                {/* Credit Card Details */}
-                {paymentMethod === 'credit-card' && (
+                {/* Stripe Elements card form (after Place Order initializes the intent) */}
+                {clientSecret ? (
                   <Card>
                     <CardContent className="p-6">
                       <h4 className="font-semibold text-royal-plum mb-4">Card Information</h4>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="nameOnCard">Name on Card *</Label>
-                          <Input
-                            id="nameOnCard"
-                            name="nameOnCard"
-                            value={paymentForm.nameOnCard}
-                            onChange={handlePaymentChange}
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="cardNumber">Card Number *</Label>
-                          <Input
-                            id="cardNumber"
-                            name="cardNumber"
-                            value={paymentForm.cardNumber}
-                            onChange={handleCardNumberChange}
-                            placeholder="1234 5678 9012 3456"
-                            maxLength={19}
-                            required
-                          />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="expiryDate">Expiry Date *</Label>
-                            <Input
-                              id="expiryDate"
-                              name="expiryDate"
-                              value={paymentForm.expiryDate}
-                              onChange={handleExpiryChange}
-                              placeholder="MM/YY"
-                              maxLength={5}
-                              required
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="cvv">CVV *</Label>
-                            <Input
-                              id="cvv"
-                              name="cvv"
-                              value={paymentForm.cvv}
-                              onChange={handlePaymentChange}
-                              maxLength={4}
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <StripePaymentForm
+                        clientSecret={clientSecret}
+                        amount={total}
+                        onSuccess={handlePaymentSuccess}
+                        onError={handlePaymentError}
+                      />
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card>
+                    <CardContent className="p-6">
+                      <p className="text-sm text-muted-foreground">
+                        Click <strong>Continue to Payment</strong> below to securely enter
+                        your card details.
+                      </p>
                     </CardContent>
                   </Card>
                 )}
@@ -533,7 +506,6 @@ const Checkout = () => {
                     {!sameAsShipping && (
                       <div className="space-y-4">
                         <h4 className="font-semibold text-royal-plum">Billing Address</h4>
-                        {/* Billing form fields would go here */}
                         <p className="text-sm text-muted-foreground">
                           Billing address form fields would be rendered here when different from shipping.
                         </p>
@@ -547,12 +519,12 @@ const Checkout = () => {
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
               {step > 1 && (
-                <Button variant="outline" onClick={() => setStep(step - 1)}>
+                <Button variant="outline" onClick={() => { setStep(step - 1); setClientSecret(null); setPaymentNotice(null); }}>
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back
                 </Button>
               )}
-              
+
               <div className="ml-auto">
                 {step < 2 ? (
                   <Button
@@ -561,15 +533,15 @@ const Checkout = () => {
                   >
                     Continue to Payment
                   </Button>
-                ) : (
+                ) : !clientSecret ? (
                   <Button
                     onClick={handlePlaceOrder}
                     disabled={isProcessing}
                     className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
                   >
-                    {isProcessing ? 'Processing...' : `Place Order - $${total.toFixed(2)}`}
+                    {isProcessing ? 'Loading...' : `Continue to Payment - $${total.toFixed(2)}`}
                   </Button>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
