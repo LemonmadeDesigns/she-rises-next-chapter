@@ -8,11 +8,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Layout from "@/components/layout/Layout";
 import AuthRequired from "@/components/auth/AuthRequired";
+import StripePaymentForm from "@/components/donation/StripePaymentForm";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowLeft, Lock, CreditCard, Truck, ShieldCheck, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Lock, CreditCard, Truck, ShieldCheck, CheckCircle, AlertCircle } from "lucide-react";
 
 const Checkout = () => {
   const { state, dispatch } = useCart();
@@ -21,7 +24,9 @@ const Checkout = () => {
   
   const [step, setStep] = useState(1); // 1: Info, 2: Payment, 3: Confirmation
   const [isProcessing, setIsProcessing] = useState(false);
-  
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentNotice, setPaymentNotice] = useState<string | null>(null);
+
   // Form state
   const [shippingForm, setShippingForm] = useState({
     firstName: "",
@@ -128,18 +133,66 @@ const Checkout = () => {
 
   const handlePlaceOrder = async () => {
     setIsProcessing(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR_CART' });
-      setStep(3);
-      setIsProcessing(false);
-      
-      toast({
-        title: "Order placed successfully!",
-        description: "Thank you for your purchase. You'll receive a confirmation email shortly.",
+    setPaymentNotice(null);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('create-order-intent', {
+        body: {
+          email: shippingForm.email,
+          items: state.items.map((i) => ({
+            product_id: i.id,
+            quantity: i.quantity,
+            size: i.size,
+          })),
+          shipping: {
+            name: `${shippingForm.firstName} ${shippingForm.lastName}`.trim(),
+            address: shippingForm.address,
+            city: shippingForm.city,
+            state: shippingForm.state,
+            zip: shippingForm.zipCode,
+            country: shippingForm.country,
+          },
+        },
       });
-    }, 2000);
+
+      if (error) throw error;
+
+      if (data?.configured === false) {
+        setPaymentNotice(
+          data.message ||
+            "Online card payments aren't enabled yet. Please contact us to complete your purchase."
+        );
+        return;
+      }
+
+      if (!data?.clientSecret) {
+        setPaymentNotice('Payment service did not return a client secret.');
+        return;
+      }
+
+      setClientSecret(data.clientSecret);
+    } catch (err) {
+      console.error('Order error:', err);
+      setPaymentNotice(
+        err instanceof Error ? err.message : 'Failed to start checkout. Please try again.'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handlePaymentSuccess = () => {
+    dispatch({ type: 'CLEAR_CART' });
+    setStep(3);
+    toast({
+      title: 'Order placed successfully!',
+      description: "Thank you for your purchase. You'll receive a confirmation email shortly.",
+    });
+  };
+
+  const handlePaymentError = (msg: string) => {
+    setPaymentNotice(msg);
+    setClientSecret(null);
   };
 
   const formatCardNumber = (value: string) => {
