@@ -178,6 +178,60 @@ export type Database = {
         }
         Relationships: []
       }
+      form_submissions: {
+        Row: {
+          category: string | null
+          created_at: string
+          email: string
+          form_data: Json | null
+          form_type: string
+          id: string
+          message: string | null
+          name: string
+          notes: string | null
+          phone: string | null
+          read_at: string | null
+          responded_at: string | null
+          status: string | null
+          subject: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          email: string
+          form_data?: Json | null
+          form_type: string
+          id?: string
+          message?: string | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          read_at?: string | null
+          responded_at?: string | null
+          status?: string | null
+          subject?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          email?: string
+          form_data?: Json | null
+          form_type?: string
+          id?: string
+          message?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          read_at?: string | null
+          responded_at?: string | null
+          status?: string | null
+          subject?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string
