@@ -210,62 +210,62 @@ const GetInvolved = () => {
             subtitle="Every contribution, big or small, helps create positive change in the lives of women and families"
           />
           
-          <div className="grid md:grid-cols-4 gap-6 mb-16">
-            <Card className="text-center p-6 shadow-soft transition-shadow">
+          <div className="grid md:grid-cols-4 gap-6 mb-16 items-stretch">
+            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
               <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Volunteer</h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Share your time and skills to directly support women in our programs.</p>
-              <a href="#volunteer-opportunities">
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4 flex-1">Share your time and skills to directly support women in our programs.</p>
+              <a href="#volunteer-opportunities" className="mt-auto">
                 <Button variant="outline" size="sm" className="w-full">
                   Learn More
                 </Button>
               </a>
             </Card>
 
-            <Card className="text-center p-6 shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
               <div className="w-16 h-16 bg-lotus-rose rounded-full flex items-center justify-center mx-auto mb-4">
                 <Building2 className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Corporate Partnership</h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Partner with us to create meaningful employee engagement opportunities.</p>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4 flex-1">Partner with us to create meaningful employee engagement opportunities.</p>
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full"
+                className="w-full mt-auto"
                 onClick={() => setIsPartnershipModalOpen(true)}
               >
                 Learn More
               </Button>
             </Card>
 
-            <Card className="text-center p-6 shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
               <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
                 <DollarSign className="h-8 w-8 text-royal-plum" />
               </div>
               <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">Sponsorship</h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Sponsor programs, events, or facilities to maximize your community impact.</p>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4 flex-1">Sponsor programs, events, or facilities to maximize your community impact.</p>
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full"
+                className="w-full mt-auto"
                 onClick={() => setIsSponsorshipModalOpen(true)}
               >
                 Learn More
               </Button>
             </Card>
 
-            <Card className="text-center p-6 shadow-soft transition-shadow">
+            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
               <div className="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mx-auto mb-4">
                 <Gift className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">In-Kind Donations</h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">Donate goods, services, or expertise to support our daily operations.</p>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4 flex-1">Donate goods, services, or expertise to support our daily operations.</p>
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full"
+                className="w-full mt-auto"
                 onClick={() => setIsDonationModalOpen(true)}
               >
                 Learn More
