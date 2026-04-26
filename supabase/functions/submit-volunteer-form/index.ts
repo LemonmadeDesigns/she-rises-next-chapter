@@ -6,7 +6,8 @@ async function sendEmail(payload: {
   from: string;
   to: string[];
   subject: string;
-  html: string;
+  html?: string;
+  text?: string;
   reply_to?: string;
 }) {
   if (!RESEND_API_KEY) {
@@ -30,7 +31,7 @@ async function sendEmail(payload: {
 
 const resend = {
   emails: {
-    send: (payload: { from: string; to: string[]; subject: string; html: string; reply_to?: string }) =>
+    send: (payload: { from: string; to: string[]; subject: string; html?: string; text?: string; reply_to?: string }) =>
       sendEmail(payload),
   },
 };
