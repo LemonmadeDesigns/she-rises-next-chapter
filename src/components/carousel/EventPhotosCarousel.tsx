@@ -39,12 +39,12 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
 
   return (
     <div className="relative w-full max-w-7xl mx-auto pb-12 px-4">
-      {/* Carousel Container */}
-      <div className="relative h-[400px] flex items-center justify-center gap-6">
+      {/* Carousel Container - responsive height */}
+      <div className="relative h-[300px] sm:h-[360px] md:h-[400px] flex items-center justify-center gap-3 sm:gap-6 overflow-hidden">
 
-        {/* Previous Image (Left) */}
+        {/* Previous Image (Left) - hidden on mobile */}
         <div
-          className="z-10 transition-all duration-500 ease-out flex-shrink-0"
+          className="hidden sm:block z-10 transition-all duration-500 ease-out flex-shrink-0"
           style={{
             transform: `scale(0.8)`,
             opacity: 0.7
@@ -53,37 +53,31 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           <img
             src={getImageAtPosition(-1)}
             alt="Previous event photo"
-            className="w-[280px] h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
+            className="w-[200px] h-[180px] md:w-[280px] md:h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
             loading="lazy"
             onClick={goToPrevious}
           />
         </div>
 
-        {/* Current Image (Center) */}
-        <div
-          className="z-20 transition-all duration-500 ease-out flex-shrink-0"
-          style={{
-            transform: `scale(1)`,
-            opacity: 1
-          }}
-        >
+        {/* Current Image (Center) - responsive sizing */}
+        <div className="z-20 transition-all duration-500 ease-out flex-shrink-0 max-w-full px-10 sm:px-0">
           <img
             src={getImageAtPosition(0)}
             alt="Featured event photo"
-            className="w-[450px] h-[350px] object-cover rounded-xl shadow-2xl"
+            className="w-full max-w-[320px] sm:max-w-none sm:w-[360px] sm:h-[280px] md:w-[450px] md:h-[350px] h-[220px] object-cover rounded-xl shadow-2xl mx-auto"
             style={{ objectPosition: 'center top' }}
             loading="eager"
           />
           {/* Caption under featured image */}
-          <div className="text-center mt-4">
-            <p className="text-base font-medium text-foreground">Community Impact Event</p>
-            <p className="text-sm text-muted-foreground">Southern California</p>
+          <div className="text-center mt-3 sm:mt-4">
+            <p className="text-sm sm:text-base font-medium text-foreground">Community Impact Event</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">Southern California</p>
           </div>
         </div>
 
-        {/* Next Image (Right) */}
+        {/* Next Image (Right) - hidden on mobile */}
         <div
-          className="z-10 transition-all duration-500 ease-out flex-shrink-0"
+          className="hidden sm:block z-10 transition-all duration-500 ease-out flex-shrink-0"
           style={{
             transform: `scale(0.8)`,
             opacity: 0.7
@@ -92,7 +86,7 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           <img
             src={getImageAtPosition(1)}
             alt="Next event photo"
-            className="w-[280px] h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
+            className="w-[200px] h-[180px] md:w-[280px] md:h-[240px] object-cover rounded-xl shadow-lg hover:scale-105 transition-transform cursor-pointer"
             loading="lazy"
             onClick={goToNext}
           />
@@ -104,10 +98,10 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           variant="outline"
           size="icon"
           disabled={isAnimating}
-          className="absolute left-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50"
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50 h-9 w-9 sm:h-10 sm:w-10"
           aria-label="Previous photo"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
 
         <Button
@@ -115,10 +109,10 @@ const EventPhotosCarousel = ({ images }: EventPhotosCarouselProps) => {
           variant="outline"
           size="icon"
           disabled={isAnimating}
-          className="absolute right-4 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50"
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white shadow-lg rounded-full disabled:opacity-50 h-9 w-9 sm:h-10 sm:w-10"
           aria-label="Next photo"
         >
-          <ChevronRight className="h-6 w-6" />
+          <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
         </Button>
       </div>
 
