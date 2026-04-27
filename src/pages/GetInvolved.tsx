@@ -257,8 +257,8 @@ const GetInvolved = () => {
             </Card>
 
             <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
-              <div className="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <Gift className="h-8 w-8 text-white" />
+              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
+                <Gift className="h-8 w-8 text-crown-gold" />
               </div>
               <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">In-Kind Donations</h3>
               <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4 flex-1">Donate goods, services, or expertise to support our daily operations.</p>
