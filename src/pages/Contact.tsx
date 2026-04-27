@@ -341,61 +341,100 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Office Info and Hours */}
-            <div className="grid sm:grid-cols-2 gap-6 lg:gap-8 content-start">
-              {/* Office Hours */}
-              <Card className="h-full">
-                <CardContent className="p-6 lg:p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Clock className="h-6 w-6 text-crown-gold" />
-                    <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
-                      Office Hours
+            {/* Right Column: Office Info, Hours, Quick Connect */}
+            <div className="flex flex-col gap-6 lg:gap-8">
+              <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
+                {/* Office Hours */}
+                <Card className="h-full">
+                  <CardContent className="p-6 lg:p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <Clock className="h-6 w-6 text-crown-gold" />
+                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
+                        Office Hours
+                      </h3>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Monday - Friday</span>
+                        <span className="text-[#737373] dark:text-[#B3B3B3]">9:00 AM - 5:00 PM</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday</span>
+                        <span className="text-[#737373] dark:text-[#B3B3B3]">10:00 AM - 2:00 PM</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Sunday</span>
+                        <span className="text-[#737373] dark:text-[#B3B3B3]">Closed</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Location */}
+                <Card className="h-full">
+                  <CardContent className="p-6 lg:p-8">
+                    <div className="flex items-center gap-3 mb-6">
+                      <MapPin className="h-6 w-6 text-crown-gold" />
+                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
+                        Our Location
+                      </h3>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">123 Hope Street</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">Your City, State 12345</p>
+                      </div>
+
+                      <div className="bg-gradient-soft rounded-lg p-4">
+                        <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium mb-2">Getting Here:</p>
+                        <ul className="text-sm text-[#737373] dark:text-[#B3B3B3] space-y-1">
+                          <li>• Free parking available on-site</li>
+                          <li>• Public transit: Bus routes 15, 23, 45</li>
+                          <li>• Wheelchair accessible entrance</li>
+                          <li>• Childcare available during appointments</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Quick Connect Card - fills remaining vertical space */}
+              <Card className="flex-1 bg-gradient-to-br from-royal-plum to-deep-plum text-white">
+                <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Heart className="h-6 w-6 text-crown-gold" />
+                    <h3 className="font-serif text-2xl font-bold">
+                      Prefer to talk now?
                     </h3>
                   </div>
-
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Monday - Friday</span>
-                      <span className="text-[#737373] dark:text-[#B3B3B3]">9:00 AM - 5:00 PM</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday</span>
-                      <span className="text-[#737373] dark:text-[#B3B3B3]">10:00 AM - 2:00 PM</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Sunday</span>
-                      <span className="text-[#737373] dark:text-[#B3B3B3]">Closed</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Location */}
-              <Card className="h-full">
-                <CardContent className="p-6 lg:p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <MapPin className="h-6 w-6 text-crown-gold" />
-                    <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
-                      Our Location
-                    </h3>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
-                      <p className="text-[#737373] dark:text-[#B3B3B3]">123 Hope Street</p>
-                      <p className="text-[#737373] dark:text-[#B3B3B3]">Your City, State 12345</p>
-                    </div>
-
-                    <div className="bg-gradient-soft rounded-lg p-4">
-                      <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium mb-2">Getting Here:</p>
-                      <ul className="text-sm text-[#737373] dark:text-[#B3B3B3] space-y-1">
-                        <li>• Free parking available on-site</li>
-                        <li>• Public transit: Bus routes 15, 23, 45</li>
-                        <li>• Wheelchair accessible entrance</li>
-                        <li>• Childcare available during appointments</li>
-                      </ul>
-                    </div>
+                  <p className="text-white/85 mb-6">
+                    Our team is here to listen. Reach us directly by phone or email — we respond within one business day.
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <a
+                      href="tel:+15555551234"
+                      className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-4 border border-white/20"
+                    >
+                      <Phone className="h-5 w-5 text-crown-gold flex-shrink-0" />
+                      <div className="min-w-0">
+                        <p className="text-xs text-white/70">Call us</p>
+                        <p className="font-medium truncate">(555) 555-1234</p>
+                      </div>
+                    </a>
+                    <a
+                      href="mailto:empowerhavenhomes@gmail.com"
+                      className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-4 border border-white/20"
+                    >
+                      <Mail className="h-5 w-5 text-crown-gold flex-shrink-0" />
+                      <div className="min-w-0">
+                        <p className="text-xs text-white/70">Email us</p>
+                        <p className="font-medium truncate">empowerhavenhomes@gmail.com</p>
+                      </div>
+                    </a>
                   </div>
                 </CardContent>
               </Card>
