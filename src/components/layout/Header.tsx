@@ -109,16 +109,21 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed left-0 right-0 z-50 transition-all duration-300",
+        // Bottom-anchored on mobile, top-anchored on desktop
+        "bottom-0 top-auto md:bottom-auto md:top-0",
         scrolled || isMenuOpen
-          ? "bg-deep-plum dark:bg-card backdrop-blur-lg shadow-lg"
-          : "bg-transparent"
+          ? "bg-deep-plum dark:bg-card backdrop-blur-lg shadow-lg md:shadow-lg shadow-[0_-4px_20px_rgba(0,0,0,0.25)]"
+          : "bg-deep-plum/95 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.25)] md:bg-transparent md:shadow-none md:backdrop-blur-none"
       )}
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="container mx-auto px-4">
         <div className={cn(
           "flex items-center justify-between transition-all duration-300",
-          scrolled ? "h-16 md:h-20" : "h-20 md:h-32"
+          // Mobile keeps a compact bar; desktop keeps original sizing behavior
+          "h-16",
+          scrolled ? "md:h-20" : "md:h-32"
         )}>
           {/* Logo - Responsive sizing, properly contained */}
           <Link to="/" className="flex items-center space-x-3">
@@ -127,7 +132,8 @@ const Header = () => {
               alt="She Rises - Safe Haven for Empowerment logo"
               className={cn(
                 "object-contain logo-bordered drop-shadow-2xl transition-all duration-300",
-                scrolled ? "h-10 md:h-14" : "h-14 md:h-24"
+                "h-10",
+                scrolled ? "md:h-14" : "md:h-24"
               )}
             />
           </Link>
@@ -264,9 +270,9 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - opens upward from bottom bar */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-deep-plum dark:bg-card border-t border-white/10 shadow-xl z-50 backdrop-blur-lg">
+          <div className="md:hidden absolute bottom-full left-0 right-0 bg-deep-plum dark:bg-card border-b border-white/10 shadow-xl z-50 backdrop-blur-lg max-h-[75vh] overflow-y-auto">
             <div className="px-4 pt-4 pb-4 space-y-2 max-w-full overflow-x-hidden">
               {navigation.map((item) => (
                 <Link

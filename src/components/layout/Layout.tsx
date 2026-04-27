@@ -15,6 +15,12 @@ const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
       <Footer />
+      {/* Spacer so the mobile bottom navbar never covers footer content */}
+      <div
+        className="md:hidden"
+        style={{ height: `calc(4rem + env(safe-area-inset-bottom))` }}
+        aria-hidden="true"
+      />
       <BackToTop />
     </div>
   );
