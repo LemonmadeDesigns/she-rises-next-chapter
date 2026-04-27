@@ -160,14 +160,10 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className={cn(
-                "rounded-full",
-                scrolled
-                  ? "text-white dark:text-foreground hover:bg-white/20"
-                  : "text-white hover:bg-white/10"
-              )}
+              aria-label="Toggle theme"
+              className="rounded-full bg-white/95 text-deep-plum hover:bg-white shadow-md border border-deep-plum/10"
             >
               {theme === "dark" ? (
                 <Sun className="h-5 w-5" />
