@@ -401,30 +401,23 @@ const Contact = () => {
               </Card>
 
               {/* Zelle QR Code - Donate via Zelle */}
-              <Card className="md:col-span-2">
+              <Card className="md:col-span-2 overflow-hidden">
                 <CardContent className="p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
-                    <div className="flex-shrink-0 text-center md:text-left">
-                      <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mb-4 mx-auto md:mx-0">
-                        <QrCode className="h-8 w-8 text-white" />
+                  <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-8 items-start">
+                    {/* Left: heading + instructions */}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 bg-royal-plum rounded-full flex items-center justify-center flex-shrink-0">
+                          <QrCode className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
+                          Donate with Zelle
+                        </h3>
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-2">
-                        Donate with Zelle
-                      </h3>
-                      <p className="text-sm text-[#737373] dark:text-[#B3B3B3] mb-4">
+                      <p className="text-sm text-[#737373] dark:text-[#B3B3B3] mb-5">
                         Fast, free, and goes directly to She Rises — no processing fees.
                       </p>
-                    </div>
 
-                    <div className="flex justify-center w-full md:w-auto md:flex-shrink-0">
-                      <img
-                        src={zelleQrImage}
-                        alt="She Rises Zelle QR Code — scan with your bank's Zelle feature to donate"
-                        className="w-56 h-56 sm:w-64 sm:h-64 object-contain rounded-lg border-4 border-crown-gold shadow-lg bg-white p-2"
-                      />
-                    </div>
-
-                    <div className="flex-1 w-full">
                       <h4 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
                         How to send your donation
                       </h4>
@@ -438,6 +431,15 @@ const Contact = () => {
                       <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-4">
                         💡 If your bank app doesn't support QR scanning, you can search for She Rises manually after tapping "Send" in the Zelle section.
                       </p>
+                    </div>
+
+                    {/* Right: QR */}
+                    <div className="flex justify-center md:justify-end w-full md:w-auto">
+                      <img
+                        src={zelleQrImage}
+                        alt="She Rises Zelle QR Code — scan with your bank's Zelle feature to donate"
+                        className="w-56 h-56 md:w-60 md:h-60 lg:w-64 lg:h-64 object-contain rounded-lg border-4 border-crown-gold shadow-lg bg-white p-2"
+                      />
                     </div>
                   </div>
                 </CardContent>
