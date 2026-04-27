@@ -237,7 +237,7 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile: just the cart (nav lives in bottom bar) */}
           <div className="md:hidden flex items-center space-x-2">
             <Link to="/cart">
               <Button className="cart-button">
@@ -249,23 +249,11 @@ const Header = () => {
                 )}
               </Button>
             </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={cn(
-                scrolled
-                  ? "text-white dark:text-foreground"
-                  : "text-white"
-              )}
-            >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
+        {/* Mobile Navigation (legacy hamburger menu — disabled in favor of bottom nav) */}
+        {false && isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-deep-plum dark:bg-card border-t border-white/10 shadow-xl z-50 backdrop-blur-lg">
             <div className="px-4 pt-4 pb-4 space-y-2 max-w-full overflow-x-hidden">
               {navigation.map((item) => (
