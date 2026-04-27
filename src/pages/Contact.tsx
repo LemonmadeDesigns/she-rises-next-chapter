@@ -14,6 +14,7 @@ import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 import { submitContactForm } from "@/config/contact";
 import contactHeroImage from "@/assets/transitional-home.jpg";
+import zelleQrImage from "@/assets/zelle-qr.png";
 
 const Contact = () => {
   const [contactForm, setContactForm] = useState({
@@ -399,27 +400,44 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* QR Code - Full Width Below */}
+              {/* Zelle QR Code - Donate via Zelle */}
               <Card className="md:col-span-2">
-                <CardContent className="p-8">
-                  <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="flex-shrink-0">
-                      <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mb-4">
+                <CardContent className="p-6 md:p-8">
+                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                    <div className="flex-shrink-0 text-center md:text-left">
+                      <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mb-4 mx-auto md:mx-0">
                         <QrCode className="h-8 w-8 text-white" />
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                        Quick Connect
+                      <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-2">
+                        Donate with Zelle
                       </h3>
                       <p className="text-sm text-[#737373] dark:text-[#B3B3B3] mb-4">
-                        Scan to save our contact info
+                        Fast, free, and goes directly to She Rises — no processing fees.
                       </p>
                     </div>
-                    <div className="flex justify-center flex-1">
+
+                    <div className="flex justify-center w-full md:w-auto md:flex-shrink-0">
                       <img
-                        src="/images/sherises_qr_code.jpeg"
-                        alt="She Rises Zelle QR Code"
-                        className="w-64 h-64 object-contain rounded-lg border-4 border-crown-gold shadow-lg"
+                        src={zelleQrImage}
+                        alt="She Rises Zelle QR Code — scan with your bank's Zelle feature to donate"
+                        className="w-56 h-56 sm:w-64 sm:h-64 object-contain rounded-lg border-4 border-crown-gold shadow-lg bg-white p-2"
                       />
+                    </div>
+
+                    <div className="flex-1 w-full">
+                      <h4 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
+                        How to send your donation
+                      </h4>
+                      <ol className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0] space-y-2 list-decimal list-inside">
+                        <li>Open your <strong>bank's mobile app</strong> (Chase, Bank of America, Wells Fargo, Citi, etc.) or the standalone <strong>Zelle app</strong>.</li>
+                        <li>Tap <strong>Send Money with Zelle</strong> (sometimes under "Pay &amp; Transfer" or "Transfers").</li>
+                        <li>Choose <strong>Send</strong>, then look for the <strong>QR code icon</strong> (camera) at the top of the screen.</li>
+                        <li>Point your camera at the QR code shown here to auto-fill our recipient details.</li>
+                        <li>Enter the amount you'd like to donate, add a memo (e.g., <em>"Donation"</em>), and confirm.</li>
+                      </ol>
+                      <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-4">
+                        💡 If your bank app doesn't support QR scanning, you can search for She Rises manually after tapping "Send" in the Zelle section.
+                      </p>
                     </div>
                   </div>
                 </CardContent>
