@@ -109,16 +109,21 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed left-0 right-0 z-50 transition-all duration-300",
+        // Bottom-anchored on mobile, top-anchored on desktop
+        "bottom-0 top-auto md:bottom-auto md:top-0",
         scrolled || isMenuOpen
-          ? "bg-deep-plum dark:bg-card backdrop-blur-lg shadow-lg"
-          : "bg-transparent"
+          ? "bg-deep-plum dark:bg-card backdrop-blur-lg shadow-lg md:shadow-lg shadow-[0_-4px_20px_rgba(0,0,0,0.25)]"
+          : "bg-deep-plum/95 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.25)] md:bg-transparent md:shadow-none md:backdrop-blur-none"
       )}
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="container mx-auto px-4">
         <div className={cn(
           "flex items-center justify-between transition-all duration-300",
-          scrolled ? "h-16 md:h-20" : "h-20 md:h-32"
+          // Mobile keeps a compact bar; desktop keeps original sizing behavior
+          "h-16",
+          scrolled ? "md:h-20" : "md:h-32"
         )}>
           {/* Logo - Responsive sizing, properly contained */}
           <Link to="/" className="flex items-center space-x-3">
