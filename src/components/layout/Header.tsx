@@ -270,9 +270,9 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - opens upward from bottom bar */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-deep-plum dark:bg-card border-t border-white/10 shadow-xl z-50 backdrop-blur-lg">
+          <div className="md:hidden absolute bottom-full left-0 right-0 bg-deep-plum dark:bg-card border-b border-white/10 shadow-xl z-50 backdrop-blur-lg max-h-[75vh] overflow-y-auto">
             <div className="px-4 pt-4 pb-4 space-y-2 max-w-full overflow-x-hidden">
               {navigation.map((item) => (
                 <Link
