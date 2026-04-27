@@ -132,7 +132,8 @@ const Header = () => {
               alt="She Rises - Safe Haven for Empowerment logo"
               className={cn(
                 "object-contain logo-bordered drop-shadow-2xl transition-all duration-300",
-                scrolled ? "h-10 md:h-14" : "h-14 md:h-24"
+                "h-10",
+                scrolled ? "md:h-14" : "md:h-24"
               )}
             />
           </Link>
