@@ -545,6 +545,7 @@ const FormSubmissions = () => {
                     <Button
                       size="sm"
                       variant="outline"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/40"
                       onClick={() => {
                         setSubmissionToDelete(submission.id);
                         setDeleteDialogOpen(true);
