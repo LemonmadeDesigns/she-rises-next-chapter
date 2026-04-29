@@ -441,6 +441,11 @@ const FormSubmissions = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
+                      {typeof submission.insertion_order === 'number' && (
+                        <Badge variant="secondary" className="font-mono">
+                          #{submission.insertion_order}
+                        </Badge>
+                      )}
                       <CardTitle className="text-lg">{submission.name}</CardTitle>
                       <Badge className={getStatusColor(submission.status)}>
                         {submission.status}
@@ -464,7 +469,15 @@ const FormSubmissions = () => {
                       )}
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {formatDistanceToNow(new Date(submission.created_at), { addSuffix: true })}
+                        <span>
+                          Submitted {formatDistanceToNow(
+                            new Date(submission.original_created_at || submission.created_at),
+                            { addSuffix: true }
+                          )}
+                          <span className="ml-2 text-xs opacity-70">
+                            ({new Date(submission.original_created_at || submission.created_at).toLocaleString()})
+                          </span>
+                        </span>
                       </div>
                     </div>
                   </div>
