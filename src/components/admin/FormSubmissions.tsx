@@ -164,7 +164,13 @@ const FormSubmissions = () => {
     }
 
     setFilteredSubmissions(filtered);
+    setCurrentPage(1);
   }, [statusFilter, formTypeFilter, searchQuery, submissions]);
+
+  // Pagination derived state
+  const totalPages = Math.max(1, Math.ceil(filteredSubmissions.length / PAGE_SIZE));
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const paginatedSubmissions = filteredSubmissions.slice(pageStart, pageStart + PAGE_SIZE);
 
   // Mark as read
   const markAsRead = async (id: string) => {
