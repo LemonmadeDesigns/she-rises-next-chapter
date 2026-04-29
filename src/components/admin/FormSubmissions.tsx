@@ -69,6 +69,8 @@ const FormSubmissions = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  const [deleteAllDialogOpen, setDeleteAllDialogOpen] = useState(false);
+  const [deletingAll, setDeletingAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filters
@@ -282,6 +284,38 @@ const FormSubmissions = () => {
     }
   };
 
+  // Delete ALL currently filtered submissions (DB only, not Google Sheets)
+  const deleteAllFiltered = async () => {
+    if (filteredSubmissions.length === 0) return;
+    setDeletingAll(true);
+    try {
+      const ids = filteredSubmissions.map(s => s.id);
+      const { error } = await supabase
+        .from('form_submissions')
+        .delete()
+        .in('id', ids);
+
+      if (error) throw error;
+
+      setDeleteAllDialogOpen(false);
+      setCurrentPage(1);
+      fetchSubmissions();
+      toast({
+        title: "Deleted",
+        description: `${ids.length} submission(s) deleted from database (Google Sheets unchanged)`,
+      });
+    } catch (error) {
+      console.error('Error deleting all submissions:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete submissions",
+      });
+    } finally {
+      setDeletingAll(false);
+    }
+  };
+
   // View submission
   const viewSubmission = (submission: FormSubmission) => {
     setSelectedSubmission(submission);
@@ -375,6 +409,15 @@ const FormSubmissions = () => {
           <Button onClick={exportToCSV} variant="outline" size="sm">
             <Download className="h-4 w-4 mr-2" />
             Export CSV
+          </Button>
+          <Button
+            onClick={() => setDeleteAllDialogOpen(true)}
+            variant="destructive"
+            size="sm"
+            disabled={filteredSubmissions.length === 0 || loading}
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Delete All ({filteredSubmissions.length})
           </Button>
         </div>
       </div>
@@ -502,6 +545,7 @@ const FormSubmissions = () => {
                     <Button
                       size="sm"
                       variant="outline"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/40"
                       onClick={() => {
                         setSubmissionToDelete(submission.id);
                         setDeleteDialogOpen(true);
@@ -741,6 +785,28 @@ const FormSubmissions = () => {
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete All Confirmation Dialog */}
+      <Dialog open={deleteAllDialogOpen} onOpenChange={setDeleteAllDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete All {filteredSubmissions.length} Submissions?</DialogTitle>
+            <DialogDescription>
+              This will permanently delete <strong>all {filteredSubmissions.length} currently filtered submissions</strong> from the database.
+              Google Sheets data will remain unchanged. This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteAllDialogOpen(false)} disabled={deletingAll}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={deleteAllFiltered} disabled={deletingAll}>
+              <Trash2 className="h-4 w-4 mr-2" />
+              {deletingAll ? "Deleting..." : `Delete All (${filteredSubmissions.length})`}
             </Button>
           </DialogFooter>
         </DialogContent>
