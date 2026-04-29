@@ -54,6 +54,8 @@ interface FormSubmission {
   responded_at?: string;
   created_at: string;
   updated_at: string;
+  insertion_order?: number;
+  original_created_at?: string | null;
 }
 
 const FormSubmissions = () => {
@@ -73,14 +75,16 @@ const FormSubmissions = () => {
 
   const { toast } = useToast();
 
-  // Fetch submissions
+  // Fetch submissions — order by insertion_order (true creation order),
+  // falling back to created_at for stable ordering.
   const fetchSubmissions = async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('insertion_order', { ascending: true, nullsFirst: false })
+        .order('created_at', { ascending: true });
 
       if (error) throw error;
 
@@ -278,18 +282,33 @@ const FormSubmissions = () => {
     }
   };
 
-  // Export to CSV
+  // Export to CSV — preserves insertion_order, includes original_created_at
   const exportToCSV = () => {
-    const headers = ['Date', 'Name', 'Email', 'Phone', 'Form Type', 'Subject', 'Message', 'Status'];
+    const headers = [
+      'Order',
+      'Submitted At',
+      'Original Submitted At',
+      'Created At (DB)',
+      'Name',
+      'Email',
+      'Phone',
+      'Form Type',
+      'Subject',
+      'Message',
+      'Status',
+    ];
     const rows = filteredSubmissions.map(s => [
+      s.insertion_order ?? '',
+      new Date(s.original_created_at || s.created_at).toLocaleString(),
+      s.original_created_at ? new Date(s.original_created_at).toLocaleString() : '',
       new Date(s.created_at).toLocaleString(),
       s.name,
       s.email,
       s.phone || '',
       s.form_type,
       s.subject || '',
-      s.message || '',
-      s.status
+      (s.message || '').replace(/"/g, '""'),
+      s.status,
     ]);
 
     const csvContent = [
@@ -422,6 +441,11 @@ const FormSubmissions = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
+                      {typeof submission.insertion_order === 'number' && (
+                        <Badge variant="secondary" className="font-mono">
+                          #{submission.insertion_order}
+                        </Badge>
+                      )}
                       <CardTitle className="text-lg">{submission.name}</CardTitle>
                       <Badge className={getStatusColor(submission.status)}>
                         {submission.status}
@@ -445,7 +469,15 @@ const FormSubmissions = () => {
                       )}
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {formatDistanceToNow(new Date(submission.created_at), { addSuffix: true })}
+                        <span>
+                          Submitted {formatDistanceToNow(
+                            new Date(submission.original_created_at || submission.created_at),
+                            { addSuffix: true }
+                          )}
+                          <span className="ml-2 text-xs opacity-70">
+                            ({new Date(submission.original_created_at || submission.created_at).toLocaleString()})
+                          </span>
+                        </span>
                       </div>
                     </div>
                   </div>
