@@ -69,6 +69,8 @@ const FormSubmissions = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  const [deleteAllDialogOpen, setDeleteAllDialogOpen] = useState(false);
+  const [deletingAll, setDeletingAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filters
