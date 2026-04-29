@@ -410,6 +410,15 @@ const FormSubmissions = () => {
             <Download className="h-4 w-4 mr-2" />
             Export CSV
           </Button>
+          <Button
+            onClick={() => setDeleteAllDialogOpen(true)}
+            variant="destructive"
+            size="sm"
+            disabled={filteredSubmissions.length === 0 || loading}
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Delete All ({filteredSubmissions.length})
+          </Button>
         </div>
       </div>
 
