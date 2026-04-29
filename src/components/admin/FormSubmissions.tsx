@@ -789,6 +789,28 @@ const FormSubmissions = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete All Confirmation Dialog */}
+      <Dialog open={deleteAllDialogOpen} onOpenChange={setDeleteAllDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete All {filteredSubmissions.length} Submissions?</DialogTitle>
+            <DialogDescription>
+              This will permanently delete <strong>all {filteredSubmissions.length} currently filtered submissions</strong> from the database.
+              Google Sheets data will remain unchanged. This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteAllDialogOpen(false)} disabled={deletingAll}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={deleteAllFiltered} disabled={deletingAll}>
+              <Trash2 className="h-4 w-4 mr-2" />
+              {deletingAll ? "Deleting..." : `Delete All (${filteredSubmissions.length})`}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
