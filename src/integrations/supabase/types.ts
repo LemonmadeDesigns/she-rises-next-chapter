@@ -20,7 +20,6 @@ export type Database = {
           id: string
           product_id: string
           quantity: number
-          session_id: string | null
           size: string | null
           updated_at: string
           user_id: string
@@ -30,7 +29,6 @@ export type Database = {
           id?: string
           product_id: string
           quantity?: number
-          session_id?: string | null
           size?: string | null
           updated_at?: string
           user_id: string
@@ -40,7 +38,6 @@ export type Database = {
           id?: string
           product_id?: string
           quantity?: number
-          session_id?: string | null
           size?: string | null
           updated_at?: string
           user_id?: string
@@ -441,7 +438,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_session_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
