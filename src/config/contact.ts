@@ -174,6 +174,98 @@ export async function submitIntakeForm(
 }
 
 /**
+ * Common US/world timezone abbreviations → UTC offset (in hours).
+ * Covers the common cases found in Google Sheets exports.
+ */
+const TZ_OFFSETS: Record<string, number> = {
+  UTC: 0, GMT: 0,
+  EST: -5, EDT: -4,
+  CST: -6, CDT: -5,
+  MST: -7, MDT: -6,
+  PST: -8, PDT: -7,
+  AKST: -9, AKDT: -8,
+  HST: -10,
+  AST: -4, ADT: -3,
+  NST: -3.5, NDT: -2.5,
+  BST: 1, CET: 1, CEST: 2,
+  IST: 5.5, JST: 9, AEST: 10, AEDT: 11, NZST: 12, NZDT: 13,
+};
+
+/**
+ * Robustly parse a submission timestamp from a Google Sheet cell.
+ * Returns an ISO string, or null if the value cannot be parsed.
+ *
+ * Handles:
+ *  - Date objects / ISO strings / numeric Excel serials
+ *  - "Thursday, October 30, 2025 at 2:35:13 AM EDT"
+ *  - "October 30, 2025 2:35:13 AM EDT"
+ *  - Common US/EU date formats falling through to native Date
+ */
+export function parseSubmissionTimestamp(value: unknown): string | null {
+  if (value === null || value === undefined || value === '') return null;
+
+  // Native Date object (Apps Script returns these for date cells)
+  if (value instanceof Date) {
+    return isNaN(value.getTime()) ? null : value.toISOString();
+  }
+
+  // Excel serial number (days since 1899-12-30)
+  if (typeof value === 'number' && isFinite(value)) {
+    const ms = Math.round((value - 25569) * 86400 * 1000);
+    const d = new Date(ms);
+    return isNaN(d.getTime()) ? null : d.toISOString();
+  }
+
+  if (typeof value !== 'string') return null;
+  const raw = value.trim();
+  if (!raw) return null;
+
+  // Try the natural-language "... at H:MM:SS AM TZ" format first.
+  // Strip the leading weekday + comma if present, and the literal " at ".
+  const cleaned = raw
+    .replace(/^[A-Za-z]+,\s*/, '')      // "Thursday, " → ""
+    .replace(/\s+at\s+/i, ' ')          // "... at 2:35..." → "... 2:35..."
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Detect trailing timezone abbreviation (e.g. "EDT", "PST")
+  const tzMatch = cleaned.match(/\s([A-Z]{2,5})$/);
+  let body = cleaned;
+  let tzOffsetHours: number | null = null;
+  if (tzMatch && TZ_OFFSETS[tzMatch[1]] !== undefined) {
+    tzOffsetHours = TZ_OFFSETS[tzMatch[1]];
+    body = cleaned.slice(0, -tzMatch[0].length).trim();
+  }
+
+  // Parse the body with the native Date parser (handles "October 30, 2025 2:35:13 AM" well).
+  let parsed = new Date(body);
+  if (isNaN(parsed.getTime())) {
+    // Last-ditch: try the original raw string
+    parsed = new Date(raw);
+    if (isNaN(parsed.getTime())) return null;
+    return parsed.toISOString();
+  }
+
+  // If we extracted a timezone, the body was parsed as local time — re-anchor it.
+  if (tzOffsetHours !== null) {
+    // Treat the parsed Y/M/D H:M:S as wall-clock time in the named timezone.
+    const wall = Date.UTC(
+      parsed.getFullYear(),
+      parsed.getMonth(),
+      parsed.getDate(),
+      parsed.getHours(),
+      parsed.getMinutes(),
+      parsed.getSeconds(),
+      parsed.getMilliseconds(),
+    );
+    const utcMs = wall - tzOffsetHours * 3600 * 1000;
+    return new Date(utcMs).toISOString();
+  }
+
+  return parsed.toISOString();
+}
+
+/**
  * Fetches all submissions from Google Sheets and syncs them to Supabase
  */
 export async function syncFromGoogleSheets(): Promise<{
