@@ -282,18 +282,33 @@ const FormSubmissions = () => {
     }
   };
 
-  // Export to CSV
+  // Export to CSV — preserves insertion_order, includes original_created_at
   const exportToCSV = () => {
-    const headers = ['Date', 'Name', 'Email', 'Phone', 'Form Type', 'Subject', 'Message', 'Status'];
+    const headers = [
+      'Order',
+      'Submitted At',
+      'Original Submitted At',
+      'Created At (DB)',
+      'Name',
+      'Email',
+      'Phone',
+      'Form Type',
+      'Subject',
+      'Message',
+      'Status',
+    ];
     const rows = filteredSubmissions.map(s => [
+      s.insertion_order ?? '',
+      new Date(s.original_created_at || s.created_at).toLocaleString(),
+      s.original_created_at ? new Date(s.original_created_at).toLocaleString() : '',
       new Date(s.created_at).toLocaleString(),
       s.name,
       s.email,
       s.phone || '',
       s.form_type,
       s.subject || '',
-      s.message || '',
-      s.status
+      (s.message || '').replace(/"/g, '""'),
+      s.status,
     ]);
 
     const csvContent = [
