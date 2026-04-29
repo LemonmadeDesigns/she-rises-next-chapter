@@ -186,9 +186,11 @@ export type Database = {
           form_data: Json | null
           form_type: string
           id: string
+          insertion_order: number
           message: string | null
           name: string
           notes: string | null
+          original_created_at: string | null
           phone: string | null
           read_at: string | null
           responded_at: string | null
@@ -203,9 +205,11 @@ export type Database = {
           form_data?: Json | null
           form_type: string
           id?: string
+          insertion_order?: number
           message?: string | null
           name: string
           notes?: string | null
+          original_created_at?: string | null
           phone?: string | null
           read_at?: string | null
           responded_at?: string | null
@@ -220,9 +224,11 @@ export type Database = {
           form_data?: Json | null
           form_type?: string
           id?: string
+          insertion_order?: number
           message?: string | null
           name?: string
           notes?: string | null
+          original_created_at?: string | null
           phone?: string | null
           read_at?: string | null
           responded_at?: string | null
