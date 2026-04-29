@@ -213,12 +213,11 @@ export async function syncFromGoogleSheets(): Promise<{
         continue;
       }
 
-      // Parse the original timestamp from the sheet (if any)
-      let originalCreatedAt: string | null = null;
-      const parsed = new Date(row.Timestamp);
-      if (!isNaN(parsed.getTime())) {
-        originalCreatedAt = parsed.toISOString();
-      }
+      // Parse the original timestamp from the sheet — handles formats like:
+      //   "Thursday, October 30, 2025 at 2:35:13 AM EDT"
+      //   "10/30/2025 2:35:13"
+      //   ISO strings, Date objects, Excel serial numbers
+      const originalCreatedAt = parseSubmissionTimestamp(row.Timestamp);
 
       // created_at: prefer original timestamp, otherwise generate a unique sequential
       // timestamp so two rows are never assigned the exact same created_at.
