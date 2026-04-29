@@ -444,7 +444,7 @@ const FormSubmissions = () => {
         </Card>
       ) : (
         <div className="grid gap-4">
-          {filteredSubmissions.map((submission) => (
+          {paginatedSubmissions.map((submission) => (
             <Card key={submission.id} className={`${submission.status === 'unread' ? 'border-l-4 border-l-red-500' : ''}`}>
               <CardHeader>
                 <div className="flex justify-between items-start">
