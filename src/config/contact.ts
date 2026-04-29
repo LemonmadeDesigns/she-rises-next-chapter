@@ -202,36 +202,36 @@ export async function syncFromGoogleSheets(): Promise<{
     let imported = 0;
     let skipped = 0;
 
-    for (const row of result.data) {
+    // Preserve row order from the sheet as the source of truth.
+    // Use index as a tiny offset to keep created_at strictly increasing per import.
+    const importStartedAt = Date.now();
+
+    for (let i = 0; i < result.data.length; i++) {
+      const row = result.data[i];
       if (!row.Name || !row.Email) {
         skipped++;
         continue;
       }
 
-      // Parse timestamp - handle various formats
-      let timestamp: string;
-      try {
-        // Try parsing the timestamp
-        const date = new Date(row.Timestamp);
-        if (isNaN(date.getTime())) {
-          // If invalid, use current time
-          timestamp = new Date().toISOString();
-        } else {
-          timestamp = date.toISOString();
-        }
-      } catch {
-        // Fallback to current time if parsing fails
-        timestamp = new Date().toISOString();
+      // Parse the original timestamp from the sheet (if any)
+      let originalCreatedAt: string | null = null;
+      const parsed = new Date(row.Timestamp);
+      if (!isNaN(parsed.getTime())) {
+        originalCreatedAt = parsed.toISOString();
       }
 
-      // Check if submission already exists (by name and email only, since timestamp might vary)
+      // created_at: prefer original timestamp, otherwise generate a unique sequential
+      // timestamp so two rows are never assigned the exact same created_at.
+      const createdAt = originalCreatedAt ?? new Date(importStartedAt + i).toISOString();
+
+      // Check if submission already exists (by name and email)
       const { data: existing } = await supabase
         .from('form_submissions')
         .select('id')
         .eq('name', row.Name)
         .eq('email', row.Email)
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         skipped++;
@@ -251,8 +251,10 @@ export async function syncFromGoogleSheets(): Promise<{
           subject: row.Subject || null,
           message: row.Message || null,
           status: 'unread',
-          created_at: timestamp
-        });
+          created_at: createdAt,
+          original_created_at: originalCreatedAt,
+          // insertion_order is auto-assigned by DB trigger in true row order
+        } as never);
 
       if (insertError) {
         console.error('Error inserting row:', insertError);
