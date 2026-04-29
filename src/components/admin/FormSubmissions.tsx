@@ -58,6 +58,8 @@ interface FormSubmission {
   original_created_at?: string | null;
 }
 
+const PAGE_SIZE = 15;
+
 const FormSubmissions = () => {
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState<FormSubmission[]>([]);
@@ -67,6 +69,7 @@ const FormSubmissions = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -75,16 +78,16 @@ const FormSubmissions = () => {
 
   const { toast } = useToast();
 
-  // Fetch submissions — order by insertion_order (true creation order),
-  // falling back to created_at for stable ordering.
+  // Fetch submissions — newest first by created_at, with id as a stable
+  // tiebreaker so the order never reshuffles between refreshes.
   const fetchSubmissions = async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
-        .order('insertion_order', { ascending: true, nullsFirst: false })
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: false });
 
       if (error) throw error;
 
@@ -161,7 +164,13 @@ const FormSubmissions = () => {
     }
 
     setFilteredSubmissions(filtered);
+    setCurrentPage(1);
   }, [statusFilter, formTypeFilter, searchQuery, submissions]);
+
+  // Pagination derived state
+  const totalPages = Math.max(1, Math.ceil(filteredSubmissions.length / PAGE_SIZE));
+  const pageStart = (currentPage - 1) * PAGE_SIZE;
+  const paginatedSubmissions = filteredSubmissions.slice(pageStart, pageStart + PAGE_SIZE);
 
   // Mark as read
   const markAsRead = async (id: string) => {
@@ -435,7 +444,7 @@ const FormSubmissions = () => {
         </Card>
       ) : (
         <div className="grid gap-4">
-          {filteredSubmissions.map((submission) => (
+          {paginatedSubmissions.map((submission) => (
             <Card key={submission.id} className={`${submission.status === 'unread' ? 'border-l-4 border-l-red-500' : ''}`}>
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -516,6 +525,36 @@ const FormSubmissions = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {!loading && filteredSubmissions.length > 0 && (
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+          <p className="text-sm text-muted-foreground">
+            Showing {pageStart + 1}–{Math.min(pageStart + PAGE_SIZE, filteredSubmissions.length)} of {filteredSubmissions.length}
+          </p>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            >
+              Previous
+            </Button>
+            <span className="text-sm font-medium px-2">
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={currentPage >= totalPages}
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       )}
 
