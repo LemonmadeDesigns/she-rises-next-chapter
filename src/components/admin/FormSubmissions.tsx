@@ -75,14 +75,16 @@ const FormSubmissions = () => {
 
   const { toast } = useToast();
 
-  // Fetch submissions
+  // Fetch submissions — order by insertion_order (true creation order),
+  // falling back to created_at for stable ordering.
   const fetchSubmissions = async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('insertion_order', { ascending: true, nullsFirst: false })
+        .order('created_at', { ascending: true });
 
       if (error) throw error;
 
