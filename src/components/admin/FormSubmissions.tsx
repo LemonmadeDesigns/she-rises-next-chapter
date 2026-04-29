@@ -58,6 +58,8 @@ interface FormSubmission {
   original_created_at?: string | null;
 }
 
+const PAGE_SIZE = 15;
+
 const FormSubmissions = () => {
   const [submissions, setSubmissions] = useState<FormSubmission[]>([]);
   const [filteredSubmissions, setFilteredSubmissions] = useState<FormSubmission[]>([]);
@@ -67,6 +69,7 @@ const FormSubmissions = () => {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [submissionToDelete, setSubmissionToDelete] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -75,16 +78,16 @@ const FormSubmissions = () => {
 
   const { toast } = useToast();
 
-  // Fetch submissions — order by insertion_order (true creation order),
-  // falling back to created_at for stable ordering.
+  // Fetch submissions — newest first by created_at, with id as a stable
+  // tiebreaker so the order never reshuffles between refreshes.
   const fetchSubmissions = async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('form_submissions')
         .select('*')
-        .order('insertion_order', { ascending: true, nullsFirst: false })
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: false });
 
       if (error) throw error;
 
