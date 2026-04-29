@@ -54,6 +54,8 @@ interface FormSubmission {
   responded_at?: string;
   created_at: string;
   updated_at: string;
+  insertion_order?: number;
+  original_created_at?: string | null;
 }
 
 const FormSubmissions = () => {
