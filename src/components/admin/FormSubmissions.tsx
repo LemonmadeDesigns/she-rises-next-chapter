@@ -284,6 +284,38 @@ const FormSubmissions = () => {
     }
   };
 
+  // Delete ALL currently filtered submissions (DB only, not Google Sheets)
+  const deleteAllFiltered = async () => {
+    if (filteredSubmissions.length === 0) return;
+    setDeletingAll(true);
+    try {
+      const ids = filteredSubmissions.map(s => s.id);
+      const { error } = await supabase
+        .from('form_submissions')
+        .delete()
+        .in('id', ids);
+
+      if (error) throw error;
+
+      setDeleteAllDialogOpen(false);
+      setCurrentPage(1);
+      fetchSubmissions();
+      toast({
+        title: "Deleted",
+        description: `${ids.length} submission(s) deleted from database (Google Sheets unchanged)`,
+      });
+    } catch (error) {
+      console.error('Error deleting all submissions:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete submissions",
+      });
+    } finally {
+      setDeletingAll(false);
+    }
+  };
+
   // View submission
   const viewSubmission = (submission: FormSubmission) => {
     setSelectedSubmission(submission);
