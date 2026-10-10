@@ -1,356 +1,245 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
-import SectionHeader from "@/components/sections/SectionHeader";
 import ApplicationModal from "@/components/modals/ApplicationModal";
-import { Home, Users, Calendar, Phone, Mail } from "lucide-react";
+import { Home, Users, Calendar, Phone, Mail, Check } from "lucide-react";
 
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
 import employmentReadinessImage from "@/assets/employment-readiness.jpg";
 import mentoringImage from "@/assets/mentoring.jpg";
-import programsHeroImage from "@/assets/employment-readiness.jpg";
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p className="eyebrow mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent-text">{children}</p>
+);
+
+type Program = {
+  id: string; title: string; subtitle?: string; icon: typeof Home; image: string; description: string;
+  features?: string[]; featuresLabel?: string; capacity?: string; availability?: string;
+  recentEvents?: string[]; upcoming?: string;
+};
+
+const programs: Program[] = [
+  {
+    id: "transitional-housing",
+    title: "Transitional Housing",
+    subtitle: "Launching 2025",
+    icon: Home,
+    image: transitionalHomeImage,
+    description: "Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments. Our home provides structure, stability, and individualized support as women work toward independence.",
+    featuresLabel: "Program Features",
+    features: [
+      "Safe, structured shared housing",
+      "Case management & individualized goal planning",
+      "Life skills, empowerment, and reentry support",
+      "Employment readiness resources",
+      "Referrals to healthcare, mental health, and community resources",
+    ],
+    capacity: "Growing — initial 6 beds expanding to 10+ in 2026",
+  },
+  {
+    id: "reentry-support",
+    title: "Reentry Support & Empowerment Services",
+    icon: Users,
+    image: employmentReadinessImage,
+    description: "Community-based services designed to support women reentering society or seeking stability after crisis or hardship.",
+    featuresLabel: "Services Include",
+    features: [
+      "Resume building & job search assistance",
+      "Support with IDs, benefits, and documentation",
+      "Appointment support",
+      "Resource navigation (housing, employment, education, etc.)",
+      "Empowerment workshops & peer support",
+    ],
+    availability: "Open to women throughout Southern California.",
+  },
+  {
+    id: "community-outreach",
+    title: "Community Outreach & Events",
+    icon: Calendar,
+    image: mentoringImage,
+    description: "She Rises actively engages in outreach efforts to connect women with essential community resources, partners, and support networks.",
+    recentEvents: ["HIRE Reentry Resource Fair — Anaheim", "RCC Rising Scholars Fall Festival — Riverside"],
+    upcoming: "Additional community events, workshops, and outreach activities will be announced throughout 2025.",
+  },
+];
+
+const impact = [
+  "Transitional Housing Opening 2025 (San Bernardino County)",
+  "Comprehensive reentry and empowerment services",
+  "Community partnerships across the Inland Empire and Orange County",
+  "Expansion planned for 2026–2027",
+];
+
+const steps = [
+  { title: "Reach Out", text: "Contact us by phone or email to discuss your needs and learn about our programs.", items: ["(909) 547-9998", "Mon–Fri: 9AM–5PM PST"] },
+  { title: "Initial Conversation", text: "We'll discuss your situation, answer questions, and determine which services may be right for you.", items: ["Confidential conversation", "No judgment, only support", "Referrals if needed"] },
+  { title: "Next Steps Together", text: "If She Rises is the right fit, we'll work with you on intake, planning, and getting started.", items: ["Personalized planning", "Clear expectations", "Ongoing support"] },
+];
 
 const Programs = () => {
-  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
-
-  const programs = [
-    {
-      id: "transitional-housing",
-      title: "Transitional Housing",
-      subtitle: "Launching 2025",
-      icon: Home,
-      image: transitionalHomeImage,
-      description: "Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments. Our home provides structure, stability, and individualized support as women work toward independence.",
-      features: [
-        "Safe, structured shared housing",
-        "Case management & individualized goal planning",
-        "Life skills, empowerment, and reentry support",
-        "Employment readiness resources",
-        "Referrals for healthcare, mental health, childcare, and legal aid"
-      ],
-      capacity: "Current Capacity: Growing (initial 6 beds expanding to 10+ in 2026)",
-      color: "bg-royal-plum"
-    },
-    {
-      id: "reentry-support",
-      title: "Reentry Support & Empowerment Services",
-      subtitle: "",
-      icon: Users,
-      image: employmentReadinessImage,
-      description: "Community-based services designed to support women reentering society or seeking stability after crisis or hardship.",
-      features: [
-        "Resume building & job search assistance",
-        "Support with IDs, benefits, and documentation",
-        "Appointment and court support",
-        "Resource navigation (housing, employment, education, childcare, etc.)",
-        "Empowerment workshops & peer support"
-      ],
-      availability: "Open to women throughout Southern California.",
-      color: "bg-lotus-rose"
-    },
-    {
-      id: "community-outreach",
-      title: "Community Outreach & Events",
-      subtitle: "",
-      icon: Calendar,
-      image: mentoringImage,
-      description: "She Rises actively engages in outreach efforts to connect women with essential community resources, partners, and support networks.",
-      recentEvents: [
-        "HIRE Reentry Resource Fair — Anaheim",
-        "RCC Rising Scholars Fall Festival — Riverside"
-      ],
-      upcoming: "Additional community events, workshops, and outreach activities will be announced throughout 2025.",
-      color: "bg-crown-gold"
-    }
-  ];
+  const [open, setOpen] = useState(false);
 
   return (
     <Layout>
-      {/* Hero Section */}
       <Hero
         title="Our Programs"
-        subtitle="She Rises provides supportive services to help women rebuild their lives with dignity, stability, and purpose. As a growing organization, our programs are launching in phases throughout 2025–2026 to meet the needs of justice-impacted and at-risk women across Southern California."
-        backgroundImage={programsHeroImage}
+        subtitle="She Rises provides supportive services to help women rebuild their lives with dignity, stability, and purpose. Our programs are launching in phases throughout 2025–2026 to meet the needs of justice-impacted and at-risk women across Southern California."
+        backgroundImage={employmentReadinessImage}
         backgroundImageAlt="She Rises Programs - Empowering women through supportive services"
         backgroundImageWidth={1920}
         backgroundImageHeight={1080}
         parallax={true}
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button
-            size="lg"
-            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
-            onClick={() => setIsApplicationModalOpen(true)}
-          >
-            Contact Us About Programs
+          <Button size="lg" className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8" onClick={() => setOpen(true)}>
+            Apply / Contact Us
           </Button>
           <a href="#our-programs">
-            <Button size="lg" className="hero-button-secondary btn-force-visible">
-              Learn More
-            </Button>
+            <Button size="lg" className="hero-button-secondary btn-force-visible rounded-full px-8">Learn More</Button>
           </a>
         </div>
       </Hero>
 
-      {/* Programs Section */}
-      <section id="our-programs" className="py-20 bg-gradient-soft">
-        <div className="container mx-auto px-4">
-          <div className="space-y-12">
-            {programs.map((program, index) => (
-              <Card key={program.id} className="overflow-hidden shadow-soft">
-                <CardContent className="p-0">
-                  <div className="md:flex">
-                    {/* Image Section */}
-                    <div className="md:w-1/4 relative overflow-hidden">
-                      <img
-                        src={program.image}
-                        alt={program.title}
-                        className="w-full h-full object-cover min-h-[300px] md:min-h-full"
-                      />
-                      {program.subtitle && (
-                        <div className="absolute top-4 left-4 right-4">
-                          <Badge className="bg-crown-gold text-royal-plum font-semibold shadow-lg">
-                            {program.subtitle}
-                          </Badge>
-                        </div>
-                      )}
-                      <div className="absolute bottom-4 right-4">
-                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm">
-                          <program.icon className="h-8 w-8 text-royal-plum" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Content Section */}
-                    <div className="p-8 md:w-3/4">
-                      <h3 className="font-serif text-2xl md:text-3xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                        {program.title}
-                      </h3>
-
-                      <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-lg mb-6">
-                        {program.description}
-                      </p>
-
-                      {/* Features */}
-                      {program.features && (
-                        <div className="mb-6">
-                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-3">
-                            {program.id === "transitional-housing" ? "Program Features:" : "Services Include:"}
-                          </h4>
-                          <ul className="space-y-2">
-                            {program.features.map((feature, idx) => (
-                              <li key={idx} className="flex items-start">
-                                <span className="text-crown-gold mr-3 text-lg">•</span>
-                                <span className="text-[#4A4A4A] dark:text-[#E0E0E0]">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {/* Capacity Info */}
-                      {program.capacity && (
-                        <div className="bg-warm-cream p-4 rounded-lg mb-4">
-                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Capacity:</h4>
-                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.capacity}</p>
-                        </div>
-                      )}
-
-                      {/* Availability Info */}
-                      {program.availability && (
-                        <div className="bg-warm-cream p-4 rounded-lg mb-4">
-                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Availability:</h4>
-                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.availability}</p>
-                        </div>
-                      )}
-
-                      {/* Recent Events */}
-                      {program.recentEvents && (
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Recent Events:</h4>
-                          <ul className="space-y-1 mb-4">
-                            {program.recentEvents.map((event, idx) => (
-                              <li key={idx} className="flex items-start">
-                                <span className="text-crown-gold mr-2">•</span>
-                                <span className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm">{event}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {/* Upcoming */}
-                      {program.upcoming && (
-                        <div className="bg-gradient-gold/20 p-4 rounded-lg">
-                          <h4 className="font-semibold text-[#3D2645] dark:text-[#F2F2F2] mb-2">Upcoming:</h4>
-                          <p className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0]">{program.upcoming}</p>
-                        </div>
-                      )}
-                    </div>
+      {/* Programs */}
+      <section id="our-programs" className="py-20 md:py-28 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-14">
+            <Eyebrow>What we provide</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground">Services built around you</h2>
+          </div>
+          <div className="space-y-8">
+            {programs.map((p, i) => (
+              <article key={p.id} className="overflow-hidden rounded-2xl border border-border bg-surface shadow-soft transition-shadow hover:shadow-medium">
+                <div className={`md:flex ${i % 2 ? "md:flex-row-reverse" : ""}`}>
+                  <div className="md:w-2/5 relative">
+                    <img src={p.image} alt={p.title} className="w-full h-64 md:h-full object-cover" loading="lazy" />
+                    {p.subtitle && (
+                      <span className="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-deep">{p.subtitle}</span>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="p-8 md:p-10 md:w-3/5">
+                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-5">
+                      <p.icon className="h-6 w-6 text-accent" />
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">{p.title}</h3>
+                    <p className="text-muted-foreground text-lg mb-6">{p.description}</p>
+
+                    {p.features && (
+                      <>
+                        <p className="text-xs font-bold uppercase tracking-[0.15em] text-label mb-3">{p.featuresLabel}</p>
+                        <ul className="space-y-2 mb-6">
+                          {p.features.map((f) => (
+                            <li key={f} className="flex items-start gap-3">
+                              <Check className="h-5 w-5 text-accent-text flex-shrink-0 mt-0.5" />
+                              <span className="text-foreground/90">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {p.recentEvents && (
+                      <>
+                        <p className="text-xs font-bold uppercase tracking-[0.15em] text-label mb-3">Recent Events</p>
+                        <ul className="space-y-2 mb-6">
+                          {p.recentEvents.map((e) => (
+                            <li key={e} className="flex items-start gap-3">
+                              <Check className="h-5 w-5 text-accent-text flex-shrink-0 mt-0.5" />
+                              <span className="text-foreground/90">{e}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {(p.capacity || p.availability || p.upcoming) && (
+                      <div className="rounded-xl bg-surface-alt border border-border p-4">
+                        <p className="text-xs font-bold uppercase tracking-[0.15em] text-label mb-1">
+                          {p.capacity ? "Capacity" : p.availability ? "Availability" : "Upcoming"}
+                        </p>
+                        <p className="text-sm text-foreground/90">{p.capacity || p.availability || p.upcoming}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Our Growing Impact */}
-      <section className="py-20 bg-royal-plum text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6">
-            Our Growing Impact
-          </h2>
-          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+      {/* Impact */}
+      <section className="py-20 md:py-28 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <Eyebrow>Our growth</Eyebrow>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-5">Our Growing Impact</h2>
+          <p className="text-lg opacity-90 mb-10 max-w-2xl mx-auto">
             We are building a strong foundation to support women across Southern California through comprehensive programs.
           </p>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
-              <ul className="space-y-4 text-left">
-                <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Transitional Housing Opening 2025 (San Bernardino County)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Comprehensive reentry and empowerment services</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Community partnerships across the Inland Empire and Orange County</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Expansion planned for 2026–2027</span>
-                </li>
-              </ul>
-            </div>
+          <div className="grid sm:grid-cols-2 gap-4 text-left">
+            {impact.map((t) => (
+              <div key={t} className="flex items-start gap-3 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-5">
+                <Check className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <span>{t}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* How to Get Started */}
-      <section className="py-20 bg-gradient-soft">
-        <div className="container mx-auto px-4">
-          <SectionHeader
-            title="How to Get Started"
-            subtitle="Ready to learn more or connect with our programs?"
-          />
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center p-8">
-              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">1</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                Reach Out
-              </h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
-                Contact us by phone or email to discuss your needs and learn about our programs.
-              </p>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-center gap-2 text-[#3D2645] dark:text-[#F2F2F2]">
-                  <Phone className="h-4 w-4" />
-                  <span>(909) 547-9998</span>
-                </div>
-                <div className="text-xs text-[#737373] dark:text-[#B3B3B3]">
-                  Mon-Fri: 9AM-5PM PST
-                </div>
-              </div>
-            </Card>
-
-            <Card className="text-center p-8">
-              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                Initial Conversation
-              </h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
-                We'll discuss your situation, answer questions, and determine which services may be right for you.
-              </p>
-              <ul className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0] space-y-1">
-                <li>• Confidential conversation</li>
-                <li>• No judgment, only support</li>
-                <li>• Referrals if needed</li>
-              </ul>
-            </Card>
-
-            <Card className="text-center p-8">
-              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                Next Steps Together
-              </h3>
-              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-4">
-                If She Rises is the right fit, we'll work with you on intake, planning, and getting started.
-              </p>
-              <ul className="text-sm text-[#4A4A4A] dark:text-[#E0E0E0] space-y-1">
-                <li>• Personalized planning</li>
-                <li>• Clear expectations</li>
-                <li>• Ongoing support</li>
-              </ul>
-            </Card>
+      {/* How to start */}
+      <section className="py-20 md:py-28 bg-surface-alt">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-14">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">How to Get Started</h2>
+            <p className="text-lg text-muted-foreground">Ready to learn more or connect with our programs?</p>
           </div>
-
+          <div className="grid md:grid-cols-3 gap-6">
+            {steps.map((s, i) => (
+              <div key={s.title} className="rounded-2xl border border-border bg-surface p-8 shadow-soft transition-transform hover:-translate-y-1">
+                <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-5 text-xl font-extrabold text-primary-deep">{i + 1}</div>
+                <h3 className="text-xl font-bold text-foreground mb-3">{s.title}</h3>
+                <p className="text-muted-foreground mb-4">{s.text}</p>
+                <ul className="space-y-1 text-sm text-foreground/80">
+                  {s.items.map((it) => <li key={it}>• {it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
           <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
-              onClick={() => setIsApplicationModalOpen(true)}
-            >
+            <Button size="lg" className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-10" onClick={() => setOpen(true)}>
               Contact Us Today
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-20 bg-lotus-rose text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-serif text-3xl font-bold text-white mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
-            Contact us to learn more about our programs and services.
-          </p>
-          <p className="text-sm text-white/80 mb-8 max-w-2xl mx-auto">
+      {/* Contact */}
+      <section className="py-20 bg-primary-deep text-primary-foreground">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Ready to Get Started?</h2>
+          <p className="text-lg opacity-90 mb-3">Contact us to learn more about our programs and services.</p>
+          <p className="text-sm opacity-80 mb-10">
             Not a 24-hour crisis shelter. For immediate crisis support, please call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
           </p>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <Card className="bg-white/10 border-white/20 text-white shadow-soft">
-              <CardContent className="p-6 text-center">
-                <Phone className="h-8 w-8 text-[#3D2645] mx-auto mb-3" />
-                <h3 className="font-bold text-lg text-[#3D2645] mb-2">Contact She Rises</h3>
-                <p className="text-2xl font-bold text-white mb-2">(909) 547-9998</p>
-                <p className="text-sm text-white/90">Mon-Fri: 9AM-5PM PST</p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-white/20 text-white shadow-soft">
-              <CardContent className="p-6 text-center">
-                <Mail className="h-8 w-8 text-[#3D2645] mx-auto mb-3" />
-                <h3 className="font-bold text-lg text-[#3D2645] mb-2">Email Us</h3>
-                <p className="text-sm font-bold text-white mb-2 break-all">pransom@safehavenforempowerment.org</p>
-                <p className="text-sm text-white/90">Response within 1-2 business days</p>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 gap-5">
+            <a href="tel:+19095479998" className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10">
+              <Phone className="h-7 w-7 text-accent mx-auto mb-3" />
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent mb-1">Call She Rises</p>
+              <p className="text-2xl font-extrabold">(909) 547-9998</p>
+              <p className="text-sm opacity-80">Mon–Fri: 9AM–5PM PST</p>
+            </a>
+            <a href="mailto:pransom@safehavenforempowerment.org" className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10">
+              <Mail className="h-7 w-7 text-accent mx-auto mb-3" />
+              <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent mb-1">Email Us</p>
+              <p className="text-sm font-bold break-all">pransom@safehavenforempowerment.org</p>
+              <p className="text-sm opacity-80">Response within 1–2 business days</p>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Application Modal */}
-      <ApplicationModal
-        isOpen={isApplicationModalOpen}
-        onClose={() => setIsApplicationModalOpen(false)}
-      />
+      <ApplicationModal isOpen={open} onClose={() => setOpen(false)} />
     </Layout>
   );
 };
