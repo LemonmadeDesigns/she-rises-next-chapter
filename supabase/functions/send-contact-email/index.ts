@@ -182,7 +182,7 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0;">
             ${safeMessage}
           </div>
-          <p>If you need immediate assistance, please call us at <strong>(909) 547-9998</strong>.</p>
+          <p>If you need immediate assistance, please call us at <strong>(909) 330-9240</strong>.</p>
           <p>Best regards,<br>The She Rises Team</p>
           <hr>
           <p style="color: #666; font-size: 12px;">

@@ -507,7 +507,7 @@ Newsletter Subscription: ${registrationForm.newsletter ? 'Yes' : 'No'}
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>• Add the event to your calendar</p>
               <p>• Check your email for confirmation details</p>
-              <p>• Contact us at (909) 547-9998 with any questions</p>
+              <p>• Contact us at (909) 330-9240 with any questions</p>
             </div>
           </div>
         )}

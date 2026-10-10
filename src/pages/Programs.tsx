@@ -72,7 +72,7 @@ const impact = [
 ];
 
 const steps = [
-  { title: "Reach Out", text: "Contact us by phone or email to discuss your needs and learn about our programs.", items: ["(909) 547-9998", "Mon–Fri: 9AM–5PM PST"] },
+  { title: "Reach Out", text: "Contact us by phone or email to discuss your needs and learn about our programs.", items: ["(909) 330-9240", "Mon–Fri: 9AM–5PM PST"] },
   { title: "Initial Conversation", text: "We'll discuss your situation, answer questions, and determine which services may be right for you.", items: ["Confidential conversation", "No judgment, only support", "Referrals if needed"] },
   { title: "Next Steps Together", text: "If She Rises is the right fit, we'll work with you on intake, planning, and getting started.", items: ["Personalized planning", "Clear expectations", "Ongoing support"] },
 ];
@@ -223,10 +223,10 @@ const Programs = () => {
             Not a 24-hour crisis shelter. For immediate crisis support, please call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
           </p>
           <div className="grid md:grid-cols-2 gap-5">
-            <a href="tel:+19095479998" className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10">
+            <a href="tel:+19093309240" className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10">
               <Phone className="h-7 w-7 text-accent mx-auto mb-3" />
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent mb-1">Call She Rises</p>
-              <p className="text-2xl font-extrabold">(909) 547-9998</p>
+              <p className="text-2xl font-extrabold">(909) 330-9240</p>
               <p className="text-sm opacity-80">Mon–Fri: 9AM–5PM PST</p>
             </a>
             <a href="mailto:pransom@safehavenforempowerment.org" className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10">

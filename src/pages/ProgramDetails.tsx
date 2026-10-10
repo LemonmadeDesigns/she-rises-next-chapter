@@ -388,7 +388,7 @@ const ProgramDetails = () => {
                     Speak with our intake team to learn more and get started
                   </p>
                   <div className="space-y-2">
-                    <p className="text-xl font-bold text-crown-gold">(909) 547-9998</p>
+                    <p className="text-xl font-bold text-crown-gold">(909) 330-9240</p>
                     <p className="text-xs text-muted-foreground">Mon-Fri: 9AM-5PM</p>
                   </div>
                 </CardContent>

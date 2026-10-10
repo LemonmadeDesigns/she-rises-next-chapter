@@ -44,7 +44,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Main Office",
-      details: "(909) 547-9998",
+      details: "(909) 330-9240",
       description: "Monday - Friday, 9:00 AM - 5:00 PM PST",
       color: "bg-royal-plum"
     },
@@ -76,25 +76,25 @@ const Contact = () => {
     {
       name: "Program Services",
       email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 547-9998",
+      phone: "(909) 330-9240",
       description: "Questions about our housing, employment, and support programs"
     },
     {
       name: "Volunteer Coordination",
       email: "pransom@safehavenforempowerment.org", 
-      phone: "(909) 547-9998",
+      phone: "(909) 330-9240",
       description: "Volunteer opportunities and training information"
     },
     {
       name: "Donations & Fundraising",
       email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 547-9998", 
+      phone: "(909) 330-9240", 
       description: "Corporate partnerships, sponsorships, and major gifts"
     },
     {
       name: "Media & Communications",
       email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 547-9998",
+      phone: "(909) 330-9240",
       description: "Press inquiries, interviews, and media requests"
     }
   ];
@@ -163,7 +163,7 @@ const Contact = () => {
 
     } catch (error) {
       console.error('Error sending email:', error);
-      alert('There was an error sending your message. Please try again or call us at (909) 547-9998.');
+      alert('There was an error sending your message. Please try again or call us at (909) 330-9240.');
     }
   };
 
@@ -576,7 +576,7 @@ const Contact = () => {
                 How do I apply for housing assistance?
               </h3>
               <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
-                Contact our Program Services team at (909) 547-9998 or visit our Programs page for detailed application information and eligibility requirements.
+                Contact our Program Services team at (909) 330-9240 or visit our Programs page for detailed application information and eligibility requirements.
               </p>
               <div className="mt-auto">
                 <Button 
@@ -628,7 +628,7 @@ const Contact = () => {
                 How can my organization partner with She Rises?
               </h3>
               <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
-                We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 547-9998 to discuss partnership opportunities.
+                We welcome corporate partnerships and sponsorships. Contact our Development team at (909) 330-9240 to discuss partnership opportunities.
               </p>
               <div className="mt-auto">
                 <Button 
