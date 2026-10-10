@@ -16,7 +16,7 @@
 | Account/Admin | `/auth`, `/admin` | Sign in, admin panel (events, form submissions) |
 | Dev only | `/image-test` | Should be removed |
 
-Facts to preserve: phone (909) 547-9998, email empowerhavenhomes@gmail.com, office hours, address, crisis lines 800-662-4357 (SAMHSA) and 800-799-7233 (DV hotline), Zelle QR, Executive Director bio, mission/vision text.
+Facts to preserve: phone (909) 330-9240, email empowerhavenhomes@gmail.com, office hours, address, crisis lines 800-662-4357 (SAMHSA) and 800-799-7233 (DV hotline), Zelle QR, Executive Director bio, mission/vision text.
 
 Issues found: placeholder phones `(555) 123-4567` / `(555) 555-1234` still in code; stats on Home/Donate look like real numbers but are unverified.
 

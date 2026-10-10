@@ -177,8 +177,8 @@ const About = () => {
                   <a href="mailto:pransom@safehavenforempowerment.org" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary break-all">
                     <Mail className="h-4 w-4 flex-shrink-0" /> pransom@safehavenforempowerment.org
                   </a>
-                  <a href="tel:+19095479998" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary">
-                    <Phone className="h-4 w-4" /> (909) 547-9998
+                  <a href="tel:+19093309240" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary">
+                    <Phone className="h-4 w-4" /> (909) 330-9240
                   </a>
                 </div>
               </div>
