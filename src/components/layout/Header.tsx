@@ -85,10 +85,8 @@ const Header = () => {
   const navigation = [
     { name: "About", href: "/about" },
     { name: "Programs", href: "/programs" },
-    { name: "Events", href: "/events" },
     { name: "Get Involved", href: "/get-involved" },
     { name: "Contact", href: "/contact" },
-    { name: "Shop", href: "/shop" },
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -171,6 +169,10 @@ const Header = () => {
                 <Moon className="h-5 w-5" />
               )}
             </Button>
+
+            <Link to="/donate">
+              <Button className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-bold px-6 shadow-md">Donate</Button>
+            </Link>
 
             <Link to="/cart">
               <Button className="cart-button">

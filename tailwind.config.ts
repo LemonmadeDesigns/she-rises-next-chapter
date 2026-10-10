@@ -21,6 +21,11 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         // Modern simplified palette - using CSS variables for dark mode support
+        surface: { DEFAULT: "hsl(var(--surface))", alt: "hsl(var(--surface-alt))" },
+        "primary-deep": "hsl(var(--primary-deep))",
+        "accent-text": "hsl(var(--accent-text))",
+        rose: { DEFAULT: "hsl(var(--rose))", hover: "hsl(var(--rose-hover))", foreground: "hsl(var(--rose-foreground))" },
+        label: "hsl(var(--label))",
         "deep-plum": "hsl(var(--deep-plum))",
         "rose-gold": "hsl(var(--rose-gold))",
         "soft-gray": "hsl(var(--soft-gray))",
@@ -88,8 +93,9 @@ export default {
         'section': 'var(--text-shadow-section)',
       },
       fontFamily: {
-        'serif': ['Playfair Display', 'serif'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'serif': ['Manrope', 'system-ui', 'sans-serif'],
+        'heading': ['Manrope', 'system-ui', 'sans-serif'],
+        'sans': ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

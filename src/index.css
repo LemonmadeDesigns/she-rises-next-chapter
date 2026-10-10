@@ -8,130 +8,109 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* She Rises Brand Colors - Modernized Simplified Palette */
-    --background: 0 0% 98%; /* Soft Off-White #FAFAF9 */
-    --foreground: 0 0% 18%; /* Charcoal #2D2D2D */
-
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 0 0% 18%;
-
+    --background: 30 56% 96%;
+    --foreground: 329 33% 12%;
+    --surface: 0 0% 100%;
+    --surface-alt: 25 44% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 329 33% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 18%;
-
-    /* Deep Plum - Primary brand color (elegant, mysterious) */
-    --primary: 282 28% 24%; /* #3D2645 - Deep Plum */
-    --primary-foreground: 0 0% 100%;
-
-    /* Muted Rose Gold - Accent/Highlight color (sophisticated warmth) */
-    --secondary: 32 40% 65%; /* #D4A574 - Rose Gold */
-    --secondary-foreground: 0 0% 18%;
-
-    --muted: 0 0% 96%; /* Soft gray #F5F5F4 */
-    --muted-foreground: 0 0% 45%;
-
-    /* Accent is Rose Gold */
-    --accent: 32 40% 65%; /* #D4A574 */
-    --accent-foreground: 0 0% 18%;
-
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 329 33% 12%;
+    --primary: 345 59% 30%;
+    --primary-foreground: 29 66% 93%;
+    --primary-deep: 346 60% 24%;
+    --secondary: 25 44% 92%;
+    --secondary-foreground: 329 33% 12%;
+    --muted: 25 44% 92%;
+    --muted-foreground: 335 10% 38%;
+    --accent: 40 70% 64%;
+    --accent-foreground: 329 33% 12%;
+    --accent-text: 34 66% 33%;
+    --rose: 352 31% 47%;
+    --rose-hover: 351 39% 41%;
+    --rose-foreground: 29 66% 93%;
+    --label: 352 31% 47%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 32 40% 65%;
-
-    /* She Rises specific colors - Simplified Modern Palette */
-    --deep-plum: 282 28% 24%; /* #3D2645 - Primary accent */
-    --rose-gold: 32 40% 65%; /* #D4A574 - Highlight accent */
-    --soft-gray: 0 0% 96%; /* #F5F5F4 - Subtle backgrounds */
-    --warm-tint: 32 60% 97%; /* #FBF8F3 - Rose-gold tinted bg */
-
-    /* Simplified Gradients - Minimal and elegant */
-    --gradient-subtle: linear-gradient(180deg, #FFFFFF 0%, #F5F5F4 100%);
-    --gradient-warm: linear-gradient(180deg, #FAFAF9 0%, #FBF8F3 100%);
-    --gradient-hero-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
-
-    /* Refined Shadows - Softer, more professional */
-    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-    /* Refined Text shadows - Minimal */
-    --text-shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.1);
-    --text-shadow-hero: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --text-shadow-hero-strong: 0 2px 8px rgba(0, 0, 0, 0.5);
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 22 31% 86%;
+    --input: 22 31% 86%;
+    --ring: 40 70% 64%;
+    /* legacy aliases used across existing pages */
+    --deep-plum: 345 59% 30%;
+    --rose-gold: 40 70% 64%;
+    --soft-gray: 25 44% 92%;
+    --warm-tint: 25 44% 92%;
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(25 44% 92%) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(30 56% 96%) 0%, hsl(25 44% 92%) 100%);
+    --gradient-hero-overlay: linear-gradient(180deg, hsl(346 60% 24% / 0.85) 0%, hsl(346 60% 24% / 0.35) 100%);
+    --shadow-card: 0 1px 3px hsl(345 40% 20% / 0.06), 0 1px 2px hsl(345 40% 20% / 0.04);
+    --shadow-soft: 0 6px 18px -6px hsl(345 40% 20% / 0.12);
+    --shadow-medium: 0 14px 30px -10px hsl(345 40% 20% / 0.18);
+    --text-shadow-subtle: 0 1px 2px rgba(0,0,0,0.1);
+    --text-shadow-hero: 0 2px 4px rgba(0,0,0,0.4);
+    --text-shadow-hero-strong: 0 2px 8px rgba(0,0,0,0.5);
+    --radius: 1rem;
+    --sidebar-background: 30 56% 96%;
+    --sidebar-foreground: 329 33% 12%;
+    --sidebar-primary: 345 59% 30%;
+    --sidebar-primary-foreground: 29 66% 93%;
+    --sidebar-accent: 25 44% 92%;
+    --sidebar-accent-foreground: 329 33% 12%;
+    --sidebar-border: 22 31% 86%;
+    --sidebar-ring: 40 70% 64%;
   }
 
   .dark {
-    /* Dark mode - Deep plum tones with lighter accents */
-    --background: 282 28% 12%; /* Very dark plum #1A0F1D */
-    --foreground: 0 0% 95%; /* Off-white text #F2F2F2 */
-
-    --card: 282 28% 18%; /* Dark plum cards #2A1A30 */
-    --card-foreground: 0 0% 95%;
-
-    --popover: 282 28% 18%;
-    --popover-foreground: 0 0% 95%;
-
-    /* Deep Plum - stays as primary in dark mode */
-    --primary: 282 28% 35%; /* Lighter plum #5A3D64 */
-    --primary-foreground: 0 0% 100%;
-
-    /* Rose Gold - accent color */
-    --secondary: 32 40% 70%; /* Lighter rose gold #DEB088 */
-    --secondary-foreground: 282 28% 12%;
-
-    --muted: 282 20% 22%; /* Muted dark plum */
-    --muted-foreground: 0 0% 70%; /* Light gray text */
-
-    /* Accent is Rose Gold */
-    --accent: 32 40% 70%; /* #DEB088 */
-    --accent-foreground: 282 28% 12%;
-
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 0 0% 95%;
-
-    --border: 282 20% 25%;
-    --input: 282 20% 25%;
-    --ring: 32 40% 70%;
-
-    /* She Rises specific dark mode colors */
-    --deep-plum: 282 28% 35%; /* Lighter for dark mode */
-    --rose-gold: 32 40% 70%; /* Lighter for dark mode */
-    --soft-gray: 282 15% 20%; /* Dark gray */
-    --warm-tint: 282 20% 16%; /* Dark warm tint */
-
-    /* Dark mode gradients */
-    --gradient-subtle: linear-gradient(180deg, #2A1A30 0%, #1A0F1D 100%);
-    --gradient-warm: linear-gradient(180deg, #2A1A30 0%, #251821 100%);
-    --gradient-hero-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
-
-    --sidebar-background: 282 28% 12%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 282 28% 35%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 282 20% 22%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 282 20% 25%;
-    --sidebar-ring: 32 40% 70%;
+    --background: 328 27% 10%;
+    --foreground: 29 66% 93%;
+    --surface: 332 23% 14%;
+    --surface-alt: 328 19% 13%;
+    --card: 332 23% 14%;
+    --card-foreground: 29 66% 93%;
+    --popover: 332 23% 14%;
+    --popover-foreground: 29 66% 93%;
+    --primary: 346 60% 24%;
+    --primary-foreground: 29 66% 93%;
+    --primary-deep: 346 56% 20%;
+    --secondary: 328 19% 13%;
+    --secondary-foreground: 29 66% 93%;
+    --muted: 328 19% 13%;
+    --muted-foreground: 339 9% 63%;
+    --accent: 40 70% 64%;
+    --accent-foreground: 329 33% 12%;
+    --accent-text: 32 67% 72%;
+    --rose: 352 31% 47%;
+    --rose-hover: 351 39% 41%;
+    --rose-foreground: 29 66% 93%;
+    --label: 347 34% 61%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 333 18% 19%;
+    --input: 333 18% 19%;
+    --ring: 40 70% 64%;
+    /* legacy aliases used across existing pages */
+    --deep-plum: 346 60% 24%;
+    --rose-gold: 40 70% 64%;
+    --soft-gray: 328 19% 13%;
+    --warm-tint: 328 19% 13%;
+    --gradient-subtle: linear-gradient(180deg, hsl(332 23% 14%) 0%, hsl(328 19% 13%) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(328 27% 10%) 0%, hsl(328 19% 13%) 100%);
+    --gradient-hero-overlay: linear-gradient(180deg, hsl(346 56% 20% / 0.85) 0%, hsl(346 56% 20% / 0.35) 100%);
+    --shadow-card: none;
+    --shadow-soft: 0 4px 12px hsl(0 0% 0% / 0.25);
+    --shadow-medium: 0 10px 24px hsl(0 0% 0% / 0.35);
+    --text-shadow-subtle: 0 1px 2px rgba(0,0,0,0.1);
+    --text-shadow-hero: 0 2px 4px rgba(0,0,0,0.4);
+    --text-shadow-hero-strong: 0 2px 8px rgba(0,0,0,0.5);
+    --radius: 1rem;
+    --sidebar-background: 328 27% 10%;
+    --sidebar-foreground: 29 66% 93%;
+    --sidebar-primary: 346 60% 24%;
+    --sidebar-primary-foreground: 29 66% 93%;
+    --sidebar-accent: 328 19% 13%;
+    --sidebar-accent-foreground: 29 66% 93%;
+    --sidebar-border: 333 18% 19%;
+    --sidebar-ring: 40 70% 64%;
   }
 }
 
@@ -432,4 +411,16 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+}
+
+@layer base {
+  body { font-size: 1.0625rem; line-height: 1.6; }
+  h1, h2, h3, h4 { font-family: 'Manrope', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.01em; }
+  :focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+}
+@layer components {
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[0.2em] text-accent-text; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
