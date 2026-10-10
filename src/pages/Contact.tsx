@@ -384,8 +384,8 @@ const Contact = () => {
                     <div className="space-y-4">
                       <div>
                         <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">123 Hope Street</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">Your City, State 12345</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">9154 Laurel Avenue</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">Fontana, CA 92335</p>
                       </div>
 
                       <div className="bg-gradient-soft rounded-lg p-4">
@@ -416,13 +416,13 @@ const Contact = () => {
                   </p>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <a
-                      href="tel:+15555551234"
+                      href="tel:+19093309240"
                       className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-4 border border-white/20"
                     >
                       <Phone className="h-5 w-5 text-crown-gold flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-xs text-white/70">Call us</p>
-                        <p className="font-medium truncate">(555) 555-1234</p>
+                        <p className="font-medium truncate">(909) 330-9240</p>
                       </div>
                     </a>
                     <a
