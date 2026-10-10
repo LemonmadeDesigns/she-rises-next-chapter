@@ -42,7 +42,7 @@ const About = () => {
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Link to="/programs">
-            <Button size="lg" className="bg-accent text-[hsl(var(--foreground-on-accent,330_33%_12%))] hover:bg-accent/90 font-bold rounded-full px-8">
+            <Button size="lg" className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8">
               Our Programs
             </Button>
           </Link>
