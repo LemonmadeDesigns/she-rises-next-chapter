@@ -27,14 +27,14 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 const primaryTabs = [
   { name: "Home", href: "/", icon: Home },
   { name: "Programs", href: "/programs", icon: GraduationCap },
-  { name: "Events", href: "/events", icon: Calendar },
-  { name: "Shop", href: "/shop", icon: ShoppingBag },
+  { name: "Get Involved", href: "/get-involved", icon: HandHeart },
   { name: "Donate", href: "/donate", icon: Heart },
 ];
 
 const moreLinks = [
   { name: "About", href: "/about", icon: Info },
-  { name: "Get Involved", href: "/get-involved", icon: HandHeart },
+  { name: "Events", href: "/events", icon: Calendar },
+  { name: "Shop", href: "/shop", icon: ShoppingBag },
   { name: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -87,7 +87,7 @@ const MobileBottomNav = () => {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Primary mobile navigation"
     >
-      <ul className="grid grid-cols-6 h-16">
+      <ul className="grid grid-cols-5 h-16">
         {primaryTabs.map((tab) => {
           const Icon = tab.icon;
           const active = isActive(tab.href);
