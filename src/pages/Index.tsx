@@ -22,8 +22,8 @@ import {
 } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import SectionHeader from "@/components/sections/SectionHeader";
+import Hero from "@/components/sections/Hero";
 import EventPhotosCarousel from "@/components/carousel/EventPhotosCarousel";
-import heroImage from "@/assets/she-rises-banner-hero.jpg";
 import innercodeLogo from "@/assets/innercode-logo.png";
 import awipLogo from "@/assets/awip-logo.png";
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
@@ -149,63 +149,40 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="She Rises Hero"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "center 35%" }}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-deep/70 via-primary-deep/50 to-primary-deep/40"></div>
+      <Hero
+        backgroundImage={mentoringImage}
+        backgroundImageAlt="Women connecting through mentoring and community support"
+        backgroundImagePosition="center 30%"
+        className="py-20 md:py-28"
+        title={
+          <>
+            <p className="mb-4 text-sm font-bold uppercase tracking-widest text-primary-foreground text-shadow-hero">
+              Safe Haven for Empowerment
+            </p>
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary-foreground mb-5 text-shadow-hero-strong">
+              SHE RISES
+            </h1>
+            <p className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground mb-6 text-shadow-hero">
+              Every Woman Deserves a Safe Place to Rise
+            </p>
+          </>
+        }
+        subtitle={
+          <p className="text-lg md:text-xl text-primary-foreground max-w-2xl mx-auto leading-relaxed text-shadow-hero">
+            Non-medical transitional housing and support for women rebuilding
+            stability after incarceration, homelessness, or major life transitions.
+          </p>
+        }
+      >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-full px-8">
+            <Link to="/contact">Apply for Housing <ArrowRight className="ml-2 h-5 w-5" /></Link>
+          </Button>
+          <Button asChild size="lg" className="bg-primary-deep text-primary-foreground border border-accent hover:bg-primary font-bold rounded-full px-8">
+            <Link to="/donate">Donate Now <Heart className="ml-2 h-5 w-5" /></Link>
+          </Button>
         </div>
-
-        <div className="relative z-10 container mx-auto px-4 py-32">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-12">
-              <p className="eyebrow !text-accent mb-6">Safe Haven for Empowerment</p>
-              <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-6 leading-[1.05] drop-shadow-2xl">
-                Every Woman
-                <br />
-                Deserves a Safe
-                <br />
-                <span className="text-accent">Place to Rise</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-white/95 max-w-2xl mb-10 leading-relaxed drop-shadow-lg">
-                Non-medical transitional housing and support for women rebuilding
-                stability after incarceration, homelessness, or major life transitions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/contact">
-                  <Button
-                    size="lg"
-                    className="bg-accent hover:bg-accent/90 text-primary-deep font-semibold px-10 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
-                  >
-                    Apply for Housing <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="/donate">
-                  <Button
-                    size="lg"
-                    className="bg-white/95 hover:bg-white text-primary-deep font-semibold px-10 py-6 text-lg rounded-2xl shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
-                  >
-                    Donate Now <Heart className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-white/60 rounded-full"></div>
-          </div>
-        </div>
-      </section>
+      </Hero>
 
       {/* Three Pillars */}
       <section className="py-24 bg-background">
