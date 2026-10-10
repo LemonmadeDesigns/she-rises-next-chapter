@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import { Heart, Clock, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
-import getInvolvedHeroImage from "@/assets/mentoring.jpg";
+import getInvolvedHeroImage from "@/assets/community-volunteers.jpg";
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   <p className="eyebrow mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent-text">{children}</p>
