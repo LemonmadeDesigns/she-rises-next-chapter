@@ -401,7 +401,7 @@ const ProgramDetails = () => {
                 <div className="text-left">
                   <h4 className="font-semibold text-royal-plum mb-2">Walk-In Welcome</h4>
                   <p className="text-sm text-muted-foreground">
-                    Visit our center Monday through Friday, 9AM-5PM at 123 Hope Street, Your City
+                    Visit our center Monday through Friday, 9AM-5PM at 9154 Laurel Avenue, Fontana, CA 92335
                   </p>
                 </div>
               </div>
