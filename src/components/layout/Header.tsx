@@ -17,7 +17,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { state: cartState } = useCart();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
 
   // Handle scroll behavior
   useEffect(() => {
@@ -85,10 +85,8 @@ const Header = () => {
   const navigation = [
     { name: "About", href: "/about" },
     { name: "Programs", href: "/programs" },
-    { name: "Events", href: "/events" },
     { name: "Get Involved", href: "/get-involved" },
     { name: "Contact", href: "/contact" },
-    { name: "Shop", href: "/shop" },
   ];
 
   const isActive = (href: string) => location.pathname === href;

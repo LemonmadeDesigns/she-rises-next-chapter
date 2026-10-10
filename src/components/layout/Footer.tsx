@@ -20,7 +20,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-royal-plum text-white">
+    <footer className="bg-primary-deep text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Mission */}
@@ -115,7 +115,8 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-white/60 text-sm mb-4 md:mb-0">
-            © 2025 She Rises - Safe Haven for Empowerment. All rights reserved.
+            <p className="mb-1">SHE RISES is a non-medical transitional housing program.</p>
+            © {new Date().getFullYear()} She Rises - Safe Haven for Empowerment. All rights reserved.
           </div>
           <div className="flex space-x-4 text-sm">
             <Link to="/privacy" className="text-white/60 hover:text-white">
