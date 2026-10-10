@@ -70,7 +70,7 @@ const GetInvolved = () => {
       title: "Professional Skills Volunteer",
       category: "Professional Services",
       commitment: "1-3 hours/week",
-      description: "Share your professional expertise in areas like legal aid, financial counseling, healthcare, or career coaching.",
+      description: "Share your professional expertise in areas like financial counseling, healthcare, or career coaching.",
       requirements: [
         "Professional certification/license",
         "Relevant experience",
@@ -78,21 +78,6 @@ const GetInvolved = () => {
         "Flexible schedule"
       ],
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&crop=center",
-      featured: false
-    },
-    {
-      id: "childcare",
-      title: "Childcare Support",
-      category: "Family Services",
-      commitment: "3-6 hours/week",
-      description: "Provide childcare during program sessions, workshops, and events to support mothers in our programs.",
-      requirements: [
-        "Experience with children",
-        "Background check required",
-        "CPR certification preferred",
-        "Patience and creativity"
-      ],
-      image: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=400&fit=crop&crop=center",
       featured: false
     },
     {
@@ -489,7 +474,7 @@ const GetInvolved = () => {
       <section className="py-20 bg-lotus-rose text-white">
         <div className="container mx-auto px-4 text-center">
           <Heart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-4 text-[#3D2645]">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
             Ready to Make a Difference?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
