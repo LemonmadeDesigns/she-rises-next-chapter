@@ -87,7 +87,7 @@ const MobileBottomNav = () => {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Primary mobile navigation"
     >
-      <ul className="grid grid-cols-6 h-16">
+      <ul className="grid grid-cols-5 h-16">
         {primaryTabs.map((tab) => {
           const Icon = tab.icon;
           const active = isActive(tab.href);
