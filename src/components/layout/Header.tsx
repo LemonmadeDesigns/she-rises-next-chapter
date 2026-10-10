@@ -17,7 +17,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { state: cartState } = useCart();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
 
   // Handle scroll behavior
   useEffect(() => {
@@ -169,10 +169,6 @@ const Header = () => {
                 <Moon className="h-5 w-5" />
               )}
             </Button>
-
-            <Link to="/donate">
-              <Button className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-bold px-6 shadow-md">Donate</Button>
-            </Link>
 
             <Link to="/cart">
               <Button className="cart-button">
