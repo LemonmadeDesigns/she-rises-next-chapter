@@ -8,9 +8,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
-import SectionHeader from "@/components/sections/SectionHeader";
 import { Heart, Clock, Building2, DollarSign, Gift, ArrowRight, CheckCircle } from "lucide-react";
 import getInvolvedHeroImage from "@/assets/mentoring.jpg";
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p className="eyebrow mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent-text">{children}</p>
+);
+
+const SectionHeading = ({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) => (
+  <div className="text-center mb-12">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-foreground mb-4">{title}</h2>
+    {subtitle && (
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+    )}
+  </div>
+);
 
 const GetInvolved = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
@@ -108,8 +121,7 @@ const GetInvolved = () => {
         "Quarterly impact reports",
         "VIP event access for 10 people",
         "Board presentation opportunity"
-      ],
-      color: "bg-gradient-to-r from-gray-400 to-gray-600"
+      ]
     },
     {
       id: "gold",
@@ -121,8 +133,7 @@ const GetInvolved = () => {
         "VIP event access for 6 people",
         "Social media recognition",
         "Tour of facilities"
-      ],
-      color: "bg-gradient-to-r from-yellow-400 to-yellow-600"
+      ]
     },
     {
       id: "silver",
@@ -134,8 +145,7 @@ const GetInvolved = () => {
         "Quarterly newsletter",
         "Certificate of appreciation",
         "Impact updates"
-      ],
-      color: "bg-gradient-to-r from-gray-300 to-gray-500"
+      ]
     },
     {
       id: "bronze",
@@ -146,8 +156,34 @@ const GetInvolved = () => {
         "Event tickets for 2 people",
         "Thank you certificate",
         "Annual impact summary"
-      ],
-      color: "bg-gradient-to-r from-yellow-600 to-yellow-800"
+      ]
+    }
+  ];
+
+  const waysToHelp = [
+    {
+      icon: Heart,
+      title: "Volunteer",
+      description: "Share your time and skills to directly support women in our programs.",
+      action: { label: "Learn More", onClick: undefined, href: "#volunteer-opportunities" }
+    },
+    {
+      icon: Building2,
+      title: "Corporate Partnership",
+      description: "Partner with us to create meaningful employee engagement opportunities.",
+      action: { label: "Learn More", onClick: () => setIsPartnershipModalOpen(true), href: undefined }
+    },
+    {
+      icon: DollarSign,
+      title: "Sponsorship",
+      description: "Sponsor programs, events, or facilities to maximize your community impact.",
+      action: { label: "Learn More", onClick: () => setIsSponsorshipModalOpen(true), href: undefined }
+    },
+    {
+      icon: Gift,
+      title: "In-Kind Donations",
+      description: "Donate goods, services, or expertise to support our daily operations.",
+      action: { label: "Learn More", onClick: () => setIsDonationModalOpen(true), href: undefined }
     }
   ];
 
@@ -168,18 +204,18 @@ const GetInvolved = () => {
         className="py-32 md:py-40"
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button 
+          <Button
             id="btn-volunteer"
-            size="lg" 
-            className="bg-crown-gold hover:bg-crown-gold/90 text-royal-plum font-bold"
+            size="lg"
+            className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8"
             onClick={() => setIsVolunteerModalOpen(true)}
           >
             Become a Volunteer
           </Button>
-          <Button 
+          <Button
             id="btn-partner"
-            size="lg" 
-            className="hero-button-secondary btn-force-visible"
+            size="lg"
+            className="hero-button-secondary btn-force-visible rounded-full px-8"
             onClick={() => setIsPartnerModalOpen(true)}
           >
             Partner With Us
@@ -188,90 +224,63 @@ const GetInvolved = () => {
       </Hero>
 
       {/* Ways to Help */}
-      <section className="py-20 bg-gradient-soft">
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
+            eyebrow="Ways to help"
             title="Ways to Make a Difference"
             subtitle="Every contribution, big or small, helps create positive change in the lives of women and families"
           />
-          
-          <div className="grid md:grid-cols-4 gap-6 mb-16 items-stretch">
-            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
-              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">Volunteer</h3>
-              <p className="text-muted-foreground mb-4 flex-1">Share your time and skills to directly support women in our programs.</p>
-              <a href="#volunteer-opportunities" className="mt-auto">
-                <Button variant="outline" size="sm" className="w-full">
-                  Learn More
-                </Button>
-              </a>
-            </Card>
 
-            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
-              <div className="w-16 h-16 bg-lotus-rose rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building2 className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">Corporate Partnership</h3>
-              <p className="text-muted-foreground mb-4 flex-1">Partner with us to create meaningful employee engagement opportunities.</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-auto"
-                onClick={() => setIsPartnershipModalOpen(true)}
-              >
-                Learn More
-              </Button>
-            </Card>
-
-            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
-              <div className="w-16 h-16 bg-crown-gold rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="h-8 w-8 text-royal-plum" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">Sponsorship</h3>
-              <p className="text-muted-foreground mb-4 flex-1">Sponsor programs, events, or facilities to maximize your community impact.</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-auto"
-                onClick={() => setIsSponsorshipModalOpen(true)}
-              >
-                Learn More
-              </Button>
-            </Card>
-
-            <Card className="text-center p-6 shadow-soft transition-shadow flex flex-col h-full">
-              <div className="w-16 h-16 bg-royal-plum rounded-full flex items-center justify-center mx-auto mb-4">
-                <Gift className="h-8 w-8 text-crown-gold" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3">In-Kind Donations</h3>
-              <p className="text-muted-foreground mb-4 flex-1">Donate goods, services, or expertise to support our daily operations.</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-auto"
-                onClick={() => setIsDonationModalOpen(true)}
-              >
-                Learn More
-              </Button>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto items-stretch">
+            {waysToHelp.map((way) => {
+              const Icon = way.icon;
+              return (
+                <Card
+                  key={way.title}
+                  className="rounded-2xl border border-border bg-surface text-center p-6 shadow-soft transition-transform duration-300 hover:-translate-y-1 flex flex-col h-full"
+                >
+                  <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-7 w-7 text-primary-foreground" />
+                  </div>
+                  <h3 className="text-xl font-extrabold text-foreground mb-3">{way.title}</h3>
+                  <p className="text-muted-foreground mb-4 flex-1">{way.description}</p>
+                  {way.action.href ? (
+                    <a href={way.action.href} className="mt-auto">
+                      <Button variant="outline" size="sm" className="w-full rounded-full">
+                        {way.action.label}
+                      </Button>
+                    </a>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-auto rounded-full"
+                      onClick={way.action.onClick}
+                    >
+                      {way.action.label}
+                    </Button>
+                  )}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Featured Volunteer Opportunities */}
-      <section id="volunteer-opportunities" className="py-20 bg-white">
+      <section id="volunteer-opportunities" className="py-20 md:py-28 bg-surface-alt">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
+            eyebrow="Volunteer"
             title="Featured Volunteer Opportunities"
             subtitle="High-impact roles where your contribution makes the biggest difference"
           />
-          
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {featuredOpportunities.map((opportunity) => (
-              <Card key={opportunity.id} className="overflow-hidden shadow-soft transition-shadow">
-                <div className="aspect-video bg-warm-cream overflow-hidden">
+              <Card key={opportunity.id} className="rounded-2xl border border-border bg-surface overflow-hidden shadow-soft transition-transform duration-300 hover:-translate-y-1">
+                <div className="aspect-video bg-muted overflow-hidden">
                   <img
                     src={opportunity.image}
                     alt={opportunity.title}
@@ -280,15 +289,11 @@ const GetInvolved = () => {
                 </div>
                 <CardContent className="p-8">
                   <div className="flex items-center gap-2 mb-4">
-                    <Badge variant="outline">
-                      {opportunity.category}
-                    </Badge>
-                    <Badge className="bg-crown-gold text-royal-plum">
-                      Featured
-                    </Badge>
+                    <Badge variant="outline">{opportunity.category}</Badge>
+                    <Badge className="bg-accent text-primary-deep hover:bg-accent">Featured</Badge>
                   </div>
-                  
-                  <h3 className="text-2xl font-bold text-foreground mb-4">
+
+                  <h3 className="text-2xl font-extrabold text-foreground mb-4">
                     {opportunity.title}
                   </h3>
 
@@ -306,15 +311,15 @@ const GetInvolved = () => {
                     <ul className="space-y-1">
                       {opportunity.requirements.map((req, index) => (
                         <li key={index} className="flex items-start">
-                          <CheckCircle className="h-4 w-4 text-crown-gold mt-0.5 mr-2 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 text-accent-text mt-0.5 mr-2 flex-shrink-0" />
                           <span className="text-sm text-muted-foreground">{req}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
+
                   <Button
-                    className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
                     onClick={() => setIsVolunteerModalOpen(true)}
                   >
                     Apply for This Role
@@ -328,17 +333,18 @@ const GetInvolved = () => {
       </section>
 
       {/* All Volunteer Opportunities */}
-      <section className="py-20 bg-gradient-soft">
+      <section className="py-20 md:py-28 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
+            eyebrow="All roles"
             title="All Volunteer Opportunities"
             subtitle="Find the perfect way to contribute your time and talents"
           />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {opportunities.map((opportunity) => (
-              <Card key={opportunity.id} className="overflow-hidden shadow-soft transition-shadow">
-                <div className="aspect-video bg-warm-cream overflow-hidden">
+              <Card key={opportunity.id} className="rounded-2xl border border-border bg-surface overflow-hidden shadow-soft transition-transform duration-300 hover:-translate-y-1">
+                <div className="aspect-video bg-muted overflow-hidden">
                   <img
                     src={opportunity.image}
                     alt={opportunity.title}
@@ -347,17 +353,13 @@ const GetInvolved = () => {
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-3">
-                    <Badge variant="outline">
-                      {opportunity.category}
-                    </Badge>
+                    <Badge variant="outline">{opportunity.category}</Badge>
                     {opportunity.featured && (
-                      <Badge className="bg-crown-gold text-royal-plum">
-                        Featured
-                      </Badge>
+                      <Badge className="bg-accent text-primary-deep hover:bg-accent">Featured</Badge>
                     )}
                   </div>
-                  
-                  <h3 className="text-xl font-bold text-foreground mb-3">
+
+                  <h3 className="text-xl font-extrabold text-foreground mb-3">
                     {opportunity.title}
                   </h3>
 
@@ -374,11 +376,7 @@ const GetInvolved = () => {
                   </div>
 
                   <Link to={`/volunteer/${opportunity.id}`} className="w-full">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="w-full"
-                    >
+                    <Button size="sm" variant="outline" className="w-full rounded-full">
                       Learn More
                     </Button>
                   </Link>
@@ -386,34 +384,34 @@ const GetInvolved = () => {
               </Card>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* Sponsorship Levels */}
-      <section className="py-20 bg-white">
+      <section className="py-20 md:py-28 bg-surface-alt">
         <div className="container mx-auto px-4">
-          <SectionHeader
+          <SectionHeading
+            eyebrow="Sponsorship"
             title="Corporate Sponsorship Opportunities"
             subtitle="Partner with us to amplify your community impact and brand visibility"
           />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {sponsorshipLevels.map((level) => (
-              <Card key={level.id} className="overflow-hidden shadow-soft transition-shadow h-full flex flex-col">
-                <div className={`h-4 ${level.color}`}></div>
+              <Card key={level.id} className="rounded-2xl border border-border bg-surface overflow-hidden shadow-soft transition-transform duration-300 hover:-translate-y-1 h-full flex flex-col">
+                <div className="h-1.5 bg-gradient-to-r from-accent to-rose"></div>
                 <CardContent className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-xl font-extrabold text-foreground mb-2">
                     {level.name}
                   </h3>
-                  <div className="text-2xl font-bold text-crown-gold mb-4">
+                  <div className="text-2xl font-extrabold text-accent-text mb-4">
                     {level.amount}
                   </div>
 
                   <ul className="space-y-2 flex-1">
                     {level.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="h-4 w-4 text-crown-gold mt-0.5 mr-2 flex-shrink-0" />
+                        <CheckCircle className="h-4 w-4 text-accent-text mt-0.5 mr-2 flex-shrink-0" />
                         <span className="text-sm text-muted-foreground">{benefit}</span>
                       </li>
                     ))}
@@ -421,7 +419,7 @@ const GetInvolved = () => {
 
                   <div className="mt-auto pt-6">
                     <Button
-                      className="w-full bg-royal-plum hover:bg-royal-plum/90 text-white"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
                       onClick={() => setIsSponsorshipModalOpen(true)}
                     >
                       Choose This Level
@@ -431,17 +429,17 @@ const GetInvolved = () => {
               </Card>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* Our Growing Impact */}
-      <section className="py-20 bg-royal-plum text-white">
+      <section className="py-20 md:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <Eyebrow>Impact</Eyebrow>
+          <h2 className="font-heading text-3xl md:text-4xl font-extrabold mb-6">
             Our Growing Impact
           </h2>
-          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl opacity-90 mb-12 max-w-2xl mx-auto">
             As a growing organization, we're building strong partnerships and volunteer support across Southern California.
           </p>
 
@@ -449,20 +447,20 @@ const GetInvolved = () => {
             <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
               <ul className="space-y-4 text-left">
                 <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Growing Volunteer Interest</span>
+                  <span className="text-accent mr-3 text-xl">•</span>
+                  <span className="text-lg">Growing Volunteer Interest</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Community Hours Contributed</span>
+                  <span className="text-accent mr-3 text-xl">•</span>
+                  <span className="text-lg">Community Hours Contributed</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">New & Emerging Partnerships</span>
+                  <span className="text-accent mr-3 text-xl">•</span>
+                  <span className="text-lg">New & Emerging Partnerships</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-crown-gold mr-3 text-xl">•</span>
-                  <span className="text-white text-lg">Support from Local Donors & Community Members</span>
+                  <span className="text-accent mr-3 text-xl">•</span>
+                  <span className="text-lg">Support from Local Donors & Community Members</span>
                 </li>
               </ul>
             </div>
@@ -471,27 +469,27 @@ const GetInvolved = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-lotus-rose text-white">
+      <section className="py-20 md:py-28 bg-rose text-rose-foreground">
         <div className="container mx-auto px-4 text-center">
-          <Heart className="h-12 w-12 text-crown-gold mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-4 text-foreground">
+          <Heart className="h-12 w-12 text-accent mx-auto mb-6" />
+          <h2 className="font-heading text-3xl md:text-4xl font-extrabold mb-4">
             Ready to Make a Difference?
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
             Join our community of supporters and be part of transforming lives. Every contribution matters, and every volunteer makes a difference.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-white text-lotus-rose hover:bg-white/90 font-bold"
+            <Button
+              size="lg"
+              className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8"
               onClick={() => setIsVolunteerModalOpen(true)}
             >
               Start Volunteering Today
             </Button>
-            <Button 
-              size="lg" 
-              className="hero-button-tertiary btn-force-visible"
+            <Button
+              size="lg"
+              className="hero-button-tertiary btn-force-visible rounded-full px-8"
               onClick={() => setIsPartnerModalOpen(true)}
             >
               Explore Partnerships

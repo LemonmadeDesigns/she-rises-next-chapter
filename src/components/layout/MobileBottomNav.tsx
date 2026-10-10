@@ -27,14 +27,14 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 const primaryTabs = [
   { name: "Home", href: "/", icon: Home },
   { name: "Programs", href: "/programs", icon: GraduationCap },
-  { name: "Events", href: "/events", icon: Calendar },
-  { name: "Shop", href: "/shop", icon: ShoppingBag },
+  { name: "Get Involved", href: "/get-involved", icon: HandHeart },
   { name: "Donate", href: "/donate", icon: Heart },
 ];
 
 const moreLinks = [
   { name: "About", href: "/about", icon: Info },
-  { name: "Get Involved", href: "/get-involved", icon: HandHeart },
+  { name: "Events", href: "/events", icon: Calendar },
+  { name: "Shop", href: "/shop", icon: ShoppingBag },
   { name: "Contact", href: "/contact", icon: Mail },
 ];
 
