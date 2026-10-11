@@ -140,7 +140,7 @@ const Contact = () => {
         company: ""
       });
 
-      alert('Thank you for contacting She Rises! We have received your message and will respond within 24-48 hours. Your voice matters to us.');
+      alert('Thank you for contacting SHE RISES! We have received your message and will respond within 1–2 business days. Your voice matters to us.');
 
     } catch (error) {
       console.error('Error sending email:', error);
@@ -268,6 +268,7 @@ const Contact = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="services">Program Services & Support</SelectItem>
+                        <SelectItem value="referral">Agency Referral</SelectItem>
                         <SelectItem value="volunteer">Volunteer Opportunities</SelectItem>
                         <SelectItem value="donate">Donations & Partnerships</SelectItem>
                         <SelectItem value="media">Media & Press Inquiries</SelectItem>
@@ -307,8 +308,7 @@ const Contact = () => {
                           Crisis or Emergency?
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          If you're in immediate danger, dial 911. For crisis support, call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
-                          She Rises is not a 24-hour crisis shelter.
+                          In immediate danger? Call 911. For mental health crisis support, call or text 988 (Suicide & Crisis Lifeline). For local help and referrals, dial 211. SHE RISES is not a 24-hour crisis shelter.
                         </p>
                       </div>
                     </div>
@@ -319,6 +319,9 @@ const Contact = () => {
                     Send Message
                   </Button>
                 </form>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Your information is kept confidential — see our <a href="/privacy" className="underline hover:text-primary">Privacy Policy</a>.
+                </p>
               </CardContent>
             </Card>
 
