@@ -521,7 +521,7 @@ Acknowledgment: ${formData.acknowledgment ? 'Yes - I understand that submitting 
                   <SelectValue placeholder="Please select" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Fontana / San Bernardino County">Fontana / San Bernardino County</SelectItem>
+                  <SelectItem value="San Bernardino County">San Bernardino County</SelectItem>
                   <SelectItem value="Riverside County">Riverside County</SelectItem>
                   <SelectItem value="Los Angeles County">Los Angeles County</SelectItem>
                   <SelectItem value="Orange County">Orange County</SelectItem>

@@ -125,7 +125,7 @@ const Events = () => {
         "Peer support and connection",
         "Coping strategies and tools",
         "Light refreshments provided",
-        "Childcare available with advance notice"
+        "Family-friendly activities available"
       ]
     },
     {

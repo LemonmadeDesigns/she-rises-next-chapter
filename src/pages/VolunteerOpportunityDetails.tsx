@@ -143,38 +143,6 @@ const VolunteerOpportunityDetails = () => {
       featured: false
     },
     {
-      id: "childcare",
-      title: "Childcare Support",
-      category: "Family Services",
-      commitment: "3-6 hours/week",
-      description: "Provide childcare during program sessions, workshops, and events to support mothers in our programs.",
-      fullDescription: "Childcare volunteers provide a crucial service that enables mothers to fully participate in programs, workshops, and events. By caring for children in a safe, engaging environment, you remove a major barrier to participation and demonstrate that we value and support the whole family. This role is perfect for those who love working with children and want to support mothers in their journey.",
-      requirements: [
-        "Experience with children",
-        "Background check required",
-        "CPR certification preferred",
-        "Patience and creativity"
-      ],
-      responsibilities: [
-        "Supervise children during program activities",
-        "Plan and lead age-appropriate activities",
-        "Maintain a safe, clean environment",
-        "Communicate with parents about their children",
-        "Handle minor emergencies appropriately",
-        "Keep attendance and incident records",
-        "Support children's emotional and social needs"
-      ],
-      impact: [
-        "Enable mothers to focus on their development",
-        "Remove childcare as a barrier to participation",
-        "Provide positive experiences for children",
-        "Support healthy parent-child relationships",
-        "Demonstrate family-centered approach"
-      ],
-      image: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&h=400&fit=crop&crop=center",
-      featured: false
-    },
-    {
       id: "transportation",
       title: "Transportation Assistance",
       category: "Support Services",
