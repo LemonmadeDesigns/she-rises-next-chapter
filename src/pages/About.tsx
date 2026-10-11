@@ -192,19 +192,35 @@ const About = () => {
           <div className="rounded-2xl border border-border bg-surface p-8 md:p-14 shadow-soft mt-8">
             <div className="grid md:grid-cols-3 gap-10 items-center">
               <div className="md:col-span-2 space-y-5">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Terrell D. Lemon Sr.</h3>
-                <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">President</p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Terrell D. Lemon Sr. serves as President of SHE RISES — Safe Haven for Empowerment,
-                  a transitional housing and supportive services program for adult women rebuilding
-                  stability in their lives. In his role, he helps shape the direction of the program
-                  and its mission: to provide a safe, structured and supportive environment where
-                  women can rebuild independence, develop life skills, access community resources,
-                  prepare for employment and strengthen family relationships. He is committed to
-                  SHE RISES' goal of preparing every participant to manage appointments, benefits,
-                  employment, technology, finances and everyday responsibilities — and to move
-                  toward safe, stable, permanent housing.
+                <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Terrell D. Lemons, B.S.</h3>
+                <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">
+                  President | SHE RISES – Safe Haven for Empowerment
                 </p>
+                <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+                  <p>
+                    Terrell D. Lemons, B.S., serves as President of SHE RISES – Safe Haven for
+                    Empowerment, bringing a unique combination of leadership, technology, education,
+                    and lived experience to the organization's mission.
+                  </p>
+                  <p>
+                    With a Bachelor of Science in Computer Science from California State University,
+                    Fullerton, and a professional background in software engineering, program
+                    management, and education, Terrell understands the importance of opportunity,
+                    accountability, and personal growth.
+                  </p>
+                  <p>
+                    His passion for community empowerment is rooted in his own journey of overcoming
+                    adversity and creating meaningful change. Through SHE RISES, he is committed to
+                    helping women transitioning from incarceration, homelessness, and other
+                    challenging circumstances gain the stability, resources, and practical skills
+                    needed to rebuild their lives.
+                  </p>
+                  <p>
+                    As President, Terrell focuses on strengthening program operations, expanding
+                    opportunities, and helping participants develop the confidence, independence, and
+                    long-term stability necessary to succeed beyond transitional housing.
+                  </p>
+                </div>
               </div>
               <div className="text-center">
                 <div className="w-52 h-52 rounded-full mx-auto mb-6 ring-4 ring-accent/40 shadow-soft bg-surface-alt flex items-center justify-center">
