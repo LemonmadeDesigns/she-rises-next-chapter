@@ -23,10 +23,10 @@ const ProgramDetails = () => {
       description: "Safe, supportive housing for women transitioning from incarceration, homelessness, or crisis situations. Our shared living environment provides stability while residents work toward independence.",
       features: [
         "Shared supportive housing",
-        "On-site support and case management",
+        "Case management and structured daily support",
         "Life skills workshops",
-        "Mental health counseling",
-        "Childcare assistance available",
+        "Referrals to mental health providers",
+        "Family reunification support",
         "Community guidelines and support"
       ],
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop&crop=center",
@@ -60,7 +60,7 @@ const ProgramDetails = () => {
         "Computer and digital literacy",
         "Resume and interview preparation",
         "Industry certifications",
-        "Job placement assistance"
+        "Job mentoring"
       ],
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&crop=center",
       featured: true,
@@ -399,9 +399,9 @@ const ProgramDetails = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-lotus-rose mt-1 flex-shrink-0" />
                 <div className="text-left">
-                  <h4 className="font-semibold text-royal-plum mb-2">Walk-In Welcome</h4>
+                  <h4 className="font-semibold text-royal-plum mb-2">Meet With Us</h4>
                   <p className="text-sm text-muted-foreground">
-                    Visit our center Monday through Friday, 9AM-5PM at 9154 Laurel Avenue, Fontana, CA 92335
+                    We meet with applicants by appointment, Monday through Friday, 9AM–5PM. Call (909) 330-9240 to schedule a conversation.
                   </p>
                 </div>
               </div>

@@ -161,23 +161,19 @@ const Donate = () => {
               Your generosity empowers women to rebuild their lives with dignity, hope, and endless possibilities.
             </p>
 
-            {/* Impact Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {/* Trust row — verified facts only */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-3xl font-bold text-crown-gold">100+</div>
-                <div className="text-sm text-white/80">Women served</div>
+                <div className="text-base font-bold text-crown-gold">Registered 501(c)(3)</div>
+                <div className="text-sm text-white/80">Nonprofit organization</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-3xl font-bold text-crown-gold">85%</div>
-                <div className="text-sm text-white/80">To programs</div>
+                <div className="text-base font-bold text-crown-gold">EIN 39-3657272</div>
+                <div className="text-sm text-white/80">Donations are tax-deductible to the extent allowed by law</div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-3xl font-bold text-crown-gold">$350K</div>
-                <div className="text-sm text-white/80">Annual impact</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-3xl font-bold text-crown-gold">100%</div>
-                <div className="text-sm text-white/80">Tax deductible</div>
+                <div className="text-base font-bold text-crown-gold">Secure Giving</div>
+                <div className="text-sm text-white/80">Card and Zelle options available</div>
               </div>
             </div>
           </div>
@@ -475,11 +471,7 @@ const Donate = () => {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-crown-gold" />
-                <span>501(c)(3) Nonprofit</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-crown-gold" />
-                <span>GuideStar Certified</span>
+                <span>Registered 501(c)(3) · EIN 39-3657272</span>
               </div>
             </div>
           </div>
