@@ -177,7 +177,7 @@ const About = () => {
                 <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
 
                   <img src={preciousRansomImage} alt="Precious Ransom, Executive Director"
-                    className="w-full h-full object-cover" style={{ objectPosition: "center 20%" }} />
+                    className="w-full h-full object-cover object-[center_16%] scale-[1.3]" />
                 </div>
                 <div className="space-y-3 text-sm">
                   <a href="mailto:pransom@safehavenforempowerment.org" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary break-all">
@@ -201,32 +201,21 @@ const About = () => {
                 </p>
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
-                    Terrell D. Lemons, B.S., serves as President of SHE RISES – Safe Haven for
-                    Empowerment, bringing a unique combination of leadership, technology, education,
-                    and lived experience to the organization's mission.
+                    Terrell brings leadership, technology, education, and lived experience to SHE RISES.
+                    He holds a Bachelor of Science in Computer Science from California State University,
+                    Fullerton, with a professional background in software engineering, program management,
+                    and education.
                   </p>
                   <p>
-                    With a Bachelor of Science in Computer Science from California State University,
-                    Fullerton, and a professional background in software engineering, program
-                    management, and education, Terrell understands the importance of opportunity,
-                    accountability, and personal growth.
-                  </p>
-                  <p>
-                    His passion for community empowerment is rooted in his own journey of overcoming
-                    adversity and creating meaningful change. Through SHE RISES, he is committed to
-                    helping women transitioning from incarceration, homelessness, and other
-                    challenging circumstances gain the stability, resources, and practical skills
-                    needed to rebuild their lives.
-                  </p>
-                  <p>
-                    As President, Terrell focuses on strengthening program operations, expanding
-                    opportunities, and helping participants develop the confidence, independence, and
-                    long-term stability necessary to succeed beyond transitional housing.
+                    Rooted in his own journey of overcoming adversity, his commitment is to help women
+                    rebuilding after incarceration, homelessness, and other life challenges. As President,
+                    he strengthens program operations and expands opportunities so participants can build
+                    practical skills, confidence, independence, and lasting stability beyond transitional housing.
                   </p>
                 </div>
               </div>
               <div className="text-center">
-                <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
+                <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden shadow-soft">
                   <img src={terrellLemonsImage} alt="Terrell D. Lemons, B.S., President of SHE RISES"
                     className="w-full h-full object-cover" />
                 </div>

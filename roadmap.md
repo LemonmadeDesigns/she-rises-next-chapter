@@ -36,6 +36,7 @@ User confirmed: remove address everywhere; route everything to pransom@safehaven
 - [x] Home hero, impact items, fee/privacy FAQs; About mission + We Provide; Programs eligibility; footer description; meta description (index.html OG/Twitter updated)
 
 ## Delivery
+- [x] Leadership balance: matching portrait subject sizes, no border on Terrell's photo, concise two-paragraph President bio using supplied facts
 - [x] Zero matches for 9154/Laurel/Fontana/92335/empowerhavenhomes in public site code (verified by search)
 - [x] Build OK; typecheck clean
 
