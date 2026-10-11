@@ -526,12 +526,7 @@ const Contact = () => {
               </Card>
             ))}
           </div>
-          
-          <div className="text-center mt-12">
-            <Button size="lg" className="bg-white text-lotus-rose hover:bg-white/90 font-bold">
-              Call Our Crisis Line Now
-            </Button>
-          </div>
+
         </div>
       </section>
 
