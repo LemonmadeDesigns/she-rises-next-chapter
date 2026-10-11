@@ -707,10 +707,6 @@ const Contact = () => {
         </div>
       </section>
       
-      <VisitSchedulingModal 
-        open={isVisitModalOpen} 
-        onOpenChange={setIsVisitModalOpen} 
-      />
     </Layout>
   );
 };
