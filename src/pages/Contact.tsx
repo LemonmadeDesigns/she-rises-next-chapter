@@ -344,11 +344,7 @@ const Contact = () => {
                         <span className="text-[#737373] dark:text-[#B3B3B3]">9:00 AM - 5:00 PM</span>
                       </div>
                       <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday</span>
-                        <span className="text-[#737373] dark:text-[#B3B3B3]">10:00 AM - 2:00 PM</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Sunday</span>
+                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday & Sunday</span>
                         <span className="text-[#737373] dark:text-[#B3B3B3]">Closed</span>
                       </div>
                     </div>
@@ -361,25 +357,20 @@ const Contact = () => {
                     <div className="flex items-center gap-3 mb-6">
                       <MapPin className="h-6 w-6 text-crown-gold" />
                       <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
-                        Our Location
+                        Where We Serve
                       </h3>
                     </div>
 
                     <div className="space-y-4">
                       <div>
-                        <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">9154 Laurel Avenue</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">Fontana, CA 92335</p>
+                        <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">SHE RISES — Safe Haven for Empowerment</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">San Bernardino County, serving Southern California.</p>
                       </div>
 
                       <div className="bg-gradient-soft rounded-lg p-4">
-                        <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium mb-2">Getting Here:</p>
-                        <ul className="text-sm text-[#737373] dark:text-[#B3B3B3] space-y-1">
-                          <li>• Free parking available on-site</li>
-                          <li>• Public transit: Bus routes 15, 23, 45</li>
-                          <li>• Wheelchair accessible entrance</li>
-                          <li>• Childcare available during appointments</li>
-                        </ul>
+                        <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium">
+                          For the safety and privacy of our residents, our home address is shared only with accepted participants.
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -396,7 +387,7 @@ const Contact = () => {
                     </h3>
                   </div>
                   <p className="text-white/85 mb-6">
-                    Our team is here to listen. Reach us directly by phone or email — we respond within one business day.
+                    Our team is here to listen. Reach us directly by phone or email — we respond within 1–2 business days.
                   </p>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <a
@@ -410,13 +401,13 @@ const Contact = () => {
                       </div>
                     </a>
                     <a
-                      href="mailto:empowerhavenhomes@gmail.com"
+                      href={`mailto:${siteInfo.contact.email}`}
                       className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-4 border border-white/20"
                     >
                       <Mail className="h-5 w-5 text-crown-gold flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-xs text-white/70">Email us</p>
-                        <p className="font-medium truncate">empowerhavenhomes@gmail.com</p>
+                        <p className="font-medium truncate">{siteInfo.contact.email}</p>
                       </div>
                     </a>
                   </div>
@@ -456,6 +447,12 @@ const Contact = () => {
                     </ol>
                     <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-4">
                       💡 If your bank app doesn't support QR scanning, you can search for She Rises manually after tapping "Send" in the Zelle section.
+                    </p>
+                    <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-3">
+                      Zelle doesn't send donation receipts automatically. For a tax receipt, email {siteInfo.contact.email} with your name, the donation amount, and the date.
+                    </p>
+                    <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-3">
+                      {siteInfo.taxMessage}
                     </p>
                   </div>
 
