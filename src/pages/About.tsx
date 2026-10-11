@@ -177,7 +177,7 @@ const About = () => {
                 <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
 
                   <img src={preciousRansomImage} alt="Precious Ransom, Executive Director"
-                    className="w-full h-full object-cover object-[center_16%] scale-[1.3]" />
+                    className="leadership-portrait w-full h-full object-cover object-[center_16%] scale-[1.3]" />
                 </div>
                 <div className="space-y-3 text-sm">
                   <a href="mailto:pransom@safehavenforempowerment.org" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary break-all">
@@ -217,7 +217,7 @@ const About = () => {
               <div className="text-center">
                 <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden shadow-soft">
                   <img src={terrellLemonsImage} alt="Terrell D. Lemons, B.S., President of SHE RISES"
-                    className="w-full h-full object-cover" />
+                    className="leadership-portrait w-full h-full object-cover" />
                 </div>
                 <div className="space-y-3 text-sm">
                   <a href="mailto:pransom@safehavenforempowerment.org" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary break-all">

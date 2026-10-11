@@ -211,7 +211,7 @@ All colors MUST be HSL.
   }
 
   /* Apply borders to all img elements that might be logos */
-  img[alt*="logo" i], img[alt*="she rises" i] {
+  img[alt*="logo" i]:not(.leadership-portrait), img[alt*="she rises" i]:not(.leadership-portrait) {
     border-radius: 9px !important;
     border: 2px #E07A8A solid !important; /* lotus-rose */
     padding: 2px !important;
