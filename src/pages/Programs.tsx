@@ -190,6 +190,62 @@ const Programs = () => {
         </div>
       </section>
 
+      {/* Eligibility & What to Expect */}
+      <section id="eligibility" data-section="services" className="py-20 md:py-28 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-14">
+            <Eyebrow>Before you apply</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Eligibility & What to Expect</h2>
+            <p className="text-lg text-muted-foreground">Who our program serves and what joining looks like.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-border bg-surface p-8 shadow-soft">
+              <h3 className="text-xl font-bold text-foreground mb-3">Who is eligible</h3>
+              <p className="text-muted-foreground">Adult women (18+) rebuilding stability after incarceration or while on parole or probation, experiencing homelessness or housing instability, or recovering from family disruption or another major life transition.</p>
+              <h3 className="text-xl font-bold text-foreground mb-2 mt-8">Program fee</h3>
+              <p className="text-muted-foreground">{siteInfo.feeAnswer}</p>
+              <h3 className="text-xl font-bold text-foreground mb-2 mt-8">Who may not be a fit</h3>
+              <p className="text-muted-foreground">
+                SHE RISES is a non-medical program. Women who need medical detox, 24-hour supervision, or clinical care will be connected with appropriate outside providers.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border bg-surface p-8 shadow-soft">
+              <h3 className="text-xl font-bold text-foreground mb-3">Program requirements</h3>
+              <p className="text-muted-foreground mb-8">[CONFIRM: sobriety expectations, background or other requirements]</p>
+              <h3 className="text-xl font-bold text-foreground mb-3">Length of stay</h3>
+              <p className="text-muted-foreground mb-8">[CONFIRM]</p>
+              <h3 className="text-xl font-bold text-foreground mb-3">House guidelines (overview)</h3>
+              <p className="text-muted-foreground mb-8">[CONFIRM: curfew, chores, meetings, visitors]</p>
+              <h3 className="text-xl font-bold text-foreground mb-3">What to bring on move-in day</h3>
+              <p className="text-muted-foreground">[CONFIRM]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* After You Apply */}
+      <section className="py-20 md:py-28 bg-surface-alt">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-14">
+            <Eyebrow>After you apply</Eyebrow>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">What Happens Next</h2>
+          </div>
+          <ol className="space-y-4">
+            {[
+              "We review your application and contact you within 1–2 business days.",
+              "We schedule an intake conversation.",
+              "If a bed is available and the program is a good fit, we set a move-in date. If no bed is open, we'll let you know about the waitlist [CONFIRM: waitlist process].",
+              "You move in and begin case management and life-skills work.",
+            ].map((text, i) => (
+              <li key={i} className="flex items-start gap-4 rounded-2xl border border-border bg-surface p-6 shadow-soft">
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0 text-lg font-extrabold text-primary-deep">{i + 1}</div>
+                <p className="text-foreground/90 pt-2">{text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       {/* How to start */}
       <section className="py-20 md:py-28 bg-surface-alt">
         <div className="container mx-auto px-4 max-w-6xl">
