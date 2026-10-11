@@ -1,6 +1,6 @@
 # Content & Safety Fix Pass (brief: SHE_RISES_PUBLIC_WEBSITE_-_CONTENT_SAFETY_pasted.md)
 
-User confirmed: remove address everywhere; route everything to pransom@safehavenforempowerment.org; flexible fee wording everywhere (no $1,000 published); add Terrell D. Lemon Sr. as President with provided bio.
+User confirmed: remove address everywhere; route everything to pransom@safehavenforempowerment.org; flexible fee wording everywhere (no $1,000 published); add Terrell D. Lemons, B.S. as President with provided bio.
 
 ## Part C — Safety & Accuracy
 - [x] C1 Remove 9154 Laurel Ave / Fontana / 92335 everywhere; privacy wording; "Schedule a Visit" → "Schedule a Call" (contact form, category Program Services & Support); walk-in block → "Meet With Us" appointment wording on ProgramDetails
@@ -28,7 +28,7 @@ User confirmed: remove address everywhere; route everything to pransom@safehaven
 - [x] A4 Apply buttons → siteInfo.appUrl (empty until user pastes URL; falls back to /contact) + "Prefer to talk first? Call (909) 330-9240."
 - [x] A5 501(c)(3) + EIN 39-3657272 on Donate, Contact Zelle, footer; GuideStar badge removed
 - [x] A6 Zelle receipt note
-- [x] A7 Leadership: "Our Leadership" heading; Terrell D. Lemon Sr. President card with photo placeholder
+- [x] A7 Leadership: "Our Leadership" heading; Terrell D. Lemons, B.S. President card (bio replaced with user's 2026-10-11 version) with photo placeholder
 - [x] A8 /privacy page (draft marked [CONFIRM: legal review]) + Contact links
 
 ## Part D — Core message
@@ -46,4 +46,4 @@ User confirmed: remove address everywhere; route everything to pransom@safehaven
 - Participant app URL for siteInfo.appUrl (Apply buttons currently fall back to /contact)
 - Eligibility [CONFIRM] placeholders (age range, length of stay, house guidelines, move-in items, waitlist process)
 - Legal review of the draft /privacy policy
-- Leadership photo for Terrell D. Lemon Sr.
+- Leadership photo for Terrell D. Lemons, B.S.
