@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { aboutHeroBlurDataUrl } from "@/assets/about-hero-blur-data";
 import heroWomanImage from "@/assets/hero-woman.jpg";
 import preciousRansomImage from "@/assets/precious-ransom.jpg";
+import terrellLemonsImage from "@/assets/terrell-lemons.jpg";
 import { siteInfo } from "@/config/siteInfo";
 
 const values = [
@@ -223,8 +224,9 @@ const About = () => {
                 </div>
               </div>
               <div className="text-center">
-                <div className="w-52 h-52 rounded-full mx-auto mb-6 ring-4 ring-accent/40 shadow-soft bg-surface-alt flex items-center justify-center">
-                  <span className="text-sm font-bold uppercase tracking-[0.15em] text-label px-6 text-center">Photo coming soon</span>
+                <div className="w-52 h-52 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
+                  <img src={terrellLemonsImage} alt="Terrell D. Lemons, B.S., President of SHE RISES"
+                    className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
