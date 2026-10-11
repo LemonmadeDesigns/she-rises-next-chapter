@@ -46,4 +46,3 @@ User confirmed: remove address everywhere; route everything to pransom@safehaven
 - Participant app URL for siteInfo.appUrl (Apply buttons currently fall back to /contact)
 - Eligibility [CONFIRM] placeholders (age range, length of stay, house guidelines, move-in items, waitlist process)
 - Legal review of the draft /privacy policy
-- Leadership photo for Terrell D. Lemons, B.S.
