@@ -31,6 +31,7 @@ import mentoringImage from "@/assets/mentoring.jpg";
 import employmentImage from "@/assets/employment-readiness.jpg";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { siteInfo } from "@/config/siteInfo";
 
 const Index = () => {
   const [email, setEmail] = useState("");
@@ -122,9 +123,9 @@ const Index = () => {
   ];
 
   const impactItems = [
-    "100+ Women Supported",
-    "New Beds Opening 2025–2026",
+    `${siteInfo.bedsAvailable} Beds Available Now`,
     "Expanding Support Services Across SoCal",
+    "Registered 501(c)(3) Nonprofit",
   ];
 
   const faqs = [
@@ -143,6 +144,14 @@ const Index = () => {
     {
       q: "How can I help as a donor or partner?",
       a: "You can make a one-time or monthly donation, volunteer your time, or partner with us as an agency, employer, or faith community. Visit our Get Involved page to choose the path that fits you.",
+    },
+    {
+      q: "Is there a cost?",
+      a: siteInfo.feeAnswer,
+    },
+    {
+      q: "Is my information private?",
+      a: "Yes. Information you share with SHE RISES is kept confidential and shared only with program staff who need it to support you. Our residence address is never published.",
     },
   ];
 
@@ -169,18 +178,22 @@ const Index = () => {
         }
         subtitle={
           <p className="text-lg md:text-xl text-primary-foreground max-w-2xl mx-auto leading-relaxed text-shadow-hero">
-            Non-medical transitional housing and support for women rebuilding
-            stability after incarceration, homelessness, or major life transitions.
+            {siteInfo.whatWeAre}
           </p>
         }
       >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-full px-8">
-            <Link to="/contact">Apply for Housing <ArrowRight className="ml-2 h-5 w-5" /></Link>
-          </Button>
-          <Button asChild size="lg" className="bg-primary-deep text-primary-foreground border border-accent hover:bg-primary font-bold rounded-full px-8">
-            <Link to="/donate">Donate Now <Heart className="ml-2 h-5 w-5" /></Link>
-          </Button>
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold rounded-full px-8">
+              <a href={siteInfo.appUrl || "/contact"} target={siteInfo.appUrl ? "_blank" : undefined} rel={siteInfo.appUrl ? "noopener noreferrer" : undefined}>
+                Apply for Housing <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+            <Button asChild size="lg" className="bg-primary-deep text-primary-foreground border border-accent hover:bg-primary font-bold rounded-full px-8">
+              <Link to="/donate">Donate Now <Heart className="ml-2 h-5 w-5" /></Link>
+            </Button>
+          </div>
+          <p className="text-sm text-primary-foreground/90 text-shadow-hero">{siteInfo.preferToTalkLine}</p>
         </div>
       </Hero>
 
@@ -241,14 +254,18 @@ const Index = () => {
                 If any of these sound like you — or someone you're referring — you're
                 in the right place.
               </p>
-              <Link to="/contact">
+              <div>
                 <Button
+                  asChild
                   size="lg"
                   className="bg-rose hover:bg-rose-hover text-rose-foreground font-semibold px-8 rounded-2xl"
                 >
-                  Start a Conversation <ArrowRight className="ml-2 h-5 w-5" />
+                  <a href={siteInfo.appUrl || "/contact"} target={siteInfo.appUrl ? "_blank" : undefined} rel={siteInfo.appUrl ? "noopener noreferrer" : undefined}>
+                    Start a Conversation <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
                 </Button>
-              </Link>
+                <p className="text-sm text-muted-foreground mt-3">{siteInfo.preferToTalkLine}</p>
+              </div>
             </div>
             <div className="space-y-4">
               {whoWeServe.map((item, index) => (
@@ -496,7 +513,8 @@ const Index = () => {
                   </Button>
                 </div>
                 <p className="text-sm text-muted-foreground mt-4 text-center">
-                  We respect your privacy. Unsubscribe at any time.
+                  We respect your privacy. Unsubscribe at any time. See our{" "}
+                  <a href="/privacy" className="underline hover:text-primary">Privacy Policy</a>.
                 </p>
               </form>
             </div>
