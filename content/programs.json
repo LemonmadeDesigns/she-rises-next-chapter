@@ -15,7 +15,7 @@
   },
   {
     "id": "employment-readiness",
-    "title": "Employment Readiness & Job Navigation", 
+    "title": "Employment Readiness & Job Navigation",
     "subtitle": "Career Development Support",
     "description": "Resume help, job search coaching, workplace skills, and employer referrals. We help women develop the skills and confidence needed to secure and maintain stable employment.",
     "features": [
@@ -59,14 +59,14 @@
     "id": "resource-referrals",
     "title": "Resource Referrals",
     "subtitle": "Community Connections",
-    "description": "Legal aid, Medi-Cal, childcare, transportation, and mental health providers. We connect women with essential community resources and services.",
+    "description": "Healthcare enrollment, Medi-Cal, transportation, and mental health provider referrals.",
     "features": [
-      "Legal aid connections",
-      "Healthcare enrollment (Medi-Cal)",
-      "Childcare assistance",
-      "Transportation resources",
-      "Mental health referrals"
+      "Healthcare enrollment assistance",
+      "Transportation solutions",
+      "Mental health services",
+      "Benefits enrollment support"
     ],
-    "icon": "link"
+    "icon": "link",
+    "details": "We connect women with essential community resources and services. Our network of partners ensures comprehensive support for stabilization and rebuilding."
   }
 ]

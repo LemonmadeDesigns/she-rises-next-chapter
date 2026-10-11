@@ -59,13 +59,11 @@
     {
       "id": "resource-referrals",
       "title": "Resource Referrals",
-      "description": "Legal aid, Medi-Cal, childcare, transportation, mental health providers.",
-      "details": "We connect women with essential community resources and services. Our extensive network of partners ensures comprehensive support for all aspects of rebuilding and stabilization.",
+      "description": "Healthcare enrollment, Medi-Cal, transportation, and mental health provider referrals.",
+      "details": "We connect women with essential community resources and services. Our network of partners ensures comprehensive support for stabilization and rebuilding.",
       "icon": "Link",
       "features": [
-        "Legal aid connections",
         "Healthcare enrollment assistance",
-        "Childcare resource navigation",
         "Transportation solutions",
         "Mental health services",
         "Benefits enrollment support"
@@ -73,7 +71,10 @@
     }
   ],
   "serviceArea": {
-    "counties": ["San Bernardino", "Los Angeles"],
+    "counties": [
+      "San Bernardino",
+      "Los Angeles"
+    ],
     "appointmentNote": "Services available by appointment"
   }
 }
