@@ -1,5 +1,4 @@
 import { useState } from "react";
-import VisitSchedulingModal from '@/components/modals/VisitSchedulingModal';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,10 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
-import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users, QrCode } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, QrCode } from "lucide-react";
 import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 import { submitContactForm } from "@/config/contact";
+import { siteInfo } from "@/config/siteInfo";
 import contactHeroImage from "@/assets/transitional-home.jpg";
 import zelleQrImage from "@/assets/zelle-qr.png";
 
@@ -28,11 +28,10 @@ const Contact = () => {
     company: "" // Honeypot field
   });
 
-  const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
-
   // Category mapping to convert values to full labels
   const categoryLabels: { [key: string]: string } = {
     services: "Program Services & Support",
+    referral: "Agency Referral",
     volunteer: "Volunteer Opportunities",
     donate: "Donations & Partnerships",
     media: "Media & Press Inquiries",
@@ -72,32 +71,14 @@ const Contact = () => {
     }
   ];
 
-  const departments = [
-    {
-      name: "Program Services",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240",
-      description: "Questions about our housing, employment, and support programs"
-    },
-    {
-      name: "Volunteer Coordination",
-      email: "pransom@safehavenforempowerment.org", 
-      phone: "(909) 330-9240",
-      description: "Volunteer opportunities and training information"
-    },
-    {
-      name: "Donations & Fundraising",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240", 
-      description: "Corporate partnerships, sponsorships, and major gifts"
-    },
-    {
-      name: "Media & Communications",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240",
-      description: "Press inquiries, interviews, and media requests"
-    }
-  ];
+  // C4 — one unified contact card replaces the padded department directory.
+  const unifiedContact = {
+    title: "Contact SHE RISES",
+    description:
+      "Program questions, referrals, volunteering, donations, partnerships, and media:",
+    email: siteInfo.contact.email,
+    phone: siteInfo.contact.phone,
+  };
 
   const emergencyContacts = [
     {
