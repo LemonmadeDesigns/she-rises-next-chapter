@@ -1,5 +1,5 @@
 import { useState } from "react";
-import VisitSchedulingModal from '@/components/modals/VisitSchedulingModal';
+import { useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,30 +9,31 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
-import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, Users, QrCode } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, AlertTriangle, QrCode } from "lucide-react";
 import SendMessageButton from "@/components/ui/send-message-button";
 import CallCrisisHotlineButton from "@/components/ui/call-crisis-hotline-button";
 import { submitContactForm } from "@/config/contact";
+import { siteInfo } from "@/config/siteInfo";
 import contactHeroImage from "@/assets/transitional-home.jpg";
 import zelleQrImage from "@/assets/zelle-qr.png";
 
 const Contact = () => {
+  const [searchParams] = useSearchParams();
   const [contactForm, setContactForm] = useState({
     name: "",
     email: "",
     phone: "",
     subject: "",
-    category: "",
+    category: searchParams.get("category") || "",
     message: "",
     urgent: false,
     company: "" // Honeypot field
   });
 
-  const [isVisitModalOpen, setIsVisitModalOpen] = useState(false);
-
   // Category mapping to convert values to full labels
   const categoryLabels: { [key: string]: string } = {
     services: "Program Services & Support",
+    referral: "Agency Referral",
     volunteer: "Volunteer Opportunities",
     donate: "Donations & Partnerships",
     media: "Media & Press Inquiries",
@@ -72,32 +73,14 @@ const Contact = () => {
     }
   ];
 
-  const departments = [
-    {
-      name: "Program Services",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240",
-      description: "Questions about our housing, employment, and support programs"
-    },
-    {
-      name: "Volunteer Coordination",
-      email: "pransom@safehavenforempowerment.org", 
-      phone: "(909) 330-9240",
-      description: "Volunteer opportunities and training information"
-    },
-    {
-      name: "Donations & Fundraising",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240", 
-      description: "Corporate partnerships, sponsorships, and major gifts"
-    },
-    {
-      name: "Media & Communications",
-      email: "pransom@safehavenforempowerment.org",
-      phone: "(909) 330-9240",
-      description: "Press inquiries, interviews, and media requests"
-    }
-  ];
+  // C4 — one unified contact card replaces the padded department directory.
+  const unifiedContact = {
+    title: "Contact SHE RISES",
+    description:
+      "Program questions, referrals, volunteering, donations, partnerships, and media:",
+    email: siteInfo.contact.email,
+    phone: siteInfo.contact.phone,
+  };
 
   const emergencyContacts = [
     {
@@ -159,7 +142,7 @@ const Contact = () => {
         company: ""
       });
 
-      alert('Thank you for contacting She Rises! We have received your message and will respond within 24-48 hours. Your voice matters to us.');
+      alert('Thank you for contacting SHE RISES! We have received your message and will respond within 1–2 business days. Your voice matters to us.');
 
     } catch (error) {
       console.error('Error sending email:', error);
@@ -287,6 +270,7 @@ const Contact = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="services">Program Services & Support</SelectItem>
+                        <SelectItem value="referral">Agency Referral</SelectItem>
                         <SelectItem value="volunteer">Volunteer Opportunities</SelectItem>
                         <SelectItem value="donate">Donations & Partnerships</SelectItem>
                         <SelectItem value="media">Media & Press Inquiries</SelectItem>
@@ -326,8 +310,7 @@ const Contact = () => {
                           Crisis or Emergency?
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          If you're in immediate danger, dial 911. For crisis support, call 988 (Suicide & Crisis Lifeline) or 211 (Homeless Outreach).
-                          She Rises is not a 24-hour crisis shelter.
+                          In immediate danger? Call 911. For mental health crisis support, call or text 988 (Suicide & Crisis Lifeline). For local help and referrals, dial 211. SHE RISES is not a 24-hour crisis shelter.
                         </p>
                       </div>
                     </div>
@@ -338,6 +321,9 @@ const Contact = () => {
                     Send Message
                   </Button>
                 </form>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Your information is kept confidential — see our <a href="/privacy" className="underline hover:text-primary">Privacy Policy</a>.
+                </p>
               </CardContent>
             </Card>
 
@@ -360,11 +346,7 @@ const Contact = () => {
                         <span className="text-[#737373] dark:text-[#B3B3B3]">9:00 AM - 5:00 PM</span>
                       </div>
                       <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday</span>
-                        <span className="text-[#737373] dark:text-[#B3B3B3]">10:00 AM - 2:00 PM</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Sunday</span>
+                        <span className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">Saturday & Sunday</span>
                         <span className="text-[#737373] dark:text-[#B3B3B3]">Closed</span>
                       </div>
                     </div>
@@ -377,25 +359,20 @@ const Contact = () => {
                     <div className="flex items-center gap-3 mb-6">
                       <MapPin className="h-6 w-6 text-crown-gold" />
                       <h3 className="font-serif text-2xl font-bold text-[#3D2645] dark:text-[#F2F2F2]">
-                        Our Location
+                        Where We Serve
                       </h3>
                     </div>
 
                     <div className="space-y-4">
                       <div>
-                        <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">She Rises - Safe Haven for Empowerment</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">9154 Laurel Avenue</p>
-                        <p className="text-[#737373] dark:text-[#B3B3B3]">Fontana, CA 92335</p>
+                        <p className="font-medium text-[#3D2645] dark:text-[#F2F2F2]">SHE RISES — Safe Haven for Empowerment</p>
+                        <p className="text-[#737373] dark:text-[#B3B3B3]">San Bernardino County, serving Southern California.</p>
                       </div>
 
                       <div className="bg-gradient-soft rounded-lg p-4">
-                        <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium mb-2">Getting Here:</p>
-                        <ul className="text-sm text-[#737373] dark:text-[#B3B3B3] space-y-1">
-                          <li>• Free parking available on-site</li>
-                          <li>• Public transit: Bus routes 15, 23, 45</li>
-                          <li>• Wheelchair accessible entrance</li>
-                          <li>• Childcare available during appointments</li>
-                        </ul>
+                        <p className="text-sm text-[#3D2645] dark:text-[#F2F2F2] font-medium">
+                          For the safety and privacy of our residents, our home address is shared only with accepted participants.
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -412,7 +389,7 @@ const Contact = () => {
                     </h3>
                   </div>
                   <p className="text-white/85 mb-6">
-                    Our team is here to listen. Reach us directly by phone or email — we respond within one business day.
+                    Our team is here to listen. Reach us directly by phone or email — we respond within 1–2 business days.
                   </p>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <a
@@ -426,13 +403,13 @@ const Contact = () => {
                       </div>
                     </a>
                     <a
-                      href="mailto:empowerhavenhomes@gmail.com"
+                      href={`mailto:${siteInfo.contact.email}`}
                       className="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-lg p-4 border border-white/20"
                     >
                       <Mail className="h-5 w-5 text-crown-gold flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-xs text-white/70">Email us</p>
-                        <p className="font-medium truncate">empowerhavenhomes@gmail.com</p>
+                        <p className="font-medium truncate">{siteInfo.contact.email}</p>
                       </div>
                     </a>
                   </div>
@@ -473,6 +450,12 @@ const Contact = () => {
                     <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-4">
                       💡 If your bank app doesn't support QR scanning, you can search for She Rises manually after tapping "Send" in the Zelle section.
                     </p>
+                    <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-3">
+                      Zelle doesn't send donation receipts automatically. For a tax receipt, email {siteInfo.contact.email} with your name, the donation amount, and the date.
+                    </p>
+                    <p className="text-xs text-[#737373] dark:text-[#B3B3B3] mt-3">
+                      {siteInfo.taxMessage}
+                    </p>
                   </div>
 
                   {/* Right: QR */}
@@ -490,42 +473,34 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Department Contacts */}
+      {/* Unified Contact */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
           <SectionHeader
-            title="Department Directory"
-            subtitle="Connect directly with the right team for faster assistance"
+            title="Contact SHE RISES"
+            subtitle="One team, ready to help"
           />
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {departments.map((dept, index) => (
-              <Card key={index} className="shadow-soft transition-shadow h-full flex flex-col">
-                <CardContent className="p-6 flex flex-col h-full">
-                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                    {dept.name}
-                  </h3>
-                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm mb-6 flex-grow">
-                    {dept.description}
-                  </p>
-                  <div className="space-y-3 mt-auto">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`mailto:${dept.email}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
-                        {dept.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`tel:${dept.phone}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
-                        {dept.phone}
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <Card className="max-w-3xl mx-auto shadow-soft">
+            <CardContent className="p-8 text-center">
+              <p className="text-muted-foreground mb-6">{unifiedContact.description}</p>
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a
+                  href={`mailto:${unifiedContact.email}`}
+                  className="flex items-center gap-2 font-medium text-[#3D2645] dark:text-[#F2F2F2] hover:text-lotus-rose transition-colors break-all"
+                >
+                  <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                  {unifiedContact.email}
+                </a>
+                <a
+                  href="tel:+19093309240"
+                  className="flex items-center gap-2 font-medium text-[#3D2645] dark:text-[#F2F2F2] hover:text-lotus-rose transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                  {unifiedContact.phone}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -553,12 +528,7 @@ const Contact = () => {
               </Card>
             ))}
           </div>
-          
-          <div className="text-center mt-12">
-            <Button size="lg" className="bg-white text-lotus-rose hover:bg-white/90 font-bold">
-              Call Our Crisis Line Now
-            </Button>
-          </div>
+
         </div>
       </section>
 
@@ -654,7 +624,7 @@ const Contact = () => {
                 Is there a cost for your services?
               </h3>
               <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
-                All our support services are provided free of charge to participants. We believe that financial barriers should never prevent someone from getting help.
+                {siteInfo.feeAnswer}
               </p>
               <div className="mt-auto">
                 <Button 
@@ -671,6 +641,27 @@ const Contact = () => {
                   className="w-full"
                 >
                   Learn About Our Services
+                </Button>
+              </div>
+            </Card>
+            
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
+                Is my information private?
+              </h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
+                Yes. Information you share with SHE RISES is kept confidential and shared only with program staff who need it to support you. Our residence address is never published.
+              </p>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    window.location.href = '/privacy';
+                  }}
+                  className="w-full"
+                >
+                  Read Our Privacy Policy
                 </Button>
               </div>
             </Card>
@@ -705,18 +696,19 @@ const Contact = () => {
             <Button 
               size="lg" 
               className="hero-button-tertiary btn-force-visible"
-              onClick={() => setIsVisitModalOpen(true)}
+              onClick={() => {
+                const contactFormSection = document.querySelector('[data-section="contact-form"]');
+                if (contactFormSection) {
+                  contactFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
             >
-              Schedule a Visit
+              Schedule a Call
             </Button>
           </div>
         </div>
       </section>
       
-      <VisitSchedulingModal 
-        open={isVisitModalOpen} 
-        onOpenChange={setIsVisitModalOpen} 
-      />
     </Layout>
   );
 };

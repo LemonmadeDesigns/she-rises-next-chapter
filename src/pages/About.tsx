@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { aboutHeroBlurDataUrl } from "@/assets/about-hero-blur-data";
 import heroWomanImage from "@/assets/hero-woman.jpg";
 import preciousRansomImage from "@/assets/precious-ransom.jpg";
+import { siteInfo } from "@/config/siteInfo";
 
 const values = [
   { icon: Shield, title: "Dignity", description: "Every woman deserves to be treated with respect and honor" },
@@ -16,11 +17,14 @@ const values = [
 ];
 
 const whatWeDo = [
-  "Provide safe, transitional housing with on-site support and case management",
-  "Offer employment readiness training and job placement assistance",
-  "Connect women with essential community resources and services",
-  "Facilitate life skills workshops and peer mentoring programs",
-  "Support family reunification and relationship rebuilding",
+  "Safe, structured shared housing",
+  "Case management and individual goal planning",
+  "Life skills, including the 6-module SHE RISES life-skills program with certificate",
+  "Technology prep",
+  "Job mentoring and employment readiness",
+  "Peer mentoring",
+  "Family reunification support",
+  "Referrals to outside healthcare, mental health, and community providers",
 ];
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
@@ -32,7 +36,7 @@ const About = () => {
     <Layout>
       <Hero
         title="Our Mission"
-        subtitle="She Rises provides safe housing, supportive services, and reentry resources that empower women experiencing homelessness and rebuilding after incarceration."
+        subtitle={siteInfo.mission}
         backgroundImage={heroWomanImage}
         backgroundImageBlur={aboutHeroBlurDataUrl}
         backgroundImageAlt="She Rises: Empowering women through safe housing and supportive services"
@@ -62,8 +66,7 @@ const About = () => {
               <Eyebrow>Why we exist</Eyebrow>
               <h2 className="text-3xl font-extrabold mb-5">Our Mission</h2>
               <p className="text-lg opacity-90 leading-relaxed">
-                She Rises provides safe housing, supportive services, and reentry resources that empower
-                women experiencing homelessness and rebuilding after incarceration.
+                {siteInfo.mission}
               </p>
             </div>
             <div className="rounded-2xl border border-border bg-surface-alt p-10 md:p-12 shadow-soft transition-transform duration-300 hover:-translate-y-1">
@@ -147,7 +150,7 @@ const About = () => {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-14">
             <Eyebrow>Our team</Eyebrow>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Meet Our Founder</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Our Leadership</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Leadership driven by experience, compassion, and unwavering dedication
             </p>
@@ -180,6 +183,32 @@ const About = () => {
                   <a href="tel:+19093309240" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary">
                     <Phone className="h-4 w-4" /> (909) 330-9240
                   </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* President */}
+          <div className="rounded-2xl border border-border bg-surface p-8 md:p-14 shadow-soft mt-8">
+            <div className="grid md:grid-cols-3 gap-10 items-center">
+              <div className="md:col-span-2 space-y-5">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Terrell D. Lemon Sr.</h3>
+                <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">President</p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Terrell D. Lemon Sr. serves as President of SHE RISES — Safe Haven for Empowerment,
+                  a transitional housing and supportive services program for adult women rebuilding
+                  stability in their lives. In his role, he helps shape the direction of the program
+                  and its mission: to provide a safe, structured and supportive environment where
+                  women can rebuild independence, develop life skills, access community resources,
+                  prepare for employment and strengthen family relationships. He is committed to
+                  SHE RISES' goal of preparing every participant to manage appointments, benefits,
+                  employment, technology, finances and everyday responsibilities — and to move
+                  toward safe, stable, permanent housing.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="w-52 h-52 rounded-full mx-auto mb-6 ring-4 ring-accent/40 shadow-soft bg-surface-alt flex items-center justify-center">
+                  <span className="text-sm font-bold uppercase tracking-[0.15em] text-label px-6 text-center">Photo coming soon</span>
                 </div>
               </div>
             </div>

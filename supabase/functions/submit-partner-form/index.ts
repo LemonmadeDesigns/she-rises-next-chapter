@@ -178,7 +178,7 @@ Client IP: ${clientIP}
       },
       body: JSON.stringify({
         from: "Safe Haven <no-reply@safehavenforempowerment.org>",
-        to: ["empowerhavenhomes@gmail.com"],
+        to: ["pransom@safehavenforempowerment.org"],
         subject: "New Partner Inquiry — Safe Haven",
         text: emailBody,
         html: htmlBody,

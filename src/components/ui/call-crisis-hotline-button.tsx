@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +10,7 @@ interface CallCrisisHotlineButtonProps {
   onClick?: () => void;
 }
 
-export default function CallCrisisHotlineButton({ 
+export default function CallCrisisHotlineButton({
   className,
   size = "lg",
   variant = "outline",
@@ -23,10 +23,10 @@ export default function CallCrisisHotlineButton({
     } else if (href) {
       window.location.href = href;
     } else {
-      // Default behavior: scroll to emergency resources section
+      // Default behavior: scroll to emergency resources section (does not dial our office)
       const emergencySection = document.querySelector('[data-section="emergency-resources"]');
       if (emergencySection) {
-        emergencySection.scrollIntoView({ 
+        emergencySection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
@@ -39,7 +39,7 @@ export default function CallCrisisHotlineButton({
       size={size}
       variant={variant}
       onClick={handleClick}
-      aria-label="Call Crisis Hotline - 24/7 emergency support available"
+      aria-label="Emergency Resources - 24/7 crisis support options"
       className={cn(
         "inline-flex items-center gap-2 font-semibold transition-all duration-300",
         "hero-button-secondary btn-force-visible",
@@ -48,8 +48,8 @@ export default function CallCrisisHotlineButton({
         className
       )}
     >
-      <Phone className="w-5 h-5" />
-      Call Crisis Hotline
+      <AlertTriangle className="w-5 h-5" />
+      Emergency Resources
     </Button>
   );
 }

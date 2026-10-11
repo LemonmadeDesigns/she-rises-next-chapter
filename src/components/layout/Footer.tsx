@@ -8,6 +8,7 @@ const Footer = () => {
     { name: "Programs", href: "/programs" },
     { name: "Events", href: "/events" },
     { name: "Get Involved", href: "/get-involved" },
+    { name: "Refer a Client", href: "/contact?category=referral" },
     { name: "Contact", href: "/contact" },
     { name: "Shop", href: "/shop" },
   ];
@@ -116,6 +117,9 @@ const Footer = () => {
         <div className="border-t border-white/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-white/60 text-sm mb-4 md:mb-0">
             <p className="mb-1">SHE RISES is a non-medical transitional housing program.</p>
+            <p className="mb-1">
+              SHE RISES — Safe Haven for Empowerment is a registered 501(c)(3) nonprofit organization. EIN: 39-3657272. Donations are tax-deductible to the extent allowed by law.
+            </p>
             © {new Date().getFullYear()} She Rises - Safe Haven for Empowerment. All rights reserved.
           </div>
           <div className="flex space-x-4 text-sm">

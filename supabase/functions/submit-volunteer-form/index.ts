@@ -198,7 +198,7 @@ Client IP: ${clientIP}
     // Send email via Resend
     const emailResponse = await resend.emails.send({
       from: "Safe Haven <no-reply@safehavenforempowerment.org>",
-      to: ["empowerhavenhomes@gmail.com"],
+      to: ["pransom@safehavenforempowerment.org"],
       // Uncomment to add BCC for ops team
       // bcc: ["ops@safehavenforempowerment.org"],
       subject: "New Volunteer Signup — Safe Haven",
