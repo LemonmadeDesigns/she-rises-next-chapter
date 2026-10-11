@@ -132,7 +132,7 @@ const GetInvolved = () => {
         "Annual impact report",
         "VIP event access for 6 people",
         "Social media recognition",
-        "Tour of facilities"
+        "Virtual program update with leadership"
       ]
     },
     {
@@ -432,39 +432,24 @@ const GetInvolved = () => {
         </div>
       </section>
 
-      {/* Our Growing Impact */}
-      <section className="py-20 md:py-28 bg-primary text-primary-foreground">
+      {/* Refer a Client */}
+      <section id="refer-a-client" className="py-20 md:py-28 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <Eyebrow>Impact</Eyebrow>
+          <Eyebrow>For partners</Eyebrow>
           <h2 className="font-heading text-3xl md:text-4xl font-extrabold mb-6">
-            Our Growing Impact
+            For Probation, Parole & Reentry Partners
           </h2>
-          <p className="text-xl opacity-90 mb-12 max-w-2xl mx-auto">
-            As a growing organization, we're building strong partnerships and volunteer support across Southern California.
+          <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
+            Probation officers, parole agents, case managers, and community organizations can refer
+            women to SHE RISES. Contact us to discuss bed availability and our intake process.
           </p>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl">
-              <ul className="space-y-4 text-left">
-                <li className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">•</span>
-                  <span className="text-lg">Growing Volunteer Interest</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">•</span>
-                  <span className="text-lg">Community Hours Contributed</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">•</span>
-                  <span className="text-lg">New & Emerging Partnerships</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">•</span>
-                  <span className="text-lg">Support from Local Donors & Community Members</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Button
+            size="lg"
+            className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-10"
+            onClick={() => { window.location.href = "/contact?category=referral"; }}
+          >
+            Refer a Client
+          </Button>
         </div>
       </section>
 

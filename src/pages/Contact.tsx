@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,12 +18,13 @@ import contactHeroImage from "@/assets/transitional-home.jpg";
 import zelleQrImage from "@/assets/zelle-qr.png";
 
 const Contact = () => {
+  const [searchParams] = useSearchParams();
   const [contactForm, setContactForm] = useState({
     name: "",
     email: "",
     phone: "",
     subject: "",
-    category: "",
+    category: searchParams.get("category") || "",
     message: "",
     urgent: false,
     company: "" // Honeypot field
