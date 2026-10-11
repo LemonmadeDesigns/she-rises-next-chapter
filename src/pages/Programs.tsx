@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
 import ApplicationModal from "@/components/modals/ApplicationModal";
+import { siteInfo } from "@/config/siteInfo";
 import { Home, Users, Calendar, Phone, Mail, Check } from "lucide-react";
 
 import transitionalHomeImage from "@/assets/transitional-home.jpg";
@@ -23,7 +24,7 @@ const programs: Program[] = [
   {
     id: "transitional-housing",
     title: "Transitional Housing",
-    subtitle: "Launching 2025",
+    subtitle: "NOW OPEN",
     icon: Home,
     image: transitionalHomeImage,
     description: "Safe and supportive shared housing for women transitioning from incarceration, homelessness, or unstable environments. Our home provides structure, stability, and individualized support as women work toward independence.",
@@ -35,7 +36,7 @@ const programs: Program[] = [
       "Employment readiness resources",
       "Referrals to healthcare, mental health, and community resources",
     ],
-    capacity: "Growing — initial 6 beds expanding to 10+ in 2026",
+    capacity: siteInfo.bedsAvailabilityNote,
   },
   {
     id: "reentry-support",
@@ -60,12 +61,12 @@ const programs: Program[] = [
     image: mentoringImage,
     description: "She Rises actively engages in outreach efforts to connect women with essential community resources, partners, and support networks.",
     recentEvents: ["HIRE Reentry Resource Fair — Anaheim", "RCC Rising Scholars Fall Festival — Riverside"],
-    upcoming: "Additional community events, workshops, and outreach activities will be announced throughout 2025.",
+    upcoming: "Additional community events, workshops, and outreach activities will be announced throughout the year.",
   },
 ];
 
 const impact = [
-  "Transitional Housing Opening 2025 (San Bernardino County)",
+  "Transitional Housing Now Open (San Bernardino County)",
   "Comprehensive reentry and empowerment services",
   "Community partnerships across the Inland Empire and Orange County",
   "Expansion planned for 2026–2027",
@@ -84,20 +85,23 @@ const Programs = () => {
     <Layout>
       <Hero
         title="Our Programs"
-        subtitle="She Rises provides supportive services to help women rebuild their lives with dignity, stability, and purpose. Our programs are launching in phases throughout 2025–2026 to meet the needs of justice-impacted and at-risk women across Southern California."
+        subtitle="SHE RISES provides supportive services to help women rebuild their lives with dignity, stability, and purpose. Our non-medical transitional housing is now open, with supportive services for justice-impacted and at-risk women across Southern California."
         backgroundImage={employmentReadinessImage}
         backgroundImageAlt="She Rises Programs - Empowering women through supportive services"
         backgroundImageWidth={1920}
         backgroundImageHeight={1080}
         parallax={true}
       >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button size="lg" className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8" onClick={() => setOpen(true)}>
-            Apply / Contact Us
-          </Button>
-          <a href="#our-programs">
-            <Button size="lg" className="hero-button-secondary btn-force-visible rounded-full px-8">Learn More</Button>
-          </a>
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-8" onClick={() => setOpen(true)}>
+              Apply / Contact Us
+            </Button>
+            <a href="#our-programs">
+              <Button size="lg" className="hero-button-secondary btn-force-visible rounded-full px-8">Learn More</Button>
+            </a>
+          </div>
+          <p className="text-sm text-primary-foreground/90 text-shadow-hero">{siteInfo.preferToTalkLine}</p>
         </div>
       </Hero>
 
