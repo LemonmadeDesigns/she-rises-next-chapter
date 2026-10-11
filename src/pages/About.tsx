@@ -157,7 +157,8 @@ const About = () => {
             </p>
           </div>
           <div className="rounded-2xl border border-border bg-surface p-8 md:p-14 shadow-soft">
-            <div className="grid md:grid-cols-3 gap-10 items-center">
+            <div className="grid md:grid-cols-3 gap-10 items-start">
+
               <div className="md:col-span-2 space-y-5">
                 <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Precious Ransom</h3>
                 <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">Executive Director</p>
@@ -192,7 +193,7 @@ const About = () => {
 
           {/* President */}
           <div className="rounded-2xl border border-border bg-surface p-8 md:p-14 shadow-soft mt-8">
-            <div className="grid md:grid-cols-3 gap-10 items-center">
+            <div className="grid md:grid-cols-3 gap-10 items-start">
               <div className="md:col-span-2 space-y-5">
                 <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Terrell D. Lemons, B.S.</h3>
                 <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">
