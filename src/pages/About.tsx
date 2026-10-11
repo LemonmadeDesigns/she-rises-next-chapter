@@ -226,7 +226,7 @@ const About = () => {
               <div className="text-center">
                 <div className="w-52 h-52 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
                   <img src={terrellLemonsImage} alt="Terrell D. Lemons, B.S., President of SHE RISES"
-                    className="w-full h-full object-cover" style={{ objectPosition: "center 18%" }} />
+                    className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
