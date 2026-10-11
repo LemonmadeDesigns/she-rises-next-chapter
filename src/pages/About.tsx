@@ -186,6 +186,32 @@ const About = () => {
                 </div>
               </div>
             </div>
+
+            {/* President */}
+            <div className="rounded-2xl border border-border bg-surface p-8 md:p-14 shadow-soft">
+              <div className="grid md:grid-cols-3 gap-10 items-center">
+                <div className="md:col-span-2 space-y-5">
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-foreground">Terrell D. Lemon Sr.</h3>
+                  <p className="text-sm font-bold uppercase tracking-[0.15em] text-label">President</p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Terrell D. Lemon Sr. serves as President of SHE RISES — Safe Haven for Empowerment,
+                    a transitional housing and supportive services program for adult women rebuilding
+                    stability in their lives. In his role, he helps shape the direction of the program
+                    and its mission: to provide a safe, structured and supportive environment where
+                    women can rebuild independence, develop life skills, access community resources,
+                    prepare for employment and strengthen family relationships. He is committed to
+                    SHE RISES' goal of preparing every participant to manage appointments, benefits,
+                    employment, technology, finances and everyday responsibilities — and to move
+                    toward safe, stable, permanent housing.
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-52 h-52 rounded-full mx-auto mb-6 ring-4 ring-accent/40 shadow-soft bg-surface-alt flex items-center justify-center">
+                    <span className="text-sm font-bold uppercase tracking-[0.15em] text-label px-6 text-center">Photo coming soon</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
