@@ -471,42 +471,34 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Department Contacts */}
+      {/* Unified Contact */}
       <section className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-4">
           <SectionHeader
-            title="Department Directory"
-            subtitle="Connect directly with the right team for faster assistance"
+            title="Contact SHE RISES"
+            subtitle="One team, ready to help"
           />
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {departments.map((dept, index) => (
-              <Card key={index} className="shadow-soft transition-shadow h-full flex flex-col">
-                <CardContent className="p-6 flex flex-col h-full">
-                  <h3 className="font-serif text-xl font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
-                    {dept.name}
-                  </h3>
-                  <p className="text-[#4A4A4A] dark:text-[#E0E0E0] text-sm mb-6 flex-grow">
-                    {dept.description}
-                  </p>
-                  <div className="space-y-3 mt-auto">
-                    <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`mailto:${dept.email}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
-                        {dept.email}
-                      </a>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
-                      <a href={`tel:${dept.phone}`} className="text-[#3D2645] dark:text-[#F2F2F2] font-medium hover:text-lotus-rose transition-colors">
-                        {dept.phone}
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <Card className="max-w-3xl mx-auto shadow-soft">
+            <CardContent className="p-8 text-center">
+              <p className="text-muted-foreground mb-6">{unifiedContact.description}</p>
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a
+                  href={`mailto:${unifiedContact.email}`}
+                  className="flex items-center gap-2 font-medium text-[#3D2645] dark:text-[#F2F2F2] hover:text-lotus-rose transition-colors break-all"
+                >
+                  <Mail className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                  {unifiedContact.email}
+                </a>
+                <a
+                  href="tel:+19093309240"
+                  className="flex items-center gap-2 font-medium text-[#3D2645] dark:text-[#F2F2F2] hover:text-lotus-rose transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-crown-gold flex-shrink-0" />
+                  {unifiedContact.phone}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -635,7 +627,7 @@ const Contact = () => {
                 Is there a cost for your services?
               </h3>
               <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
-                All our support services are provided free of charge to participants. We believe that financial barriers should never prevent someone from getting help.
+                {siteInfo.feeAnswer}
               </p>
               <div className="mt-auto">
                 <Button 
@@ -652,6 +644,27 @@ const Contact = () => {
                   className="w-full"
                 >
                   Learn About Our Services
+                </Button>
+              </div>
+            </Card>
+            
+            <Card className="p-6 h-full flex flex-col">
+              <h3 className="font-serif text-lg font-bold text-[#3D2645] dark:text-[#F2F2F2] mb-4">
+                Is my information private?
+              </h3>
+              <p className="text-[#4A4A4A] dark:text-[#E0E0E0] mb-6 flex-grow">
+                Yes. Information you share with SHE RISES is kept confidential and shared only with program staff who need it to support you. Our residence address is never published.
+              </p>
+              <div className="mt-auto">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => {
+                    window.location.href = '/privacy';
+                  }}
+                  className="w-full"
+                >
+                  Read Our Privacy Policy
                 </Button>
               </div>
             </Card>
@@ -686,9 +699,14 @@ const Contact = () => {
             <Button 
               size="lg" 
               className="hero-button-tertiary btn-force-visible"
-              onClick={() => setIsVisitModalOpen(true)}
+              onClick={() => {
+                const contactFormSection = document.querySelector('[data-section="contact-form"]');
+                if (contactFormSection) {
+                  contactFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
             >
-              Schedule a Visit
+              Schedule a Call
             </Button>
           </div>
         </div>
