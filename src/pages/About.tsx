@@ -173,7 +173,8 @@ const About = () => {
                 </blockquote>
               </div>
               <div className="text-center">
-                <div className="w-52 h-52 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
+                <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
+
                   <img src={preciousRansomImage} alt="Precious Ransom, Executive Director"
                     className="w-full h-full object-cover" style={{ objectPosition: "center 20%" }} />
                 </div>
@@ -224,11 +225,20 @@ const About = () => {
                 </div>
               </div>
               <div className="text-center">
-                <div className="w-52 h-52 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
+                <div className="w-52 h-52 rounded-2xl mx-auto mb-6 overflow-hidden ring-4 ring-accent/40 shadow-soft">
                   <img src={terrellLemonsImage} alt="Terrell D. Lemons, B.S., President of SHE RISES"
                     className="w-full h-full object-cover" />
                 </div>
+                <div className="space-y-3 text-sm">
+                  <a href="mailto:pransom@safehavenforempowerment.org" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary break-all">
+                    <Mail className="h-4 w-4 flex-shrink-0" /> pransom@safehavenforempowerment.org
+                  </a>
+                  <a href="tel:+19093309240" className="flex items-center justify-center gap-2 text-muted-foreground hover:text-primary">
+                    <Phone className="h-4 w-4" /> (909) 330-9240
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
