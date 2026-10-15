@@ -29,6 +29,7 @@ import Admin from "./pages/Admin";
 import ImageTest from "./pages/ImageTest";
 import MonthlyGiving from "./pages/MonthlyGiving";
 import NotFound from "./pages/NotFound";
+import ReferAgency from "./pages/ReferAgency";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,6 +75,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
 
             <Route path="/image-test" element={<ImageTest />} />
+            <Route path="/refer" element={<ReferAgency />} />
             <Route path="/monthly-giving" element={<MonthlyGiving />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

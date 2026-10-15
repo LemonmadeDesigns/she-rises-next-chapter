@@ -446,7 +446,7 @@ const GetInvolved = () => {
           <Button
             size="lg"
             className="bg-accent text-primary-deep hover:bg-accent/90 font-bold rounded-full px-10"
-            onClick={() => { window.location.href = "/contact?category=referral"; }}
+            onClick={() => { window.location.href = "/refer"; }}
           >
             Refer a Client
           </Button>

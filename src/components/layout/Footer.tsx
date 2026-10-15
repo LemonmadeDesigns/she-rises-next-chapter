@@ -8,7 +8,7 @@ const Footer = () => {
     { name: "Programs", href: "/programs" },
     { name: "Events", href: "/events" },
     { name: "Get Involved", href: "/get-involved" },
-    { name: "Refer a Client", href: "/contact?category=referral" },
+    { name: "Refer a Client", href: "/refer" },
     { name: "Contact", href: "/contact" },
     { name: "Shop", href: "/shop" },
   ];
