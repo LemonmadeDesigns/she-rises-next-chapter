@@ -70,7 +70,7 @@ const Checkout = () => {
   const total = subtotal + shipping + tax;
 
   // Redirect if cart is empty
-  if (state.items.length === 0) {
+  if (state.items.length === 0 && step !== 3) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-20 text-center">
@@ -123,7 +123,7 @@ const Checkout = () => {
         body: {
           email: shippingForm.email,
           items: state.items.map((i) => ({
-            product_id: i.id,
+            product_id: i.productId ?? i.id,
             quantity: i.quantity,
             size: i.size,
           })),
