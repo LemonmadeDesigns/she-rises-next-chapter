@@ -91,6 +91,7 @@ const ProductDetail = () => {
       type: 'ADD_ITEM',
       payload: {
         id: `${product.id}-${selectedSize}-${selectedColor}`,
+        productId: product.id,
         name: product.name,
         price: product.price,
         quantity,
